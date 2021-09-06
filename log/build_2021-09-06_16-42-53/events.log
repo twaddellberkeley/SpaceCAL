@@ -1,0 +1,1190 @@
+[0.000000] (-) TimerEvent: {}
+[0.007828] (turtlesim) JobQueued: {'identifier': 'turtlesim', 'dependencies': OrderedDict()}
+[0.008251] (turtlesim) JobStarted: {'identifier': 'turtlesim'}
+[0.091733] (-) TimerEvent: {}
+[0.148092] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'cmake'}
+[0.159520] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'build'}
+[0.169272] (turtlesim) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/spacecal/SpaceCal/build/turtlesim', '--', '-j4', '-l4'], 'cwd': '/home/spacecal/SpaceCal/build/turtlesim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US'), ('USER', 'spacecal'), ('XDG_SEAT', 'seat0'), ('SSH_AGENT_PID', '5927'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/spacecal/SpaceCal/install/turtlesim/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/spacecal'), ('OLDPWD', '/home/spacecal/SpaceCal/src'), ('DESKTOP_SESSION', 'xubuntu'), ('ROS_PYTHON_VERSION', '3'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_colcon_cd_root', '/home/spacecal/ros2_foxy/ros2-linux'), ('QT_QPA_PLATFORMTHEME', 'gtk2'), ('COLCON_PREFIX_PATH', '/home/spacecal/SpaceCal/install:/home/spacecal/ros2_foxy/ros2-linux'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'spacecal'), ('WINDOWID', '67131134'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('CLUTTER_BACKEND', 'x11'), ('TERM', 'xterm-256color'), ('GTK_OVERLAY_SCROLLING', '0'), ('XDG_SESSION_ID', 'c2'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/spacecal-desktop:@/tmp/.ICE-unix/5819,unix/spacecal-desktop:/tmp/.ICE-unix/5819'), ('GDM_LANG', 'en_US'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('XDG_MENU_PREFIX', 'xfce-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0.0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'XFCE'), ('XDG_SESSION_DESKTOP', 'xubuntu'), ('XAUTHORITY', '/home/spacecal/.Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/spacecal'), ('AMENT_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'xubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('XDG_VTNR', '7'), ('PWD', '/home/spacecal/SpaceCal/build/turtlesim'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share'), ('PYTHONPATH', '/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy')]), 'shell': False}
+[0.203293] (-) TimerEvent: {}
+[0.307174] (-) TimerEvent: {}
+[0.409389] (-) TimerEvent: {}
+[0.511432] (-) TimerEvent: {}
+[0.613773] (turtlesim) StdoutLine: {'line': b'[  3%] Built target turtlesim__cpp\n'}
+[0.616475] (-) TimerEvent: {}
+[0.618592] (turtlesim) StdoutLine: {'line': b'[ 11%] Built target turtlesim__rosidl_generator_c\n'}
+[0.717056] (-) TimerEvent: {}
+[0.817998] (turtlesim) StdoutLine: {'line': b'[ 31%] Built target turtlesim__rosidl_typesupport_introspection_cpp\n'}
+[0.820337] (-) TimerEvent: {}
+[0.824023] (turtlesim) StdoutLine: {'line': b'[ 31%] Built target turtlesim__rosidl_typesupport_cpp\n'}
+[0.841187] (turtlesim) StdoutLine: {'line': b'[ 41%] Built target turtlesim__rosidl_typesupport_introspection_c\n'}
+[0.844926] (turtlesim) StdoutLine: {'line': b'[ 51%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp\n'}
+[0.920855] (-) TimerEvent: {}
+[1.011531] (turtlesim) StdoutLine: {'line': b'[ 61%] Built target turtlesim__rosidl_typesupport_c\n'}
+[1.021400] (-) TimerEvent: {}
+[1.064071] (turtlesim) StdoutLine: {'line': b'[ 71%] Built target turtlesim__rosidl_typesupport_fastrtps_c\n'}
+[1.122039] (-) TimerEvent: {}
+[1.216736] (turtlesim) StdoutLine: {'line': b'[ 71%] Built target turtlesim\n'}
+[1.222379] (-) TimerEvent: {}
+[1.324240] (-) TimerEvent: {}
+[1.406533] (turtlesim) StdoutLine: {'line': b'[ 72%] Built target turtlesim__py\n'}
+[1.424737] (-) TimerEvent: {}
+[1.441287] (turtlesim) StdoutLine: {'line': b'[ 76%] Built target draw_square\n'}
+[1.443878] (turtlesim) StdoutLine: {'line': b'[ 76%] Built target mimic\n'}
+[1.493673] (turtlesim) StdoutLine: {'line': b'[ 78%] Built target turtle_teleop_key\n'}
+[1.525215] (-) TimerEvent: {}
+[1.547458] (turtlesim) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target turtlesim_node\x1b[0m\n'}
+[1.625816] (-) TimerEvent: {}
+[1.650457] (turtlesim) StdoutLine: {'line': b'[ 87%] Built target turtlesim__python\n'}
+[1.726293] (-) TimerEvent: {}
+[1.828422] (-) TimerEvent: {}
+[1.860373] (turtlesim) StdoutLine: {'line': b'[ 90%] Built target turtlesim__rosidl_typesupport_introspection_c__pyext\n'}
+[1.862884] (turtlesim) StdoutLine: {'line': b'[ 91%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext\n'}
+[1.906312] (turtlesim) StdoutLine: {'line': b'[ 93%] Built target turtlesim__rosidl_typesupport_c__pyext\n'}
+[1.928987] (-) TimerEvent: {}
+[1.936128] (turtlesim) StdoutLine: {'line': b'[ 94%] \x1b[32mBuilding CXX object CMakeFiles/turtlesim_node.dir/src/turtle_frame.cpp.o\x1b[0m\n'}
+[2.029412] (-) TimerEvent: {}
+[2.131369] (-) TimerEvent: {}
+[2.233567] (-) TimerEvent: {}
+[2.335695] (-) TimerEvent: {}
+[2.437702] (-) TimerEvent: {}
+[2.540742] (-) TimerEvent: {}
+[2.644850] (-) TimerEvent: {}
+[2.747163] (-) TimerEvent: {}
+[2.849172] (-) TimerEvent: {}
+[2.951513] (-) TimerEvent: {}
+[3.053618] (-) TimerEvent: {}
+[3.155788] (-) TimerEvent: {}
+[3.257751] (-) TimerEvent: {}
+[3.359799] (-) TimerEvent: {}
+[3.461968] (-) TimerEvent: {}
+[3.564094] (-) TimerEvent: {}
+[3.666068] (-) TimerEvent: {}
+[3.768888] (-) TimerEvent: {}
+[3.878830] (-) TimerEvent: {}
+[3.981682] (-) TimerEvent: {}
+[4.085907] (-) TimerEvent: {}
+[4.191043] (-) TimerEvent: {}
+[4.296452] (-) TimerEvent: {}
+[4.408002] (-) TimerEvent: {}
+[4.512866] (-) TimerEvent: {}
+[4.618145] (-) TimerEvent: {}
+[4.723098] (-) TimerEvent: {}
+[4.825353] (-) TimerEvent: {}
+[4.927425] (-) TimerEvent: {}
+[5.029555] (-) TimerEvent: {}
+[5.131904] (-) TimerEvent: {}
+[5.234491] (-) TimerEvent: {}
+[5.341272] (-) TimerEvent: {}
+[5.445763] (-) TimerEvent: {}
+[5.549263] (-) TimerEvent: {}
+[5.651322] (-) TimerEvent: {}
+[5.753212] (-) TimerEvent: {}
+[5.855709] (-) TimerEvent: {}
+[5.957772] (-) TimerEvent: {}
+[6.060054] (-) TimerEvent: {}
+[6.162144] (-) TimerEvent: {}
+[6.264397] (-) TimerEvent: {}
+[6.366522] (-) TimerEvent: {}
+[6.468417] (-) TimerEvent: {}
+[6.570396] (-) TimerEvent: {}
+[6.673091] (-) TimerEvent: {}
+[6.775263] (-) TimerEvent: {}
+[6.877288] (-) TimerEvent: {}
+[6.979423] (-) TimerEvent: {}
+[7.081595] (-) TimerEvent: {}
+[7.183910] (-) TimerEvent: {}
+[7.286107] (-) TimerEvent: {}
+[7.388195] (-) TimerEvent: {}
+[7.490220] (-) TimerEvent: {}
+[7.597406] (-) TimerEvent: {}
+[7.700012] (-) TimerEvent: {}
+[7.802096] (-) TimerEvent: {}
+[7.904302] (-) TimerEvent: {}
+[8.006456] (-) TimerEvent: {}
+[8.108553] (-) TimerEvent: {}
+[8.210657] (-) TimerEvent: {}
+[8.312831] (-) TimerEvent: {}
+[8.415036] (-) TimerEvent: {}
+[8.517124] (-) TimerEvent: {}
+[8.619349] (-) TimerEvent: {}
+[8.722859] (-) TimerEvent: {}
+[8.826275] (-) TimerEvent: {}
+[8.929492] (-) TimerEvent: {}
+[9.031658] (-) TimerEvent: {}
+[9.133874] (-) TimerEvent: {}
+[9.235846] (-) TimerEvent: {}
+[9.337949] (-) TimerEvent: {}
+[9.440058] (-) TimerEvent: {}
+[9.542809] (-) TimerEvent: {}
+[9.645066] (-) TimerEvent: {}
+[9.748551] (-) TimerEvent: {}
+[9.852325] (-) TimerEvent: {}
+[9.955311] (-) TimerEvent: {}
+[10.060772] (-) TimerEvent: {}
+[10.163061] (-) TimerEvent: {}
+[10.265286] (-) TimerEvent: {}
+[10.367484] (-) TimerEvent: {}
+[10.469567] (-) TimerEvent: {}
+[10.571949] (-) TimerEvent: {}
+[10.673904] (-) TimerEvent: {}
+[10.776127] (-) TimerEvent: {}
+[10.878259] (-) TimerEvent: {}
+[10.980977] (-) TimerEvent: {}
+[11.083083] (-) TimerEvent: {}
+[11.185335] (-) TimerEvent: {}
+[11.287638] (-) TimerEvent: {}
+[11.391176] (-) TimerEvent: {}
+[11.498077] (-) TimerEvent: {}
+[11.600615] (-) TimerEvent: {}
+[11.704408] (-) TimerEvent: {}
+[11.807846] (-) TimerEvent: {}
+[11.910511] (-) TimerEvent: {}
+[12.016227] (-) TimerEvent: {}
+[12.118903] (-) TimerEvent: {}
+[12.224534] (-) TimerEvent: {}
+[12.326789] (-) TimerEvent: {}
+[12.428812] (-) TimerEvent: {}
+[12.530883] (-) TimerEvent: {}
+[12.633067] (-) TimerEvent: {}
+[12.737982] (-) TimerEvent: {}
+[12.839990] (-) TimerEvent: {}
+[12.942006] (-) TimerEvent: {}
+[13.046140] (-) TimerEvent: {}
+[13.154303] (-) TimerEvent: {}
+[13.261830] (-) TimerEvent: {}
+[13.364052] (-) TimerEvent: {}
+[13.466649] (-) TimerEvent: {}
+[13.569435] (-) TimerEvent: {}
+[13.676574] (-) TimerEvent: {}
+[13.786659] (-) TimerEvent: {}
+[13.889321] (-) TimerEvent: {}
+[13.991562] (-) TimerEvent: {}
+[14.093618] (-) TimerEvent: {}
+[14.195865] (-) TimerEvent: {}
+[14.298633] (-) TimerEvent: {}
+[14.401274] (-) TimerEvent: {}
+[14.505995] (-) TimerEvent: {}
+[14.608144] (-) TimerEvent: {}
+[14.710305] (-) TimerEvent: {}
+[14.812505] (-) TimerEvent: {}
+[14.914649] (-) TimerEvent: {}
+[15.016806] (-) TimerEvent: {}
+[15.118894] (-) TimerEvent: {}
+[15.220962] (-) TimerEvent: {}
+[15.323081] (-) TimerEvent: {}
+[15.425191] (-) TimerEvent: {}
+[15.527933] (-) TimerEvent: {}
+[15.630318] (-) TimerEvent: {}
+[15.733776] (-) TimerEvent: {}
+[15.841082] (-) TimerEvent: {}
+[15.944596] (-) TimerEvent: {}
+[16.046809] (-) TimerEvent: {}
+[16.148864] (-) TimerEvent: {}
+[16.250781] (-) TimerEvent: {}
+[16.352758] (-) TimerEvent: {}
+[16.458651] (-) TimerEvent: {}
+[16.569926] (-) TimerEvent: {}
+[16.679035] (-) TimerEvent: {}
+[16.782666] (-) TimerEvent: {}
+[16.884761] (-) TimerEvent: {}
+[16.986835] (-) TimerEvent: {}
+[17.088873] (-) TimerEvent: {}
+[17.190927] (-) TimerEvent: {}
+[17.293107] (-) TimerEvent: {}
+[17.396146] (-) TimerEvent: {}
+[17.499780] (-) TimerEvent: {}
+[17.601906] (-) TimerEvent: {}
+[17.704138] (-) TimerEvent: {}
+[17.806197] (-) TimerEvent: {}
+[17.908464] (-) TimerEvent: {}
+[18.010657] (-) TimerEvent: {}
+[18.112748] (-) TimerEvent: {}
+[18.214848] (-) TimerEvent: {}
+[18.316770] (-) TimerEvent: {}
+[18.419697] (-) TimerEvent: {}
+[18.521872] (-) TimerEvent: {}
+[18.624079] (-) TimerEvent: {}
+[18.727103] (-) TimerEvent: {}
+[18.830475] (-) TimerEvent: {}
+[18.933627] (-) TimerEvent: {}
+[19.035601] (-) TimerEvent: {}
+[19.137681] (-) TimerEvent: {}
+[19.239884] (-) TimerEvent: {}
+[19.342321] (-) TimerEvent: {}
+[19.445468] (-) TimerEvent: {}
+[19.551016] (-) TimerEvent: {}
+[19.660764] (-) TimerEvent: {}
+[19.762828] (-) TimerEvent: {}
+[19.864997] (-) TimerEvent: {}
+[19.966989] (-) TimerEvent: {}
+[20.069057] (-) TimerEvent: {}
+[20.171300] (-) TimerEvent: {}
+[20.275287] (-) TimerEvent: {}
+[20.377617] (-) TimerEvent: {}
+[20.479863] (-) TimerEvent: {}
+[20.581790] (-) TimerEvent: {}
+[20.683920] (-) TimerEvent: {}
+[20.785964] (-) TimerEvent: {}
+[20.888019] (-) TimerEvent: {}
+[20.990439] (-) TimerEvent: {}
+[21.092440] (-) TimerEvent: {}
+[21.194545] (-) TimerEvent: {}
+[21.296621] (-) TimerEvent: {}
+[21.399257] (-) TimerEvent: {}
+[21.501416] (-) TimerEvent: {}
+[21.603643] (-) TimerEvent: {}
+[21.706293] (-) TimerEvent: {}
+[21.808465] (-) TimerEvent: {}
+[21.910680] (-) TimerEvent: {}
+[22.012784] (-) TimerEvent: {}
+[22.114916] (-) TimerEvent: {}
+[22.217067] (-) TimerEvent: {}
+[22.319271] (-) TimerEvent: {}
+[22.421789] (-) TimerEvent: {}
+[22.523943] (-) TimerEvent: {}
+[22.626145] (-) TimerEvent: {}
+[22.728273] (-) TimerEvent: {}
+[22.830506] (-) TimerEvent: {}
+[22.934575] (-) TimerEvent: {}
+[23.036812] (-) TimerEvent: {}
+[23.138824] (-) TimerEvent: {}
+[23.240884] (-) TimerEvent: {}
+[23.342953] (-) TimerEvent: {}
+[23.445034] (-) TimerEvent: {}
+[23.547276] (-) TimerEvent: {}
+[23.649299] (-) TimerEvent: {}
+[23.751572] (-) TimerEvent: {}
+[23.853646] (-) TimerEvent: {}
+[23.956049] (-) TimerEvent: {}
+[24.058124] (-) TimerEvent: {}
+[24.160140] (-) TimerEvent: {}
+[24.262432] (-) TimerEvent: {}
+[24.364519] (-) TimerEvent: {}
+[24.466682] (-) TimerEvent: {}
+[24.568878] (-) TimerEvent: {}
+[24.670783] (-) TimerEvent: {}
+[24.772788] (-) TimerEvent: {}
+[24.874843] (-) TimerEvent: {}
+[24.977040] (-) TimerEvent: {}
+[25.079200] (-) TimerEvent: {}
+[25.181125] (-) TimerEvent: {}
+[25.283159] (-) TimerEvent: {}
+[25.385108] (-) TimerEvent: {}
+[25.487354] (-) TimerEvent: {}
+[25.589364] (-) TimerEvent: {}
+[25.691388] (-) TimerEvent: {}
+[25.793450] (-) TimerEvent: {}
+[25.895678] (-) TimerEvent: {}
+[26.003556] (-) TimerEvent: {}
+[26.111717] (-) TimerEvent: {}
+[26.216380] (-) TimerEvent: {}
+[26.320117] (-) TimerEvent: {}
+[26.423861] (-) TimerEvent: {}
+[26.528357] (-) TimerEvent: {}
+[26.632007] (-) TimerEvent: {}
+[26.735371] (-) TimerEvent: {}
+[26.837843] (-) TimerEvent: {}
+[26.939960] (-) TimerEvent: {}
+[27.042016] (-) TimerEvent: {}
+[27.143957] (-) TimerEvent: {}
+[27.246024] (-) TimerEvent: {}
+[27.348018] (-) TimerEvent: {}
+[27.450110] (-) TimerEvent: {}
+[27.552113] (-) TimerEvent: {}
+[27.654139] (-) TimerEvent: {}
+[27.756229] (-) TimerEvent: {}
+[27.858271] (-) TimerEvent: {}
+[27.961048] (-) TimerEvent: {}
+[28.064195] (-) TimerEvent: {}
+[28.166105] (-) TimerEvent: {}
+[28.268394] (-) TimerEvent: {}
+[28.370522] (-) TimerEvent: {}
+[28.472526] (-) TimerEvent: {}
+[28.574965] (-) TimerEvent: {}
+[28.677157] (-) TimerEvent: {}
+[28.779630] (-) TimerEvent: {}
+[28.881821] (-) TimerEvent: {}
+[28.984290] (-) TimerEvent: {}
+[29.086536] (-) TimerEvent: {}
+[29.188961] (-) TimerEvent: {}
+[29.290951] (-) TimerEvent: {}
+[29.392989] (-) TimerEvent: {}
+[29.494974] (-) TimerEvent: {}
+[29.596915] (-) TimerEvent: {}
+[29.699425] (-) TimerEvent: {}
+[29.806676] (-) TimerEvent: {}
+[29.909413] (-) TimerEvent: {}
+[30.015217] (-) TimerEvent: {}
+[30.117305] (-) TimerEvent: {}
+[30.219407] (-) TimerEvent: {}
+[30.321406] (-) TimerEvent: {}
+[30.423596] (-) TimerEvent: {}
+[30.525659] (-) TimerEvent: {}
+[30.627934] (-) TimerEvent: {}
+[30.729953] (-) TimerEvent: {}
+[30.832280] (-) TimerEvent: {}
+[30.934582] (-) TimerEvent: {}
+[31.036493] (-) TimerEvent: {}
+[31.139948] (-) TimerEvent: {}
+[31.241934] (-) TimerEvent: {}
+[31.344632] (-) TimerEvent: {}
+[31.446823] (-) TimerEvent: {}
+[31.548688] (-) TimerEvent: {}
+[31.650802] (-) TimerEvent: {}
+[31.752888] (-) TimerEvent: {}
+[31.854898] (-) TimerEvent: {}
+[31.956943] (-) TimerEvent: {}
+[32.059059] (-) TimerEvent: {}
+[32.161067] (-) TimerEvent: {}
+[32.264008] (-) TimerEvent: {}
+[32.368556] (-) TimerEvent: {}
+[32.474092] (-) TimerEvent: {}
+[32.577729] (-) TimerEvent: {}
+[32.681566] (-) TimerEvent: {}
+[32.784189] (-) TimerEvent: {}
+[32.891328] (-) TimerEvent: {}
+[32.997886] (-) TimerEvent: {}
+[33.101026] (-) TimerEvent: {}
+[33.207419] (-) TimerEvent: {}
+[33.309580] (-) TimerEvent: {}
+[33.411821] (-) TimerEvent: {}
+[33.514282] (-) TimerEvent: {}
+[33.616906] (-) TimerEvent: {}
+[33.740066] (-) TimerEvent: {}
+[33.843757] (-) TimerEvent: {}
+[33.946718] (-) TimerEvent: {}
+[34.048631] (-) TimerEvent: {}
+[34.150581] (-) TimerEvent: {}
+[34.252675] (-) TimerEvent: {}
+[34.354919] (-) TimerEvent: {}
+[34.457314] (-) TimerEvent: {}
+[34.559723] (-) TimerEvent: {}
+[34.663414] (-) TimerEvent: {}
+[34.766791] (-) TimerEvent: {}
+[34.869775] (-) TimerEvent: {}
+[34.972108] (-) TimerEvent: {}
+[35.074019] (-) TimerEvent: {}
+[35.176985] (-) TimerEvent: {}
+[35.286546] (-) TimerEvent: {}
+[35.390934] (-) TimerEvent: {}
+[35.494266] (-) TimerEvent: {}
+[35.596424] (-) TimerEvent: {}
+[35.698591] (-) TimerEvent: {}
+[35.800680] (-) TimerEvent: {}
+[35.902866] (-) TimerEvent: {}
+[36.004922] (-) TimerEvent: {}
+[36.107054] (-) TimerEvent: {}
+[36.209148] (-) TimerEvent: {}
+[36.311145] (-) TimerEvent: {}
+[36.413307] (-) TimerEvent: {}
+[36.515726] (-) TimerEvent: {}
+[36.618024] (-) TimerEvent: {}
+[36.720199] (-) TimerEvent: {}
+[36.822499] (-) TimerEvent: {}
+[36.924700] (-) TimerEvent: {}
+[37.026788] (-) TimerEvent: {}
+[37.128871] (-) TimerEvent: {}
+[37.230948] (-) TimerEvent: {}
+[37.333323] (-) TimerEvent: {}
+[37.435655] (-) TimerEvent: {}
+[37.537868] (-) TimerEvent: {}
+[37.640174] (-) TimerEvent: {}
+[37.742444] (-) TimerEvent: {}
+[37.844477] (-) TimerEvent: {}
+[37.946634] (-) TimerEvent: {}
+[38.048528] (-) TimerEvent: {}
+[38.150558] (-) TimerEvent: {}
+[38.252813] (-) TimerEvent: {}
+[38.354897] (-) TimerEvent: {}
+[38.456961] (-) TimerEvent: {}
+[38.559115] (-) TimerEvent: {}
+[38.661220] (-) TimerEvent: {}
+[38.763397] (-) TimerEvent: {}
+[38.865450] (-) TimerEvent: {}
+[38.967636] (-) TimerEvent: {}
+[39.069679] (-) TimerEvent: {}
+[39.171655] (-) TimerEvent: {}
+[39.273720] (-) TimerEvent: {}
+[39.375866] (-) TimerEvent: {}
+[39.477943] (-) TimerEvent: {}
+[39.580020] (-) TimerEvent: {}
+[39.682034] (-) TimerEvent: {}
+[39.784152] (-) TimerEvent: {}
+[39.886256] (-) TimerEvent: {}
+[39.988290] (-) TimerEvent: {}
+[40.090385] (-) TimerEvent: {}
+[40.192449] (-) TimerEvent: {}
+[40.294642] (-) TimerEvent: {}
+[40.396759] (-) TimerEvent: {}
+[40.498887] (-) TimerEvent: {}
+[40.600931] (-) TimerEvent: {}
+[40.703025] (-) TimerEvent: {}
+[40.805004] (-) TimerEvent: {}
+[40.907159] (-) TimerEvent: {}
+[41.009233] (-) TimerEvent: {}
+[41.111463] (-) TimerEvent: {}
+[41.213624] (-) TimerEvent: {}
+[41.315836] (-) TimerEvent: {}
+[41.417923] (-) TimerEvent: {}
+[41.520108] (-) TimerEvent: {}
+[41.622126] (-) TimerEvent: {}
+[41.724335] (-) TimerEvent: {}
+[41.826486] (-) TimerEvent: {}
+[41.928512] (-) TimerEvent: {}
+[42.030604] (-) TimerEvent: {}
+[42.132722] (-) TimerEvent: {}
+[42.234824] (-) TimerEvent: {}
+[42.336879] (-) TimerEvent: {}
+[42.439076] (-) TimerEvent: {}
+[42.541282] (-) TimerEvent: {}
+[42.643569] (-) TimerEvent: {}
+[42.745748] (-) TimerEvent: {}
+[42.848000] (-) TimerEvent: {}
+[42.950151] (-) TimerEvent: {}
+[43.052160] (-) TimerEvent: {}
+[43.154237] (-) TimerEvent: {}
+[43.256334] (-) TimerEvent: {}
+[43.358789] (-) TimerEvent: {}
+[43.461111] (-) TimerEvent: {}
+[43.563490] (-) TimerEvent: {}
+[43.665607] (-) TimerEvent: {}
+[43.767852] (-) TimerEvent: {}
+[43.870018] (-) TimerEvent: {}
+[43.972147] (-) TimerEvent: {}
+[44.074038] (-) TimerEvent: {}
+[44.176176] (-) TimerEvent: {}
+[44.278250] (-) TimerEvent: {}
+[44.380431] (-) TimerEvent: {}
+[44.482888] (-) TimerEvent: {}
+[44.584965] (-) TimerEvent: {}
+[44.687410] (-) TimerEvent: {}
+[44.789842] (-) TimerEvent: {}
+[44.892192] (-) TimerEvent: {}
+[44.994405] (-) TimerEvent: {}
+[45.096522] (-) TimerEvent: {}
+[45.199471] (-) TimerEvent: {}
+[45.301713] (-) TimerEvent: {}
+[45.404053] (-) TimerEvent: {}
+[45.506103] (-) TimerEvent: {}
+[45.608246] (-) TimerEvent: {}
+[45.710456] (-) TimerEvent: {}
+[45.812662] (-) TimerEvent: {}
+[45.914845] (-) TimerEvent: {}
+[46.016935] (-) TimerEvent: {}
+[46.119114] (-) TimerEvent: {}
+[46.221314] (-) TimerEvent: {}
+[46.323590] (-) TimerEvent: {}
+[46.425749] (-) TimerEvent: {}
+[46.527924] (-) TimerEvent: {}
+[46.630000] (-) TimerEvent: {}
+[46.732162] (-) TimerEvent: {}
+[46.834287] (-) TimerEvent: {}
+[46.936330] (-) TimerEvent: {}
+[47.038509] (-) TimerEvent: {}
+[47.140751] (-) TimerEvent: {}
+[47.242829] (-) TimerEvent: {}
+[47.344916] (-) TimerEvent: {}
+[47.447100] (-) TimerEvent: {}
+[47.549153] (-) TimerEvent: {}
+[47.651345] (-) TimerEvent: {}
+[47.753374] (-) TimerEvent: {}
+[47.855432] (-) TimerEvent: {}
+[47.957526] (-) TimerEvent: {}
+[48.059794] (-) TimerEvent: {}
+[48.162028] (-) TimerEvent: {}
+[48.264218] (-) TimerEvent: {}
+[48.366568] (-) TimerEvent: {}
+[48.468640] (-) TimerEvent: {}
+[48.570866] (-) TimerEvent: {}
+[48.672961] (-) TimerEvent: {}
+[48.775159] (-) TimerEvent: {}
+[48.877327] (-) TimerEvent: {}
+[48.979529] (-) TimerEvent: {}
+[49.081635] (-) TimerEvent: {}
+[49.183677] (-) TimerEvent: {}
+[49.285852] (-) TimerEvent: {}
+[49.388019] (-) TimerEvent: {}
+[49.490083] (-) TimerEvent: {}
+[49.592008] (-) TimerEvent: {}
+[49.694090] (-) TimerEvent: {}
+[49.796207] (-) TimerEvent: {}
+[49.898312] (-) TimerEvent: {}
+[50.000437] (-) TimerEvent: {}
+[50.102622] (-) TimerEvent: {}
+[50.204639] (-) TimerEvent: {}
+[50.306800] (-) TimerEvent: {}
+[50.408836] (-) TimerEvent: {}
+[50.510866] (-) TimerEvent: {}
+[50.612907] (-) TimerEvent: {}
+[50.714909] (-) TimerEvent: {}
+[50.816933] (-) TimerEvent: {}
+[50.918999] (-) TimerEvent: {}
+[51.020913] (-) TimerEvent: {}
+[51.122976] (-) TimerEvent: {}
+[51.225056] (-) TimerEvent: {}
+[51.327021] (-) TimerEvent: {}
+[51.429027] (-) TimerEvent: {}
+[51.531003] (-) TimerEvent: {}
+[51.633256] (-) TimerEvent: {}
+[51.735389] (-) TimerEvent: {}
+[51.837358] (-) TimerEvent: {}
+[51.939436] (-) TimerEvent: {}
+[52.041485] (-) TimerEvent: {}
+[52.143601] (-) TimerEvent: {}
+[52.245680] (-) TimerEvent: {}
+[52.347962] (-) TimerEvent: {}
+[52.449971] (-) TimerEvent: {}
+[52.552164] (-) TimerEvent: {}
+[52.654188] (-) TimerEvent: {}
+[52.756200] (-) TimerEvent: {}
+[52.858199] (-) TimerEvent: {}
+[52.960268] (-) TimerEvent: {}
+[53.062424] (-) TimerEvent: {}
+[53.164416] (-) TimerEvent: {}
+[53.266663] (-) TimerEvent: {}
+[53.368711] (-) TimerEvent: {}
+[53.470779] (-) TimerEvent: {}
+[53.572774] (-) TimerEvent: {}
+[53.674947] (-) TimerEvent: {}
+[53.777014] (-) TimerEvent: {}
+[53.879109] (-) TimerEvent: {}
+[53.981147] (-) TimerEvent: {}
+[54.083273] (-) TimerEvent: {}
+[54.185331] (-) TimerEvent: {}
+[54.287366] (-) TimerEvent: {}
+[54.389345] (-) TimerEvent: {}
+[54.491407] (-) TimerEvent: {}
+[54.593436] (-) TimerEvent: {}
+[54.695626] (-) TimerEvent: {}
+[54.797610] (-) TimerEvent: {}
+[54.899731] (-) TimerEvent: {}
+[55.001716] (-) TimerEvent: {}
+[55.103913] (-) TimerEvent: {}
+[55.205882] (-) TimerEvent: {}
+[55.307990] (-) TimerEvent: {}
+[55.409961] (-) TimerEvent: {}
+[55.512095] (-) TimerEvent: {}
+[55.614142] (-) TimerEvent: {}
+[55.716337] (-) TimerEvent: {}
+[55.818450] (-) TimerEvent: {}
+[55.920501] (-) TimerEvent: {}
+[56.022528] (-) TimerEvent: {}
+[56.124573] (-) TimerEvent: {}
+[56.226703] (-) TimerEvent: {}
+[56.328715] (-) TimerEvent: {}
+[56.430786] (-) TimerEvent: {}
+[56.532672] (-) TimerEvent: {}
+[56.635234] (-) TimerEvent: {}
+[56.737292] (-) TimerEvent: {}
+[56.839336] (-) TimerEvent: {}
+[56.941400] (-) TimerEvent: {}
+[57.043515] (-) TimerEvent: {}
+[57.145669] (-) TimerEvent: {}
+[57.247807] (-) TimerEvent: {}
+[57.349862] (-) TimerEvent: {}
+[57.452408] (-) TimerEvent: {}
+[57.554562] (-) TimerEvent: {}
+[57.656646] (-) TimerEvent: {}
+[57.758743] (-) TimerEvent: {}
+[57.860800] (-) TimerEvent: {}
+[57.962839] (-) TimerEvent: {}
+[58.064855] (-) TimerEvent: {}
+[58.166866] (-) TimerEvent: {}
+[58.268949] (-) TimerEvent: {}
+[58.370915] (-) TimerEvent: {}
+[58.472931] (-) TimerEvent: {}
+[58.574951] (-) TimerEvent: {}
+[58.677101] (-) TimerEvent: {}
+[58.779405] (-) TimerEvent: {}
+[58.881545] (-) TimerEvent: {}
+[58.983601] (-) TimerEvent: {}
+[59.085653] (-) TimerEvent: {}
+[59.187730] (-) TimerEvent: {}
+[59.289745] (-) TimerEvent: {}
+[59.391913] (-) TimerEvent: {}
+[59.493981] (-) TimerEvent: {}
+[59.596311] (-) TimerEvent: {}
+[59.698447] (-) TimerEvent: {}
+[59.800488] (-) TimerEvent: {}
+[59.902598] (-) TimerEvent: {}
+[60.004553] (-) TimerEvent: {}
+[60.106454] (-) TimerEvent: {}
+[60.208466] (-) TimerEvent: {}
+[60.310663] (-) TimerEvent: {}
+[60.412706] (-) TimerEvent: {}
+[60.514802] (-) TimerEvent: {}
+[60.616926] (-) TimerEvent: {}
+[60.718994] (-) TimerEvent: {}
+[60.820919] (-) TimerEvent: {}
+[60.923097] (-) TimerEvent: {}
+[61.025165] (-) TimerEvent: {}
+[61.127362] (-) TimerEvent: {}
+[61.229395] (-) TimerEvent: {}
+[61.331498] (-) TimerEvent: {}
+[61.433547] (-) TimerEvent: {}
+[61.535634] (-) TimerEvent: {}
+[61.637568] (-) TimerEvent: {}
+[61.739664] (-) TimerEvent: {}
+[61.841664] (-) TimerEvent: {}
+[61.943688] (-) TimerEvent: {}
+[62.045862] (-) TimerEvent: {}
+[62.147988] (-) TimerEvent: {}
+[62.250162] (-) TimerEvent: {}
+[62.352145] (-) TimerEvent: {}
+[62.454149] (-) TimerEvent: {}
+[62.556214] (-) TimerEvent: {}
+[62.658058] (-) TimerEvent: {}
+[62.760244] (-) TimerEvent: {}
+[62.862179] (-) TimerEvent: {}
+[62.964348] (-) TimerEvent: {}
+[63.066566] (-) TimerEvent: {}
+[63.168438] (-) TimerEvent: {}
+[63.270747] (-) TimerEvent: {}
+[63.372758] (-) TimerEvent: {}
+[63.474755] (-) TimerEvent: {}
+[63.576766] (-) TimerEvent: {}
+[63.678799] (-) TimerEvent: {}
+[63.780708] (-) TimerEvent: {}
+[63.882716] (-) TimerEvent: {}
+[63.984719] (-) TimerEvent: {}
+[64.086669] (-) TimerEvent: {}
+[64.188930] (-) TimerEvent: {}
+[64.291035] (-) TimerEvent: {}
+[64.392903] (-) TimerEvent: {}
+[64.494888] (-) TimerEvent: {}
+[64.596934] (-) TimerEvent: {}
+[64.698908] (-) TimerEvent: {}
+[64.800781] (-) TimerEvent: {}
+[64.902863] (-) TimerEvent: {}
+[65.005193] (-) TimerEvent: {}
+[65.107461] (-) TimerEvent: {}
+[65.209506] (-) TimerEvent: {}
+[65.311637] (-) TimerEvent: {}
+[65.413703] (-) TimerEvent: {}
+[65.515836] (-) TimerEvent: {}
+[65.617923] (-) TimerEvent: {}
+[65.720079] (-) TimerEvent: {}
+[65.822139] (-) TimerEvent: {}
+[65.924279] (-) TimerEvent: {}
+[66.026384] (-) TimerEvent: {}
+[66.128387] (-) TimerEvent: {}
+[66.230530] (-) TimerEvent: {}
+[66.332547] (-) TimerEvent: {}
+[66.434805] (-) TimerEvent: {}
+[66.537320] (-) TimerEvent: {}
+[66.641655] (-) TimerEvent: {}
+[66.743831] (-) TimerEvent: {}
+[66.846024] (-) TimerEvent: {}
+[66.948453] (-) TimerEvent: {}
+[67.050795] (-) TimerEvent: {}
+[67.152966] (-) TimerEvent: {}
+[67.255120] (-) TimerEvent: {}
+[67.357299] (-) TimerEvent: {}
+[67.459859] (-) TimerEvent: {}
+[67.561949] (-) TimerEvent: {}
+[67.663955] (-) TimerEvent: {}
+[67.766255] (-) TimerEvent: {}
+[67.868737] (-) TimerEvent: {}
+[67.970884] (-) TimerEvent: {}
+[68.073148] (-) TimerEvent: {}
+[68.175303] (-) TimerEvent: {}
+[68.277649] (-) TimerEvent: {}
+[68.380652] (-) TimerEvent: {}
+[68.482825] (-) TimerEvent: {}
+[68.585100] (-) TimerEvent: {}
+[68.677020] (turtlesim) StdoutLine: {'line': b'[ 95%] \x1b[32m\x1b[1mLinking CXX executable turtlesim_node\x1b[0m\n'}
+[68.685419] (-) TimerEvent: {}
+[68.787404] (-) TimerEvent: {}
+[68.889480] (-) TimerEvent: {}
+[68.991798] (-) TimerEvent: {}
+[69.094002] (-) TimerEvent: {}
+[69.196161] (-) TimerEvent: {}
+[69.298451] (-) TimerEvent: {}
+[69.400622] (-) TimerEvent: {}
+[69.502981] (-) TimerEvent: {}
+[69.606075] (-) TimerEvent: {}
+[69.709084] (-) TimerEvent: {}
+[69.811989] (-) TimerEvent: {}
+[69.915363] (-) TimerEvent: {}
+[70.017807] (-) TimerEvent: {}
+[70.120788] (-) TimerEvent: {}
+[70.223470] (-) TimerEvent: {}
+[70.325648] (-) TimerEvent: {}
+[70.427996] (-) TimerEvent: {}
+[70.530322] (-) TimerEvent: {}
+[70.632454] (-) TimerEvent: {}
+[70.734980] (-) TimerEvent: {}
+[70.837278] (-) TimerEvent: {}
+[70.940018] (-) TimerEvent: {}
+[71.043610] (-) TimerEvent: {}
+[71.146285] (-) TimerEvent: {}
+[71.249042] (-) TimerEvent: {}
+[71.351689] (-) TimerEvent: {}
+[71.454890] (-) TimerEvent: {}
+[71.558246] (-) TimerEvent: {}
+[71.661018] (-) TimerEvent: {}
+[71.763754] (-) TimerEvent: {}
+[71.866555] (-) TimerEvent: {}
+[71.969052] (-) TimerEvent: {}
+[72.072446] (-) TimerEvent: {}
+[72.174945] (-) TimerEvent: {}
+[72.277370] (-) TimerEvent: {}
+[72.379788] (-) TimerEvent: {}
+[72.483315] (-) TimerEvent: {}
+[72.586143] (-) TimerEvent: {}
+[72.689307] (-) TimerEvent: {}
+[72.791963] (-) TimerEvent: {}
+[72.894518] (-) TimerEvent: {}
+[72.997009] (-) TimerEvent: {}
+[73.099866] (-) TimerEvent: {}
+[73.202777] (-) TimerEvent: {}
+[73.305808] (-) TimerEvent: {}
+[73.408703] (-) TimerEvent: {}
+[73.511218] (-) TimerEvent: {}
+[73.613687] (-) TimerEvent: {}
+[73.716383] (-) TimerEvent: {}
+[73.819055] (-) TimerEvent: {}
+[73.921480] (-) TimerEvent: {}
+[74.024414] (-) TimerEvent: {}
+[74.127125] (-) TimerEvent: {}
+[74.229949] (-) TimerEvent: {}
+[74.332670] (-) TimerEvent: {}
+[74.435060] (-) TimerEvent: {}
+[74.537410] (-) TimerEvent: {}
+[74.639700] (-) TimerEvent: {}
+[74.742282] (-) TimerEvent: {}
+[74.845103] (-) TimerEvent: {}
+[74.947861] (-) TimerEvent: {}
+[75.051752] (-) TimerEvent: {}
+[75.154075] (-) TimerEvent: {}
+[75.257038] (-) TimerEvent: {}
+[75.359747] (-) TimerEvent: {}
+[75.462228] (-) TimerEvent: {}
+[75.564822] (-) TimerEvent: {}
+[75.667129] (-) TimerEvent: {}
+[75.769948] (-) TimerEvent: {}
+[75.872574] (-) TimerEvent: {}
+[75.976071] (-) TimerEvent: {}
+[76.079428] (-) TimerEvent: {}
+[76.181729] (-) TimerEvent: {}
+[76.284777] (-) TimerEvent: {}
+[76.387293] (-) TimerEvent: {}
+[76.490434] (-) TimerEvent: {}
+[76.592641] (-) TimerEvent: {}
+[76.695018] (-) TimerEvent: {}
+[76.797471] (-) TimerEvent: {}
+[76.900172] (-) TimerEvent: {}
+[77.002981] (-) TimerEvent: {}
+[77.105462] (-) TimerEvent: {}
+[77.208428] (-) TimerEvent: {}
+[77.311008] (-) TimerEvent: {}
+[77.413709] (-) TimerEvent: {}
+[77.516369] (-) TimerEvent: {}
+[77.618993] (-) TimerEvent: {}
+[77.721394] (-) TimerEvent: {}
+[77.824305] (-) TimerEvent: {}
+[77.926930] (-) TimerEvent: {}
+[78.029397] (-) TimerEvent: {}
+[78.133223] (-) TimerEvent: {}
+[78.236014] (-) TimerEvent: {}
+[78.338245] (-) TimerEvent: {}
+[78.440856] (-) TimerEvent: {}
+[78.543682] (-) TimerEvent: {}
+[78.646897] (-) TimerEvent: {}
+[78.749437] (-) TimerEvent: {}
+[78.852292] (-) TimerEvent: {}
+[78.954975] (-) TimerEvent: {}
+[79.057452] (-) TimerEvent: {}
+[79.159940] (-) TimerEvent: {}
+[79.262592] (-) TimerEvent: {}
+[79.365279] (-) TimerEvent: {}
+[79.467980] (-) TimerEvent: {}
+[79.570221] (-) TimerEvent: {}
+[79.673307] (-) TimerEvent: {}
+[79.775574] (-) TimerEvent: {}
+[79.877919] (-) TimerEvent: {}
+[79.980375] (-) TimerEvent: {}
+[80.083168] (-) TimerEvent: {}
+[80.185946] (-) TimerEvent: {}
+[80.288882] (-) TimerEvent: {}
+[80.391491] (-) TimerEvent: {}
+[80.494195] (-) TimerEvent: {}
+[80.596766] (-) TimerEvent: {}
+[80.699398] (-) TimerEvent: {}
+[80.801847] (-) TimerEvent: {}
+[80.904620] (-) TimerEvent: {}
+[81.007416] (-) TimerEvent: {}
+[81.110271] (-) TimerEvent: {}
+[81.213291] (-) TimerEvent: {}
+[81.316170] (-) TimerEvent: {}
+[81.419272] (-) TimerEvent: {}
+[81.521720] (-) TimerEvent: {}
+[81.624958] (-) TimerEvent: {}
+[81.727582] (-) TimerEvent: {}
+[81.833232] (-) TimerEvent: {}
+[81.935713] (-) TimerEvent: {}
+[82.038123] (-) TimerEvent: {}
+[82.140548] (-) TimerEvent: {}
+[82.242912] (-) TimerEvent: {}
+[82.345415] (-) TimerEvent: {}
+[82.447597] (-) TimerEvent: {}
+[82.550225] (-) TimerEvent: {}
+[82.653226] (-) TimerEvent: {}
+[82.756019] (-) TimerEvent: {}
+[82.858429] (-) TimerEvent: {}
+[82.960823] (-) TimerEvent: {}
+[83.063458] (-) TimerEvent: {}
+[83.165929] (-) TimerEvent: {}
+[83.268709] (-) TimerEvent: {}
+[83.371155] (-) TimerEvent: {}
+[83.473275] (-) TimerEvent: {}
+[83.575712] (-) TimerEvent: {}
+[83.677797] (-) TimerEvent: {}
+[83.780173] (-) TimerEvent: {}
+[83.882840] (-) TimerEvent: {}
+[83.985300] (-) TimerEvent: {}
+[84.087424] (-) TimerEvent: {}
+[84.189672] (-) TimerEvent: {}
+[84.292057] (-) TimerEvent: {}
+[84.394571] (-) TimerEvent: {}
+[84.496633] (-) TimerEvent: {}
+[84.598787] (-) TimerEvent: {}
+[84.700788] (-) TimerEvent: {}
+[84.802721] (-) TimerEvent: {}
+[84.904783] (-) TimerEvent: {}
+[85.007028] (-) TimerEvent: {}
+[85.109543] (-) TimerEvent: {}
+[85.211998] (-) TimerEvent: {}
+[85.314094] (-) TimerEvent: {}
+[85.416521] (-) TimerEvent: {}
+[85.518822] (-) TimerEvent: {}
+[85.620962] (-) TimerEvent: {}
+[85.723315] (-) TimerEvent: {}
+[85.825426] (-) TimerEvent: {}
+[85.927932] (-) TimerEvent: {}
+[86.030106] (-) TimerEvent: {}
+[86.132127] (-) TimerEvent: {}
+[86.234049] (-) TimerEvent: {}
+[86.335888] (-) TimerEvent: {}
+[86.437917] (-) TimerEvent: {}
+[86.539989] (-) TimerEvent: {}
+[86.641916] (-) TimerEvent: {}
+[86.744212] (-) TimerEvent: {}
+[86.846310] (-) TimerEvent: {}
+[86.920170] (turtlesim) StdoutLine: {'line': b'[100%] Built target turtlesim_node\n'}
+[86.946941] (-) TimerEvent: {}
+[87.015811] (turtlesim) CommandEnded: {'returncode': 0}
+[87.047539] (-) TimerEvent: {}
+[87.150124] (-) TimerEvent: {}
+[87.251902] (-) TimerEvent: {}
+[87.353595] (-) TimerEvent: {}
+[87.455222] (-) TimerEvent: {}
+[87.556890] (-) TimerEvent: {}
+[87.658588] (-) TimerEvent: {}
+[87.760293] (-) TimerEvent: {}
+[87.862558] (-) TimerEvent: {}
+[87.965389] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'install'}
+[87.976378] (-) TimerEvent: {}
+[88.068757] (turtlesim) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/spacecal/SpaceCal/build/turtlesim'], 'cwd': '/home/spacecal/SpaceCal/build/turtlesim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US'), ('USER', 'spacecal'), ('XDG_SEAT', 'seat0'), ('SSH_AGENT_PID', '5927'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/spacecal/SpaceCal/install/turtlesim/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/spacecal'), ('OLDPWD', '/home/spacecal/SpaceCal/src'), ('DESKTOP_SESSION', 'xubuntu'), ('ROS_PYTHON_VERSION', '3'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_colcon_cd_root', '/home/spacecal/ros2_foxy/ros2-linux'), ('QT_QPA_PLATFORMTHEME', 'gtk2'), ('COLCON_PREFIX_PATH', '/home/spacecal/SpaceCal/install:/home/spacecal/ros2_foxy/ros2-linux'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'spacecal'), ('WINDOWID', '67131134'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('CLUTTER_BACKEND', 'x11'), ('TERM', 'xterm-256color'), ('GTK_OVERLAY_SCROLLING', '0'), ('XDG_SESSION_ID', 'c2'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/spacecal-desktop:@/tmp/.ICE-unix/5819,unix/spacecal-desktop:/tmp/.ICE-unix/5819'), ('GDM_LANG', 'en_US'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('XDG_MENU_PREFIX', 'xfce-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0.0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'XFCE'), ('XDG_SESSION_DESKTOP', 'xubuntu'), ('XAUTHORITY', '/home/spacecal/.Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/spacecal'), ('AMENT_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'xubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('XDG_VTNR', '7'), ('PWD', '/home/spacecal/SpaceCal/build/turtlesim'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share'), ('PYTHONPATH', '/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy')]), 'shell': False}
+[88.078236] (-) TimerEvent: {}
+[88.148363] (turtlesim) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[88.150513] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/rosidl_interfaces/turtlesim\n'}
+[88.151169] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[88.151572] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[88.152590] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_generator_c__visibility_control.h\n'}
+[88.153209] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[88.154158] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__functions.c\n'}
+[88.154975] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.h\n'}
+[88.155554] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__functions.h\n'}
+[88.156145] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__functions.c\n'}
+[88.156640] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__functions.h\n'}
+[88.157150] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.h\n'}
+[88.157581] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__struct.h\n'}
+[88.158126] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__struct.h\n'}
+[88.158613] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/color.h\n'}
+[88.159212] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/pose.h\n'}
+[88.159949] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[88.160553] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/set_pen.h\n'}
+[88.161058] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[88.161502] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__functions.c\n'}
+[88.161902] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__functions.h\n'}
+[88.162412] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__functions.h\n'}
+[88.162937] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__functions.c\n'}
+[88.163354] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__struct.h\n'}
+[88.164002] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__functions.c\n'}
+[88.164488] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.h\n'}
+[88.165044] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.h\n'}
+[88.168442] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__functions.h\n'}
+[88.169264] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__struct.h\n'}
+[88.169900] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__struct.h\n'}
+[88.171293] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__functions.h\n'}
+[88.172251] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__functions.c\n'}
+[88.172820] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__struct.h\n'}
+[88.173309] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__functions.h\n'}
+[88.173800] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.h\n'}
+[88.174225] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.h\n'}
+[88.174722] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.h\n'}
+[88.175226] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__functions.c\n'}
+[88.175608] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__struct.h\n'}
+[88.176030] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/kill.h\n'}
+[88.176496] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_absolute.h\n'}
+[88.176864] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_relative.h\n'}
+[88.177290] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/spawn.h\n'}
+[88.177836] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[88.178404] (-) TimerEvent: {}
+[88.179360] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[88.180243] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__functions.c\n'}
+[88.180839] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.h\n'}
+[88.181452] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__struct.h\n'}
+[88.182236] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__functions.h\n'}
+[88.182844] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/rotate_absolute.h\n'}
+[88.183425] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/library_path.sh\n'}
+[88.183960] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/library_path.dsv\n'}
+[88.184454] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_generator_c.so\n'}
+[88.184925] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[88.185434] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[88.185884] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[88.186442] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_fastrtps_c.h\n'}
+[88.186988] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_fastrtps_c.h\n'}
+[88.187436] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[88.187866] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[88.188387] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[88.188757] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_fastrtps_c.h\n'}
+[88.189130] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_fastrtps_c.h\n'}
+[88.189524] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_fastrtps_c.h\n'}
+[88.190427] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_fastrtps_c.h\n'}
+[88.191386] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_fastrtps_c.h\n'}
+[88.192276] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[88.192842] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[88.193286] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_fastrtps_c.h\n'}
+[88.193989] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_c.so\n'}
+[88.194689] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[88.195328] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[88.195933] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[88.196590] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.197128] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/dds_fastrtps\n'}
+[88.197664] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.198171] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[88.198844] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[88.199350] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[88.199892] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.200431] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.200963] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/dds_fastrtps\n'}
+[88.201525] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.202057] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.202811] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.203422] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[88.204019] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[88.204540] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[88.205092] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/dds_fastrtps\n'}
+[88.205643] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_cpp.so\n'}
+[88.206798] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[88.208094] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[88.209268] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[88.210776] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.c\n'}
+[88.211860] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.c\n'}
+[88.212851] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_introspection_c.h\n'}
+[88.213650] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_introspection_c.h\n'}
+[88.214973] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[88.215890] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[88.216508] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[88.217275] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.c\n'}
+[88.218130] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.c\n'}
+[88.219642] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_introspection_c.h\n'}
+[88.220574] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_introspection_c.h\n'}
+[88.221440] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_introspection_c.h\n'}
+[88.222680] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.c\n'}
+[88.224560] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_introspection_c.h\n'}
+[88.226781] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.c\n'}
+[88.228153] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.c\n'}
+[88.228938] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_introspection_c.h\n'}
+[88.229473] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[88.229873] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[88.230243] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_introspection_c.h\n'}
+[88.231077] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.c\n'}
+[88.231866] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_c.so\n'}
+[88.232327] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_c.so\n'}
+[88.232893] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[88.233360] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[88.233780] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[88.234228] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__traits.hpp\n'}
+[88.234951] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__traits.hpp\n'}
+[88.235384] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__builder.hpp\n'}
+[88.235874] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__struct.hpp\n'}
+[88.236514] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__builder.hpp\n'}
+[88.237108] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__struct.hpp\n'}
+[88.238041] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/pose.hpp\n'}
+[88.238797] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/color.hpp\n'}
+[88.239272] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[88.239699] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[88.240133] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__struct.hpp\n'}
+[88.240626] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__builder.hpp\n'}
+[88.241073] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__traits.hpp\n'}
+[88.241466] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__builder.hpp\n'}
+[88.241851] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__builder.hpp\n'}
+[88.242317] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__struct.hpp\n'}
+[88.243362] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__traits.hpp\n'}
+[88.244108] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__traits.hpp\n'}
+[88.244597] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__traits.hpp\n'}
+[88.245061] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__struct.hpp\n'}
+[88.245457] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__builder.hpp\n'}
+[88.245845] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__traits.hpp\n'}
+[88.246229] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__builder.hpp\n'}
+[88.246780] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__struct.hpp\n'}
+[88.247224] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__struct.hpp\n'}
+[88.247640] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_absolute.hpp\n'}
+[88.248018] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/spawn.hpp\n'}
+[88.248601] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/set_pen.hpp\n'}
+[88.249012] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_relative.hpp\n'}
+[88.249471] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/kill.hpp\n'}
+[88.249913] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[88.250298] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[88.250946] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__builder.hpp\n'}
+[88.251451] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__struct.hpp\n'}
+[88.251858] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__traits.hpp\n'}
+[88.252263] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/rotate_absolute.hpp\n'}
+[88.252780] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[88.253239] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[88.253631] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[88.254181] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.254965] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.cpp\n'}
+[88.255507] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.cpp\n'}
+[88.256159] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.256746] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[88.257173] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[88.257563] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.cpp\n'}
+[88.257928] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.cpp\n'}
+[88.258277] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.258810] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.259293] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.cpp\n'}
+[88.259770] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.cpp\n'}
+[88.260188] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.260646] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.cpp\n'}
+[88.261174] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.261564] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.261957] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[88.262447] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[88.262960] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_introspection_cpp.hpp\n'}
+[88.263384] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.cpp\n'}
+[88.263786] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_cpp.so\n'}
+[88.264163] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_cpp.so\n'}
+[88.264540] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/pythonpath.sh\n'}
+[88.264906] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/pythonpath.dsv\n'}
+[88.265298] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/__init__.py\n'}
+[88.278744] (-) TimerEvent: {}
+[88.380394] (-) TimerEvent: {}
+[88.479622] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action\n'}
+[88.482036] (-) TimerEvent: {}
+[88.483335] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/_rotate_absolute_s.c\n'}
+[88.484396] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/__init__.py\n'}
+[88.484911] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/_rotate_absolute.py\n'}
+[88.485503] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg\n'}
+[88.485951] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_pose.py\n'}
+[88.486409] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_pose_s.c\n'}
+[88.486886] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/__init__.py\n'}
+[88.487322] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_color.py\n'}
+[88.487727] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_color_s.c\n'}
+[88.488120] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv\n'}
+[88.488708] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_set_pen_s.c\n'}
+[88.489066] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_set_pen.py\n'}
+[88.489458] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_kill_s.c\n'}
+[88.489870] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_kill.py\n'}
+[88.490309] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_spawn.py\n'}
+[88.491099] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/__init__.py\n'}
+[88.491551] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_relative_s.c\n'}
+[88.491930] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_absolute_s.c\n'}
+[88.492302] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_absolute.py\n'}
+[88.492676] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_relative.py\n'}
+[88.493182] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_spawn_s.c\n'}
+[88.493543] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so\n'}
+[88.494192] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so\n'}
+[88.495366] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so\n'}
+[88.495999] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__python.so\n'}
+[88.496714] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/action/RotateAbsolute.idl\n'}
+[88.497392] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Color.idl\n'}
+[88.497939] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Pose.idl\n'}
+[88.498496] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill.idl\n'}
+[88.499027] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen.idl\n'}
+[88.499554] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn.idl\n'}
+[88.499951] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.idl\n'}
+[88.500395] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative.idl\n'}
+[88.500840] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/action/RotateAbsolute.action\n'}
+[88.501241] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Color.msg\n'}
+[88.501673] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Pose.msg\n'}
+[88.502071] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill.srv\n'}
+[88.502747] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill_Request.msg\n'}
+[88.503341] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill_Response.msg\n'}
+[88.504033] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen.srv\n'}
+[88.504510] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen_Request.msg\n'}
+[88.504918] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen_Response.msg\n'}
+[88.505298] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn.srv\n'}
+[88.505688] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn_Request.msg\n'}
+[88.506079] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn_Response.msg\n'}
+[88.506688] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.srv\n'}
+[88.507136] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Request.msg\n'}
+[88.507612] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Response.msg\n'}
+[88.508120] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative.srv\n'}
+[88.508673] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative_Request.msg\n'}
+[88.509181] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative_Response.msg\n'}
+[88.509698] (turtlesim) StdoutLine: {'line': b'-- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtlesim_node\n'}
+[88.549449] (turtlesim) StdoutLine: {'line': b'-- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtlesim_node" to ""\n'}
+[88.551493] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtle_teleop_key\n'}
+[88.552628] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/draw_square\n'}
+[88.554886] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/mimic\n'}
+[88.556171] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images\n'}
+[88.556781] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/dashing.png\n'}
+[88.557521] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/eloquent.png\n'}
+[88.558311] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/foxy.png\n'}
+[88.558965] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/bouncy.png\n'}
+[88.559478] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/ardent.png\n'}
+[88.559923] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/crystal.png\n'}
+[88.560437] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/launch\n'}
+[88.560957] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/launch/multisim.launch.py\n'}
+[88.561437] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/package_run_dependencies/turtlesim\n'}
+[88.561874] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/parent_prefix_path/turtlesim\n'}
+[88.562612] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/ament_prefix_path.sh\n'}
+[88.563220] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/ament_prefix_path.dsv\n'}
+[88.563880] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/path.sh\n'}
+[88.564429] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/path.dsv\n'}
+[88.565077] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.bash\n'}
+[88.565508] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.sh\n'}
+[88.565919] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.zsh\n'}
+[88.566547] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.dsv\n'}
+[88.567003] (turtlesim) StdoutLine: {'line': b'-- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.dsv\n'}
+[88.567477] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/packages/turtlesim\n'}
+[88.567955] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cExport.cmake\n'}
+[88.568418] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cExport-noconfig.cmake\n'}
+[88.569022] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cExport.cmake\n'}
+[88.569510] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[88.569925] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cExport.cmake\n'}
+[88.570443] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[88.570931] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cppExport.cmake\n'}
+[88.571379] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[88.571802] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[88.572289] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cppExport.cmake\n'}
+[88.572723] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[88.573142] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake-extras.cmake\n'}
+[88.573578] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[88.574094] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[88.575058] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[88.575674] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[88.576309] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[88.576855] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[88.577336] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesimConfig.cmake\n'}
+[88.577876] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesimConfig-version.cmake\n'}
+[88.578480] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.xml\n'}
+[88.582365] (-) TimerEvent: {}
+[88.588180] (turtlesim) CommandEnded: {'returncode': 0}
+[88.684772] (-) TimerEvent: {}
+[88.786591] (-) TimerEvent: {}
+[88.888734] (-) TimerEvent: {}
+[88.990857] (-) TimerEvent: {}
+[89.092558] (-) TimerEvent: {}
+[89.194671] (-) TimerEvent: {}
+[89.296411] (-) TimerEvent: {}
+[89.398786] (-) TimerEvent: {}
+[89.500523] (-) TimerEvent: {}
+[89.602575] (-) TimerEvent: {}
+[89.705820] (-) TimerEvent: {}
+[89.774724] (turtlesim) JobEnded: {'identifier': 'turtlesim', 'rc': 0}
+[89.782590] (-) EventReactorShutdown: {}

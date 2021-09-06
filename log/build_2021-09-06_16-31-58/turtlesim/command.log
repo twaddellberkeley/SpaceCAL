@@ -1,0 +1,2 @@
+Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake /home/spacecal/SpaceCal/src/ros_tutorials/turtlesim -DCMAKE_INSTALL_PREFIX=/home/spacecal/SpaceCal/install/turtlesim
+Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake /home/spacecal/SpaceCal/src/ros_tutorials/turtlesim -DCMAKE_INSTALL_PREFIX=/home/spacecal/SpaceCal/install/turtlesim
