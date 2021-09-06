@@ -1,0 +1,48 @@
+[0.340s] Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake /home/spacecal/SpaceCal/src/ros_tutorials/turtlesim -DCMAKE_INSTALL_PREFIX=/home/spacecal/SpaceCal/install/turtlesim
+[1.115s] -- The C compiler identification is GNU 9.3.0
+[1.816s] -- The CXX compiler identification is GNU 9.3.0
+[1.860s] -- Check for working C compiler: /usr/bin/cc
+[2.380s] -- Check for working C compiler: /usr/bin/cc -- works
+[2.387s] -- Detecting C compiler ABI info
+[2.942s] -- Detecting C compiler ABI info - done
+[2.998s] -- Detecting C compile features
+[3.000s] -- Detecting C compile features - done
+[3.016s] -- Check for working CXX compiler: /usr/bin/c++
+[3.586s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[3.592s] -- Detecting CXX compiler ABI info
+[4.346s] -- Detecting CXX compiler ABI info - done
+[4.439s] -- Detecting CXX compile features
+[4.442s] -- Detecting CXX compile features - done
+[4.544s] -- Found ament_cmake: 0.9.9 (/home/spacecal/ros2_foxy/ros2-linux/share/ament_cmake/cmake)
+[4.883s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[4.884s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[6.843s] -- Found ament_index_cpp: 1.1.0 (/home/spacecal/ros2_foxy/ros2-linux/share/ament_index_cpp/cmake)
+[6.877s] -- Found geometry_msgs: 2.0.4 (/home/spacecal/ros2_foxy/ros2-linux/share/geometry_msgs/cmake)
+[7.119s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[7.176s] -- Found rosidl_adapter: 1.2.1 (/home/spacecal/ros2_foxy/ros2-linux/share/rosidl_adapter/cmake)
+[7.444s] CMake Error at /usr/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake:146 (message):
+[7.445s]   Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the
+[7.446s]   system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY
+[7.446s]   OPENSSL_INCLUDE_DIR)
+[7.447s] Call Stack (most recent call first):
+[7.447s]   /usr/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake:393 (_FPHSA_FAILURE_MESSAGE)
+[7.448s]   /usr/share/cmake-3.16/Modules/FindOpenSSL.cmake:447 (find_package_handle_standard_args)
+[7.448s]   /home/spacecal/ros2_foxy/ros2-linux/share/fastrtps/cmake/fastrtps-config.cmake:52 (find_package)
+[7.448s]   /home/spacecal/ros2_foxy/ros2-linux/share/rosidl_typesupport_fastrtps_c/cmake/rosidl_typesupport_fastrtps_c-extras.cmake:6 (find_package)
+[7.449s]   /home/spacecal/ros2_foxy/ros2-linux/share/rosidl_typesupport_fastrtps_c/cmake/rosidl_typesupport_fastrtps_cConfig.cmake:41 (include)
+[7.449s]   /home/spacecal/ros2_foxy/ros2-linux/share/rosidl_typesupport_c/cmake/rosidl_typesupport_c-extras.cmake:13 (find_package)
+[7.450s]   /home/spacecal/ros2_foxy/ros2-linux/share/rosidl_typesupport_c/cmake/rosidl_typesupport_cConfig.cmake:41 (include)
+[7.450s]   /home/spacecal/ros2_foxy/ros2-linux/share/rosidl_default_runtime/cmake/rosidl_default_runtime-extras.cmake:12 (find_package)
+[7.450s]   /home/spacecal/ros2_foxy/ros2-linux/share/rosidl_default_runtime/cmake/rosidl_default_runtimeConfig.cmake:41 (include)
+[7.451s]   /home/spacecal/ros2_foxy/ros2-linux/share/builtin_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+[7.451s]   /home/spacecal/ros2_foxy/ros2-linux/share/builtin_interfaces/cmake/builtin_interfacesConfig.cmake:41 (include)
+[7.451s]   /home/spacecal/ros2_foxy/ros2-linux/share/std_msgs/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+[7.452s]   /home/spacecal/ros2_foxy/ros2-linux/share/std_msgs/cmake/std_msgsConfig.cmake:41 (include)
+[7.453s]   /home/spacecal/ros2_foxy/ros2-linux/share/geometry_msgs/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+[7.454s]   /home/spacecal/ros2_foxy/ros2-linux/share/geometry_msgs/cmake/geometry_msgsConfig.cmake:41 (include)
+[7.454s]   CMakeLists.txt:14 (find_package)
+[7.455s] 
+[7.455s] 
+[7.456s] -- Configuring incomplete, errors occurred!
+[7.457s] See also "/home/spacecal/SpaceCal/build/turtlesim/CMakeFiles/CMakeOutput.log".
+[7.527s] Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake /home/spacecal/SpaceCal/src/ros_tutorials/turtlesim -DCMAKE_INSTALL_PREFIX=/home/spacecal/SpaceCal/install/turtlesim
