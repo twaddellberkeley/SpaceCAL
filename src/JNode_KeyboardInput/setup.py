@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'JNodeInput = JNode_KeyboardInput.keyboardInput.py:main'
+        	'JNodeInput = JNode_KeyboardInput.keyInputNode:main'
 	],
     },
 )

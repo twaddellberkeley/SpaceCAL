@@ -1,0 +1,21 @@
+[5.556s] Invoking command in '/home/spacecal/SpaceCal/src/my_package': PYTHONPATH=/home/spacecal/SpaceCal/install/my_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/my_package build --build-base /home/spacecal/SpaceCal/build/my_package/build install --prefix /home/spacecal/SpaceCal/install/my_package --record /home/spacecal/SpaceCal/build/my_package/install.log --single-version-externally-managed
+[8.699s] running egg_info
+[8.706s] writing ../../build/my_package/my_package.egg-info/PKG-INFO
+[8.709s] writing dependency_links to ../../build/my_package/my_package.egg-info/dependency_links.txt
+[8.711s] writing entry points to ../../build/my_package/my_package.egg-info/entry_points.txt
+[8.713s] writing requirements to ../../build/my_package/my_package.egg-info/requires.txt
+[8.715s] writing top-level names to ../../build/my_package/my_package.egg-info/top_level.txt
+[9.172s] reading manifest file '../../build/my_package/my_package.egg-info/SOURCES.txt'
+[9.185s] writing manifest file '../../build/my_package/my_package.egg-info/SOURCES.txt'
+[9.194s] running build
+[9.198s] running build_py
+[9.206s] running install
+[9.223s] running install_lib
+[9.257s] running install_data
+[9.268s] running install_egg_info
+[9.307s] removing '/home/spacecal/SpaceCal/install/my_package/lib/python3.8/site-packages/my_package-0.0.0-py3.8.egg-info' (and everything under it)
+[9.315s] Copying ../../build/my_package/my_package.egg-info to /home/spacecal/SpaceCal/install/my_package/lib/python3.8/site-packages/my_package-0.0.0-py3.8.egg-info
+[9.374s] running install_scripts
+[9.719s] Installing my_node script to /home/spacecal/SpaceCal/install/my_package/lib/my_package
+[9.725s] writing list of installed files to '/home/spacecal/SpaceCal/build/my_package/install.log'
+[10.245s] Invoked command in '/home/spacecal/SpaceCal/src/my_package' returned '0': PYTHONPATH=/home/spacecal/SpaceCal/install/my_package/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/my_package build --build-base /home/spacecal/SpaceCal/build/my_package/build install --prefix /home/spacecal/SpaceCal/install/my_package --record /home/spacecal/SpaceCal/build/my_package/install.log --single-version-externally-managed
