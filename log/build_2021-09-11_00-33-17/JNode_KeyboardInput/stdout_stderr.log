@@ -1,0 +1,31 @@
+running egg_info
+creating ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info
+writing ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/PKG-INFO
+writing dependency_links to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/dependency_links.txt
+writing entry points to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/entry_points.txt
+writing requirements to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/requires.txt
+writing top-level names to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/top_level.txt
+writing manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'
+reading manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'
+writing manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build
+creating /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib
+creating /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput
+copying JNode_KeyboardInput/__init__.py -> /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput
+running install
+running install_lib
+creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput
+copying /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput/__init__.py -> /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput
+byte-compiling /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput/__init__.py to __init__.cpython-38.pyc
+running install_data
+creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index
+creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index/resource_index
+creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index/resource_index/packages
+copying resource/JNode_KeyboardInput -> /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index/resource_index/packages
+copying package.xml -> /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput
+running install_egg_info
+Copying ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info to /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info
+running install_scripts
+writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log'

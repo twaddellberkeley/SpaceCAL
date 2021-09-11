@@ -1,0 +1,478 @@
+[0.000000] (-) TimerEvent: {}
+[0.001154] (JNode_KeyboardInput) JobQueued: {'identifier': 'JNode_KeyboardInput', 'dependencies': OrderedDict()}
+[0.001431] (JNode_MotorController) JobQueued: {'identifier': 'JNode_MotorController', 'dependencies': OrderedDict()}
+[0.001628] (turtlesim) JobQueued: {'identifier': 'turtlesim', 'dependencies': OrderedDict()}
+[0.004116] (JNode_KeyboardInput) JobStarted: {'identifier': 'JNode_KeyboardInput'}
+[0.096341] (-) TimerEvent: {}
+[0.173318] (JNode_MotorController) JobStarted: {'identifier': 'JNode_MotorController'}
+[0.202404] (-) TimerEvent: {}
+[0.271729] (turtlesim) JobStarted: {'identifier': 'turtlesim'}
+[0.307013] (-) TimerEvent: {}
+[0.410728] (-) TimerEvent: {}
+[0.514857] (-) TimerEvent: {}
+[0.617461] (-) TimerEvent: {}
+[0.719407] (-) TimerEvent: {}
+[0.821308] (-) TimerEvent: {}
+[0.923157] (-) TimerEvent: {}
+[1.025090] (-) TimerEvent: {}
+[1.126962] (-) TimerEvent: {}
+[1.228885] (-) TimerEvent: {}
+[1.330681] (-) TimerEvent: {}
+[1.432612] (-) TimerEvent: {}
+[1.534565] (-) TimerEvent: {}
+[1.636660] (-) TimerEvent: {}
+[1.738626] (-) TimerEvent: {}
+[1.841019] (-) TimerEvent: {}
+[1.950778] (-) TimerEvent: {}
+[2.055529] (-) TimerEvent: {}
+[2.157909] (-) TimerEvent: {}
+[2.259854] (-) TimerEvent: {}
+[2.361767] (-) TimerEvent: {}
+[2.463741] (-) TimerEvent: {}
+[2.565856] (-) TimerEvent: {}
+[2.667851] (-) TimerEvent: {}
+[2.769990] (-) TimerEvent: {}
+[2.871791] (-) TimerEvent: {}
+[2.973534] (-) TimerEvent: {}
+[3.075452] (-) TimerEvent: {}
+[3.177453] (-) TimerEvent: {}
+[3.279446] (-) TimerEvent: {}
+[3.381747] (-) TimerEvent: {}
+[3.483814] (-) TimerEvent: {}
+[3.522689] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'cmake'}
+[3.533441] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'build'}
+[3.539889] (turtlesim) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/spacecal/SpaceCal/build/turtlesim', '--', '-j4', '-l4'], 'cwd': '/home/spacecal/SpaceCal/build/turtlesim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US'), ('USER', 'spacecal'), ('XDG_SEAT', 'seat0'), ('SSH_AGENT_PID', '5972'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/spacecal'), ('OLDPWD', '/home/spacecal/SpaceCal/src'), ('DESKTOP_SESSION', 'xubuntu'), ('ROS_PYTHON_VERSION', '3'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_colcon_cd_root', '/home/spacecal/ros2_foxy/ros2-linux'), ('QT_QPA_PLATFORMTHEME', 'gtk2'), ('COLCON_PREFIX_PATH', '/home/spacecal/ros2_foxy/ros2-linux'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'spacecal'), ('WINDOWID', '67108867'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('CLUTTER_BACKEND', 'x11'), ('TERM', 'xterm-256color'), ('GTK_OVERLAY_SCROLLING', '0'), ('XDG_SESSION_ID', 'c2'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830'), ('GDM_LANG', 'en_US'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('XDG_MENU_PREFIX', 'xfce-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0.0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'XFCE'), ('XDG_SESSION_DESKTOP', 'xubuntu'), ('XAUTHORITY', '/home/spacecal/.Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/spacecal'), ('AMENT_PREFIX_PATH', '/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'xubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('XDG_VTNR', '7'), ('PWD', '/home/spacecal/SpaceCal/build/turtlesim'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share'), ('PYTHONPATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy')]), 'shell': False}
+[3.584453] (-) TimerEvent: {}
+[3.611385] (JNode_KeyboardInput) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/JNode_KeyboardInput', 'build', '--build-base', '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/build', 'install', '--prefix', '/home/spacecal/SpaceCal/install/JNode_KeyboardInput', '--record', '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log', '--single-version-externally-managed'], 'cwd': '/home/spacecal/SpaceCal/src/JNode_KeyboardInput', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_US', 'USER': 'spacecal', 'XDG_SEAT': 'seat0', 'SSH_AGENT_PID': '5972', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/spacecal', 'OLDPWD': '/home/spacecal/SpaceCal/src', 'DESKTOP_SESSION': 'xubuntu', 'ROS_PYTHON_VERSION': '3', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', '_colcon_cd_root': '/home/spacecal/ros2_foxy/ros2-linux', 'QT_QPA_PLATFORMTHEME': 'gtk2', 'COLCON_PREFIX_PATH': '/home/spacecal/ros2_foxy/ros2-linux', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'spacecal', 'WINDOWID': '67108867', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PKG_CONFIG_PATH': '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig', 'XDG_SESSION_CLASS': 'user', 'CLUTTER_BACKEND': 'x11', 'TERM': 'xterm-256color', 'GTK_OVERLAY_SCROLLING': '0', 'XDG_SESSION_ID': 'c2', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830', 'GDM_LANG': 'en_US', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_MENU_PREFIX': 'xfce-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0.0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'XFCE', 'XDG_SESSION_DESKTOP': 'xubuntu', 'XAUTHORITY': '/home/spacecal/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/spacecal', 'AMENT_PREFIX_PATH': '/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'xubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'XDG_VTNR': '7', 'PWD': '/home/spacecal/SpaceCal/build/JNode_KeyboardInput', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share', 'PYTHONPATH': '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1', 'VTE_VERSION': '6003', 'CMAKE_PREFIX_PATH': '/home/spacecal/ros2_foxy/ros2-linux'}, 'shell': False}
+[3.667215] (JNode_MotorController) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/JNode_MotorController', 'build', '--build-base', '/home/spacecal/SpaceCal/build/JNode_MotorController/build', 'install', '--prefix', '/home/spacecal/SpaceCal/install/JNode_MotorController', '--record', '/home/spacecal/SpaceCal/build/JNode_MotorController/install.log', '--single-version-externally-managed'], 'cwd': '/home/spacecal/SpaceCal/src/JNode_MotorController', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_US', 'USER': 'spacecal', 'XDG_SEAT': 'seat0', 'SSH_AGENT_PID': '5972', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/spacecal', 'OLDPWD': '/home/spacecal/SpaceCal/src', 'DESKTOP_SESSION': 'xubuntu', 'ROS_PYTHON_VERSION': '3', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', '_colcon_cd_root': '/home/spacecal/ros2_foxy/ros2-linux', 'QT_QPA_PLATFORMTHEME': 'gtk2', 'COLCON_PREFIX_PATH': '/home/spacecal/ros2_foxy/ros2-linux', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'spacecal', 'WINDOWID': '67108867', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PKG_CONFIG_PATH': '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig', 'XDG_SESSION_CLASS': 'user', 'CLUTTER_BACKEND': 'x11', 'TERM': 'xterm-256color', 'GTK_OVERLAY_SCROLLING': '0', 'XDG_SESSION_ID': 'c2', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830', 'GDM_LANG': 'en_US', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_MENU_PREFIX': 'xfce-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0.0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'XFCE', 'XDG_SESSION_DESKTOP': 'xubuntu', 'XAUTHORITY': '/home/spacecal/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/spacecal', 'AMENT_PREFIX_PATH': '/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'xubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'XDG_VTNR': '7', 'PWD': '/home/spacecal/SpaceCal/build/JNode_MotorController', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share', 'PYTHONPATH': '/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1', 'VTE_VERSION': '6003', 'CMAKE_PREFIX_PATH': '/home/spacecal/ros2_foxy/ros2-linux'}, 'shell': False}
+[3.688912] (-) TimerEvent: {}
+[3.791383] (-) TimerEvent: {}
+[3.893601] (-) TimerEvent: {}
+[3.997341] (-) TimerEvent: {}
+[4.099461] (-) TimerEvent: {}
+[4.201552] (-) TimerEvent: {}
+[4.301379] (turtlesim) StdoutLine: {'line': b'[  1%] Built target turtlesim__cpp\n'}
+[4.303595] (-) TimerEvent: {}
+[4.406563] (-) TimerEvent: {}
+[4.508580] (-) TimerEvent: {}
+[4.520037] (turtlesim) StdoutLine: {'line': b'[ 11%] Built target turtlesim__rosidl_generator_c\n'}
+[4.609024] (-) TimerEvent: {}
+[4.711075] (-) TimerEvent: {}
+[4.813185] (-) TimerEvent: {}
+[4.864968] (turtlesim) StdoutLine: {'line': b'[ 21%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp\n'}
+[4.887197] (turtlesim) StdoutLine: {'line': b'[ 31%] Built target turtlesim__rosidl_typesupport_cpp\n'}
+[4.913621] (-) TimerEvent: {}
+[4.923941] (turtlesim) StdoutLine: {'line': b'[ 41%] Built target turtlesim__rosidl_typesupport_introspection_cpp\n'}
+[5.010355] (turtlesim) StdoutLine: {'line': b'[ 51%] Built target turtlesim__rosidl_typesupport_c\n'}
+[5.013989] (-) TimerEvent: {}
+[5.115989] (-) TimerEvent: {}
+[5.172003] (turtlesim) StdoutLine: {'line': b'[ 61%] Built target turtlesim__rosidl_typesupport_introspection_c\n'}
+[5.216494] (-) TimerEvent: {}
+[5.265799] (turtlesim) StdoutLine: {'line': b'[ 71%] Built target turtlesim__rosidl_typesupport_fastrtps_c\n'}
+[5.316941] (-) TimerEvent: {}
+[5.419031] (-) TimerEvent: {}
+[5.437622] (turtlesim) StdoutLine: {'line': b'[ 71%] Built target turtlesim\n'}
+[5.519539] (-) TimerEvent: {}
+[5.622435] (-) TimerEvent: {}
+[5.724669] (-) TimerEvent: {}
+[5.826799] (-) TimerEvent: {}
+[5.839198] (turtlesim) StdoutLine: {'line': b'[ 72%] Built target turtlesim__py\n'}
+[5.927245] (-) TimerEvent: {}
+[5.929836] (turtlesim) StdoutLine: {'line': b'[ 74%] Built target mimic\n'}
+[5.949058] (turtlesim) StdoutLine: {'line': b'[ 76%] Built target draw_square\n'}
+[5.987987] (JNode_KeyboardInput) StdoutLine: {'line': b'running egg_info\n'}
+[5.994725] (JNode_KeyboardInput) StdoutLine: {'line': b'creating ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info\n'}
+[6.000454] (JNode_KeyboardInput) StdoutLine: {'line': b'writing ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/PKG-INFO\n'}
+[6.005916] (JNode_KeyboardInput) StdoutLine: {'line': b'writing dependency_links to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/dependency_links.txt\n'}
+[6.010513] (JNode_KeyboardInput) StdoutLine: {'line': b'writing entry points to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/entry_points.txt\n'}
+[6.014561] (JNode_KeyboardInput) StdoutLine: {'line': b'writing requirements to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/requires.txt\n'}
+[6.017891] (JNode_KeyboardInput) StdoutLine: {'line': b'writing top-level names to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/top_level.txt\n'}
+[6.023319] (turtlesim) StdoutLine: {'line': b'[ 78%] Built target turtle_teleop_key\n'}
+[6.027710] (-) TimerEvent: {}
+[6.041308] (JNode_KeyboardInput) StdoutLine: {'line': b"writing manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'\n"}
+[6.128132] (-) TimerEvent: {}
+[6.167192] (JNode_MotorController) StdoutLine: {'line': b'running egg_info\n'}
+[6.177817] (JNode_MotorController) StdoutLine: {'line': b'creating ../../build/JNode_MotorController/JNode_MotorController.egg-info\n'}
+[6.185504] (JNode_MotorController) StdoutLine: {'line': b'writing ../../build/JNode_MotorController/JNode_MotorController.egg-info/PKG-INFO\n'}
+[6.191995] (JNode_MotorController) StdoutLine: {'line': b'writing dependency_links to ../../build/JNode_MotorController/JNode_MotorController.egg-info/dependency_links.txt\n'}
+[6.196109] (JNode_MotorController) StdoutLine: {'line': b'writing entry points to ../../build/JNode_MotorController/JNode_MotorController.egg-info/entry_points.txt\n'}
+[6.199788] (JNode_MotorController) StdoutLine: {'line': b'writing requirements to ../../build/JNode_MotorController/JNode_MotorController.egg-info/requires.txt\n'}
+[6.205529] (JNode_MotorController) StdoutLine: {'line': b'writing top-level names to ../../build/JNode_MotorController/JNode_MotorController.egg-info/top_level.txt\n'}
+[6.220710] (JNode_MotorController) StdoutLine: {'line': b"writing manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'\n"}
+[6.228480] (-) TimerEvent: {}
+[6.320528] (turtlesim) StdoutLine: {'line': b'[ 87%] Built target turtlesim__python\n'}
+[6.328875] (-) TimerEvent: {}
+[6.356917] (turtlesim) StdoutLine: {'line': b'[ 93%] Built target turtlesim_node\n'}
+[6.401637] (JNode_KeyboardInput) StdoutLine: {'line': b"reading manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'\n"}
+[6.409933] (JNode_KeyboardInput) StdoutLine: {'line': b"writing manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'\n"}
+[6.412360] (JNode_KeyboardInput) StdoutLine: {'line': b'running build\n'}
+[6.414443] (JNode_KeyboardInput) StdoutLine: {'line': b'running build_py\n'}
+[6.416547] (JNode_KeyboardInput) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build\n'}
+[6.418494] (JNode_KeyboardInput) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib\n'}
+[6.421265] (JNode_KeyboardInput) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput\n'}
+[6.423084] (JNode_KeyboardInput) StdoutLine: {'line': b'copying JNode_KeyboardInput/__init__.py -> /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput\n'}
+[6.424479] (JNode_KeyboardInput) StdoutLine: {'line': b'running install\n'}
+[6.435356] (-) TimerEvent: {}
+[6.437584] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_lib\n'}
+[6.453214] (JNode_KeyboardInput) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput\n'}
+[6.457473] (JNode_KeyboardInput) StdoutLine: {'line': b'copying /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput/__init__.py -> /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput\n'}
+[6.466166] (JNode_KeyboardInput) StdoutLine: {'line': b'byte-compiling /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput/__init__.py to __init__.cpython-38.pyc\n'}
+[6.486599] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_data\n'}
+[6.504960] (JNode_KeyboardInput) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index\n'}
+[6.508767] (JNode_KeyboardInput) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index/resource_index\n'}
+[6.511697] (JNode_KeyboardInput) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index/resource_index/packages\n'}
+[6.525820] (JNode_KeyboardInput) StdoutLine: {'line': b'copying resource/JNode_KeyboardInput -> /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/ament_index/resource_index/packages\n'}
+[6.530231] (JNode_KeyboardInput) StdoutLine: {'line': b'copying package.xml -> /home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput\n'}
+[6.534133] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_egg_info\n'}
+[6.535556] (-) TimerEvent: {}
+[6.550756] (JNode_MotorController) StdoutLine: {'line': b"reading manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'\n"}
+[6.557950] (JNode_MotorController) StdoutLine: {'line': b"writing manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'\n"}
+[6.560420] (JNode_MotorController) StdoutLine: {'line': b'running build\n'}
+[6.561789] (JNode_MotorController) StdoutLine: {'line': b'running build_py\n'}
+[6.563081] (JNode_MotorController) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/build/JNode_MotorController/build\n'}
+[6.564881] (JNode_MotorController) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/build/JNode_MotorController/build/lib\n'}
+[6.569672] (JNode_MotorController) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/build/JNode_MotorController/build/lib/JNode_MotorController\n'}
+[6.570973] (JNode_MotorController) StdoutLine: {'line': b'copying JNode_MotorController/__init__.py -> /home/spacecal/SpaceCal/build/JNode_MotorController/build/lib/JNode_MotorController\n'}
+[6.572339] (JNode_KeyboardInput) StdoutLine: {'line': b'Copying ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info to /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info\n'}
+[6.574052] (JNode_MotorController) StdoutLine: {'line': b'running install\n'}
+[6.584388] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_scripts\n'}
+[6.587969] (JNode_MotorController) StdoutLine: {'line': b'running install_lib\n'}
+[6.595206] (JNode_MotorController) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController\n'}
+[6.597896] (JNode_MotorController) StdoutLine: {'line': b'copying /home/spacecal/SpaceCal/build/JNode_MotorController/build/lib/JNode_MotorController/__init__.py -> /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController\n'}
+[6.604442] (JNode_MotorController) StdoutLine: {'line': b'byte-compiling /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController/__init__.py to __init__.cpython-38.pyc\n'}
+[6.614994] (JNode_MotorController) StdoutLine: {'line': b'running install_data\n'}
+[6.620993] (JNode_MotorController) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_MotorController/share/ament_index\n'}
+[6.622974] (JNode_MotorController) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_MotorController/share/ament_index/resource_index\n'}
+[6.624816] (JNode_MotorController) StdoutLine: {'line': b'creating /home/spacecal/SpaceCal/install/JNode_MotorController/share/ament_index/resource_index/packages\n'}
+[6.625833] (JNode_MotorController) StdoutLine: {'line': b'copying resource/JNode_MotorController -> /home/spacecal/SpaceCal/install/JNode_MotorController/share/ament_index/resource_index/packages\n'}
+[6.627508] (JNode_MotorController) StdoutLine: {'line': b'copying package.xml -> /home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController\n'}
+[6.628775] (JNode_MotorController) StdoutLine: {'line': b'running install_egg_info\n'}
+[6.636089] (-) TimerEvent: {}
+[6.646128] (JNode_MotorController) StdoutLine: {'line': b'Copying ../../build/JNode_MotorController/JNode_MotorController.egg-info to /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController-0.0.0-py3.8.egg-info\n'}
+[6.658392] (JNode_MotorController) StdoutLine: {'line': b'running install_scripts\n'}
+[6.705300] (turtlesim) StdoutLine: {'line': b'[ 95%] Built target turtlesim__rosidl_typesupport_introspection_c__pyext\n'}
+[6.726204] (turtlesim) StdoutLine: {'line': b'[ 97%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext\n'}
+[6.736475] (-) TimerEvent: {}
+[6.762952] (turtlesim) StdoutLine: {'line': b'[100%] Built target turtlesim__rosidl_typesupport_c__pyext\n'}
+[6.836752] (JNode_KeyboardInput) StdoutLine: {'line': b"writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log'\n"}
+[6.838757] (-) TimerEvent: {}
+[6.863425] (JNode_MotorController) StdoutLine: {'line': b"writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_MotorController/install.log'\n"}
+[6.898818] (turtlesim) CommandEnded: {'returncode': 0}
+[6.942576] (-) TimerEvent: {}
+[7.045853] (-) TimerEvent: {}
+[7.148239] (-) TimerEvent: {}
+[7.250477] (-) TimerEvent: {}
+[7.316814] (JNode_KeyboardInput) CommandEnded: {'returncode': 0}
+[7.351970] (-) TimerEvent: {}
+[7.455416] (-) TimerEvent: {}
+[7.462350] (JNode_KeyboardInput) JobEnded: {'identifier': 'JNode_KeyboardInput', 'rc': 0}
+[7.482503] (JNode_MotorController) CommandEnded: {'returncode': 0}
+[7.556181] (-) TimerEvent: {}
+[7.610623] (JNode_MotorController) JobEnded: {'identifier': 'JNode_MotorController', 'rc': 0}
+[7.656978] (-) TimerEvent: {}
+[7.761119] (-) TimerEvent: {}
+[7.863620] (-) TimerEvent: {}
+[7.965315] (-) TimerEvent: {}
+[8.059958] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'install'}
+[8.069620] (-) TimerEvent: {}
+[8.161922] (turtlesim) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/spacecal/SpaceCal/build/turtlesim'], 'cwd': '/home/spacecal/SpaceCal/build/turtlesim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US'), ('USER', 'spacecal'), ('XDG_SEAT', 'seat0'), ('SSH_AGENT_PID', '5972'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/spacecal'), ('OLDPWD', '/home/spacecal/SpaceCal/src'), ('DESKTOP_SESSION', 'xubuntu'), ('ROS_PYTHON_VERSION', '3'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_colcon_cd_root', '/home/spacecal/ros2_foxy/ros2-linux'), ('QT_QPA_PLATFORMTHEME', 'gtk2'), ('COLCON_PREFIX_PATH', '/home/spacecal/ros2_foxy/ros2-linux'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'spacecal'), ('WINDOWID', '67108867'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('CLUTTER_BACKEND', 'x11'), ('TERM', 'xterm-256color'), ('GTK_OVERLAY_SCROLLING', '0'), ('XDG_SESSION_ID', 'c2'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830'), ('GDM_LANG', 'en_US'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('XDG_MENU_PREFIX', 'xfce-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0.0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'XFCE'), ('XDG_SESSION_DESKTOP', 'xubuntu'), ('XAUTHORITY', '/home/spacecal/.Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/spacecal'), ('AMENT_PREFIX_PATH', '/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'xubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('XDG_VTNR', '7'), ('PWD', '/home/spacecal/SpaceCal/build/turtlesim'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share'), ('PYTHONPATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy')]), 'shell': False}
+[8.170762] (-) TimerEvent: {}
+[8.238693] (turtlesim) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[8.241028] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/rosidl_interfaces/turtlesim\n'}
+[8.242202] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[8.243005] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[8.243756] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_generator_c__visibility_control.h\n'}
+[8.244521] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[8.245306] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__functions.c\n'}
+[8.246180] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.h\n'}
+[8.246758] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__functions.h\n'}
+[8.247284] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__functions.c\n'}
+[8.247701] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__functions.h\n'}
+[8.248211] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.h\n'}
+[8.248617] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__struct.h\n'}
+[8.248997] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__struct.h\n'}
+[8.249409] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/color.h\n'}
+[8.250185] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/pose.h\n'}
+[8.251100] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[8.252220] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/set_pen.h\n'}
+[8.252970] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[8.253450] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__functions.c\n'}
+[8.253921] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__functions.h\n'}
+[8.254282] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__functions.h\n'}
+[8.254680] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__functions.c\n'}
+[8.255029] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__struct.h\n'}
+[8.255450] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__functions.c\n'}
+[8.255897] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.h\n'}
+[8.256359] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.h\n'}
+[8.256891] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__functions.h\n'}
+[8.257307] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__struct.h\n'}
+[8.258047] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__struct.h\n'}
+[8.258642] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__functions.h\n'}
+[8.259174] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__functions.c\n'}
+[8.259865] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__struct.h\n'}
+[8.260463] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__functions.h\n'}
+[8.261054] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.h\n'}
+[8.261511] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.h\n'}
+[8.261877] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.h\n'}
+[8.262246] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__functions.c\n'}
+[8.262611] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__struct.h\n'}
+[8.262968] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/kill.h\n'}
+[8.263340] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_absolute.h\n'}
+[8.263972] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_relative.h\n'}
+[8.264376] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/spawn.h\n'}
+[8.264884] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[8.265441] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[8.265975] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__functions.c\n'}
+[8.266486] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.h\n'}
+[8.267004] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__struct.h\n'}
+[8.267601] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__functions.h\n'}
+[8.268170] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/rotate_absolute.h\n'}
+[8.268576] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/library_path.sh\n'}
+[8.268995] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/library_path.dsv\n'}
+[8.269362] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_generator_c.so\n'}
+[8.269794] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[8.270143] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[8.270515] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[8.270989] (-) TimerEvent: {}
+[8.271799] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_fastrtps_c.h\n'}
+[8.272534] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_fastrtps_c.h\n'}
+[8.272984] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[8.273388] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[8.273782] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[8.274344] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_fastrtps_c.h\n'}
+[8.274778] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_fastrtps_c.h\n'}
+[8.275244] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_fastrtps_c.h\n'}
+[8.275849] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_fastrtps_c.h\n'}
+[8.276460] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_fastrtps_c.h\n'}
+[8.276973] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[8.277509] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[8.278013] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_fastrtps_c.h\n'}
+[8.278512] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_c.so\n'}
+[8.279046] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[8.279545] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[8.280124] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[8.280587] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.281089] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/dds_fastrtps\n'}
+[8.281632] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.282113] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[8.283038] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[8.284000] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[8.284643] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.285163] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.285562] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/dds_fastrtps\n'}
+[8.285934] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.286345] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.286698] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.287143] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[8.287981] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[8.288572] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.289004] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/dds_fastrtps\n'}
+[8.289394] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_cpp.so\n'}
+[8.289797] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[8.290144] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[8.290488] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[8.290880] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.c\n'}
+[8.291487] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.c\n'}
+[8.292027] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_introspection_c.h\n'}
+[8.292637] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_introspection_c.h\n'}
+[8.293224] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[8.293766] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[8.294222] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[8.294664] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.c\n'}
+[8.295138] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.c\n'}
+[8.295773] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_introspection_c.h\n'}
+[8.296330] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_introspection_c.h\n'}
+[8.296821] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_introspection_c.h\n'}
+[8.297327] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.c\n'}
+[8.297821] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_introspection_c.h\n'}
+[8.298523] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.c\n'}
+[8.299447] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.c\n'}
+[8.300429] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_introspection_c.h\n'}
+[8.301458] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[8.302571] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[8.303726] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_introspection_c.h\n'}
+[8.304815] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.c\n'}
+[8.306085] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_c.so\n'}
+[8.307138] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_c.so\n'}
+[8.308528] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[8.309606] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[8.310430] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[8.311311] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__traits.hpp\n'}
+[8.312571] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__traits.hpp\n'}
+[8.313987] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__builder.hpp\n'}
+[8.316243] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__struct.hpp\n'}
+[8.317774] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__builder.hpp\n'}
+[8.318898] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__struct.hpp\n'}
+[8.320247] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/pose.hpp\n'}
+[8.321145] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/color.hpp\n'}
+[8.321783] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[8.322456] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[8.323479] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__struct.hpp\n'}
+[8.324331] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__builder.hpp\n'}
+[8.324903] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__traits.hpp\n'}
+[8.325413] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__builder.hpp\n'}
+[8.325957] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__builder.hpp\n'}
+[8.326420] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__struct.hpp\n'}
+[8.326854] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__traits.hpp\n'}
+[8.327273] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__traits.hpp\n'}
+[8.327776] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__traits.hpp\n'}
+[8.328367] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__struct.hpp\n'}
+[8.328846] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__builder.hpp\n'}
+[8.329562] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__traits.hpp\n'}
+[8.330059] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__builder.hpp\n'}
+[8.330505] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__struct.hpp\n'}
+[8.330866] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__struct.hpp\n'}
+[8.331216] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_absolute.hpp\n'}
+[8.331588] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/spawn.hpp\n'}
+[8.332172] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/set_pen.hpp\n'}
+[8.332581] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_relative.hpp\n'}
+[8.333025] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/kill.hpp\n'}
+[8.333449] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[8.333858] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[8.334271] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__builder.hpp\n'}
+[8.334749] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__struct.hpp\n'}
+[8.335148] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__traits.hpp\n'}
+[8.335607] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/rotate_absolute.hpp\n'}
+[8.336371] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim\n'}
+[8.337167] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg\n'}
+[8.337888] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail\n'}
+[8.338561] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.338965] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.cpp\n'}
+[8.339396] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.cpp\n'}
+[8.339962] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.340502] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv\n'}
+[8.341046] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail\n'}
+[8.341487] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.cpp\n'}
+[8.341909] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.cpp\n'}
+[8.342410] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.342957] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.343419] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.cpp\n'}
+[8.344033] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.cpp\n'}
+[8.344541] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.344934] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.cpp\n'}
+[8.345312] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.345692] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.346098] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action\n'}
+[8.346511] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail\n'}
+[8.346952] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.347410] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.cpp\n'}
+[8.347989] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_cpp.so\n'}
+[8.348462] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_cpp.so\n'}
+[8.348952] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/pythonpath.sh\n'}
+[8.349386] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/pythonpath.dsv\n'}
+[8.349905] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/__init__.py\n'}
+[8.371328] (-) TimerEvent: {}
+[8.473102] (-) TimerEvent: {}
+[8.569606] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action\n'}
+[8.572171] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/_rotate_absolute_s.c\n'}
+[8.573395] (-) TimerEvent: {}
+[8.574300] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/__init__.py\n'}
+[8.575172] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/_rotate_absolute.py\n'}
+[8.575805] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg\n'}
+[8.576283] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_pose.py\n'}
+[8.576803] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_pose_s.c\n'}
+[8.577688] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/__init__.py\n'}
+[8.578146] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_color.py\n'}
+[8.578511] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_color_s.c\n'}
+[8.578898] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv\n'}
+[8.579284] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_set_pen_s.c\n'}
+[8.579700] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_set_pen.py\n'}
+[8.580175] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_kill_s.c\n'}
+[8.580531] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_kill.py\n'}
+[8.580920] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_spawn.py\n'}
+[8.581544] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/__init__.py\n'}
+[8.582051] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_relative_s.c\n'}
+[8.582441] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_absolute_s.c\n'}
+[8.582798] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_absolute.py\n'}
+[8.583168] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_relative.py\n'}
+[8.583516] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_spawn_s.c\n'}
+[8.584055] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so\n'}
+[8.584422] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so\n'}
+[8.585987] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so\n'}
+[8.589087] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__python.so\n'}
+[8.590328] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/action/RotateAbsolute.idl\n'}
+[8.591103] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Color.idl\n'}
+[8.591801] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Pose.idl\n'}
+[8.592378] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill.idl\n'}
+[8.592937] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen.idl\n'}
+[8.593455] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn.idl\n'}
+[8.593925] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.idl\n'}
+[8.594422] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative.idl\n'}
+[8.594847] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/action/RotateAbsolute.action\n'}
+[8.595300] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Color.msg\n'}
+[8.595806] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Pose.msg\n'}
+[8.596301] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill.srv\n'}
+[8.596808] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill_Request.msg\n'}
+[8.597298] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill_Response.msg\n'}
+[8.597900] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen.srv\n'}
+[8.598492] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen_Request.msg\n'}
+[8.598915] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen_Response.msg\n'}
+[8.599311] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn.srv\n'}
+[8.599727] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn_Request.msg\n'}
+[8.600138] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn_Response.msg\n'}
+[8.600502] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.srv\n'}
+[8.600927] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Request.msg\n'}
+[8.601709] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Response.msg\n'}
+[8.602557] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative.srv\n'}
+[8.603327] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative_Request.msg\n'}
+[8.604576] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative_Response.msg\n'}
+[8.605604] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtlesim_node\n'}
+[8.606978] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtle_teleop_key\n'}
+[8.611955] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/draw_square\n'}
+[8.616584] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/mimic\n'}
+[8.618147] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images\n'}
+[8.619179] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/dashing.png\n'}
+[8.622120] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/eloquent.png\n'}
+[8.623828] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/foxy.png\n'}
+[8.625113] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/bouncy.png\n'}
+[8.625676] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/ardent.png\n'}
+[8.626172] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/crystal.png\n'}
+[8.626704] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/launch\n'}
+[8.627533] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/launch/multisim.launch.py\n'}
+[8.628176] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/package_run_dependencies/turtlesim\n'}
+[8.628767] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/parent_prefix_path/turtlesim\n'}
+[8.629494] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/ament_prefix_path.sh\n'}
+[8.629995] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/ament_prefix_path.dsv\n'}
+[8.630538] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/path.sh\n'}
+[8.631002] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/path.dsv\n'}
+[8.631705] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.bash\n'}
+[8.632417] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.sh\n'}
+[8.633032] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.zsh\n'}
+[8.633692] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.dsv\n'}
+[8.634245] (turtlesim) StdoutLine: {'line': b'-- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.dsv\n'}
+[8.634692] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/packages/turtlesim\n'}
+[8.635232] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cExport.cmake\n'}
+[8.635982] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cExport-noconfig.cmake\n'}
+[8.636676] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cExport.cmake\n'}
+[8.637843] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[8.638733] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cExport.cmake\n'}
+[8.639343] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[8.640158] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cppExport.cmake\n'}
+[8.640729] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[8.641310] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[8.641937] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cppExport.cmake\n'}
+[8.642514] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[8.643101] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake-extras.cmake\n'}
+[8.643700] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[8.644256] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[8.644771] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[8.645366] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[8.645935] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[8.646376] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[8.646810] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesimConfig.cmake\n'}
+[8.648662] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesimConfig-version.cmake\n'}
+[8.649657] (turtlesim) StdoutLine: {'line': b'-- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.xml\n'}
+[8.660762] (turtlesim) CommandEnded: {'returncode': 0}
+[8.673824] (-) TimerEvent: {}
+[8.776523] (-) TimerEvent: {}
+[8.878998] (-) TimerEvent: {}
+[8.981467] (-) TimerEvent: {}
+[9.084076] (-) TimerEvent: {}
+[9.185638] (-) TimerEvent: {}
+[9.287762] (-) TimerEvent: {}
+[9.389423] (-) TimerEvent: {}
+[9.491100] (-) TimerEvent: {}
+[9.592843] (-) TimerEvent: {}
+[9.694607] (-) TimerEvent: {}
+[9.727261] (turtlesim) JobEnded: {'identifier': 'turtlesim', 'rc': 0}
+[9.742568] (-) EventReactorShutdown: {}

@@ -1,0 +1,22 @@
+[3.529s] Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4
+[4.087s] [  1%] Built target turtlesim__cpp
+[4.184s] [ 11%] Built target turtlesim__rosidl_generator_c
+[4.475s] [ 21%] Built target turtlesim__rosidl_typesupport_cpp
+[4.593s] [ 31%] Built target turtlesim__rosidl_typesupport_introspection_cpp
+[4.707s] [ 41%] Built target turtlesim__rosidl_typesupport_c
+[4.733s] [ 51%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp
+[4.829s] [ 61%] Built target turtlesim__rosidl_typesupport_introspection_c
+[5.010s] [ 71%] Built target turtlesim__rosidl_typesupport_fastrtps_c
+[5.185s] [ 71%] Built target turtlesim
+[5.545s] [ 72%] Built target turtlesim__py
+[5.750s] [ 74%] Built target mimic
+[5.763s] [ 76%] Built target draw_square
+[5.833s] [ 78%] Built target turtle_teleop_key
+[6.059s] [ 84%] Built target turtlesim_node
+[6.131s] [ 93%] Built target turtlesim__python
+[6.431s] [ 95%] Built target turtlesim__rosidl_typesupport_introspection_c__pyext
+[6.534s] [ 97%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext
+[6.581s] [100%] Built target turtlesim__rosidl_typesupport_c__pyext
+[6.702s] Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4
+[8.149s] Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --install /home/spacecal/SpaceCal/build/turtlesim
+[8.199s] Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '-2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --install /home/spacecal/SpaceCal/build/turtlesim

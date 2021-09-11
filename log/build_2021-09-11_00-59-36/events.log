@@ -1,0 +1,165 @@
+[0.000000] (-) TimerEvent: {}
+[0.007515] (JNode_KeyboardInput) JobQueued: {'identifier': 'JNode_KeyboardInput', 'dependencies': OrderedDict()}
+[0.007868] (JNode_MotorController) JobQueued: {'identifier': 'JNode_MotorController', 'dependencies': OrderedDict()}
+[0.008337] (turtlesim) JobQueued: {'identifier': 'turtlesim', 'dependencies': OrderedDict()}
+[0.008755] (JNode_KeyboardInput) JobStarted: {'identifier': 'JNode_KeyboardInput'}
+[0.091358] (-) TimerEvent: {}
+[0.140203] (JNode_MotorController) JobStarted: {'identifier': 'JNode_MotorController'}
+[0.192120] (-) TimerEvent: {}
+[0.265474] (turtlesim) JobStarted: {'identifier': 'turtlesim'}
+[0.297031] (-) TimerEvent: {}
+[0.407824] (-) TimerEvent: {}
+[0.511457] (-) TimerEvent: {}
+[0.613528] (-) TimerEvent: {}
+[0.715546] (-) TimerEvent: {}
+[0.817531] (-) TimerEvent: {}
+[0.919445] (-) TimerEvent: {}
+[1.021497] (-) TimerEvent: {}
+[1.123752] (-) TimerEvent: {}
+[1.225615] (-) TimerEvent: {}
+[1.327359] (-) TimerEvent: {}
+[1.429067] (-) TimerEvent: {}
+[1.530833] (-) TimerEvent: {}
+[1.632848] (-) TimerEvent: {}
+[1.734803] (-) TimerEvent: {}
+[1.836787] (-) TimerEvent: {}
+[1.939010] (-) TimerEvent: {}
+[2.046712] (-) TimerEvent: {}
+[2.151490] (-) TimerEvent: {}
+[2.254013] (-) TimerEvent: {}
+[2.356041] (-) TimerEvent: {}
+[2.457920] (-) TimerEvent: {}
+[2.559866] (-) TimerEvent: {}
+[2.661816] (-) TimerEvent: {}
+[2.763670] (-) TimerEvent: {}
+[2.865745] (-) TimerEvent: {}
+[2.967789] (-) TimerEvent: {}
+[3.069535] (-) TimerEvent: {}
+[3.171307] (-) TimerEvent: {}
+[3.273176] (-) TimerEvent: {}
+[3.376949] (-) TimerEvent: {}
+[3.478996] (-) TimerEvent: {}
+[3.581267] (-) TimerEvent: {}
+[3.683632] (-) TimerEvent: {}
+[3.780912] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'cmake'}
+[3.784107] (-) TimerEvent: {}
+[3.787856] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'build'}
+[3.793013] (turtlesim) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/spacecal/SpaceCal/build/turtlesim', '--', '-j4', '-l4'], 'cwd': '/home/spacecal/SpaceCal/build/turtlesim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US'), ('USER', 'spacecal'), ('XDG_SEAT', 'seat0'), ('SSH_AGENT_PID', '5972'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/spacecal/SpaceCal/src/install/turtlesim/lib:/home/spacecal/SpaceCal/install/turtlesim/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/spacecal'), ('OLDPWD', '/home/spacecal/SpaceCal/src'), ('DESKTOP_SESSION', 'xubuntu'), ('ROS_PYTHON_VERSION', '3'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_colcon_cd_root', '/home/spacecal/ros2_foxy/ros2-linux'), ('QT_QPA_PLATFORMTHEME', 'gtk2'), ('COLCON_PREFIX_PATH', '/home/spacecal/SpaceCal/install:/home/spacecal/ros2_foxy/ros2-linux:'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'spacecal'), ('WINDOWID', '67108867'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('CLUTTER_BACKEND', 'x11'), ('TERM', 'xterm-256color'), ('GTK_OVERLAY_SCROLLING', '0'), ('XDG_SESSION_ID', 'c2'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830'), ('GDM_LANG', 'en_US'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('XDG_MENU_PREFIX', 'xfce-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0.0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'XFCE'), ('XDG_SESSION_DESKTOP', 'xubuntu'), ('XAUTHORITY', '/home/spacecal/.Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/spacecal'), ('AMENT_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'xubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('XDG_VTNR', '7'), ('PWD', '/home/spacecal/SpaceCal/build/turtlesim'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share'), ('PYTHONPATH', '/home/spacecal/SpaceCal/src/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/spacecal/SpaceCal/src/install/turtlesim:/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy')]), 'shell': False}
+[3.869351] (JNode_KeyboardInput) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/JNode_KeyboardInput', 'build', '--build-base', '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/build', 'install', '--prefix', '/home/spacecal/SpaceCal/install/JNode_KeyboardInput', '--record', '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log', '--single-version-externally-managed'], 'cwd': '/home/spacecal/SpaceCal/src/JNode_KeyboardInput', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_US', 'USER': 'spacecal', 'XDG_SEAT': 'seat0', 'SSH_AGENT_PID': '5972', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/spacecal/SpaceCal/src/install/turtlesim/lib:/home/spacecal/SpaceCal/install/turtlesim/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/spacecal', 'OLDPWD': '/home/spacecal/SpaceCal/src', 'DESKTOP_SESSION': 'xubuntu', 'ROS_PYTHON_VERSION': '3', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', '_colcon_cd_root': '/home/spacecal/ros2_foxy/ros2-linux', 'QT_QPA_PLATFORMTHEME': 'gtk2', 'COLCON_PREFIX_PATH': '/home/spacecal/SpaceCal/install:/home/spacecal/ros2_foxy/ros2-linux:', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'spacecal', 'WINDOWID': '67108867', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PKG_CONFIG_PATH': '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig', 'XDG_SESSION_CLASS': 'user', 'CLUTTER_BACKEND': 'x11', 'TERM': 'xterm-256color', 'GTK_OVERLAY_SCROLLING': '0', 'XDG_SESSION_ID': 'c2', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830', 'GDM_LANG': 'en_US', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_MENU_PREFIX': 'xfce-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0.0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'XFCE', 'XDG_SESSION_DESKTOP': 'xubuntu', 'XAUTHORITY': '/home/spacecal/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/spacecal', 'AMENT_PREFIX_PATH': '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'xubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'XDG_VTNR': '7', 'PWD': '/home/spacecal/SpaceCal/build/JNode_KeyboardInput', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share', 'PYTHONPATH': '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1', 'VTE_VERSION': '6003', 'CMAKE_PREFIX_PATH': '/home/spacecal/SpaceCal/src/install/turtlesim:/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux'}, 'shell': False}
+[3.888236] (-) TimerEvent: {}
+[3.895089] (JNode_MotorController) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/JNode_MotorController', 'build', '--build-base', '/home/spacecal/SpaceCal/build/JNode_MotorController/build', 'install', '--prefix', '/home/spacecal/SpaceCal/install/JNode_MotorController', '--record', '/home/spacecal/SpaceCal/build/JNode_MotorController/install.log', '--single-version-externally-managed'], 'cwd': '/home/spacecal/SpaceCal/src/JNode_MotorController', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_US', 'USER': 'spacecal', 'XDG_SEAT': 'seat0', 'SSH_AGENT_PID': '5972', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/spacecal/SpaceCal/src/install/turtlesim/lib:/home/spacecal/SpaceCal/install/turtlesim/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/spacecal', 'OLDPWD': '/home/spacecal/SpaceCal/src', 'DESKTOP_SESSION': 'xubuntu', 'ROS_PYTHON_VERSION': '3', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', '_colcon_cd_root': '/home/spacecal/ros2_foxy/ros2-linux', 'QT_QPA_PLATFORMTHEME': 'gtk2', 'COLCON_PREFIX_PATH': '/home/spacecal/SpaceCal/install:/home/spacecal/ros2_foxy/ros2-linux:', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'spacecal', 'WINDOWID': '67108867', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'PKG_CONFIG_PATH': '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig', 'XDG_SESSION_CLASS': 'user', 'CLUTTER_BACKEND': 'x11', 'TERM': 'xterm-256color', 'GTK_OVERLAY_SCROLLING': '0', 'XDG_SESSION_ID': 'c2', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830', 'GDM_LANG': 'en_US', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_MENU_PREFIX': 'xfce-', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0.0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'XFCE', 'XDG_SESSION_DESKTOP': 'xubuntu', 'XAUTHORITY': '/home/spacecal/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/spacecal', 'AMENT_PREFIX_PATH': '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'xubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'XDG_VTNR': '7', 'PWD': '/home/spacecal/SpaceCal/build/JNode_MotorController', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share', 'PYTHONPATH': '/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1', 'VTE_VERSION': '6003', 'CMAKE_PREFIX_PATH': '/home/spacecal/SpaceCal/src/install/turtlesim:/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux'}, 'shell': False}
+[3.988959] (-) TimerEvent: {}
+[4.091342] (-) TimerEvent: {}
+[4.193433] (-) TimerEvent: {}
+[4.295747] (-) TimerEvent: {}
+[4.355038] (turtlesim) StdoutLine: {'line': b'[  1%] Built target turtlesim__cpp\n'}
+[4.396260] (-) TimerEvent: {}
+[4.450895] (turtlesim) StdoutLine: {'line': b'[ 11%] Built target turtlesim__rosidl_generator_c\n'}
+[4.496726] (-) TimerEvent: {}
+[4.598961] (-) TimerEvent: {}
+[4.701349] (-) TimerEvent: {}
+[4.743318] (turtlesim) StdoutLine: {'line': b'[ 21%] Built target turtlesim__rosidl_typesupport_cpp\n'}
+[4.801902] (-) TimerEvent: {}
+[4.860984] (turtlesim) StdoutLine: {'line': b'[ 31%] Built target turtlesim__rosidl_typesupport_introspection_cpp\n'}
+[4.902359] (-) TimerEvent: {}
+[4.975898] (turtlesim) StdoutLine: {'line': b'[ 41%] Built target turtlesim__rosidl_typesupport_c\n'}
+[5.001991] (turtlesim) StdoutLine: {'line': b'[ 51%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp\n'}
+[5.003755] (-) TimerEvent: {}
+[5.097757] (turtlesim) StdoutLine: {'line': b'[ 61%] Built target turtlesim__rosidl_typesupport_introspection_c\n'}
+[5.104250] (-) TimerEvent: {}
+[5.206106] (-) TimerEvent: {}
+[5.279258] (turtlesim) StdoutLine: {'line': b'[ 71%] Built target turtlesim__rosidl_typesupport_fastrtps_c\n'}
+[5.306639] (-) TimerEvent: {}
+[5.408715] (-) TimerEvent: {}
+[5.448569] (turtlesim) StdoutLine: {'line': b'[ 71%] Built target turtlesim\n'}
+[5.509260] (-) TimerEvent: {}
+[5.611300] (-) TimerEvent: {}
+[5.713357] (-) TimerEvent: {}
+[5.814702] (turtlesim) StdoutLine: {'line': b'[ 72%] Built target turtlesim__py\n'}
+[5.816253] (-) TimerEvent: {}
+[5.917763] (-) TimerEvent: {}
+[6.018867] (turtlesim) StdoutLine: {'line': b'[ 74%] Built target mimic\n'}
+[6.020794] (-) TimerEvent: {}
+[6.031574] (turtlesim) StdoutLine: {'line': b'[ 76%] Built target draw_square\n'}
+[6.100303] (turtlesim) StdoutLine: {'line': b'[ 78%] Built target turtle_teleop_key\n'}
+[6.121329] (-) TimerEvent: {}
+[6.223321] (-) TimerEvent: {}
+[6.325394] (-) TimerEvent: {}
+[6.328291] (turtlesim) StdoutLine: {'line': b'[ 84%] Built target turtlesim_node\n'}
+[6.343310] (JNode_MotorController) StdoutLine: {'line': b'running egg_info\n'}
+[6.345227] (JNode_KeyboardInput) StdoutLine: {'line': b'running egg_info\n'}
+[6.349571] (JNode_KeyboardInput) StdoutLine: {'line': b'writing ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/PKG-INFO\n'}
+[6.373818] (JNode_MotorController) StdoutLine: {'line': b'writing ../../build/JNode_MotorController/JNode_MotorController.egg-info/PKG-INFO\n'}
+[6.377525] (JNode_KeyboardInput) StdoutLine: {'line': b'writing dependency_links to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/dependency_links.txt\n'}
+[6.389518] (JNode_MotorController) StdoutLine: {'line': b'writing dependency_links to ../../build/JNode_MotorController/JNode_MotorController.egg-info/dependency_links.txt\n'}
+[6.391504] (JNode_KeyboardInput) StdoutLine: {'line': b'writing entry points to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/entry_points.txt\n'}
+[6.393429] (JNode_KeyboardInput) StdoutLine: {'line': b'writing requirements to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/requires.txt\n'}
+[6.394855] (JNode_KeyboardInput) StdoutLine: {'line': b'writing top-level names to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/top_level.txt\n'}
+[6.395977] (JNode_MotorController) StdoutLine: {'line': b'writing entry points to ../../build/JNode_MotorController/JNode_MotorController.egg-info/entry_points.txt\n'}
+[6.398069] (JNode_MotorController) StdoutLine: {'line': b'writing requirements to ../../build/JNode_MotorController/JNode_MotorController.egg-info/requires.txt\n'}
+[6.399274] (JNode_MotorController) StdoutLine: {'line': b'writing top-level names to ../../build/JNode_MotorController/JNode_MotorController.egg-info/top_level.txt\n'}
+[6.400267] (turtlesim) StdoutLine: {'line': b'[ 93%] Built target turtlesim__python\n'}
+[6.425888] (-) TimerEvent: {}
+[6.528207] (-) TimerEvent: {}
+[6.630222] (-) TimerEvent: {}
+[6.699930] (turtlesim) StdoutLine: {'line': b'[ 95%] Built target turtlesim__rosidl_typesupport_introspection_c__pyext\n'}
+[6.704176] (JNode_MotorController) StdoutLine: {'line': b"reading manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'\n"}
+[6.712015] (JNode_KeyboardInput) StdoutLine: {'line': b"reading manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'\n"}
+[6.717294] (JNode_MotorController) StdoutLine: {'line': b"writing manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'\n"}
+[6.720127] (JNode_KeyboardInput) StdoutLine: {'line': b"writing manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'\n"}
+[6.722973] (JNode_MotorController) StdoutLine: {'line': b'running build\n'}
+[6.725621] (JNode_KeyboardInput) StdoutLine: {'line': b'running build\n'}
+[6.726821] (JNode_KeyboardInput) StdoutLine: {'line': b'running build_py\n'}
+[6.732876] (-) TimerEvent: {}
+[6.735450] (JNode_MotorController) StdoutLine: {'line': b'running build_py\n'}
+[6.737993] (JNode_KeyboardInput) StdoutLine: {'line': b'running install\n'}
+[6.739368] (JNode_MotorController) StdoutLine: {'line': b'running install\n'}
+[6.740209] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_lib\n'}
+[6.740948] (JNode_MotorController) StdoutLine: {'line': b'running install_lib\n'}
+[6.751824] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_data\n'}
+[6.753634] (JNode_MotorController) StdoutLine: {'line': b'running install_data\n'}
+[6.757765] (JNode_MotorController) StdoutLine: {'line': b'running install_egg_info\n'}
+[6.759798] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_egg_info\n'}
+[6.784701] (JNode_MotorController) StdoutLine: {'line': b"removing '/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[6.789389] (JNode_KeyboardInput) StdoutLine: {'line': b"removing '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[6.793822] (JNode_MotorController) StdoutLine: {'line': b'Copying ../../build/JNode_MotorController/JNode_MotorController.egg-info to /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController-0.0.0-py3.8.egg-info\n'}
+[6.802843] (turtlesim) StdoutLine: {'line': b'[ 97%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext\n'}
+[6.805205] (JNode_KeyboardInput) StdoutLine: {'line': b'Copying ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info to /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info\n'}
+[6.806573] (JNode_MotorController) StdoutLine: {'line': b'running install_scripts\n'}
+[6.813004] (JNode_KeyboardInput) StdoutLine: {'line': b'running install_scripts\n'}
+[6.833557] (-) TimerEvent: {}
+[6.850262] (turtlesim) StdoutLine: {'line': b'[100%] Built target turtlesim__rosidl_typesupport_c__pyext\n'}
+[6.934340] (-) TimerEvent: {}
+[6.968466] (turtlesim) CommandEnded: {'returncode': 0}
+[7.019606] (JNode_MotorController) StdoutLine: {'line': b"writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_MotorController/install.log'\n"}
+[7.029770] (JNode_KeyboardInput) StdoutLine: {'line': b"writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log'\n"}
+[7.035184] (-) TimerEvent: {}
+[7.140819] (-) TimerEvent: {}
+[7.243067] (-) TimerEvent: {}
+[7.345292] (-) TimerEvent: {}
+[7.447861] (-) TimerEvent: {}
+[7.517374] (JNode_MotorController) CommandEnded: {'returncode': 0}
+[7.551090] (-) TimerEvent: {}
+[7.643114] (JNode_MotorController) JobEnded: {'identifier': 'JNode_MotorController', 'rc': 0}
+[7.660874] (-) TimerEvent: {}
+[7.662267] (JNode_KeyboardInput) CommandEnded: {'returncode': 0}
+[7.764840] (-) TimerEvent: {}
+[7.783341] (JNode_KeyboardInput) JobEnded: {'identifier': 'JNode_KeyboardInput', 'rc': 0}
+[7.865219] (-) TimerEvent: {}
+[7.966866] (-) TimerEvent: {}
+[8.068975] (-) TimerEvent: {}
+[8.170989] (-) TimerEvent: {}
+[8.273129] (-) TimerEvent: {}
+[8.298048] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'install'}
+[8.373962] (-) TimerEvent: {}
+[8.402325] (turtlesim) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/spacecal/SpaceCal/build/turtlesim'], 'cwd': '/home/spacecal/SpaceCal/build/turtlesim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US'), ('USER', 'spacecal'), ('XDG_SEAT', 'seat0'), ('SSH_AGENT_PID', '5972'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/spacecal/SpaceCal/src/install/turtlesim/lib:/home/spacecal/SpaceCal/install/turtlesim/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/spacecal'), ('OLDPWD', '/home/spacecal/SpaceCal/src'), ('DESKTOP_SESSION', 'xubuntu'), ('ROS_PYTHON_VERSION', '3'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_colcon_cd_root', '/home/spacecal/ros2_foxy/ros2-linux'), ('QT_QPA_PLATFORMTHEME', 'gtk2'), ('COLCON_PREFIX_PATH', '/home/spacecal/SpaceCal/install:/home/spacecal/ros2_foxy/ros2-linux:'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'spacecal'), ('WINDOWID', '67108867'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('CLUTTER_BACKEND', 'x11'), ('TERM', 'xterm-256color'), ('GTK_OVERLAY_SCROLLING', '0'), ('XDG_SESSION_ID', 'c2'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830'), ('GDM_LANG', 'en_US'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('XDG_MENU_PREFIX', 'xfce-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0.0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'XFCE'), ('XDG_SESSION_DESKTOP', 'xubuntu'), ('XAUTHORITY', '/home/spacecal/.Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/spacecal'), ('AMENT_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'xubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('XDG_VTNR', '7'), ('PWD', '/home/spacecal/SpaceCal/build/turtlesim'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share'), ('PYTHONPATH', '/home/spacecal/SpaceCal/src/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/src/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/spacecal/SpaceCal/src/install/turtlesim:/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy')]), 'shell': False}
+[8.467043] (turtlesim) CommandEnded: {'returncode': -2}
+[8.482264] (-) TimerEvent: {}
+[8.589306] (-) TimerEvent: {}
+[8.692292] (-) TimerEvent: {}
+[8.794112] (-) TimerEvent: {}
+[8.895916] (-) TimerEvent: {}
+[8.997623] (-) TimerEvent: {}
+[9.100691] (-) TimerEvent: {}
+[9.181066] (turtlesim) JobEnded: {'identifier': 'turtlesim', 'rc': 'SIGINT'}
+[9.195683] (-) EventReactorShutdown: {}

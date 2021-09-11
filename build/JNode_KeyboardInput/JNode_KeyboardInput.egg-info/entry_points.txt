@@ -1,0 +1,3 @@
+[console_scripts]
+JNodeInput = JNode_KeyboardInput.keyboardInput.py:main
+
