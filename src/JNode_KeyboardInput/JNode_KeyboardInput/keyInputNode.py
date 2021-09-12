@@ -1,7 +1,6 @@
 #Generic node that will check for various key inputs and communicate them via String
 
 import rclpy
-import st
 from rclpy.node import Node
 from pynput import keyboard
 from std_msgs.msg import String
@@ -12,8 +11,8 @@ class keyTalkerClass(Node):
         self.publisher_ = self.create_publisher(String, 'keyinput',10)
         self.keyTalker()
 
-    def keyTalker():
-        while not rclpy.is_shutdown():
+    def keyTalker(self):
+        while not rclpy.ok():
             with keyboard.Events() as events:
                 event = events.get(1e6)
                 if event.key == keyboard.KeyCode.from_char('w'):
@@ -29,7 +28,7 @@ def main(args=None):
 
     publisher = keyTalkerClass()
 
-    rclpy.spin(minimal_publisher)
+    rclpy.spin(publisher)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically

@@ -1,0 +1,19 @@
+[5.157s] Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4
+[6.070s] [  1%] Built target turtlesim__cpp
+[6.100s] [ 11%] Built target turtlesim__rosidl_generator_c
+[6.539s] [ 21%] Built target turtlesim__rosidl_typesupport_c
+[6.724s] [ 31%] Built target turtlesim__rosidl_typesupport_cpp
+[6.757s] [ 41%] Built target turtlesim__rosidl_typesupport_introspection_cpp
+[6.817s] [ 51%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp
+[7.058s] [ 61%] Built target turtlesim__rosidl_typesupport_introspection_c
+[7.214s] [ 71%] Built target turtlesim__rosidl_typesupport_fastrtps_c
+[7.513s] [ 71%] Built target turtlesim
+[8.145s] [ 72%] Built target turtlesim__py
+[8.171s] [ 74%] Built target draw_square
+[8.244s] [ 76%] Built target mimic
+[8.260s] [ 78%] Built target turtle_teleop_key
+[8.824s] [ 93%] Built target turtlesim__python
+[8.827s] [ 92%] Built target turtlesim_node
+[9.342s] [ 95%] Built target turtlesim__rosidl_typesupport_c__pyext
+[9.388s] [ 97%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext
+[9.427s] [100%] Built target turtlesim__rosidl_typesupport_introspection_c__pyext

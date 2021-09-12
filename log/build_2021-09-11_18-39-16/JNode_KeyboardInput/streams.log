@@ -1,0 +1,24 @@
+[4.214s] Invoking command in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_KeyboardInput build --build-base /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build install --prefix /home/spacecal/SpaceCal/install/JNode_KeyboardInput --record /home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log --single-version-externally-managed
+[6.832s] running egg_info
+[6.838s] writing ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/PKG-INFO
+[6.846s] writing dependency_links to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/dependency_links.txt
+[6.851s] writing entry points to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/entry_points.txt
+[6.856s] writing requirements to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/requires.txt
+[6.862s] writing top-level names to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/top_level.txt
+[7.265s] reading manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'
+[7.278s] writing manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'
+[7.285s] running build
+[7.289s] running build_py
+[7.299s] copying JNode_KeyboardInput/keyInputNode.py -> /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput
+[7.307s] running install
+[7.328s] running install_lib
+[7.347s] copying /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build/lib/JNode_KeyboardInput/keyInputNode.py -> /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput
+[7.353s] byte-compiling /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput/keyInputNode.py to keyInputNode.cpython-38.pyc
+[7.369s] running install_data
+[7.375s] running install_egg_info
+[7.397s] removing '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info' (and everything under it)
+[7.408s] Copying ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info to /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info
+[7.420s] running install_scripts
+[7.631s] Installing JNodeInput script to /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/JNode_KeyboardInput
+[7.640s] writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log'
+[8.143s] Invoked command in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput' returned '0': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_KeyboardInput build --build-base /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build install --prefix /home/spacecal/SpaceCal/install/JNode_KeyboardInput --record /home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log --single-version-externally-managed
