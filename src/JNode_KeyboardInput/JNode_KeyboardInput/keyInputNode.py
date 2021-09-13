@@ -20,6 +20,7 @@ class keyTalkerClass(Node):
     def on_press(self,key):
         try:
             self.get_logger().info("event")
+            msg = String()
             inputKey = str(key.char)
             if (inputKey == "w"):
                 msg.data = inputKey
@@ -35,7 +36,7 @@ class keyTalkerClass(Node):
 
     def keyTalker(self):
         self.get_logger().info("W2")
-        msg = String()
+        
         
         while rclpy.ok():
             with keyboard.Listener(
