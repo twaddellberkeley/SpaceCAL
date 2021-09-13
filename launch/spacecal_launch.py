@@ -7,7 +7,7 @@ def generate_launch_description():
             package='JNode_KeyboardInput',
             namespace='keyboard',
             executable='JNodeInput',
-	    output='screen',
+            output='screen',
             name='sim'
         )
     ])
