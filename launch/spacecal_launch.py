@@ -8,6 +8,7 @@ def generate_launch_description():
             namespace='keyboard',
             executable='JNodeInput',
             output='screen',
+            emulate_tty=True,
             name='sim'
         )
     ])
