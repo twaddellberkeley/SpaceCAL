@@ -19,12 +19,15 @@ class keyTalkerClass(Node):
 
     def keyTalker(self):
         self.get_logger().info("W2")
+        msg = String()
+        
         while rclpy.ok():
             with keyboard.Events() as events:
                 event = events.get(1e6)
                 self.get_logger().info("event")
                 if event.key == keyboard.KeyCode.from_char('w'):
-                    self.publisher_.publish("w")
+                    msg.data = "W W"
+                    self.publisher_.publish(msg)
                     self.get_logger().info("W")
                     time.sleep(.1)
                 elif event.key == keyboard.KeyCode.from_char('s'):
