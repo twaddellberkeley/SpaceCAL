@@ -63,13 +63,7 @@ class TicI2C(object):
       position -= (1 << 32)
     return position
 
-def checkRun(self, msg):
-    curPosition = tic.get_current_position()
-    self.get_logger().info("EEE")
-    if (msg.data == 'w'):
-        Run(curPosition + incrInt)
-    elif(msg.data == 's'):
-        Run(curPosition - incrBit)
+
 
 
 
@@ -87,9 +81,16 @@ class keySubscriber(Node):
     self.subscription = self.create_subscription(
         String,
         'keyinput',
-        checkRun,
+        self.checkRun,
         10)
     self.subscription  # prevent unused variable warnings
+  def checkRun(self, msg):
+    curPosition = tic.get_current_position()
+    self.get_logger().info("EEE")
+    if (msg.data == 'w'):
+        Run(curPosition + incrInt)
+    elif(msg.data == 's'):
+        Run(curPosition - incrBit)
 
 def main(args=None):
     rclpy.init(args=args)
