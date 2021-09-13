@@ -101,7 +101,7 @@ def main(args=None):
     # Select the I2C address of the Tic (the device number).
     address = 14
     
-    tic = TicI2C(bus, address)
+    global tic = TicI2C(bus, address)
     subscriber = keySubscriber()
 
     rclpy.spin(subscriber)
