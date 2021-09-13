@@ -68,9 +68,9 @@ class TicI2C(object):
 
 
 
-def Run(self,intIn): 
+def Run(intIn): 
     tic.exit_safe_start()
-    tic.set_target_position(self.intIn) 
+    tic.set_target_position(intIn) 
     
 
 
