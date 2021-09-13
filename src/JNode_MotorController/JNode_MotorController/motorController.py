@@ -91,8 +91,6 @@ def keySubscriber(Node):
       10)
   self.subscription  # prevent unused variable warnings
 
-mainTic = TicI2C()
-
 def main(args=None):
     rclpy.init(args=args)
 
