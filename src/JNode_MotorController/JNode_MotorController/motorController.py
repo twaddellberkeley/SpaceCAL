@@ -81,7 +81,7 @@ def Run(intIn):
 
 
 
-def keySubscriber(Node):
+class keySubscriber(Node):
   def __init__(self):
     super().__init__('minimal_subscriber')
     self.subscription = self.create_subscription(
