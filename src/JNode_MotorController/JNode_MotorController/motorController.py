@@ -82,14 +82,14 @@ def Run(intIn):
 
 
 def keySubscriber(Node):
-
-  super().__init__('minimal_subscriber')
-  self.subscription = self.create_subscription(
-      String,
-      'keyinput',
-      checkRun(),
-      10)
-  self.subscription  # prevent unused variable warnings
+  def __init__(self):
+    super().__init__('minimal_subscriber')
+    self.subscription = self.create_subscription(
+        String,
+        'keyinput',
+        checkRun(),
+        10)
+    self.subscription  # prevent unused variable warnings
 
 def main(args=None):
     rclpy.init(args=args)
