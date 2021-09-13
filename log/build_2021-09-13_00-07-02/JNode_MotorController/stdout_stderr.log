@@ -1,0 +1,27 @@
+running egg_info
+writing ../../build/JNode_MotorController/JNode_MotorController.egg-info/PKG-INFO
+writing dependency_links to ../../build/JNode_MotorController/JNode_MotorController.egg-info/dependency_links.txt
+writing entry points to ../../build/JNode_MotorController/JNode_MotorController.egg-info/entry_points.txt
+writing requirements to ../../build/JNode_MotorController/JNode_MotorController.egg-info/requires.txt
+writing top-level names to ../../build/JNode_MotorController/JNode_MotorController.egg-info/top_level.txt
+reading manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'
+writing manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'
+running build
+running build_py
+copying JNode_MotorController/motorController.py -> /home/spacecal/SpaceCal/build/JNode_MotorController/build/lib/JNode_MotorController
+running install
+running install_lib
+copying /home/spacecal/SpaceCal/build/JNode_MotorController/build/lib/JNode_MotorController/motorController.py -> /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController
+byte-compiling /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController/motorController.py to motorController.cpython-38.pyc
+  File "/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController/motorController.py", line 12
+    import std_msgs.msg import String
+                        ^
+SyntaxError: invalid syntax
+
+running install_data
+running install_egg_info
+removing '/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/JNode_MotorController/JNode_MotorController.egg-info to /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController-0.0.0-py3.8.egg-info
+running install_scripts
+Installing keyboardRun script to /home/spacecal/SpaceCal/install/JNode_MotorController/lib/JNode_MotorController
+writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_MotorController/install.log'

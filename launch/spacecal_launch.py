@@ -13,7 +13,7 @@ def generate_launch_description():
         ),
         Node(
             package='JNode_MotorController',
-            namespace='motorcontroller',
+            namespace='keyboard',
             executable='keyboardRun',
             output='screen',
             emulate_tty=True,
