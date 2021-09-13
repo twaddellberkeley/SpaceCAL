@@ -8,8 +8,7 @@
 #   correct I2C device.
 # NOTE: You might need to change the 'address = 11' line below to match
 #   the device number of your Tic.
-import rospy
-import st
+import rclpy
 import std_msgs.msg import String 
 from smbus2 import SMBus, i2c_msg
  
@@ -20,8 +19,8 @@ incrBit = 20000
 if __name__ == '__main__':
     try:
         startUp()
-    except rospy.ROSInterruptException:
-        pass
+    except:
+      pass
 
 class TicI2C(object):
   def __init__(self, bus, address):
@@ -63,11 +62,12 @@ class TicI2C(object):
       position -= (1 << 32)
     return position
 
-def checkRun(data):
+def checkRun(self, msg):
     curPosition = tic.get_current_position()
-    if (data.data == 'w'):
+    self.get_logger().info("EEE")
+    if (msg.data == 'w'):
         Run(curPosition + incrInt)
-    elif(data.data == 's'):
+    elif(msg.data == 's'):
         Run(curPosition - incrBit)
 
 
@@ -77,9 +77,25 @@ def Run(intIn):
     tic.set_target_position(self.intIn) 
     
 
-def startUp():
-    rospy.init_node('listener', anonymous=False)
-    rospy.Subscriber('keyInput',String,checkRun)
+
+
+
+def keySubscriber(Node):
+
+  super().__init__('minimal_subscriber')
+          self.subscription = self.create_subscription(
+              String,
+              'keyinput',
+              checkRun(),
+              10)
+          self.subscription  # prevent unused variable warnings
+
+mainTic = TicI2C()
+
+def main(args=None):
+    rclpy.init(args=args)
+
+    subscriber = keySubscriber()
             # Open a handle to "/dev/i2c-3", representing the I2C bus.
     bus = SMBus(3)
     
@@ -88,3 +104,10 @@ def startUp():
     
     tic = TicI2C(bus, address)
     rospy.spin()
+    rclpy.spin(subscriber)
+    
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    subscriber.destroy_node()
+    rclpy.shutdown()

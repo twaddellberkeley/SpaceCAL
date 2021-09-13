@@ -10,5 +10,13 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             name='sim'
-        )
+        ),
+        Node(
+            package='JNode_MotController',
+            namespace='motorcontroller',
+            executable='keyboardRun',
+            output='screen',
+            emulate_tty=True,
+            name='sim'
+        )        
     ])

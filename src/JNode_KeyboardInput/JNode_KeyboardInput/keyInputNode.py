@@ -26,12 +26,13 @@ class keyTalkerClass(Node):
                 event = events.get(1e6)
                 self.get_logger().info("event")
                 if event.key == keyboard.KeyCode.from_char('w'):
-                    msg.data = "W W"
+                    msg.data = "W"
                     self.publisher_.publish(msg)
                     self.get_logger().info("W")
                     time.sleep(.1)
                 elif event.key == keyboard.KeyCode.from_char('s'):
-                    self.publisher_.publish("s")
+                    msg.data = "S "
+                    self.publisher_.publish(msg)
                     time.sleep(.1)
 
 
