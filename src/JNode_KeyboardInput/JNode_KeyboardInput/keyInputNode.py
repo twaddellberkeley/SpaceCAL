@@ -17,7 +17,7 @@ class keyTalkerClass(Node):
         self.get_logger().info("W")
         self.keyTalker()
     
-    def on_press(key):
+    def on_press(self,key):
         try:
             self.get_logger().info("event")
             if event.key == keyboard.KeyCode.from_char('w'):
