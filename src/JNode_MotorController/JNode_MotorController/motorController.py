@@ -89,7 +89,7 @@ class keySubscriber(Node):
     curPosition = tic.get_current_position()
     self.get_logger().info("EEE")
     if (msg.data == 'w'):
-        Run(curPosition + incrInt)
+        Run(curPosition + incrBit)
     elif(msg.data == 's'):
         Run(curPosition - incrBit)
 
