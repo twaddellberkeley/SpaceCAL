@@ -96,7 +96,7 @@ def main(args=None):
 
     subscriber = keySubscriber()
             # Open a handle to "/dev/i2c-3", representing the I2C bus.
-    bus = SMBus(3)
+    bus = SMBus(1)
     
     # Select the I2C address of the Tic (the device number).
     address = 14
