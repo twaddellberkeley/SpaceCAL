@@ -29,12 +29,10 @@ class keyTalkerClass(Node):
                     msg.data = "w"
                     self.publisher_.publish(msg)
                     self.get_logger().info("W")
-                    time.sleep(.1)
                 elif event.key == keyboard.KeyCode.from_char('s'):
-                    msg.data = "S "
+                    msg.data = "s"
                     self.publisher_.publish(msg)
-                    time.sleep(.1)
-
+                time.sleep(.5)
 
 def main(args=None):
     rclpy.init(args=args)
