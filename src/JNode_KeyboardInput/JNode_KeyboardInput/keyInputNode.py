@@ -19,7 +19,7 @@ class keyTalkerClass(Node):
 
     def keyTalker(self):
         self.get_logger().info("W2")
-        while not rclpy.ok():
+        while rclpy.ok():
             with keyboard.Events() as events:
                 event = events.get(1e6)
                 self.get_logger().info("event")
