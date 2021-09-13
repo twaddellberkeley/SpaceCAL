@@ -22,17 +22,25 @@ class keyTalkerClass(Node):
         msg = String()
         
         while rclpy.ok():
-            with keyboard.Events() as events:
-                event = events.get(1e6)
-                self.get_logger().info("event")
-                if event.key == keyboard.KeyCode.from_char('w'):
-                    msg.data = "w"
-                    self.publisher_.publish(msg)
-                    self.get_logger().info("W")
-                elif event.key == keyboard.KeyCode.from_char('s'):
-                    msg.data = "s"
-                    self.publisher_.publish(msg)
-                time.sleep(.5)
+            with keyboard.Listener(
+                    on_press=on_press,
+                    on_release=on_release) as listener:
+                listener.join()
+
+    def on_press(key):
+        try:
+            self.get_logger().info("event")
+            if event.key == keyboard.KeyCode.from_char('w'):
+                msg.data = (String)key.char
+                self.publisher_.publish(msg)
+                self.get_logger().info("W")
+            elif event.key == keyboard.KeyCode.from_char('s'):
+                msg.data = (String)key.char
+                self.publisher_.publish(msg)
+            time.sleep(.5)
+        except AttributeError:
+            print('special key {0} pressed'.format(
+                key))               
 
 def main(args=None):
     rclpy.init(args=args)
