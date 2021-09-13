@@ -12,7 +12,7 @@ def generate_launch_description():
             name='sim'
         ),
         Node(
-            package='JNode_MotController',
+            package='JNode_MotorController',
             namespace='motorcontroller',
             executable='keyboardRun',
             output='screen',
