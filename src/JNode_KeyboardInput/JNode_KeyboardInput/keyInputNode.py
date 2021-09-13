@@ -38,7 +38,7 @@ class keyTalkerClass(Node):
         
         while rclpy.ok():
             with keyboard.Listener(
-                    on_press=on_press) as listener:
+                    on_press=self.on_press) as listener:
                 listener.join()
 
             
