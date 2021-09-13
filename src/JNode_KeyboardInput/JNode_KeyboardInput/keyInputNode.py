@@ -16,17 +16,7 @@ class keyTalkerClass(Node):
         self.publisher_ = self.create_publisher(String, 'keyinput',10)
         self.get_logger().info("W")
         self.keyTalker()
-
-    def keyTalker(self):
-        self.get_logger().info("W2")
-        msg = String()
-        
-        while rclpy.ok():
-            with keyboard.Listener(
-                    on_press=on_press,
-                    on_release=on_release) as listener:
-                listener.join()
-
+    
     def on_press(key):
         try:
             self.get_logger().info("event")
@@ -40,7 +30,18 @@ class keyTalkerClass(Node):
             time.sleep(.5)
         except AttributeError:
             print('special key {0} pressed'.format(
-                key))               
+                key))   
+
+    def keyTalker(self):
+        self.get_logger().info("W2")
+        msg = String()
+        
+        while rclpy.ok():
+            with keyboard.Listener(
+                    on_press=on_press) as listener:
+                listener.join()
+
+            
 
 def main(args=None):
     rclpy.init(args=args)
