@@ -1,0 +1,318 @@
+[3.678s] Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4
+[4.292s] [  1%] Built target turtlesim__cpp
+[4.312s] [ 11%] Built target turtlesim__rosidl_generator_c
+[4.809s] [ 21%] Built target turtlesim__rosidl_typesupport_introspection_c
+[4.833s] [ 31%] Built target turtlesim__rosidl_typesupport_cpp
+[4.870s] [ 41%] Built target turtlesim__rosidl_typesupport_fastrtps_cpp
+[4.921s] [ 51%] Built target turtlesim__rosidl_typesupport_introspection_cpp
+[5.158s] [ 61%] Built target turtlesim__rosidl_typesupport_c
+[5.204s] [ 71%] Built target turtlesim__rosidl_typesupport_fastrtps_c
+[5.388s] [ 71%] Built target turtlesim
+[5.863s] [ 72%] Built target turtlesim__py
+[5.899s] [ 74%] Built target mimic
+[5.950s] [ 76%] Built target turtle_teleop_key
+[5.968s] [ 78%] Built target draw_square
+[6.282s] [ 87%] Built target turtlesim__python
+[6.538s] [ 93%] Built target turtlesim_node
+[6.709s] [ 95%] Built target turtlesim__rosidl_typesupport_c__pyext
+[6.765s] [ 97%] Built target turtlesim__rosidl_typesupport_introspection_c__pyext
+[6.814s] [100%] Built target turtlesim__rosidl_typesupport_fastrtps_c__pyext
+[6.988s] Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4
+[8.580s] Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --install /home/spacecal/SpaceCal/build/turtlesim
+[8.653s] -- Install configuration: ""
+[8.655s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/rosidl_interfaces/turtlesim
+[8.657s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim
+[8.658s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg
+[8.659s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_generator_c__visibility_control.h
+[8.664s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail
+[8.666s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__functions.c
+[8.669s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.h
+[8.670s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__functions.h
+[8.671s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__functions.c
+[8.671s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__functions.h
+[8.672s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.h
+[8.673s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__struct.h
+[8.674s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__struct.h
+[8.675s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/color.h
+[8.677s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/pose.h
+[8.678s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv
+[8.679s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/set_pen.h
+[8.679s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail
+[8.680s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__functions.c
+[8.681s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__functions.h
+[8.682s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__functions.h
+[8.683s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__functions.c
+[8.684s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__struct.h
+[8.685s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__functions.c
+[8.686s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.h
+[8.687s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.h
+[8.688s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__functions.h
+[8.689s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__struct.h
+[8.690s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__struct.h
+[8.691s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__functions.h
+[8.692s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__functions.c
+[8.694s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__struct.h
+[8.696s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__functions.h
+[8.697s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.h
+[8.698s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.h
+[8.699s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.h
+[8.700s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__functions.c
+[8.701s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__struct.h
+[8.702s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/kill.h
+[8.703s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_absolute.h
+[8.704s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_relative.h
+[8.705s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/spawn.h
+[8.706s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action
+[8.706s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail
+[8.707s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__functions.c
+[8.709s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.h
+[8.711s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__struct.h
+[8.713s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__functions.h
+[8.714s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/rotate_absolute.h
+[8.716s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/library_path.sh
+[8.717s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/library_path.dsv
+[8.719s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_generator_c.so
+[8.728s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_generator_c.so" to ""
+[8.729s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim
+[8.729s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg
+[8.730s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail
+[8.731s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_fastrtps_c.h
+[8.731s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_fastrtps_c.h
+[8.732s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[8.732s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv
+[8.733s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail
+[8.733s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_fastrtps_c.h
+[8.734s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_fastrtps_c.h
+[8.734s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_fastrtps_c.h
+[8.734s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_fastrtps_c.h
+[8.735s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_fastrtps_c.h
+[8.736s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action
+[8.736s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail
+[8.736s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_fastrtps_c.h
+[8.738s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_c.so
+[8.745s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_c.so" to ""
+[8.747s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim
+[8.748s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg
+[8.750s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail
+[8.751s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_fastrtps_cpp.hpp
+[8.752s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/dds_fastrtps
+[8.753s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_fastrtps_cpp.hpp
+[8.754s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[8.755s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv
+[8.756s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail
+[8.757s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_fastrtps_cpp.hpp
+[8.757s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_fastrtps_cpp.hpp
+[8.759s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/dds_fastrtps
+[8.762s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_fastrtps_cpp.hpp
+[8.764s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_fastrtps_cpp.hpp
+[8.765s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_fastrtps_cpp.hpp
+[8.766s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action
+[8.767s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail
+[8.768s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_fastrtps_cpp.hpp
+[8.768s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/dds_fastrtps
+[8.770s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_cpp.so
+[8.777s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_fastrtps_cpp.so" to ""
+[8.778s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim
+[8.779s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg
+[8.780s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail
+[8.781s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.c
+[8.781s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.c
+[8.782s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_introspection_c.h
+[8.782s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_introspection_c.h
+[8.783s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[8.784s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv
+[8.784s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail
+[8.785s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.c
+[8.786s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.c
+[8.787s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_introspection_c.h
+[8.788s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_introspection_c.h
+[8.789s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_introspection_c.h
+[8.790s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.c
+[8.792s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_introspection_c.h
+[8.793s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.c
+[8.794s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.c
+[8.796s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_introspection_c.h
+[8.797s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action
+[8.798s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail
+[8.798s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_introspection_c.h
+[8.799s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.c
+[8.803s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_c.so
+[8.806s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_c.so" to ""
+[8.808s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_c.so
+[8.812s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_c.so" to ""
+[8.814s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim
+[8.815s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg
+[8.815s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail
+[8.816s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__traits.hpp
+[8.816s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__traits.hpp
+[8.817s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__builder.hpp
+[8.817s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__struct.hpp
+[8.818s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__builder.hpp
+[8.818s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__struct.hpp
+[8.819s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/pose.hpp
+[8.820s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/color.hpp
+[8.821s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv
+[8.822s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail
+[8.822s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__struct.hpp
+[8.824s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__builder.hpp
+[8.828s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__traits.hpp
+[8.828s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__builder.hpp
+[8.829s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__builder.hpp
+[8.830s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__struct.hpp
+[8.830s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__traits.hpp
+[8.832s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__traits.hpp
+[8.833s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__traits.hpp
+[8.833s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__struct.hpp
+[8.835s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__builder.hpp
+[8.836s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__traits.hpp
+[8.836s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__builder.hpp
+[8.837s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__struct.hpp
+[8.838s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__struct.hpp
+[8.840s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_absolute.hpp
+[8.841s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/spawn.hpp
+[8.843s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/set_pen.hpp
+[8.845s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/teleport_relative.hpp
+[8.846s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/kill.hpp
+[8.848s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action
+[8.849s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail
+[8.850s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__builder.hpp
+[8.850s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__struct.hpp
+[8.853s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__traits.hpp
+[8.855s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/rotate_absolute.hpp
+[8.861s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim
+[8.864s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg
+[8.864s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail
+[8.865s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__rosidl_typesupport_introspection_cpp.hpp
+[8.866s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__type_support.cpp
+[8.867s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/pose__type_support.cpp
+[8.869s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/msg/detail/color__rosidl_typesupport_introspection_cpp.hpp
+[8.871s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv
+[8.872s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail
+[8.874s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__type_support.cpp
+[8.875s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__type_support.cpp
+[8.876s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_absolute__rosidl_typesupport_introspection_cpp.hpp
+[8.876s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/set_pen__rosidl_typesupport_introspection_cpp.hpp
+[8.877s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__type_support.cpp
+[8.878s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__type_support.cpp
+[8.879s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__rosidl_typesupport_introspection_cpp.hpp
+[8.880s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/teleport_relative__type_support.cpp
+[8.882s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/spawn__rosidl_typesupport_introspection_cpp.hpp
+[8.883s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/srv/detail/kill__rosidl_typesupport_introspection_cpp.hpp
+[8.884s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action
+[8.884s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail
+[8.885s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__rosidl_typesupport_introspection_cpp.hpp
+[8.886s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/include/turtlesim/action/detail/rotate_absolute__type_support.cpp
+[8.890s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_cpp.so
+[8.895s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_introspection_cpp.so" to ""
+[8.896s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_cpp.so
+[8.900s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__rosidl_typesupport_cpp.so" to ""
+[8.901s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/pythonpath.sh
+[8.902s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/pythonpath.dsv
+[8.903s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/__init__.py
+[9.217s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action
+[9.219s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/_rotate_absolute_s.c
+[9.221s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/__init__.py
+[9.222s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/action/_rotate_absolute.py
+[9.225s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg
+[9.226s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_pose.py
+[9.227s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_pose_s.c
+[9.228s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/__init__.py
+[9.229s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_color.py
+[9.231s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/msg/_color_s.c
+[9.233s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv
+[9.234s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_set_pen_s.c
+[9.235s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_set_pen.py
+[9.237s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_kill_s.c
+[9.238s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_kill.py
+[9.239s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_spawn.py
+[9.241s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/__init__.py
+[9.242s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_relative_s.c
+[9.243s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_absolute_s.c
+[9.244s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_absolute.py
+[9.245s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_teleport_relative.py
+[9.246s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/srv/_spawn_s.c
+[9.250s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so
+[9.258s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_fastrtps_c.cpython-38-aarch64-linux-gnu.so" to ""
+[9.260s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so
+[9.265s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_introspection_c.cpython-38-aarch64-linux-gnu.so" to ""
+[9.267s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so
+[9.274s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages/turtlesim/turtlesim_s__rosidl_typesupport_c.cpython-38-aarch64-linux-gnu.so" to ""
+[9.276s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__python.so
+[9.281s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/libturtlesim__python.so" to ""
+[9.281s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/action/RotateAbsolute.idl
+[9.282s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Color.idl
+[9.283s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Pose.idl
+[9.285s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill.idl
+[9.288s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen.idl
+[9.289s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn.idl
+[9.290s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.idl
+[9.291s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative.idl
+[9.292s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/action/RotateAbsolute.action
+[9.294s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Color.msg
+[9.294s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/msg/Pose.msg
+[9.295s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill.srv
+[9.296s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill_Request.msg
+[9.297s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Kill_Response.msg
+[9.298s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen.srv
+[9.299s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen_Request.msg
+[9.300s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/SetPen_Response.msg
+[9.301s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn.srv
+[9.303s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn_Request.msg
+[9.305s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/Spawn_Response.msg
+[9.305s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute.srv
+[9.306s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Request.msg
+[9.308s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportAbsolute_Response.msg
+[9.310s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative.srv
+[9.311s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative_Request.msg
+[9.311s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/srv/TeleportRelative_Response.msg
+[9.313s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtlesim_node
+[9.382s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtlesim_node" to ""
+[9.384s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtle_teleop_key
+[9.405s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/turtle_teleop_key" to ""
+[9.406s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/draw_square
+[9.442s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/draw_square" to ""
+[9.443s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/mimic
+[9.479s] -- Set runtime path of "/home/spacecal/SpaceCal/install/turtlesim/lib/turtlesim/mimic" to ""
+[9.480s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images
+[9.481s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/dashing.png
+[9.482s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/eloquent.png
+[9.485s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/foxy.png
+[9.485s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/bouncy.png
+[9.486s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/ardent.png
+[9.487s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/images/crystal.png
+[9.488s] -- Up-to-date: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/launch
+[9.489s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/launch/multisim.launch.py
+[9.490s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/package_run_dependencies/turtlesim
+[9.490s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/parent_prefix_path/turtlesim
+[9.491s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/ament_prefix_path.sh
+[9.492s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/ament_prefix_path.dsv
+[9.493s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/path.sh
+[9.494s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/environment/path.dsv
+[9.496s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.bash
+[9.497s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.sh
+[9.498s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.zsh
+[9.501s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/local_setup.dsv
+[9.502s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.dsv
+[9.504s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/ament_index/resource_index/packages/turtlesim
+[9.505s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cExport.cmake
+[9.506s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cExport-noconfig.cmake
+[9.508s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cExport.cmake
+[9.509s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[9.511s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cExport.cmake
+[9.512s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cExport-noconfig.cmake
+[9.514s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_generator_cppExport.cmake
+[9.517s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cppExport.cmake
+[9.518s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[9.520s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cppExport.cmake
+[9.521s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesim__rosidl_typesupport_cppExport-noconfig.cmake
+[9.523s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake-extras.cmake
+[9.524s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_dependencies-extras.cmake
+[9.526s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_libraries-extras.cmake
+[9.527s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_targets-extras.cmake
+[9.528s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/ament_cmake_export_include_directories-extras.cmake
+[9.530s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[9.533s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[9.535s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesimConfig.cmake
+[9.536s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/cmake/turtlesimConfig-version.cmake
+[9.537s] -- Installing: /home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.xml
+[9.569s] Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --install /home/spacecal/SpaceCal/build/turtlesim

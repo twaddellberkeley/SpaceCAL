@@ -17,7 +17,7 @@ class keyTalkerClass(Node):
                 event = events.get(1e6)
                 if event.key == keyboard.KeyCode.from_char('w'):
                     self.publisher_.publish("w")
-                    print("W")
+                    self.get_logger().info("W")
                     time.sleep(.1)
                 elif event.key == keyboard.KeyCode.from_char('s'):
                     self.publisher_.publish("s")

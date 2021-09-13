@@ -1,0 +1,304 @@
+[1.814s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[1.815s] DEBUG:colcon:Parsed command line arguments: Namespace(ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f9a387280>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=4, paths=None, symlink_install=False, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f9a387280>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f9a3877c0>)
+[1.849s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.850s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.850s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.851s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.851s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.851s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.852s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/spacecal/SpaceCal'
+[1.853s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.854s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.855s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.855s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.855s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.856s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.856s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.856s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.856s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.944s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.944s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.945s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.945s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.945s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.946s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.947s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.947s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.948s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.949s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.949s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.949s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['ignore', 'ignore_ament_install']
+[1.950s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'ignore'
+[1.950s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'ignore_ament_install'
+[1.950s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['colcon_pkg']
+[1.951s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'colcon_pkg'
+[1.951s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['colcon_meta']
+[1.951s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'colcon_meta'
+[1.951s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['ros']
+[1.951s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'ros'
+[1.952s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['cmake', 'python']
+[1.952s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'cmake'
+[1.952s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'python'
+[1.952s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extensions ['python_setup_py']
+[1.953s] Level 1:colcon.colcon_core.package_identification:_identify(launch) by extension 'python_setup_py'
+[1.953s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extensions ['ignore', 'ignore_ament_install']
+[1.954s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'ignore'
+[1.954s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'ignore_ament_install'
+[1.954s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extensions ['colcon_pkg']
+[1.954s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'colcon_pkg'
+[1.954s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extensions ['colcon_meta']
+[1.955s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'colcon_meta'
+[1.955s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extensions ['ros']
+[1.955s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'ros'
+[1.955s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extensions ['cmake', 'python']
+[1.955s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'cmake'
+[1.956s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'python'
+[1.956s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extensions ['python_setup_py']
+[1.956s] Level 1:colcon.colcon_core.package_identification:_identify(launch/__pycache__) by extension 'python_setup_py'
+[1.957s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.957s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.957s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.958s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[1.959s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[1.959s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[1.959s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[1.960s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[1.960s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[1.960s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[1.960s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[1.961s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[1.961s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[1.961s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[1.961s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[1.961s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[1.962s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[1.962s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extensions ['ignore', 'ignore_ament_install']
+[1.963s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extension 'ignore'
+[1.963s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extension 'ignore_ament_install'
+[1.963s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extensions ['colcon_pkg']
+[1.963s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extension 'colcon_pkg'
+[1.964s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extensions ['colcon_meta']
+[1.964s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extension 'colcon_meta'
+[1.964s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extensions ['ros']
+[1.964s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_KeyboardInput) by extension 'ros'
+[1.980s] DEBUG:colcon.colcon_core.package_identification:Package 'src/JNode_KeyboardInput' with type 'ros.ament_python' and name 'JNode_KeyboardInput'
+[1.982s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extensions ['ignore', 'ignore_ament_install']
+[1.982s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extension 'ignore'
+[1.983s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extension 'ignore_ament_install'
+[1.983s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extensions ['colcon_pkg']
+[1.983s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extension 'colcon_pkg'
+[1.983s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extensions ['colcon_meta']
+[1.984s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extension 'colcon_meta'
+[1.984s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extensions ['ros']
+[1.984s] Level 1:colcon.colcon_core.package_identification:_identify(src/JNode_MotorController) by extension 'ros'
+[1.988s] DEBUG:colcon.colcon_core.package_identification:Package 'src/JNode_MotorController' with type 'ros.ament_python' and name 'JNode_MotorController'
+[1.989s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extensions ['ignore', 'ignore_ament_install']
+[1.989s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'ignore'
+[1.990s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'ignore_ament_install'
+[1.990s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extensions ['colcon_pkg']
+[1.990s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'colcon_pkg'
+[1.991s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extensions ['colcon_meta']
+[1.992s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'colcon_meta'
+[1.992s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extensions ['ros']
+[1.993s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'ros'
+[1.994s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extensions ['cmake', 'python']
+[1.994s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'cmake'
+[1.995s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'python'
+[1.995s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extensions ['python_setup_py']
+[1.996s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials) by extension 'python_setup_py'
+[1.997s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/ros_tutorials) by extensions ['ignore', 'ignore_ament_install']
+[1.997s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/ros_tutorials) by extension 'ignore'
+[1.998s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/ros_tutorials) ignored
+[1.998s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/roscpp_tutorials) by extensions ['ignore', 'ignore_ament_install']
+[1.999s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/roscpp_tutorials) by extension 'ignore'
+[1.999s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/roscpp_tutorials) ignored
+[2.000s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/rospy_tutorials) by extensions ['ignore', 'ignore_ament_install']
+[2.000s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/rospy_tutorials) by extension 'ignore'
+[2.001s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/rospy_tutorials) ignored
+[2.001s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extensions ['ignore', 'ignore_ament_install']
+[2.002s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extension 'ignore'
+[2.002s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extension 'ignore_ament_install'
+[2.002s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extensions ['colcon_pkg']
+[2.003s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extension 'colcon_pkg'
+[2.003s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extensions ['colcon_meta']
+[2.003s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extension 'colcon_meta'
+[2.003s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extensions ['ros']
+[2.004s] Level 1:colcon.colcon_core.package_identification:_identify(src/ros_tutorials/turtlesim) by extension 'ros'
+[2.017s] DEBUG:colcon.colcon_core.package_identification:Package 'src/ros_tutorials/turtlesim' with type 'ros.ament_cmake' and name 'turtlesim'
+[2.018s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[2.019s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[2.020s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[2.020s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[2.020s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[2.171s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'cmake_args' from command line to 'None'
+[2.172s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'cmake_target' from command line to 'None'
+[2.172s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.173s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'cmake_clean_cache' from command line to 'False'
+[2.173s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'cmake_clean_first' from command line to 'False'
+[2.173s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'cmake_force_configure' from command line to 'False'
+[2.173s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'ament_cmake_args' from command line to 'None'
+[2.174s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'catkin_cmake_args' from command line to 'None'
+[2.174s] Level 5:colcon.colcon_core.verb:set package 'JNode_KeyboardInput' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.174s] DEBUG:colcon.colcon_core.verb:Building package 'JNode_KeyboardInput' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spacecal/SpaceCal/build/JNode_KeyboardInput', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spacecal/SpaceCal/install/JNode_KeyboardInput', 'merge_install': False, 'path': '/home/spacecal/SpaceCal/src/JNode_KeyboardInput', 'symlink_install': False, 'test_result_base': None}
+[2.190s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'cmake_args' from command line to 'None'
+[2.191s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'cmake_target' from command line to 'None'
+[2.191s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.192s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'cmake_clean_cache' from command line to 'False'
+[2.192s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'cmake_clean_first' from command line to 'False'
+[2.192s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'cmake_force_configure' from command line to 'False'
+[2.192s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'ament_cmake_args' from command line to 'None'
+[2.192s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'catkin_cmake_args' from command line to 'None'
+[2.192s] Level 5:colcon.colcon_core.verb:set package 'JNode_MotorController' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.193s] DEBUG:colcon.colcon_core.verb:Building package 'JNode_MotorController' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spacecal/SpaceCal/build/JNode_MotorController', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spacecal/SpaceCal/install/JNode_MotorController', 'merge_install': False, 'path': '/home/spacecal/SpaceCal/src/JNode_MotorController', 'symlink_install': False, 'test_result_base': None}
+[2.206s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'cmake_args' from command line to 'None'
+[2.207s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'cmake_target' from command line to 'None'
+[2.207s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[2.207s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'cmake_clean_cache' from command line to 'False'
+[2.208s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'cmake_clean_first' from command line to 'False'
+[2.208s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'cmake_force_configure' from command line to 'False'
+[2.208s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'ament_cmake_args' from command line to 'None'
+[2.208s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'catkin_cmake_args' from command line to 'None'
+[2.208s] Level 5:colcon.colcon_core.verb:set package 'turtlesim' build argument 'catkin_skip_building_tests' from command line to 'False'
+[2.208s] DEBUG:colcon.colcon_core.verb:Building package 'turtlesim' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/spacecal/SpaceCal/build/turtlesim', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/spacecal/SpaceCal/install/turtlesim', 'merge_install': False, 'path': '/home/spacecal/SpaceCal/src/ros_tutorials/turtlesim', 'symlink_install': False, 'test_result_base': None}
+[2.211s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[2.224s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[2.227s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput' with build type 'ament_python'
+[2.229s] Level 1:colcon.colcon_core.shell:create_environment_hook('JNode_KeyboardInput', 'ament_prefix_path')
+[2.276s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[2.279s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/hook/ament_prefix_path.ps1'
+[2.288s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/hook/ament_prefix_path.dsv'
+[2.296s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/hook/ament_prefix_path.sh'
+[2.307s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.308s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.347s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/foxy'
+[2.395s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/spacecal/SpaceCal/src/JNode_MotorController' with build type 'ament_python'
+[2.404s] Level 1:colcon.colcon_core.shell:create_environment_hook('JNode_MotorController', 'ament_prefix_path')
+[2.413s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/hook/ament_prefix_path.ps1'
+[2.420s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/hook/ament_prefix_path.dsv'
+[2.431s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/hook/ament_prefix_path.sh'
+[2.452s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.453s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.489s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/foxy'
+[2.527s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/spacecal/SpaceCal/src/ros_tutorials/turtlesim' with build type 'ament_cmake'
+[2.531s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/spacecal/SpaceCal/src/ros_tutorials/turtlesim'
+[2.543s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.544s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.589s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/foxy'
+[4.375s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput'
+[4.381s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.382s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.408s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/foxy'
+[6.122s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/spacecal/SpaceCal/src/JNode_MotorController'
+[6.129s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[6.129s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[6.157s] DEBUG:colcon.colcon_core.shell:Ignoring prefix path '/opt/ros/foxy'
+[6.218s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4
+[6.306s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_KeyboardInput build --build-base /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build install --prefix /home/spacecal/SpaceCal/install/JNode_KeyboardInput --record /home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log --single-version-externally-managed
+[6.352s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spacecal/SpaceCal/src/JNode_MotorController': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_MotorController build --build-base /home/spacecal/SpaceCal/build/JNode_MotorController/build install --prefix /home/spacecal/SpaceCal/install/JNode_MotorController --record /home/spacecal/SpaceCal/build/JNode_MotorController/install.log --single-version-externally-managed
+[9.529s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4
+[10.141s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput' returned '0': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_KeyboardInput build --build-base /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build install --prefix /home/spacecal/SpaceCal/install/JNode_KeyboardInput --record /home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log --single-version-externally-managed
+[10.190s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_KeyboardInput' for CMake module files
+[10.196s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_KeyboardInput' for CMake config files
+[10.205s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib'
+[10.207s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/bin'
+[10.209s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/pkgconfig/JNode_KeyboardInput.pc'
+[10.210s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages'
+[10.211s] Level 1:colcon.colcon_core.shell:create_environment_hook('JNode_KeyboardInput', 'pythonpath')
+[10.217s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/hook/pythonpath.ps1'
+[10.228s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/hook/pythonpath.dsv'
+[10.233s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/hook/pythonpath.sh'
+[10.239s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(JNode_KeyboardInput)
+[10.246s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/package.ps1'
+[10.254s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/package.dsv'
+[10.262s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/package.sh'
+[10.277s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/package.bash'
+[10.286s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/JNode_KeyboardInput/package.zsh'
+[10.294s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spacecal/SpaceCal/install/JNode_KeyboardInput/share/colcon-core/packages/JNode_KeyboardInput)
+[10.318s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_MotorController' for CMake module files
+[10.326s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spacecal/SpaceCal/src/JNode_MotorController' returned '0': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_MotorController build --build-base /home/spacecal/SpaceCal/build/JNode_MotorController/build install --prefix /home/spacecal/SpaceCal/install/JNode_MotorController --record /home/spacecal/SpaceCal/build/JNode_MotorController/install.log --single-version-externally-managed
+[10.336s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_MotorController' for CMake config files
+[10.347s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_MotorController/lib'
+[10.350s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_MotorController/bin'
+[10.352s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_MotorController/lib/pkgconfig/JNode_MotorController.pc'
+[10.355s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages'
+[10.357s] Level 1:colcon.colcon_core.shell:create_environment_hook('JNode_MotorController', 'pythonpath')
+[10.368s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/hook/pythonpath.ps1'
+[10.380s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/hook/pythonpath.dsv'
+[10.390s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/hook/pythonpath.sh'
+[10.397s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(JNode_MotorController)
+[10.406s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/package.ps1'
+[10.417s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/package.dsv'
+[10.430s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/package.sh'
+[10.437s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/package.bash'
+[10.449s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/JNode_MotorController/share/JNode_MotorController/package.zsh'
+[10.461s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spacecal/SpaceCal/install/JNode_MotorController/share/colcon-core/packages/JNode_MotorController)
+[11.124s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --install /home/spacecal/SpaceCal/build/turtlesim
+[12.093s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlesim)
+[12.112s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim' for CMake module files
+[12.113s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/spacecal/SpaceCal/build/turtlesim' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --install /home/spacecal/SpaceCal/build/turtlesim
+[12.119s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim' for CMake config files
+[12.125s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlesim', 'cmake_prefix_path')
+[12.130s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/cmake_prefix_path.ps1'
+[12.136s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/cmake_prefix_path.dsv'
+[12.139s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/cmake_prefix_path.sh'
+[12.144s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/lib'
+[12.145s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlesim', 'ld_library_path_lib')
+[12.149s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/ld_library_path_lib.ps1'
+[12.153s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/ld_library_path_lib.dsv'
+[12.156s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/ld_library_path_lib.sh'
+[12.160s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/bin'
+[12.161s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/lib/pkgconfig/turtlesim.pc'
+[12.162s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages'
+[12.162s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlesim', 'pythonpath')
+[12.167s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/pythonpath.ps1'
+[12.170s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/pythonpath.dsv'
+[12.174s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/pythonpath.sh'
+[12.183s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.ps1'
+[12.189s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.dsv'
+[12.195s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.sh'
+[12.203s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.bash'
+[12.210s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.zsh'
+[12.216s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spacecal/SpaceCal/install/turtlesim/share/colcon-core/packages/turtlesim)
+[13.241s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlesim)
+[13.247s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim' for CMake module files
+[13.252s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim' for CMake config files
+[13.257s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlesim', 'cmake_prefix_path')
+[13.262s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/cmake_prefix_path.ps1'
+[13.268s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/cmake_prefix_path.dsv'
+[13.271s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/cmake_prefix_path.sh'
+[13.276s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/lib'
+[13.277s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlesim', 'ld_library_path_lib')
+[13.281s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/ld_library_path_lib.ps1'
+[13.286s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/ld_library_path_lib.dsv'
+[13.289s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/ld_library_path_lib.sh'
+[13.292s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/bin'
+[13.293s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/lib/pkgconfig/turtlesim.pc'
+[13.293s] Level 1:colcon.colcon_core.environment:checking '/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages'
+[13.294s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlesim', 'pythonpath')
+[13.299s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/pythonpath.ps1'
+[13.302s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/pythonpath.dsv'
+[13.305s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/hook/pythonpath.sh'
+[13.314s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.ps1'
+[13.320s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.dsv'
+[13.329s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.sh'
+[13.337s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.bash'
+[13.341s] INFO:colcon.colcon_core.shell:Creating package script '/home/spacecal/SpaceCal/install/turtlesim/share/turtlesim/package.zsh'
+[13.344s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/spacecal/SpaceCal/install/turtlesim/share/colcon-core/packages/turtlesim)
+[13.350s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[13.353s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[13.354s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[13.354s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[13.425s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[13.427s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[13.427s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[13.468s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[13.475s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spacecal/SpaceCal/install/local_setup.ps1'
+[13.489s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/spacecal/SpaceCal/install/_local_setup_util_ps1.py'
+[13.503s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spacecal/SpaceCal/install/setup.ps1'
+[13.532s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spacecal/SpaceCal/install/local_setup.sh'
+[13.536s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/spacecal/SpaceCal/install/_local_setup_util_sh.py'
+[13.540s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spacecal/SpaceCal/install/setup.sh'
+[13.557s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spacecal/SpaceCal/install/local_setup.bash'
+[13.560s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spacecal/SpaceCal/install/setup.bash'
+[13.577s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/spacecal/SpaceCal/install/local_setup.zsh'
+[13.581s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/spacecal/SpaceCal/install/setup.zsh'
