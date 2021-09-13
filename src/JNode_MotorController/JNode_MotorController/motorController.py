@@ -102,7 +102,6 @@ def main(args=None):
     address = 14
     
     tic = TicI2C(bus, address)
-    rospy.spin()
     rclpy.spin(subscriber)
     
     # Destroy the node explicitly
