@@ -99,7 +99,7 @@ def main(args=None):
     bus = SMBus(1)
     
     # Select the I2C address of the Tic (the device number).
-    address = 14
+    address = 15
     
     global tic 
     tic = TicI2C(bus, address)
