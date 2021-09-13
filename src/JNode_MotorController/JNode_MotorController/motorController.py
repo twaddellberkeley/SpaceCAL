@@ -77,7 +77,7 @@ def Run(intIn):
 
 class keySubscriber(Node):
   def __init__(self):
-    super().__init__('minimal_subscriber')
+    super().__init__('subscriber')
     self.subscription = self.create_subscription(
         String,
         'keyinput',
@@ -94,8 +94,6 @@ class keySubscriber(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-
-    subscriber = keySubscriber()
             # Open a handle to "/dev/i2c-3", representing the I2C bus.
     bus = SMBus(1)
     
@@ -103,6 +101,8 @@ def main(args=None):
     address = 14
     
     tic = TicI2C(bus, address)
+    subscriber = keySubscriber()
+
     rclpy.spin(subscriber)
     
     # Destroy the node explicitly
