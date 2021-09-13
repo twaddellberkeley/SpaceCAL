@@ -84,12 +84,12 @@ def Run(intIn):
 def keySubscriber(Node):
 
   super().__init__('minimal_subscriber')
-          self.subscription = self.create_subscription(
-              String,
-              'keyinput',
-              checkRun(),
-              10)
-          self.subscription  # prevent unused variable warnings
+    self.subscription = self.create_subscription(
+        String,
+        'keyinput',
+        checkRun(),
+        10)
+    self.subscription  # prevent unused variable warnings
 
 mainTic = TicI2C()
 
