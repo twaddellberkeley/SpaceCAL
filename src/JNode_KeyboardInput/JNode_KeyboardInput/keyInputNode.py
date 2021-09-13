@@ -31,11 +31,11 @@ class keyTalkerClass(Node):
         try:
             self.get_logger().info("event")
             if event.key == keyboard.KeyCode.from_char('w'):
-                msg.data = (String)key.char
+                msg.data = str(key.char)
                 self.publisher_.publish(msg)
                 self.get_logger().info("W")
             elif event.key == keyboard.KeyCode.from_char('s'):
-                msg.data = (String)key.char
+                msg.data = str(key.char)
                 self.publisher_.publish(msg)
             time.sleep(.5)
         except AttributeError:
