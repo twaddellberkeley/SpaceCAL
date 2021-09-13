@@ -16,6 +16,7 @@ from smbus2 import SMBus, i2c_msg
  #globl vars
 tic = None
 incrBit = 20000
+logger = None
 
 if __name__ == '__main__':
     try:
@@ -27,7 +28,11 @@ class TicI2C(object):
   def __init__(self, bus, address):
     self.bus = bus
     self.address = address
- 
+    try:
+      self.bus.read_byte_data(self.address,0)
+    except:
+      logger.error("Could not open motor controller on address %d",self.address)
+      exit(0)
   # Sends the "Exit safe start" command.
   def exit_safe_start(self):
     command = [0x83]
@@ -53,6 +58,7 @@ class TicI2C(object):
     write = i2c_msg.write(self.address, [0xA1, offset])
     read = i2c_msg.read(self.address, length)
     self.bus.i2c_rdwr(write, read)
+
     return list(read)
  
 
@@ -85,6 +91,8 @@ class keySubscriber(Node):
         self.checkRun,
         10)
     self.subscription  # prevent unused variable warnings
+    global logger
+    logger = self.get_logger()
   def checkRun(self, msg):
     curPosition = tic.get_current_position()
     self.get_logger().info("EEE")
