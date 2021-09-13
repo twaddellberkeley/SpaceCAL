@@ -9,7 +9,8 @@
 # NOTE: You might need to change the 'address = 11' line below to match
 #   the device number of your Tic.
 import rclpy
-import std_msgs.msg import String 
+from rclpy.node import Node
+from std_msgs.msg import String 
 from smbus2 import SMBus, i2c_msg
  
  #globl vars
