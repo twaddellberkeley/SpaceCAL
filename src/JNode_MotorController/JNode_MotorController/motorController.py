@@ -87,7 +87,7 @@ class keySubscriber(Node):
     self.subscription = self.create_subscription(
         String,
         'keyinput',
-        checkRun(),
+        checkRun,
         10)
     self.subscription  # prevent unused variable warnings
 
