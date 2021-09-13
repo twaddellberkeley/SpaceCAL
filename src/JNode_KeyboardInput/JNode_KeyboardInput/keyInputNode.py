@@ -5,13 +5,20 @@ from rclpy.node import Node
 from pynput import keyboard
 from std_msgs.msg import String
 import time
+import sys
+if sys.platform not in ('darwin', 'win32'):
+    import os
+
+    os.environ.setdefault('DISPLAY', ':0')
 class keyTalkerClass(Node):
     def __init__(self):
         super().__init__('keyTalker')
         self.publisher_ = self.create_publisher(String, 'keyinput',10)
+        self.get_logger().info("W")
         self.keyTalker()
 
     def keyTalker(self):
+        self.get_logger().info("W2")
         while not rclpy.ok():
             with keyboard.Events() as events:
                 event = events.get(1e6)
