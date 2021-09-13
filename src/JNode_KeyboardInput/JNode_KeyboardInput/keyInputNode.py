@@ -20,11 +20,12 @@ class keyTalkerClass(Node):
     def on_press(self,key):
         try:
             self.get_logger().info("event")
-            if event.key == keyboard.KeyCode.from_char('w'):
-                msg.data = str(key.char)
+            inputKey = str(key.char)
+            if (inputKey == "w"):
+                msg.data = inputKey
                 self.publisher_.publish(msg)
                 self.get_logger().info("W")
-            elif event.key == keyboard.KeyCode.from_char('s'):
+            elif (inputKey == "s"):
                 msg.data = str(key.char)
                 self.publisher_.publish(msg)
             time.sleep(.5)
