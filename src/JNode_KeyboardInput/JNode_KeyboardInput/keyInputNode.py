@@ -22,6 +22,7 @@ class keyTalkerClass(Node):
         while not rclpy.ok():
             with keyboard.Events() as events:
                 event = events.get(1e6)
+                self.get_logger().info("event")
                 if event.key == keyboard.KeyCode.from_char('w'):
                     self.publisher_.publish("w")
                     self.get_logger().info("W")
