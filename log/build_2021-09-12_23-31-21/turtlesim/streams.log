@@ -1,0 +1,1 @@
+[5.383s] Invoking command in '/home/spacecal/SpaceCal/build/turtlesim': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy /usr/bin/cmake --build /home/spacecal/SpaceCal/build/turtlesim -- -j4 -l4

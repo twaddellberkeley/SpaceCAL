@@ -1,0 +1,75 @@
+[0.000000] (-) TimerEvent: {}
+[0.012800] (JNode_KeyboardInput) JobQueued: {'identifier': 'JNode_KeyboardInput', 'dependencies': OrderedDict()}
+[0.013177] (JNode_MotorController) JobQueued: {'identifier': 'JNode_MotorController', 'dependencies': OrderedDict()}
+[0.013430] (keystroke) JobQueued: {'identifier': 'keystroke', 'dependencies': OrderedDict()}
+[0.014331] (turtlesim) JobQueued: {'identifier': 'turtlesim', 'dependencies': OrderedDict()}
+[0.014733] (JNode_KeyboardInput) JobStarted: {'identifier': 'JNode_KeyboardInput'}
+[0.097739] (-) TimerEvent: {}
+[0.160882] (JNode_MotorController) JobStarted: {'identifier': 'JNode_MotorController'}
+[0.198972] (-) TimerEvent: {}
+[0.302431] (keystroke) JobStarted: {'identifier': 'keystroke'}
+[0.314243] (-) TimerEvent: {}
+[0.439253] (-) TimerEvent: {}
+[0.464148] (turtlesim) JobStarted: {'identifier': 'turtlesim'}
+[0.541474] (-) TimerEvent: {}
+[0.652836] (-) TimerEvent: {}
+[0.755053] (-) TimerEvent: {}
+[0.856946] (-) TimerEvent: {}
+[0.958865] (-) TimerEvent: {}
+[1.060937] (-) TimerEvent: {}
+[1.162789] (-) TimerEvent: {}
+[1.264887] (-) TimerEvent: {}
+[1.366753] (-) TimerEvent: {}
+[1.468665] (-) TimerEvent: {}
+[1.570393] (-) TimerEvent: {}
+[1.672197] (-) TimerEvent: {}
+[1.773935] (-) TimerEvent: {}
+[1.875807] (-) TimerEvent: {}
+[1.977722] (-) TimerEvent: {}
+[2.079776] (-) TimerEvent: {}
+[2.182009] (-) TimerEvent: {}
+[2.284449] (-) TimerEvent: {}
+[2.387111] (-) TimerEvent: {}
+[2.489730] (-) TimerEvent: {}
+[2.591723] (-) TimerEvent: {}
+[2.693533] (-) TimerEvent: {}
+[2.795593] (-) TimerEvent: {}
+[2.897548] (-) TimerEvent: {}
+[2.999624] (-) TimerEvent: {}
+[3.101375] (-) TimerEvent: {}
+[3.203348] (-) TimerEvent: {}
+[3.305132] (-) TimerEvent: {}
+[3.406966] (-) TimerEvent: {}
+[3.508750] (-) TimerEvent: {}
+[3.610668] (-) TimerEvent: {}
+[3.712973] (-) TimerEvent: {}
+[3.815056] (-) TimerEvent: {}
+[3.917525] (-) TimerEvent: {}
+[4.028011] (-) TimerEvent: {}
+[4.131743] (-) TimerEvent: {}
+[4.234119] (-) TimerEvent: {}
+[4.336008] (-) TimerEvent: {}
+[4.437862] (-) TimerEvent: {}
+[4.539791] (-) TimerEvent: {}
+[4.641717] (-) TimerEvent: {}
+[4.743810] (-) TimerEvent: {}
+[4.845855] (-) TimerEvent: {}
+[4.947720] (-) TimerEvent: {}
+[5.049567] (-) TimerEvent: {}
+[5.151404] (-) TimerEvent: {}
+[5.253440] (-) TimerEvent: {}
+[5.355421] (-) TimerEvent: {}
+[5.457292] (-) TimerEvent: {}
+[5.559283] (-) TimerEvent: {}
+[5.661806] (-) TimerEvent: {}
+[5.764101] (-) TimerEvent: {}
+[5.821812] (keystroke) StderrLine: {'line': b'Traceback (most recent call last):\n  File "/usr/lib/python3/dist-packages/colcon_core/executor/__init__.py", line 91, in __call__\n    rc = await self.task(*args, **kwargs)\n  File "/usr/lib/python3/dist-packages/colcon_core/task/__init__.py", line 93, in __call__\n    return await task_method(*args, **kwargs)\n  File "/usr/lib/python3/dist-packages/colcon_ros/task/ament_python/build.py", line 51, in build\n    setup_py_data = get_setup_data(self.context.pkg, env)\n  File "/usr/lib/python3/dist-packages/colcon_core/task/python/__init__.py", line 20, in get_setup_data\n    return dict(pkg.metadata[key](env))\n  File "/usr/lib/python3/dist-packages/colcon_ros/package_identification/ros.py", line 129, in getter\n    return get_setup_information(\n  File "/usr/lib/python3/dist-packages/colcon_python_setup_py/package_identification/python_setup_py.py", line 241, in get_setup_information\n    _setup_information_cache[hashable_env] = _get_setup_information(\n  File "/usr/lib/python3/dist-packages/colcon_python_setup_py/package_identification/python_setup_py.py", line 286, in _get_setup_information\n    return ast.literal_eval(output)\n  File "/usr/lib/python3.8/ast.py", line 59, in literal_eval\n    node_or_string = parse(node_or_string, mode=\'eval\')\n  File "/usr/lib/python3.8/ast.py", line 47, in parse\n    return compile(source, filename, mode, flags,\n  File "<unknown>", line 1\n    {\'package_data\': {}, \'require_features\': [], \'features\': {}, \'dist_files\': [], \'src_root\': None, \'dependency_links\': [], \'setup_requires\': [], \'convert_2to3_doctests\': [], \'eager_resources\': None, \'entry_points\': {\'console_scripts\': [\'keystroke_listen = keystroke.listen:main\', \'keystroke_arrows_to_twist = keystroke.arrows_to_twist:main\']}, \'exclude_package_data\': None, \'extras_require\': {}, \'include_package_data\': None, \'install_requires\': [\'pynput\', \'setuptools\'], \'namespace_packages\': None, \'packages\': [\'keystroke\'], \'python_requires\': <SpecifierSet(\'>=3.5\')>, \'test_loader\': None, \'test_runner\': None, \'test_suite\': None, \'tests_require\': None, \'use_2to3\': None, \'use_2to3_exclude_fixers\': None, \'use_2to3_fixers\': None, \'zip_safe\': True, \'pbr\': None, \'verbose\': 1, \'dry_run\': 0, \'help\': 0, \'command_packages\': None, \'script_name\': \'setup.py\', \'script_args\': [\'--dry-run\'], \'command_options\': {\'metadata\': {\'keywords\': (\'setup.cfg\', \'ROS, ROS2, RoverRobotics\'), \'classifiers\': (\'setup.cfg\', \'\\nFramework :: ROS2\\nIntended Audience :: Developers\\nIntended Audience :: Science/Research\\nProgramming Language :: Python\\nProgramming Language :: Python :: Python3\\nLicense :: OSI Approved :: BSD License\\nTopic :: Software Development\')}, \'options\': {\'packages\': (\'setup.cfg\', \'find:\'), \'zip_safe\': (\'setup.cfg\', \'True\'), \'install_requires\': (\'setup.cfg\', \'\\npynput\\nsetuptools\'), \'python_requires\': (\'setup.cfg\', \'>=3.5\')}, \'options.entry_points\': {\'console_scripts\': (\'setup.cfg\', \'\\nkeystroke_listen = keystroke.listen:main\\nkeystroke_arrows_to_twist = keystroke.arrows_to_twist:main\')}, \'develop\': {\'script_dir\': (\'setup.cfg\', \'$base/lib/keystroke\')}, \'install\': {\'install_scripts\': (\'setup.cfg\', \'$base/lib/keystroke\')}}, \'package_dir\': None, \'py_modules\': None, \'libraries\': None, \'headers\': None, \'ext_package\': None, \'include_dirs\': None, \'extra_path\': None, \'scripts\': None, \'data_files\': [(\'share/keystroke\', [\'package.xml\']), (\'share/keystroke/launch\', [\'launch/listen.launch.py\', \'launch/teleop_twist.launch.py\'])], \'password\': \'\', \'command_obj\': {}, \'have_run\': {}, \'want_user_cfg\': True, \'metadata\': {\'name\': \'ros2-keystroke\', \'version\': \'0.3.0\', \'author\': \'Rover Robotics\', \'author_email\': \'info@roverrobotics.com\', \'maintainer\': \'Dan Rose\', \'maintainer_email\': \'dan@digilabs.io\', \'url\': None, \'license\': None, \'description\': \'Capture keyboard input from the local computer and publish it to ROS\', \'long_description\': None, \'keywords\': [\'ROS\', \'ROS2\', \'RoverRobotics\'], \'platforms\': None, \'classifiers\': [\'Framework :: ROS2\', \'Intended Audience :: Developers\', \'Intended Audience :: Science/Research\', \'Programming Language :: Python\', \'Programming Language :: Python :: Python3\', \'License :: OSI Approved :: BSD License\', \'Topic :: Software Development\'], \'download_url\': None, \'provides\': None, \'requires\': None, \'obsoletes\': None, \'long_description_content_type\': None, \'project_urls\': {}, \'python_requires\': <SpecifierSet(\'>=3.5\')>}}\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^\nSyntaxError: invalid syntax\n'}
+[5.831466] (keystroke) JobEnded: {'identifier': 'keystroke', 'rc': 1}
+[5.843911] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'cmake'}
+[5.844360] (turtlesim) JobProgress: {'identifier': 'turtlesim', 'progress': 'build'}
+[5.845103] (turtlesim) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/spacecal/SpaceCal/build/turtlesim', '--', '-j4', '-l4'], 'cwd': '/home/spacecal/SpaceCal/build/turtlesim', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_US'), ('USER', 'spacecal'), ('XDG_SEAT', 'seat0'), ('SSH_AGENT_PID', '5972'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/spacecal/SpaceCal/install/turtlesim/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/yaml_cpp_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/opt/rviz_ogre_vendor/lib:/home/spacecal/ros2_foxy/ros2-linux/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/spacecal'), ('OLDPWD', '/home/spacecal/SpaceCal/src'), ('DESKTOP_SESSION', 'xubuntu'), ('ROS_PYTHON_VERSION', '3'), ('XDG_SEAT_PATH', '/org/freedesktop/DisplayManager/Seat0'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_colcon_cd_root', '/home/spacecal/ros2_foxy/ros2-linux'), ('QT_QPA_PLATFORMTHEME', 'gtk2'), ('COLCON_PREFIX_PATH', '/home/spacecal/SpaceCal/install:/home/spacecal/ros2_foxy/ros2-linux'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'spacecal'), ('WINDOWID', '67140985'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('PKG_CONFIG_PATH', '/home/spacecal/ros2_foxy/ros2-linux/lib/aarch64-linux-gnu/pkgconfig:/home/spacecal/ros2_foxy/ros2-linux/lib/pkgconfig'), ('XDG_SESSION_CLASS', 'user'), ('CLUTTER_BACKEND', 'x11'), ('TERM', 'xterm-256color'), ('GTK_OVERLAY_SCROLLING', '0'), ('XDG_SESSION_ID', 'c2'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/spacecal/ros2_foxy/ros2-linux/bin:/opt/ros/foxy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/spacecal-desktop:@/tmp/.ICE-unix/5830,unix/spacecal-desktop:/tmp/.ICE-unix/5830'), ('GDM_LANG', 'en_US'), ('XDG_SESSION_PATH', '/org/freedesktop/DisplayManager/Session0'), ('XDG_MENU_PREFIX', 'xfce-'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0.0'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'XFCE'), ('XDG_SESSION_DESKTOP', 'xubuntu'), ('XAUTHORITY', '/home/spacecal/.Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('XDG_GREETER_DATA_DIR', '/var/lib/lightdm-data/spacecal'), ('AMENT_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/home/spacecal/ros2_foxy/ros2-linux:/opt/ros/foxy'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'xubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('XDG_VTNR', '7'), ('PWD', '/home/spacecal/SpaceCal/build/turtlesim'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/xubuntu:/usr/share/xfce4:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share'), ('PYTHONPATH', '/home/spacecal/SpaceCal/install/turtlesim/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/my_package/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:/home/spacecal/ros2_foxy/ros2-linux/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('COLCON', '1'), ('VTE_VERSION', '6003'), ('CMAKE_PREFIX_PATH', '/home/spacecal/SpaceCal/install/turtlesim:/home/spacecal/ros2_foxy/ros2-linux:/home/spacecal/SpaceCal/install/JNode_MotorController:/home/spacecal/SpaceCal/install/JNode_KeyboardInput:/opt/ros/foxy')]), 'shell': False}
+[5.869675] (-) TimerEvent: {}
+[5.922771] (JNode_KeyboardInput) JobEnded: {'identifier': 'JNode_KeyboardInput', 'rc': 'SIGINT'}
+[5.932303] (JNode_MotorController) JobEnded: {'identifier': 'JNode_MotorController', 'rc': 'SIGINT'}
+[5.939999] (turtlesim) JobEnded: {'identifier': 'turtlesim', 'rc': 'SIGINT'}
+[5.963114] (-) EventReactorShutdown: {}
