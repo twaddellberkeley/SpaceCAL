@@ -99,7 +99,7 @@ class keySubscriber(Node):
     #Create tic object with with motor on /dev/i2c-1
     bus = SMBus(1)    
     # Select the I2C address of the Tic (the device number).
-    address = 15
+    address = 14
     global tic 
     tic = TicI2C(bus, address)
 
