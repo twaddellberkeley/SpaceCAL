@@ -31,7 +31,7 @@ class TicI2C(object):
     try:
       self.bus.read_byte_data(self.address,0)
     except:
-      logger.error("Could not open motor controller on address %d",self.address)
+      logger.error("Could not open motor controller on address %d" % self.address)
       exit(0)
   # Sends the "Exit safe start" command.
   def exit_safe_start(self):
