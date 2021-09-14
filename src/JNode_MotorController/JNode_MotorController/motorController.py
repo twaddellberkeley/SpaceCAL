@@ -93,6 +93,10 @@ class keySubscriber(Node):
     self.subscription  # prevent unused variable warnings
     global logger
     logger = self.get_logger()
+    bus = SMBus(1)
+    
+    # Select the I2C address of the Tic (the device number).
+    address = 14
     global tic 
     tic = TicI2C(bus, address)
   def checkRun(self, msg):
@@ -106,10 +110,7 @@ class keySubscriber(Node):
 def main(args=None):
     rclpy.init(args=args)
             # Open a handle to "/dev/i2c-3", representing the I2C bus.
-    bus = SMBus(1)
-    
-    # Select the I2C address of the Tic (the device number).
-    address = 14
+
     
     
     subscriber = keySubscriber()
