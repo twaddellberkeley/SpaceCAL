@@ -93,6 +93,8 @@ class keySubscriber(Node):
     self.subscription  # prevent unused variable warnings
     global logger
     logger = self.get_logger()
+    global tic 
+    tic = TicI2C(bus, address)
   def checkRun(self, msg):
     curPosition = tic.get_current_position()
     self.get_logger().info("EEE")
@@ -109,8 +111,7 @@ def main(args=None):
     # Select the I2C address of the Tic (the device number).
     address = 14
     
-    global tic 
-    tic = TicI2C(bus, address)
+    
     subscriber = keySubscriber()
 
     rclpy.spin(subscriber)
