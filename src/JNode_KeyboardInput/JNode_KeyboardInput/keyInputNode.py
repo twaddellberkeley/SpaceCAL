@@ -15,7 +15,7 @@ class keyTalkerClass(Node):
     def __init__(self):
         #Create publisher under keyTalker
         super().__init__('keyTalker')
-        self.publisher_ = self.create_publisher(String, 'keyinput',10))
+        self.publisher_ = self.create_publisher(String, 'keyinput',10)
         self.keyTalker()
     
     def on_press(self,key):
