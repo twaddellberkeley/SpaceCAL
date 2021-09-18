@@ -1,3 +1,5 @@
+#Author: Taylor Waddell
+#Link to tic: pololu.com/docs/0J71/12.9
 # Uses the smbus2 library to send and receive data from a Tic.
 # Works on Linux with either Python 2 or Python 3.
 #
@@ -12,22 +14,29 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String 
 from smbus2 import SMBus, i2c_msg
- 
- #globl vars
+#globl vars
+#Tic object
 tic = None
+#Pulse to move moto
 incrBit = 20000
+#Logger of the node
+logger = None
 
-if __name__ == '__main__':
-    try:
-        startUp()
-    except:
-      pass
 
+
+#Tic class with generic motor controls
 class TicI2C(object):
+  #Init function, takes bus and address
   def __init__(self, bus, address):
+    #Bus object and address object passed down
     self.bus = bus
     self.address = address
- 
+    #See if we can read a bit to test if motor is open
+    try:
+      self.bus.read_byte_data(self.address,0)
+    except:
+      logger.error("Could not open motor controller on address %d" % self.address)
+      exit(0)
   # Sends the "Exit safe start" command.
   def exit_safe_start(self):
     command = [0x83]
@@ -55,7 +64,6 @@ class TicI2C(object):
     self.bus.i2c_rdwr(write, read)
     return list(read)
  
-
   # Gets the "Current position" variable from the Tic.
   def get_current_position(self):
     b = self.get_variables(0x22, 4)
@@ -64,50 +72,53 @@ class TicI2C(object):
       position -= (1 << 32)
     return position
 
-
-
-
-
+#Runs the tic motor with a given position
 def Run(intIn): 
     tic.exit_safe_start()
-    tic.set_target_position(self.intIn) 
+    tic.set_target_position(intIn) 
     
-
-
-
-
 class keySubscriber(Node):
   def __init__(self):
-    super().__init__('subscriber')
+    #Create the subscriber node that listens to key input
+    super().__init__('KeySubscriber')
     self.subscription = self.create_subscription(
         String,
         'keyinput',
         self.checkRun,
         10)
     self.subscription  # prevent unused variable warnings
+    #edit global logger object with node logger
+    global logger
+    logger = self.get_logger()
+    #Create tic object with with motor on /dev/i2c-1
+    bus = SMBus(1)    
+    # Select the I2C address of the Tic (the device number).
+    address = 14
+    global tic 
+    tic = TicI2C(bus, address)
+
+#Checks current position and message data and sends command accordingly
   def checkRun(self, msg):
+    #get current position, increase if w, decrease if s
     curPosition = tic.get_current_position()
-    self.get_logger().info("EEE")
     if (msg.data == 'w'):
-        Run(curPosition + incrInt)
+        Run(curPosition + incrBit)
     elif(msg.data == 's'):
         Run(curPosition - incrBit)
 
 def main(args=None):
     rclpy.init(args=args)
-            # Open a handle to "/dev/i2c-3", representing the I2C bus.
-    bus = SMBus(1)
-    
-    # Select the I2C address of the Tic (the device number).
-    address = 14
-    
-    tic = TicI2C(bus, address)
     subscriber = keySubscriber()
-
     rclpy.spin(subscriber)
-    
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
     subscriber.destroy_node()
     rclpy.shutdown()
+
+#Main function 
+if __name__ == '__main__':
+    try:
+        main()
+    except:
+      pass
