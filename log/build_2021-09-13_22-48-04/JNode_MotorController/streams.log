@@ -1,0 +1,21 @@
+[3.599s] Invoking command in '/home/spacecal/SpaceCal/src/JNode_MotorController': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_MotorController build --build-base /home/spacecal/SpaceCal/build/JNode_MotorController/build install --prefix /home/spacecal/SpaceCal/install/JNode_MotorController --record /home/spacecal/SpaceCal/build/JNode_MotorController/install.log --single-version-externally-managed
+[5.198s] running egg_info
+[5.207s] writing ../../build/JNode_MotorController/JNode_MotorController.egg-info/PKG-INFO
+[5.219s] writing dependency_links to ../../build/JNode_MotorController/JNode_MotorController.egg-info/dependency_links.txt
+[5.223s] writing entry points to ../../build/JNode_MotorController/JNode_MotorController.egg-info/entry_points.txt
+[5.224s] writing requirements to ../../build/JNode_MotorController/JNode_MotorController.egg-info/requires.txt
+[5.225s] writing top-level names to ../../build/JNode_MotorController/JNode_MotorController.egg-info/top_level.txt
+[5.476s] reading manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'
+[5.481s] writing manifest file '../../build/JNode_MotorController/JNode_MotorController.egg-info/SOURCES.txt'
+[5.482s] running build
+[5.483s] running build_py
+[5.485s] running install
+[5.492s] running install_lib
+[5.507s] running install_data
+[5.514s] running install_egg_info
+[5.534s] removing '/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController-0.0.0-py3.8.egg-info' (and everything under it)
+[5.536s] Copying ../../build/JNode_MotorController/JNode_MotorController.egg-info to /home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController-0.0.0-py3.8.egg-info
+[5.545s] running install_scripts
+[5.708s] Installing keyboardRun script to /home/spacecal/SpaceCal/install/JNode_MotorController/lib/JNode_MotorController
+[5.713s] writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_MotorController/install.log'
+[6.224s] Invoked command in '/home/spacecal/SpaceCal/src/JNode_MotorController' returned '0': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_MotorController build --build-base /home/spacecal/SpaceCal/build/JNode_MotorController/build install --prefix /home/spacecal/SpaceCal/install/JNode_MotorController --record /home/spacecal/SpaceCal/build/JNode_MotorController/install.log --single-version-externally-managed

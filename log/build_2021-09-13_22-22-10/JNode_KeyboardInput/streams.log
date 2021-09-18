@@ -1,0 +1,21 @@
+[3.647s] Invoking command in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_KeyboardInput build --build-base /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build install --prefix /home/spacecal/SpaceCal/install/JNode_KeyboardInput --record /home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log --single-version-externally-managed
+[5.291s] running egg_info
+[5.296s] writing ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/PKG-INFO
+[5.301s] writing dependency_links to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/dependency_links.txt
+[5.302s] writing entry points to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/entry_points.txt
+[5.303s] writing requirements to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/requires.txt
+[5.304s] writing top-level names to ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/top_level.txt
+[5.573s] reading manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'
+[5.582s] writing manifest file '../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info/SOURCES.txt'
+[5.584s] running build
+[5.585s] running build_py
+[5.585s] running install
+[5.592s] running install_lib
+[5.603s] running install_data
+[5.607s] running install_egg_info
+[5.620s] removing '/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info' (and everything under it)
+[5.624s] Copying ../../build/JNode_KeyboardInput/JNode_KeyboardInput.egg-info to /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput-0.0.0-py3.8.egg-info
+[5.629s] running install_scripts
+[5.795s] Installing JNodeInput script to /home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/JNode_KeyboardInput
+[5.797s] writing list of installed files to '/home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log'
+[6.218s] Invoked command in '/home/spacecal/SpaceCal/src/JNode_KeyboardInput' returned '0': PYTHONPATH=/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/JNode_KeyboardInput build --build-base /home/spacecal/SpaceCal/build/JNode_KeyboardInput/build install --prefix /home/spacecal/SpaceCal/install/JNode_KeyboardInput --record /home/spacecal/SpaceCal/build/JNode_KeyboardInput/install.log --single-version-externally-managed

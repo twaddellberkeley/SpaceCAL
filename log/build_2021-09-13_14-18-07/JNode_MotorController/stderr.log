@@ -1,0 +1,5 @@
+  File "/home/spacecal/SpaceCal/install/JNode_MotorController/lib/python3.8/site-packages/JNode_MotorController/motorController.py", line 104
+    global tic = TicI2C(bus, address)
+               ^
+SyntaxError: invalid syntax
+
