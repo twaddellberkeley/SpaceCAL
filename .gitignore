@@ -3,3 +3,4 @@
 /log/*
 /install/*
 test.pp
+__pycache__/
