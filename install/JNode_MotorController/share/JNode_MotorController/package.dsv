@@ -1,6 +1,0 @@
-source;share/JNode_MotorController/hook/pythonpath.ps1
-source;share/JNode_MotorController/hook/pythonpath.dsv
-source;share/JNode_MotorController/hook/pythonpath.sh
-source;share/JNode_MotorController/hook/ament_prefix_path.ps1
-source;share/JNode_MotorController/hook/ament_prefix_path.dsv
-source;share/JNode_MotorController/hook/ament_prefix_path.sh
