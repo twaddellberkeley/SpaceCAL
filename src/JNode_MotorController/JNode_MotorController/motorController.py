@@ -14,7 +14,6 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String 
 from smbus2 import SMBus, i2c_msg
- 
 #globl vars
 #Tic object
 tic = None
@@ -23,12 +22,7 @@ incrBit = 20000
 #Logger of the node
 logger = None
 
-#Main function 
-if __name__ == '__main__':
-    try:
-        startUp()
-    except:
-      pass
+
 
 #Tic class with generic motor controls
 class TicI2C(object):
@@ -121,3 +115,10 @@ def main(args=None):
     # when the garbage collector destroys the node object)
     subscriber.destroy_node()
     rclpy.shutdown()
+
+#Main function 
+if __name__ == '__main__':
+    try:
+        main()
+    except:
+      pass
