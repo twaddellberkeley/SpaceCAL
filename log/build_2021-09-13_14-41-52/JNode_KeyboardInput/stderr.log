@@ -1,5 +1,0 @@
-  File "/home/spacecal/SpaceCal/install/JNode_KeyboardInput/lib/python3.8/site-packages/JNode_KeyboardInput/keyInputNode.py", line 34
-    msg.data = (String)key.char
-                       ^
-SyntaxError: invalid syntax
-
