@@ -1,26 +1,29 @@
-#Generic node that will check for various key inputs and communicate them via String
-#Author: Taylor Waddell
+# Generic node that will check for various key inputs and communicate them via String
+# Author: Taylor Waddell
+# Copyright 2021 MIT Opensource License
 import rclpy
 from rclpy.node import Node
 from pynput import keyboard
 from std_msgs.msg import String
 import time
 import sys
-#Setting correct display
+# Setting correct display
 if sys.platform not in ('darwin', 'win32'):
     import os
     os.environ.setdefault('DISPLAY', ':0')
-#generic keytalker class
+
+
+# generic keytalker class
 class keyTalkerClass(Node):
     def __init__(self):
-        #Create publisher under keyTalker
+        # Create publisher under keyTalker
         super().__init__('keyTalker')
-        self.publisher_ = self.create_publisher(String, 'keyinput',10)
+        self.publisher_ = self.create_publisher(String, 'keyinput', 10)
         self.keyTalker()
-    
-    def on_press(self,key):
+
+    def on_press(self, key):
         try:
-            #Createa  message of type string, and pass it along if its w or s
+            # Create a message of type string, and pass it along if its w or s
             msg = String()
             inputKey = str(key.char)
             if (inputKey == "w"):
@@ -30,18 +33,18 @@ class keyTalkerClass(Node):
                 msg.data = str(key.char)
                 self.publisher_.publish(msg)
             time.sleep(.5)
-        #if it nots a char, we error
+        # If it nots a char, we error
         except AttributeError:
             print('special key {0} pressed'.format(
-                key))   
-    #Keep logging for keys while ros is alive
+                key))
+
+    # Keep logging for keys while ros is alive
     def keyTalker(self):
         while rclpy.ok():
             with keyboard.Listener(
                     on_press=self.on_press) as listener:
                 listener.join()
 
-            
 
 def main(args=None):
     rclpy.init(args=args)
