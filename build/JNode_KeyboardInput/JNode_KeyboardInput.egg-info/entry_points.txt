@@ -1,3 +1,0 @@
-[console_scripts]
-JNodeInput = JNode_KeyboardInput.keyInputNode:main
-
