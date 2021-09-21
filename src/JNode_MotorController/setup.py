@@ -4,7 +4,7 @@ package_name = 'JNode_MotorController'
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='0.1.0',
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -15,12 +15,12 @@ setup(
     zip_safe=True,
     maintainer='spacecal',
     maintainer_email='twaddell@berkeley.edu',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Runs motors with given address parameter',
+    license='MIT',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'keyboardRun = JNode_MotorController.motorController:main'
+            'motorRun = JNode_MotorController.motorController:main'
         ],
     },
 )

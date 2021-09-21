@@ -116,8 +116,12 @@ class keySubscriber(Node):
             10)
         self.subscription  # prevent unused variable warnings
         # edit global logger object with node logger
+        self.declare_parameter("Address")
         global logger
         logger = self.get_logger()
+        busNum = self.get_parameter('Address').get_parameter_value()
+        busNum = busNum.integer_value
+        logger.info(str(busNum))
         # Create tic object with with motor on /dev/i2c-1
         bus = SMBus(busNum)
         # Select the I2C address of the Tic (the device number).
@@ -135,6 +139,7 @@ class keySubscriber(Node):
 
 
 def main(args=None):
+
     rclpy.init(args=args)
     subscriber = keySubscriber()
     rclpy.spin(subscriber)
@@ -145,11 +150,11 @@ def main(args=None):
     rclpy.shutdown()
 
 
-def motorConnectTest():
+def motorConnectTest(testAddress):
     try:
         bus = SMBus(busNum)
         # Select the I2C address of the Tic (the device number).
-        bus.read_byte_data(address, 0)
+        bus.read_byte_data(testAddress, 0)
         return 0
     except Exception:
         return 1

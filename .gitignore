@@ -4,3 +4,4 @@
 /install/*
 test.pp
 __pycache__/
+__pycache__/*
