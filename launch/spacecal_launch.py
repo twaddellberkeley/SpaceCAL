@@ -27,18 +27,31 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='JNode_KeyboardInput',
-            namespace='keyboard',
+            namespace='keyboardTesting',
             executable='JNodeInput',
             output='screen',
             emulate_tty=True,
-            name='sim'
+            name='keyboard'
         ),
         Node(
             package='JNode_MotorController',
-            namespace='keyboard',
-            executable='keyboardRun',
+            namespace='keyboardTesting',
+            executable='motorRun',
             output='screen',
             emulate_tty=True,
-            name='sim'
-        )        
+            parameters=[{"Address": 13}],
+            name="motor"
+        ),
+        Node(
+            package='JNode_MotorController',
+            namespace='keyboardTesting',
+            executable='motorRun',
+            output='screen',
+            emulate_tty=True,
+            parameters=[{"Address": 14}],
+            name="motor2",
+            remappings=[
+                ("keyinput", "keyinput2")
+            ]
+        )
     ])
