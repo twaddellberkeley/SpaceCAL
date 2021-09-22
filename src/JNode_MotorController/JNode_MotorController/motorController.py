@@ -214,6 +214,7 @@ def main(args=None):
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
+    tic.powerdown()
     subscriber.destroy_node()
     rclpy.shutdown()
 
@@ -226,7 +227,6 @@ def motorConnectTest(testAddress):
         return 0
     except Exception:
         return 1
-
 
 # Main function
 if __name__ == '__main__':
