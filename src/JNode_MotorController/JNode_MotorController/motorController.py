@@ -185,11 +185,13 @@ class keySubscriber(Node):
 
     # Make tic go to current position
     def go_to(self, msg):
+        logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.set_target_position(msg.data)
 
     # Sets speed of tic
     def set_speed(self, msg):
+        logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.set_target_speed(msg.data)
 
