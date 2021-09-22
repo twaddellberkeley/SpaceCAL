@@ -61,7 +61,6 @@ class TicI2C(object):
             logger.error(
                 "Could not open motor controller on address %d" % self.address)
             rclpy.shutdown()
-            exit(0)
     # Sends the "Exit safe start" command.
 
     def exit_safe_start(self):
