@@ -33,7 +33,7 @@
 #   the device number of your Tic.
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, Int32
 from smbus2 import SMBus, i2c_msg
 # globl vars
 # Tic object
@@ -149,12 +149,12 @@ class keySubscriber(Node):
             self.checkRun,
             10)
         self.subscriptionGoTo = self.create_subscription(
-            int,
+            Int32,
             'setPosition',
             self.go_to,
             10)
         self.subscriptionSpeed = self.create_subscription(
-            int,
+            Int32,
             'setVelocity',
             self.set_speed,
             10)
