@@ -160,7 +160,7 @@ class keySubscriber(Node):
             10)
         self.subscriptionGoTo
         self.subscriptionSpeed
-        self.subscription  # prevent unused variable warnings
+        self.subscriptionInput  # prevent unused variable warnings
         # edit global logger object with node logger
         self.declare_parameter("Address")
         global logger
