@@ -60,7 +60,7 @@ class TicI2C(object):
         except Exception:
             logger.error(
                 "Could not open motor controller on address %d" % self.address)
-            rclpy.shutdown()
+            exit(0)
     # Sends the "Exit safe start" command.
 
     def exit_safe_start(self):
@@ -221,10 +221,6 @@ def main(args=None):
         rclpy.spin(subscriber)
     except KeyboardInterrupt():
         print('Caught keyboard')
-    except BaseException():
-        print("testing more")
-    except Exception():
-        print("testing even more")
     finally:
         print("test")
         # Destroy the node explicitly
