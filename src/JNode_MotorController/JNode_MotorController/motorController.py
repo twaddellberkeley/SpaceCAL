@@ -60,6 +60,7 @@ class TicI2C(object):
         except Exception:
             logger.error(
                 "Could not open motor controller on address %d" % self.address)
+            rclpy.shutdown()
             exit(0)
     # Sends the "Exit safe start" command.
 
@@ -116,12 +117,19 @@ class TicI2C(object):
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
 
+    # Reset
+    def reset_motor(self):
+        command = [0xB0]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
         write = i2c_msg.write(self.address, [0xA1, offset])
         read = i2c_msg.read(self.address, length)
         self.bus.i2c_rdwr(write, read)
         return list(read)
+        logger.info(str(busNum))
 
     # Gets the "Current position" variable from the Tic.
     def get_current_position(self):
@@ -173,12 +181,12 @@ class keySubscriber(Node):
         logger = self.get_logger()
         adrNum = self.get_parameter('Address').get_parameter_value()
         address = adrNum.integer_value
-        logger.info(str(busNum))
         # Create tic object with with motor on /dev/i2c-1
         bus = SMBus(busNum)
         # Select the I2C address of the Tic (the device number).
         global tic
         tic = TicI2C(bus, address)
+        tic.reset_motor()
         tic.exit_safe_start()
         tic.energize()
 
