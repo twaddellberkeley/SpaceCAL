@@ -100,6 +100,7 @@ class TicI2C(object):
 
     # Tells motor to de-energize
     def powerdown(self):
+        logger.info("why is this not runnign")
         command = [0x8C]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
@@ -224,8 +225,8 @@ def main(args=None):
         # Destroy the node explicitly
         # (optional - otherwise it will be done automatically
         # when the garbage collector destroys the node object)
-        logger.info("SHUTTING DOWNNNNNN")
         tic.powerdown()
+        logger.info("SHUTTING DOWNNNNNN")
         subscriber.destroy_node()
         rclpy.shutdown()
 
