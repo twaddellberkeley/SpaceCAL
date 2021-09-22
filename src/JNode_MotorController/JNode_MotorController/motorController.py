@@ -165,8 +165,8 @@ class keySubscriber(Node):
         self.declare_parameter("Address")
         global logger
         logger = self.get_logger()
-        busNum = self.get_parameter('Address').get_parameter_value()
-        busNum = busNum.integer_value
+        adrNum = self.get_parameter('Address').get_parameter_value()
+        address = adrNum.integer_value
         logger.info(str(busNum))
         # Create tic object with with motor on /dev/i2c-1
         bus = SMBus(busNum)
