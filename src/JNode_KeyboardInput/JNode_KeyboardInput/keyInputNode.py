@@ -25,7 +25,7 @@
 import rclpy
 from rclpy.node import Node
 from pynput import keyboard
-from std_msgs.msg import String
+from std_msgs.msg import String, Int32
 import time
 import sys
 # Setting correct display
@@ -40,7 +40,7 @@ class keyTalkerClass(Node):
         # Create publisher under keyTalker
         super().__init__('keyTalker')
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
-        self.velocitySpin = self.create_publisher(int, 'setVelocity', 10)
+        self.velocitySpin = self.create_publisher(Int32, 'setVelocity', 10)
         self.keyTalker()
 
     def on_press(self, key):
