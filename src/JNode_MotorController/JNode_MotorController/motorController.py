@@ -219,8 +219,6 @@ def main(args=None):
     subscriber = keySubscriber()
     try:
         rclpy.spin(subscriber)
-    except Exception():
-        print('Caught keyboard')
     finally:
         print("test")
         # Destroy the node explicitly
