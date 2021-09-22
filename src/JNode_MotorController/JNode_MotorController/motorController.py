@@ -82,6 +82,34 @@ class TicI2C(object):
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
 
+    # Sets target speed
+    def set_target_speed(self, speed):
+        command = [0xE3,
+                   speed >> 0 & 0xFF,
+                   speed >> 8 & 0xFF,
+                   speed >> 16 & 0xFF,
+                   speed >> 24 & 0xFF]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+    
+    # Tells motor to home
+    def set_home(self):
+        command = [0xE0]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
+    # Tells motor to de-energize
+    def powerdown(self):
+        command = [0x8C]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
+    # Tells Motor to halt
+    def halt_motor(self):
+        command = [0x89]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
         write = i2c_msg.write(self.address, [0xA1, offset])
@@ -97,6 +125,12 @@ class TicI2C(object):
             position -= (1 << 32)
         return position
 
+    # Gets current status
+    def get_current_status(self):
+        b = self.get_variables(0x00, 1)
+        status = b[0]
+        return status
+
 # Runs the tic motor with a given position
 
 
@@ -108,12 +142,24 @@ def Run(intIn):
 class keySubscriber(Node):
     def __init__(self):
         # Create the subscriber node that listens to key input
-        super().__init__('KeySubscriber')
-        self.subscription = self.create_subscription(
+        super().__init__('MotorControllerSubscriber')
+        self.subscriptionInput = self.create_subscription(
             String,
             'keyinput',
             self.checkRun,
             10)
+        self.subscriptionGoTo = self.create_subscription(
+            int,
+            'setPosition',
+            self.go_to,
+            10)
+        self.subscriptionSpeed = self.create_subscription(
+            int,
+            'setVelocity',
+            self.set_speed,
+            10)
+        self.subscriptionGoTo
+        self.subscriptionSpeed
         self.subscription  # prevent unused variable warnings
         # edit global logger object with node logger
         self.declare_parameter("Address")
@@ -136,6 +182,16 @@ class keySubscriber(Node):
             Run(curPosition + incrBit)
         elif(msg.data == 's'):
             Run(curPosition - incrBit)
+
+    # Make tic go to current position
+    def go_to(self, msg):
+        if(tic.get_current_status() == 10):
+            tic.set_target_position(msg.data)
+
+    # Sets speed of tic
+    def set_speed(self, msg):
+        if(tic.get_current_status() == 10):
+            tic.set_target_speed(msg.data)
 
 
 def main(args=None):
