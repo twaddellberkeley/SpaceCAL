@@ -179,6 +179,7 @@ class keySubscriber(Node):
         # Select the I2C address of the Tic (the device number).
         global tic
         tic = TicI2C(bus, address)
+        tic.exit_safe_start()
         tic.energize()
 
 # Checks current position and message data and sends command accordingly
