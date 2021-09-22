@@ -217,14 +217,23 @@ def main(args=None):
 
     rclpy.init(args=args)
     subscriber = keySubscriber()
-    rclpy.spin(subscriber)
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    logger.info("SHUTTING DOWNNNNNN")
-    tic.powerdown()
-    subscriber.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(subscriber)
+    except KeyboardInterrupt():
+        print('Caught keyboard')
+    except BaseException():
+        print("testing more")
+    except Exception():
+        print("testing even more")
+    finally:
+        print("test")
+        # Destroy the node explicitly
+        # (optional - otherwise it will be done automatically
+        # when the garbage collector destroys the node object)
+        logger.info("SHUTTING DOWNNNNNN")
+        tic.powerdown()
+        subscriber.destroy_node()
+        rclpy.shutdown()
 
 
 def motorConnectTest(testAddress):
