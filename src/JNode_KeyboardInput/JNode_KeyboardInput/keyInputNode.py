@@ -48,6 +48,7 @@ class keyTalkerClass(Node):
             # Create a message of type string, and pass it along if its w or s
             msg = String()
             inputKey = str(key.char)
+            intMsg = Int32()
             if (inputKey == "w"):
                 msg.data = inputKey
                 self.keyPublisher.publish(msg)
@@ -56,7 +57,7 @@ class keyTalkerClass(Node):
                 self.keyPublisher.publish(msg)
             elif (inputKey == "v"):
                 msg.data = 200
-                self.velocitySpin.publish(msg)
+                self.velocitySpin.publish(intMsg)
             time.sleep(.5)
         # If it nots a char, we error
         except AttributeError:
