@@ -39,7 +39,8 @@ class keyTalkerClass(Node):
     def __init__(self):
         # Create publisher under keyTalker
         super().__init__('keyTalker')
-        self.publisher_ = self.create_publisher(String, 'keyinput', 10)
+        self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
+        self.velocitySpin = self.create_publisher(int, 'setVelocity', 10)
         self.keyTalker()
 
     def on_press(self, key):
@@ -49,10 +50,13 @@ class keyTalkerClass(Node):
             inputKey = str(key.char)
             if (inputKey == "w"):
                 msg.data = inputKey
-                self.publisher_.publish(msg)
+                self.keyPublisher.publish(msg)
             elif (inputKey == "s"):
                 msg.data = str(key.char)
-                self.publisher_.publish(msg)
+                self.keyPublisher.publish(msg)
+            elif (inputKey == "v"):
+                msg.data = 200
+                self.velocitySpin.publish(msg)
             time.sleep(.5)
         # If it nots a char, we error
         except AttributeError:
