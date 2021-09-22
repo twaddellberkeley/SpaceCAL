@@ -39,7 +39,7 @@ def generate_launch_description():
             executable='motorRun',
             output='screen',
             emulate_tty=True,
-            parameters=[{"Address": 13}],
+            parameters=[{"Address": 14}],
             name="motor"
         ),
         Node(
@@ -48,7 +48,7 @@ def generate_launch_description():
             executable='motorRun',
             output='screen',
             emulate_tty=True,
-            parameters=[{"Address": 14}],
+            parameters=[{"Address": 13}],
             name="motor2",
             remappings=[
                 ("keyinput", "keyinput2")
