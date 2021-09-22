@@ -219,7 +219,7 @@ def main(args=None):
     subscriber = keySubscriber()
     try:
         rclpy.spin(subscriber)
-    except KeyboardInterrupt():
+    except Exception():
         print('Caught keyboard')
     finally:
         print("test")
