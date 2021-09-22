@@ -104,6 +104,12 @@ class TicI2C(object):
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
 
+    # Tells motor to energize
+    def energize(self):
+        command = [0x85]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
     # Tells Motor to halt
     def halt_motor(self):
         command = [0x89]
@@ -173,6 +179,7 @@ class keySubscriber(Node):
         # Select the I2C address of the Tic (the device number).
         global tic
         tic = TicI2C(bus, address)
+        tic.energize()
 
 # Checks current position and message data and sends command accordingly
     def checkRun(self, msg):
