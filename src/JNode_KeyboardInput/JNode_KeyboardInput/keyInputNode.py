@@ -56,7 +56,7 @@ class keyTalkerClass(Node):
                 msg.data = str(key.char)
                 self.keyPublisher.publish(msg)
             elif (inputKey == "v"):
-                intMsg.data = 200
+                intMsg.data = 20000000
                 self.velocitySpin.publish(intMsg)
             time.sleep(.5)
         # If it nots a char, we error
