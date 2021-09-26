@@ -164,13 +164,6 @@ class TicI2C(object):
         status = b[0]
         return status
 
-# Runs the tic motor with a given position
-
-
-def Run(intIn):
-    tic.exit_safe_start()
-    tic.set_target_position(intIn)
-
 
 class keySubscriber(Node):
     def __init__(self):
@@ -217,11 +210,14 @@ class keySubscriber(Node):
 # Checks current position and message data and sends command accordingly
     def checkRun(self, msg):
         # get current position, increase if w, decrease if s
+        logger.info("Changing pos")
         curPosition = tic.get_current_position()
         if (msg.data == 'w'):
-            Run(curPosition + incrBit)
+            tic.exit_safe_start()
+            tic.set_target_position(curPosition + incrBit)
         elif(msg.data == 's'):
-            Run(curPosition - incrBit)
+            tic.exit_safe_start()
+            tic.set_target_position(curPosition - incrBit)
 
     # Make tic go to current position
     def go_to(self, msg):
