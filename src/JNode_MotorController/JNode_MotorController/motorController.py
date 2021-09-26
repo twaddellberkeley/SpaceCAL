@@ -76,6 +76,7 @@ class TicI2C(object):
     # "Set target position" command in the "Command reference" section of the
     # Tic user's guide.
     def set_target_position(self, target):
+        logger.info("Target %d" % target)
         command = [0xE0,
                    target >> 0 & 0xFF,
                    target >> 8 & 0xFF,
@@ -214,7 +215,7 @@ class keySubscriber(Node):
         curPosition = tic.get_current_position()
         if (msg.data == 'w'):
             tic.exit_safe_start()
-            #tic.set_target_position(1000)
+            tic.set_target_position(1000)
         #elif(msg.data == 's'):
             #tic.exit_safe_start()
             #tic.set_target_position(curPosition - incrBit)
