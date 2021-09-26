@@ -212,12 +212,12 @@ class keySubscriber(Node):
         # get current position, increase if w, decrease if s
         logger.info("Changing pos")
         curPosition = tic.get_current_position()
-        if (msg.data == 'w'):
+        #if (msg.data == 'w'):
             # tic.exit_safe_start()
-            tic.set_target_position(1000)
-        elif(msg.data == 's'):
-            tic.exit_safe_start()
-            tic.set_target_position(curPosition - incrBit)
+            #tic.set_target_position(1000)
+        #elif(msg.data == 's'):
+            #tic.exit_safe_start()
+            #tic.set_target_position(curPosition - incrBit)
 
     # Make tic go to current position
     def go_to(self, msg):
