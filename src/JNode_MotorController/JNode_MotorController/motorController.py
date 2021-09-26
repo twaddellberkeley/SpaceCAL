@@ -32,6 +32,8 @@
 # NOTE: You might need to change the 'address = 11' line below to match
 #   the device number of your Tic.
 import rclpy
+import time
+import asyncio
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
 from smbus2 import SMBus, i2c_msg
@@ -91,7 +93,7 @@ class TicI2C(object):
                    speed >> 24 & 0xFF]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
-    
+
     # Tells motor to home
     def set_home(self):
         command = [0xE0]
@@ -100,7 +102,6 @@ class TicI2C(object):
 
     # Tells motor to de-energize
     def powerdown(self):
-        logger.info("why is this not runnign")
         command = [0x86]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
@@ -122,6 +123,17 @@ class TicI2C(object):
         command = [0xB0]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
+
+    # Cleare timeout, ensure motor runs
+    def clear_Timeout(self):
+        command = [0x8C]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
+    # Stay alive, keep motor running
+    async def stay_alive(self):
+        self.clear_Timeout()
+        time.sleep(0.5)
 
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
@@ -189,6 +201,8 @@ class keySubscriber(Node):
         tic.reset_motor()
         tic.exit_safe_start()
         tic.energize()
+        # Keep telling motor that were connected
+        asyncio.run(tic.stay_alive())
 
 # Checks current position and message data and sends command accordingly
     def checkRun(self, msg):
