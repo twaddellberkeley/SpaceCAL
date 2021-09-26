@@ -133,8 +133,12 @@ class TicI2C(object):
     # Stay alive, keep motor running
     def stay_alive(self):
         while rclpy.ok():
-            self.clear_Timeout()
-            time.sleep(.5)
+            try:
+                self.clear_Timeout()
+            except Exception:
+                logger.warn("MOTOR DISCONNECTED %d" % self.address)
+                exit(0)
+        time.sleep(.5)
 
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
@@ -243,6 +247,7 @@ def main(args=None):
         # (optional - otherwise it will be done automatically
         # when the garbage collector destroys the node object)
         # Stopping motor completely
+        logger.info("Shutting down motor %d" % address)
         tic.powerdown()
         subscriber.destroy_node()
         rclpy.shutdown()
