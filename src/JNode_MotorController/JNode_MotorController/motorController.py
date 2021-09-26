@@ -33,7 +33,7 @@
 #   the device number of your Tic.
 import rclpy
 import time
-import asyncio
+import threading
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
 from smbus2 import SMBus, i2c_msg
@@ -131,10 +131,10 @@ class TicI2C(object):
         self.bus.i2c_rdwr(write)
 
     # Stay alive, keep motor running
-    async def stay_alive(self):
+    def stay_alive(self):
         while rclpy.ok():
             self.clear_Timeout()
-            await asyncio.sleep(.5)
+            time.sleep(.5)
 
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
@@ -202,9 +202,9 @@ class keySubscriber(Node):
         tic.reset_motor()
         time.sleep(0.1)
         # Keep telling motor that were connected
-        aliveLoop = asyncio.get_event_loop()
-        aliveLoop.create_task(tic.stay_alive())
-        aliveLoop.run_forever()
+        stayAlive = threading.Thread(target=tic.stay_alive())
+        stayAlive.daemon = True
+        stayAlive.start()
         tic.exit_safe_start()
         tic.energize()
 
