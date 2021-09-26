@@ -213,8 +213,8 @@ class keySubscriber(Node):
         logger.info("Changing pos")
         curPosition = tic.get_current_position()
         if (msg.data == 'w'):
-            tic.exit_safe_start()
-            tic.set_target_position(curPosition + incrBit)
+            # tic.exit_safe_start()
+            tic.set_target_position(1000)
         elif(msg.data == 's'):
             tic.exit_safe_start()
             tic.set_target_position(curPosition - incrBit)
