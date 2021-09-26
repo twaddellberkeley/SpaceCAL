@@ -132,9 +132,8 @@ class TicI2C(object):
 
     # Stay alive, keep motor running
     async def stay_alive(self):
-        while rclpy.ok():
-            self.clear_Timeout()
-            time.sleep(0.5)
+        self.clear_Timeout()
+        await asyncio.sleep(.5)
 
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
@@ -202,7 +201,9 @@ class keySubscriber(Node):
         tic.reset_motor()
         time.sleep(0.1)
         # Keep telling motor that were connected
-        asyncio.run(tic.stay_alive())
+        aliveLoop = asyncio.get_event_loop()
+        aliveLoop.create_task(tic.stay_alive())
+        aliveLoop.run_forever()
         tic.exit_safe_start()
         tic.energize()
 
