@@ -204,7 +204,7 @@ class keySubscriber(Node):
         # Keep telling motor that were connected
         stayAlive = threading.Thread(target=tic.stay_alive())
         stayAlive.daemon = True
-        stayAlive.start()
+        # stayAlive.start()
         tic.exit_safe_start()
         tic.energize()
 
