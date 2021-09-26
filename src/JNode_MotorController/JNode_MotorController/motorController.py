@@ -199,10 +199,11 @@ class keySubscriber(Node):
         global tic
         tic = TicI2C(bus, address)
         tic.reset_motor()
-        tic.exit_safe_start()
-        tic.energize()
+        time.sleep(0.1)
         # Keep telling motor that were connected
         asyncio.run(tic.stay_alive())
+        tic.exit_safe_start()
+        tic.energize()
 
 # Checks current position and message data and sends command accordingly
     def checkRun(self, msg):
