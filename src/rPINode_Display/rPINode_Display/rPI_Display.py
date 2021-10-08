@@ -4,6 +4,8 @@ from std_msgs.msg import String
 import subprocess
 import os
 
+mProcess = None
+
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
@@ -17,11 +19,12 @@ class displayFunctionClass(Node):
         # First kill any current projection
         # subprocess.run(['export DISPLAY=":0"'], shell=True)
         os.environ['DISPLAY']=":0"
-        # mainEnv = os.environ.copy()
-        # testVar = subprocess.run(['xdotool search --class "mplayer"'], shell=True)
+        global mProcess
+        if(mProcess is not None):
+            mProcess.kill()
         # Now Project
         videoString = '/home/spacecal/test_video/' + msg.data
-        status, mPID = subprocess.run(
+        mProcess = subprocess.Popen(
             ['mplayer', videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
