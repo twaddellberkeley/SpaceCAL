@@ -1,10 +1,10 @@
 from setuptools import setup
 
-package_name = 'rPINode_Display'
+package_name = 'jetson_main'
 
 setup(
     name=package_name,
-    version='0.1.0',
+    version='0.0.0',
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -15,12 +15,12 @@ setup(
     zip_safe=True,
     maintainer='spacecal',
     maintainer_email='twaddell@berkeley.edu',
-    description='Node package that will display to given display',
-    license='MIT',
+    description='TODO: Package description',
+    license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'videoDisplay = rPINode_Display.rPI_Display:main'
+            'videoSend = jetson_main.videoSend:main'
         ],
     },
 )
