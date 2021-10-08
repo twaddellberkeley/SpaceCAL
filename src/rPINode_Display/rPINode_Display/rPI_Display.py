@@ -15,7 +15,7 @@ class displayFunctionClass(Node):
     
     def displayVideo(self, msg):
         # First kill any current projection
-        os.environ['DISPLAY'] = ":0"
+        os.environ['DISPLAY']=":0"
         subprocess.run(['xdotool search --class "mplayer" windowkill'], shell=True)
         # Now Project
         videoString = '/home/spacecal/test_video/' + msg.data
@@ -28,7 +28,7 @@ class displayFunctionClass(Node):
 # Main function to start subscriber but also set display correctly
 def main(args=None):
     # Set the proper OS variable to display on
-    os.environ['DISPLAY'] = ":0"
+    os.environ['DISPLAY']=":0"
     rclpy.init(args=args)
     subscriber = displayFunctionClass()
     rclpy.spin(subscriber)
