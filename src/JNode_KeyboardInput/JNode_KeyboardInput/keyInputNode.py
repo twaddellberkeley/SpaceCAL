@@ -56,7 +56,13 @@ class keyTalkerClass(Node):
                 msg.data = str(key.char)
                 self.keyPublisher.publish(msg)
             elif (inputKey == "t"):
-                msg.data = "test.mp4"
+                msg.data = "test.mkv"
+                self.videoChange.publish(msg)
+            elif (inputKey == "y"):
+                msg.data = "2test.mp4"
+                self.videoChange.publish(msg)
+            elif (inputKey == "u"):
+                msg.data = "3test.mp4"
                 self.videoChange.publish(msg)
             elif (inputKey == "v"):
                 intMsg.data = 20000000
