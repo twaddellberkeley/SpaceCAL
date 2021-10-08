@@ -16,9 +16,10 @@ class displayFunctionClass(Node):
     def displayVideo(self, msg):
         # First kill any current projection
         subprocess.run(
-            ['xdotool', 'search --onlyvisible --class "mplayer" windowkill'])
+            ['xdotool', "search", "--onlyvisible",
+            '--class', '"mplayer"',"windowkill"])
         # Now Project
-        videoString = '/home/spacecal/test_video' + msg.data
+        videoString = '/home/spacecal/test_video/' + msg.data
         subprocess.Popen(
             ['mplayer', videoString],
             stderr=subprocess.DEVNULL,
