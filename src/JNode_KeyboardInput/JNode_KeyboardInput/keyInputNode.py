@@ -27,11 +27,11 @@ from rclpy.node import Node
 from pynput import keyboard
 from std_msgs.msg import String, Int32
 import time
-import sys
 # Setting correct display
 import os
 os.environ.setdefault('DISPLAY', ':0')
 os.environ['DISPLAY'] = ":0"
+
 
 # generic keytalker class
 class keyTalkerClass(Node):
