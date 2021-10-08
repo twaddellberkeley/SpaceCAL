@@ -41,6 +41,7 @@ class keyTalkerClass(Node):
         super().__init__('keyTalker')
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
         self.velocitySpin = self.create_publisher(Int32, 'setVelocity', 10)
+        self.videoChange = self.create_publisher(String, 'videoName', 10)
         self.keyTalker()
 
     def on_press(self, key):
@@ -55,6 +56,9 @@ class keyTalkerClass(Node):
             elif (inputKey == "s"):
                 msg.data = str(key.char)
                 self.keyPublisher.publish(msg)
+            elif (inputKey == "r"):
+                msg.data = "test.mp4"
+                self.videoName.publish(msg)
             elif (inputKey == "v"):
                 intMsg.data = 20000000
                 self.velocitySpin.publish(intMsg)
