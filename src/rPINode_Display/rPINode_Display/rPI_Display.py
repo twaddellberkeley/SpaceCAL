@@ -25,7 +25,7 @@ class displayFunctionClass(Node):
         # Now Project
         videoString = '/home/spacecal/test_video/' + msg.data
         mProcess = subprocess.Popen(
-            ['mplayer', videoString],
+            ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
 
