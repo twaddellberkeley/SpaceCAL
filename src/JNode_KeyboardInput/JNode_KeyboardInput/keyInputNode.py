@@ -55,9 +55,9 @@ class keyTalkerClass(Node):
             elif (inputKey == "s"):
                 msg.data = str(key.char)
                 self.keyPublisher.publish(msg)
-            elif (inputKey == "r"):
+            elif (inputKey == "t"):
                 msg.data = "test.mp4"
-                self.videoName.publish(msg)
+                self.videoChange.publish(msg)
             elif (inputKey == "v"):
                 intMsg.data = 20000000
                 self.velocitySpin.publish(intMsg)
