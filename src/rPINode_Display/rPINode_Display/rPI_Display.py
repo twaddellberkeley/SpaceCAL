@@ -2,8 +2,8 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 import subprocess
-import os
 import threading
+import os
 
 mProcess = None
 lightOn = False
@@ -15,9 +15,9 @@ class displayFunctionClass(Node):
         self.videoToPlaySubscriber = self.create_subscription(
             String, 'videoName', self.displayVideo, 10)
         self.videoToPlaySubscriber
-        stayAlive = threading.Thread(target=self.stay_alive())
-        stayAlive.daemon = True
-        stayAlive.start()
+        # stayAlive = threading.Thread(target=self.stay_alive())
+        # stayAlive.daemon = True
+        # stayAlive.start()
     
     def displayVideo(self, msg):
         # First kill any current projection
