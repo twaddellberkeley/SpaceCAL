@@ -22,12 +22,14 @@ class displayFunctionClass(Node):
         global mProcess
         if(mProcess is not None):
             mProcess.kill()
+        subprocess.run(['ledOn'])
         # Now Project
         videoString = '/home/spacecal/test_video/' + msg.data
         mProcess = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
+        subprocess.run(['ledZero'])
 
 
 # Main function to start subscriber but also set display correctly
