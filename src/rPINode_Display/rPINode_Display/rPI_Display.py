@@ -28,19 +28,19 @@ class displayFunctionClass(Node):
         if(mProcess is not None):
             mProcess.kill()
         subprocess.run(['ledOn'])
-        lightOn = True
         # Now Project
         videoString = '/home/spacecal/test_video/' + msg.data
         mProcess = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
+        lightOn = True
 
     def stay_alive(self):
         global lightOn
         global mProcess
         while rclpy.ok():
-            if(mProcess is None and not lightOn):
+            if(mProcess is None and lightOn):
                 lightOn = False
                 subprocess.run(['ledZero'])
 
