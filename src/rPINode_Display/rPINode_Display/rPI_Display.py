@@ -15,9 +15,9 @@ class displayFunctionClass(Node):
         self.videoToPlaySubscriber = self.create_subscription(
             String, 'videoName', self.displayVideo, 10)
         self.videoToPlaySubscriber
-        # stayAlive = threading.Thread(target=self.stay_alive())
-        # stayAlive.daemon = True
-        # stayAlive.start()
+        stayAlive = threading.Thread(target=self.stay_alive)
+        stayAlive.daemon = True
+        stayAlive.start()
     
     def displayVideo(self, msg):
         # First kill any current projection
