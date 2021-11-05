@@ -40,7 +40,7 @@ class displayFunctionClass(Node):
         global lightOn
         global mProcess
         while rclpy.ok():
-            if(mProcess is None and lightOn):
+            if(mProcess is None and not lightOn):
                 lightOn = False
                 subprocess.run(['ledZero'])
 
