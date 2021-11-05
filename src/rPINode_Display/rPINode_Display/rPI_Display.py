@@ -34,6 +34,7 @@ class displayFunctionClass(Node):
 def main(args=None):
     # Set the proper OS variable to display on
     os.environ['DISPLAY']=":0"
+    subprocess.run(['xset', 'dpms', 'force', 'off'])
     rclpy.init(args=args)
     subscriber = displayFunctionClass()
     rclpy.spin(subscriber)
