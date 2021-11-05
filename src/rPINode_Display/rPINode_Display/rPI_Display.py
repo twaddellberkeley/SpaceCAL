@@ -38,6 +38,7 @@ class displayFunctionClass(Node):
 
     def stay_alive(self):
         global lightOn
+        global mProcess
         while rclpy.ok():
             if(mProcess.poll() is None and lightOn):
                 lightOn = False
