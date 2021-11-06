@@ -3,6 +3,7 @@ from rclpy.node import Node
 from std_msgs.msg import String
 import subprocess
 import threading
+import multiprocessing
 import os
 
 mProcess = None 
@@ -25,8 +26,7 @@ class displayFunctionClass(Node):
         global stayAlive
         if(mProcess != None and mProcess.poll() is None):
             # Need to kill thread
-            stayAlive.stop()
-            stayAlive.join()
+            stayAlive.terminate()
             mProcess.kill()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
@@ -36,8 +36,9 @@ class displayFunctionClass(Node):
             stdout=subprocess.DEVNULL)
         # Create thread that is watches if projection should be alive
         # However only create if there is not another watcher
-        stayAlive = customThread(target=self.kill_me)
-        stayAlive.daemon = True
+        stayAlive = multiprocessing.Process(target=self.kill_me)
+        #stayAlive = customThread(target=self.kill_me)
+        #stayAlive.daemon = True
         stayAlive.start()
         # Turn our LED on to project
         subprocess.run(['ledOn'])
