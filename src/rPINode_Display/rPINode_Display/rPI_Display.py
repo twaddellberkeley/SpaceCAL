@@ -6,22 +6,16 @@ import threading
 import os
 
 mProcess = None 
-lightOn = False
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
     def __init__(self):
-        super().__init__('ProjectorDisplaySubscriber')
-        global mProcess 
-        mProcess = subprocess.Popen(["time"],
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL)
+        super().__init__('ProjectorDisplaySubscriexiexitber')
+        # Create our subscriber node
         self.videoToPlaySubscriber = self.create_subscription(
             String, 'videoName', self.displayVideo, 10)
         self.videoToPlaySubscriber
-        stayAlive = threading.Thread(target=self.stay_alive)
-        stayAlive.daemon = True
-        stayAlive.start()
+        # Starting a loop to detect if the projector should be on or off
     
     def displayVideo(self, msg):
         # First kill any current projection
@@ -29,7 +23,7 @@ class displayFunctionClass(Node):
         os.environ['DISPLAY']=":0"
         global mProcess
         global lightOn
-        if(mProcess.poll() is None):
+        if(mProcess != none and mProcess.poll() is None):
             mProcess.kill()
         subprocess.run(['ledOn'])
         # Now Project
@@ -38,16 +32,15 @@ class displayFunctionClass(Node):
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        lightOn = True
+        stayAlive = threading.Thread(target=self.stay_alive)
+        stayAlive.daemon = True
+        stayAlive.start()
 
-    def stay_alive(self):
-        global lightOn
+    def kill_me():
         global mProcess
-        logger = self.get_logger()
-        while rclpy.ok():
-            if(mProcess.poll() is not None and lightOn):
-                lightOn = False
-                subprocess.run(['ledZero'])
+        while (mProcess.poll() is None): pass
+        subprocess.run(['ledZero'])
+        
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
@@ -55,6 +48,7 @@ def main(args=None):
     os.environ['DISPLAY']=":0"
     # Resets the display to resize correctly
     subprocess.run(['xset', 'dpms', 'force', 'off'])
+    subprocess.run(['ledZero'])
     rclpy.init(args=args)
     subscriber = displayFunctionClass()
     rclpy.spin(subscriber)
