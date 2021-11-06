@@ -6,6 +6,7 @@ import threading
 import os
 
 mProcess = None 
+stayAlive = None
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
@@ -19,25 +20,31 @@ class displayFunctionClass(Node):
     
     def displayVideo(self, msg):
         # First kill any current projection
-        # subprocess.run(['export DISPLAY=":0"'], shell=True)
         os.environ['DISPLAY']=":0"
         global mProcess
         if(mProcess != None and mProcess.poll() is None):
             mProcess.kill()
-        subprocess.run(['ledOn'])
-        # Now Project
+        # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
         mProcess = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        stayAlive = threading.Thread(target=self.kill_me)
-        stayAlive.daemon = True
-        stayAlive.start()
+        # Turn our LED on to project
+        subprocess.run(['ledOn'])
+        # Create thread that is watches if projection should be alive
+        # However only create if there is not another watcher
+        global stayAlive
+        if (stayAlive is None or not stayAlive.isAlive()):
+            stayAlive = threading.Thread(target=self.kill_me)
+            stayAlive.daemon = True
+            stayAlive.start()
 
     def kill_me(self):
         global mProcess
+        # Check to see if our projection process is running
         while (mProcess.poll() is None): pass
+        # When dead turn off projector
         subprocess.run(['ledZero'])
         
 
