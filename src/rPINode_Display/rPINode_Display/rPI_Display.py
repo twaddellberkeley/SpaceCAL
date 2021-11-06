@@ -22,7 +22,6 @@ class displayFunctionClass(Node):
         # subprocess.run(['export DISPLAY=":0"'], shell=True)
         os.environ['DISPLAY']=":0"
         global mProcess
-        global lightOn
         if(mProcess != none and mProcess.poll() is None):
             mProcess.kill()
         subprocess.run(['ledOn'])
@@ -32,7 +31,7 @@ class displayFunctionClass(Node):
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        stayAlive = threading.Thread(target=self.stay_alive)
+        stayAlive = threading.Thread(target=self.kill_me)
         stayAlive.daemon = True
         stayAlive.start()
 
