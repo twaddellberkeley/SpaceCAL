@@ -22,7 +22,7 @@ class displayFunctionClass(Node):
         # subprocess.run(['export DISPLAY=":0"'], shell=True)
         os.environ['DISPLAY']=":0"
         global mProcess
-        if(mProcess != none and mProcess.poll() is None):
+        if(mProcess != None and mProcess.poll() is None):
             mProcess.kill()
         subprocess.run(['ledOn'])
         # Now Project
