@@ -35,7 +35,7 @@ class displayFunctionClass(Node):
         stayAlive.daemon = True
         stayAlive.start()
 
-    def kill_me():
+    def kill_me(self):
         global mProcess
         while (mProcess.poll() is None): pass
         subprocess.run(['ledZero'])
