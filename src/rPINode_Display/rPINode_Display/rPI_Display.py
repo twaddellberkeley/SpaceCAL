@@ -22,6 +22,7 @@ class displayFunctionClass(Node):
         # First kill any current projection
         os.environ['DISPLAY']=":0"
         global mProcess
+        global stayAlive
         if(mProcess != None and mProcess.poll() is None):
             # Need to kill thread
             stayAlive.stop()
@@ -35,7 +36,6 @@ class displayFunctionClass(Node):
             stdout=subprocess.DEVNULL)
         # Create thread that is watches if projection should be alive
         # However only create if there is not another watcher
-        global stayAlive
         stayAlive = customThread(target=self.kill_me)
         stayAlive.daemon = True
         stayAlive.start()
