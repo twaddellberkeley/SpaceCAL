@@ -30,8 +30,6 @@ class displayFunctionClass(Node):
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        # Turn our LED on to project
-        subprocess.run(['ledOn'])
         # Create thread that is watches if projection should be alive
         # However only create if there is not another watcher
         global stayAlive
@@ -39,6 +37,8 @@ class displayFunctionClass(Node):
             stayAlive = threading.Thread(target=self.kill_me)
             stayAlive.daemon = True
             stayAlive.start()
+        # Turn our LED on to project
+        subprocess.run(['ledOn'])
 
     def kill_me(self):
         global mProcess
