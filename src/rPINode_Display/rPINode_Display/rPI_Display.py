@@ -23,6 +23,8 @@ class displayFunctionClass(Node):
         os.environ['DISPLAY']=":0"
         global mProcess
         if(mProcess != None and mProcess.poll() is None):
+            #Need to kill thread
+            stayAlive.stop()
             mProcess.kill()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
@@ -33,10 +35,9 @@ class displayFunctionClass(Node):
         # Create thread that is watches if projection should be alive
         # However only create if there is not another watcher
         global stayAlive
-        if (stayAlive is None or not stayAlive.isAlive()):
-            stayAlive = threading.Thread(target=self.kill_me)
-            stayAlive.daemon = True
-            stayAlive.start()
+        stayAlive = customThread(target=self.kill_me)
+        stayAlive.daemon = True
+        stayAlive.start()
         # Turn our LED on to project
         subprocess.run(['ledOn'])
 
@@ -46,7 +47,18 @@ class displayFunctionClass(Node):
         while (mProcess.poll() is None): pass
         # When dead turn off projector
         subprocess.run(['ledZero'])
-        
+
+class customThread(threading.Thread()):
+    # Class to be able to stop thread.
+    def __init__(self,  *args, **kwargs):
+        super(customThread, self).__init__(*args, **kwargs)
+        self._stop_event = threading.Event()
+
+    def stop(self):
+        self._stop_event.set()
+
+    def stopped(self):
+        return self._stop_event.is_set()
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
