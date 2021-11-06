@@ -23,8 +23,9 @@ class displayFunctionClass(Node):
         os.environ['DISPLAY']=":0"
         global mProcess
         if(mProcess != None and mProcess.poll() is None):
-            #Need to kill thread
+            # Need to kill thread
             stayAlive.stop()
+            stayAlive.join()
             mProcess.kill()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
@@ -48,7 +49,7 @@ class displayFunctionClass(Node):
         # When dead turn off projector
         subprocess.run(['ledZero'])
 
-class customThread(threading.Thread()):
+class customThread(threading.Thread):
     # Class to be able to stop thread.
     def __init__(self,  *args, **kwargs):
         super(customThread, self).__init__(*args, **kwargs)
