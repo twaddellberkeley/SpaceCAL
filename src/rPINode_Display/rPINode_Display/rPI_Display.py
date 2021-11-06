@@ -5,13 +5,17 @@ import subprocess
 import threading
 import os
 
-mProcess = None
+mProcess = None 
 lightOn = False
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
     def __init__(self):
         super().__init__('ProjectorDisplaySubscriber')
+        global mProcess 
+        mProcess = subprocess.Popen(["time"],
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL)
         self.videoToPlaySubscriber = self.create_subscription(
             String, 'videoName', self.displayVideo, 10)
         self.videoToPlaySubscriber
@@ -25,7 +29,7 @@ class displayFunctionClass(Node):
         os.environ['DISPLAY']=":0"
         global mProcess
         global lightOn
-        if(mProcess is not None):
+        if(mProcess.poll() is None):
             mProcess.kill()
         subprocess.run(['ledOn'])
         # Now Project
@@ -41,8 +45,7 @@ class displayFunctionClass(Node):
         global mProcess
         logger = self.get_logger()
         while rclpy.ok():
-            logger.info(str(mProcess))
-            if(mProcess is None and lightOn):
+            if(mProcess.poll() is not None and lightOn):
                 lightOn = False
                 subprocess.run(['ledZero'])
 
