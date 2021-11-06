@@ -39,7 +39,9 @@ class displayFunctionClass(Node):
     def stay_alive(self):
         global lightOn
         global mProcess
+        logger = self.get_logger()
         while rclpy.ok():
+            logger.info(str(mProcess))
             if(mProcess is None and lightOn):
                 lightOn = False
                 subprocess.run(['ledZero'])
