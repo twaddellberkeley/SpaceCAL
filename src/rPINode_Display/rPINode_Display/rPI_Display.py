@@ -2,7 +2,6 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 import subprocess
-import threading
 import multiprocessing
 import os
 
@@ -30,18 +29,15 @@ class displayFunctionClass(Node):
             mProcess.kill()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
+        # Turn our LED on to projectyyty
+        subprocess.run(['ledOn'])
         mProcess = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        # Create thread that is watches if projection should be alive
-        # However only create if there is not another watcher
+        # Create multiprocess to turn of projector when doneyty
         stayAlive = multiprocessing.Process(target=self.kill_me)
-        #stayAlive = customThread(target=self.kill_me)
-        #stayAlive.daemon = True
         stayAlive.start()
-        # Turn our LED on to project
-        subprocess.run(['ledOn'])
 
     def kill_me(self):
         global mProcess
@@ -49,18 +45,6 @@ class displayFunctionClass(Node):
         while (mProcess.poll() is None): pass
         # When dead turn off projector
         subprocess.run(['ledZero'])
-
-class customThread(threading.Thread):
-    # Class to be able to stop thread.
-    def __init__(self,  *args, **kwargs):
-        super(customThread, self).__init__(*args, **kwargs)
-        self._stop_event = threading.Event()
-
-    def stop(self):
-        self._stop_event.set()
-
-    def stopped(self):
-        return self._stop_event.is_set()
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):

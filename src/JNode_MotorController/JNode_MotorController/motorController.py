@@ -96,8 +96,8 @@ class TicI2C(object):
         self.bus.i2c_rdwr(write)
 
     # Tells motor to home
-    def set_home(self):
-        command = [0xE0]
+    def go_home(self):
+        command = [0x97,0]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
 
@@ -159,9 +159,23 @@ class TicI2C(object):
             position -= (1 << 32)
         return position
 
+    # Gets the "Current speed" variable from the Tic.
+    def get_current_velocity(self):
+        b = self.get_variables(0x26, 4)
+        velocity = b[0] + (b[1] << 8) + (b[2] << 16) + (b[3] << 24)
+        if velcocity >= (1 << 31):
+            velocity -= (1 << 32)
+        return velocity
+
     # Gets current status
     def get_current_status(self):
         b = self.get_variables(0x00, 1)
+        status = b[0]
+        return status
+
+    # Gets current flag
+    def get_current_flags(self):
+        b = self.get_variables(0x01, 1)
         status = b[0]
         return status
 
@@ -252,12 +266,69 @@ def main(args=None):
         rclpy.shutdown()
 
 
+
+# Tests
+
 def motorConnectTest(testAddress):
     try:
         bus = SMBus(busNum)
         # Select the I2C address of the Tic (the device number).
         bus.read_byte_data(testAddress, 0)
         return 0
+    except Exception:
+        return 1
+
+def motorPositionTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        #tic.reset_motor()
+        retVal = tic.get_current_position()
+        return 0
+    except Exception:
+        return 1
+
+def motorHomeTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        retVal = tic.go_home()
+        return 0
+    except Exception:
+        return 1
+
+def doneHoming(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        retVal = tic.get_current_flags()
+        while ((retVal >> 0 & 0x10) == 1):
+            retVal = tic.get_current_flags()
+            time.sleep(0.1)
+        # Checking to make sure we are homed
+        return not (tic.get_current_position() == 0)
+    except Exception:
+        return 1
+
+def velocityTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        tic.set_target_speed(200)
+        time.sleep(0.5)
+        retVal = tic.get_current_velocity()
+        assert not (retVal == 200)
+    except Exception:
+        return 1
+
+def velocityStopTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        tic.set_target_speed(0)
+        time.sleep(0.5)
+        retVal = tic.get_current_velocity()
+        assert not (retVal == 0)
     except Exception:
         return 1
 
