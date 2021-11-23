@@ -3,7 +3,7 @@ from JNode_MotorController.motorController import *
 import pytest
 
 rotMotors = [12,13,14,15,16]
-liftMotors = [18,19,20,21]
+liftMotors = [14,15,16,17]
 
 
 # Check the motorcontrollers
@@ -14,9 +14,10 @@ def motorConnected(adr):
 #Check to make sure motor controllers on
 @pytest.mark.core
 @pytest.mark.motor
+@pytest.mark.testCon
 def test_allMotors():
-    for x in rotMotors:
-        assert motorConnected(x)
+    #for x in rotMotors:
+    #    assert motorConnected(x)
     for x in liftMotors:
         assert motorConnected(x)
 
