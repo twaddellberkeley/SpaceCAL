@@ -5,12 +5,6 @@ import pytest
 rotMotors = [12,13,14,15,16]
 liftMotors = [14,15,16,17]
 
-
-# Check the motorcontrollers
-def motorConnected(adr):
-    rc = motorConnectTest(adr)
-    assert rc == 0, 'Could not connect to Motor %d' % adr
-
 #Check to make sure motor controllers on
 @pytest.mark.core
 @pytest.mark.motor
@@ -19,7 +13,7 @@ def test_allMotors():
     #for x in rotMotors:
     #    assert motorConnected(x)
     for x in liftMotors:
-        assert motorConnected(x)
+        assert motorConnectTest(x) == 0, 'Could not connect to motor %d'  % adr
 
 #Check to make sure we can get position
 @pytest.mark.core
