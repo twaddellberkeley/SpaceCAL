@@ -26,14 +26,6 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='JNode_KeyboardInput',
-            namespace='keyboardTesting',
-            executable='JNodeInput',
-            output='screen',
-            emulate_tty=True,
-            name='keyboard'
-        ),
-        Node(
             package='JNode_MotorController',
             namespace='keyboardTesting',
             executable='motorRun',
