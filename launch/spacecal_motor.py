@@ -48,10 +48,25 @@ def generate_launch_description():
             executable='motorRun',
             output='screen',
             emulate_tty=True,
-            parameters=[{"Address": 13}],
+            parameters=[{"Address": 15}],
             name="motor2",
-            remappings=[
-                ("keyinput", "keyinput2")
-            ]
+        ),
+        Node(
+            package='JNode_MotorController',
+            namespace='keyboardTesting',
+            executable='motorRun',
+            output='screen',
+            emulate_tty=True,
+            parameters=[{"Address": 16}],
+            name="motor3",
+        ),
+        Node(
+            package='JNode_MotorController',
+            namespace='keyboardTesting',
+            executable='motorRun',
+            output='screen',
+            emulate_tty=True,
+            parameters=[{"Address": 17}],
+            name="motor4",
         )
     ])
