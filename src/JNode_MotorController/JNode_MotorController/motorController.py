@@ -41,7 +41,11 @@ from smbus2 import SMBus, i2c_msg
 # Tic object
 tic = None
 # Pulse to move moto
-incrBit = 20000
+# incrBit = 51200 # Is one rotation or one inch
+incrBit = 51200/25.4 # Is 1mm per bit unit
+
+# Step veloicty to achieve 1rot/min
+velBit = 1024000000/60
 # Logger of the node
 logger = None
 # Address and bus of motor controlling
@@ -75,6 +79,7 @@ class TicI2C(object):
     # For more information about what this command does, see the
     # "Set target position" command in the "Command reference" section of the
     # Tic user's guide.
+    # Size per 1/256 microstep is .0004960938mm in linear length
     def set_target_position(self, target):
         logger.info("Target %d" % target)
         command = [0xE0,
@@ -234,19 +239,19 @@ class keySubscriber(Node):
             tic.exit_safe_start()
             tic.set_target_position(curPosition - incrBit)
 
-    # Make tic go to current position
+    # Make tic go to current position in mm
     def go_to(self, msg):
         logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
-            tic.set_target_position(msg.data)
+            tic.set_target_position(round(msg.data*incrBit))
 
-    # Sets speed of tic
+    # Sets speed of tic in rot/min
     def set_speed(self, msg):
         logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
-            tic.set_target_speed(msg.data)
+            tic.set_target_speed(round(msg.data*velBit))
 
 
 def main(args=None):

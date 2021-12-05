@@ -26,39 +26,11 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='JNode_MotorController',
+            package='JNode_KeyboardInput',
             namespace='printerTesting',
-            executable='motorRun',
+            executable='JNodeInput',
             output='screen',
             emulate_tty=True,
-            parameters=[{"Address": 14}],
-            name="motor"
-        ),
-        Node(
-            package='JNode_MotorController',
-            namespace='printerTesting',
-            executable='motorRun',
-            output='screen',
-            emulate_tty=True,
-            parameters=[{"Address": 15}],
-            name="motor2",
-        ),
-        Node(
-            package='JNode_MotorController',
-            namespace='printerTesting',
-            executable='motorRun',
-            output='screen',
-            emulate_tty=True,
-            parameters=[{"Address": 16}],
-            name="motor3",
-        ),
-        Node(
-            package='JNode_MotorController',
-            namespace='printerTesting',
-            executable='motorRun',
-            output='screen',
-            emulate_tty=True,
-            parameters=[{"Address": 17}],
-            name="motor4",
+            name='keyboard'
         )
     ])
