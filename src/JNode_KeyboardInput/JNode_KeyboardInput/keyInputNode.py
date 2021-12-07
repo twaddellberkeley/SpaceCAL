@@ -24,7 +24,7 @@
 # Author: Taylor Waddel
 import rclpy
 from rclpy.node import Node
-from pynput import keyboard
+from sshkeyboard import listen_keyboard
 from std_msgs.msg import String, Int32
 import time
 # Setting correct display
@@ -41,7 +41,8 @@ class keyTalkerClass(Node):
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
         self.velocitySpin = self.create_publisher(Int32, 'setVelocity', 10)
         self.videoChange = self.create_publisher(String, 'videoName', 10)
-        self.keyTalker()
+        listen_keyboard(on_press=self.on_press)
+        #self.keyTalker()
 
     def on_press(self, key):
         try:
@@ -73,12 +74,7 @@ class keyTalkerClass(Node):
             print('special key {0} pressed'.format(
                 key))
 
-    # Keep logging for keys while ros is alive
-    def keyTalker(self):
-        while rclpy.ok():
-            with keyboard.Listener(
-                    on_press=self.on_press) as listener:
-                listener.join()
+            
 
 
 def main(args=None):
