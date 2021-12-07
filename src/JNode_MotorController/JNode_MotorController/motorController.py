@@ -234,10 +234,10 @@ class keySubscriber(Node):
         curPosition = tic.get_current_position()
         if (msg.data == 'w'):
             tic.exit_safe_start()
-            tic.set_target_position(curPosition + incrBit)
+            tic.set_target_position(round(curPosition + incrBit))
         elif(msg.data == 's'):
             tic.exit_safe_start()
-            tic.set_target_position(curPosition - incrBit)
+            tic.set_target_position(round(curPosition - incrBit))
 
     # Make tic go to current position in mm
     def go_to(self, msg):
