@@ -30,20 +30,22 @@ class displayFunctionClass(Node):
             mProcess.kill()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
-        # Turn our LED on to projectyyty
+        # Turn our LED on to project
         subprocess.run(['ledOn'])
         mProcess = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
-        #stayAlive = multiprocessing.Process(target=self.kill_me)
+        stayAlive = multiprocessing.Process(target=self.kill_me)
         stayAlive.start()
 
     def kill_me(self):
         global mProcess
         # Check to see if our projection process is running
-        while (mProcess.poll() is None): pass
+        print(mProcess)
+        while (mProcess.poll() is None): 
+            print(mProcess)
         print("Killing\n")
         # When dead turn off projector
         subprocess.run(['ledZero'])
