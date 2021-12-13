@@ -238,10 +238,10 @@ class keySubscriber(Node):
         elif(msg.data == 's'):
             tic.exit_safe_start()
             tic.set_target_position(round(curPosition - incrBit))
-        elif (msg.data == 't'):
+        elif (msg.data == 'j'):
             tic.exit_safe_start()
             tic.set_target_position(round(curPosition + incrBit*25.4))
-        elif(msg.data == 'g'):
+        elif(msg.data == 'm'):
             tic.exit_safe_start()
             tic.set_target_position(round(curPosition - incrBit*25.4))
 
