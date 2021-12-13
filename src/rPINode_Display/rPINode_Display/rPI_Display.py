@@ -23,6 +23,7 @@ class displayFunctionClass(Node):
         os.environ['DISPLAY']=":0"
         global mProcess
         global stayAlive
+        print("DISPLAYING\n")
         if(mProcess != None and mProcess.poll() is None):
             # Need to kill thread
             stayAlive.terminate()
@@ -43,6 +44,7 @@ class displayFunctionClass(Node):
         global mProcess
         # Check to see if our projection process is running
         while (mProcess.poll() is None): pass
+        print("Killing\n")
         # When dead turn off projector
         subprocess.run(['ledZero'])
 
