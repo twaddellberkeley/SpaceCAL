@@ -28,6 +28,7 @@ def generate_launch_description():
         Node(
             package='rPINode_Display',
             executable='videoDisplay',
+            namespace='printerTesting',
             name="display"
         )
     ])
