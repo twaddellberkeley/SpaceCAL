@@ -8,6 +8,7 @@ import time
 
 mProcess = None 
 stayAlive = None
+cPID = None
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
@@ -24,27 +25,32 @@ class displayFunctionClass(Node):
         os.environ['DISPLAY']=":0"
         global stayAlive
         global mProcess
+        global cPID
         print("DISPLAYING\n")
         if(stayAlive != None and stayAlive.is_alive()):
             # Need to kill thread
             print("HAPPENING\n")
             stayAlive.terminate()
+            if (cPID != None):
+                os.kill(cPID, 9)
         # Now Project from givin string
+        sharedVal = multiprocessing.Value('i', cPID)
         videoString = '/home/spacecal/test_video/' + msg.data
-        stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,))
+        stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,cPID,))
         stayAlive.daemon=True
         stayAlive.start()
 
-    def kill_me(self, videoString):
+    def kill_me(self, videoString, cPID):
         # Turn our LED on to project
         subprocess.run(['ledOn'])
-        subprocess.call(["mplayer", "-slave", "-quiet", videoString],
-        stderr=subprocess.DEVNULL,
-        stdout=subprocess.DEVNULL)
-        #mProcess = subprocess.Popen(
-        #    ['mplayer', "-slave", "-quiet", videoString],
-        #    stderr=subprocess.DEVNULL,
-        #    stdout=subprocess.DEVNULL)
+        #subprocess.call(["mplayer", "-slave", "-quiet", videoString],
+        #stderr=subprocess.DEVNULL,
+        #stdout=subprocess.DEVNULL)
+        cPID = subprocess.Popen(
+            ['mplayer', "-slave", "-quiet", videoString],
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL).pid
+        cPID = None
         #mProcess.wait()
         # When dead turn off projector
         subprocess.run(['ledZero'])
