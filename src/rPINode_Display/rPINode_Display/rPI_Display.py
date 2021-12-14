@@ -46,6 +46,8 @@ class displayFunctionClass(Node):
         stayAlive.start()
         time.sleep(1)
         print( "CHECK PROCESS: " + str(mProcess.poll()))
+        mProcess.wait()
+        print( "CHECK PROCESS: " + str(mProcess.poll()))
 
     def kill_me(self, mProcess):
         print(mProcess)
