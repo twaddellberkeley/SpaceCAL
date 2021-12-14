@@ -236,6 +236,10 @@ class keySubscriber(Node):
         tic.exit_safe_start()
         tic.energize()
 
+        publishData = threading.Thread(target=publish, args=())
+        publishData.daemon = True
+        publishData.start()
+
 # Checks current position and message data and sends command accordingly
     def checkRun(self, msg):
         # get current position, increase if w, decrease if s
