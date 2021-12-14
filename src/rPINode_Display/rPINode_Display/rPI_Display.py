@@ -39,11 +39,10 @@ class displayFunctionClass(Node):
             stdout=subprocess.DEVNULL)
         time.sleep(.5)
         # Create multiprocess to turn of projector when done
-        stayAlive = multiprocessing.Process(target=self.kill_me)
+        stayAlive = multiprocessing.Process(target=self.kill_me, args=mProcess)
         stayAlive.start()
 
-    def kill_me(self):
-        global mProcess
+    def kill_me(self, mProcess):
         # Check to see if our projection process is running
         print( "CHECK PROCESS: " + str(mProcess.poll()))
         mProcess.wait()
