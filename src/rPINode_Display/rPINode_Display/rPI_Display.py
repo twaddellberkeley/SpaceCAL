@@ -8,7 +8,7 @@ import time
 
 mProcess = None 
 stayAlive = None
-cPID = -1
+cPID = None
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
@@ -31,10 +31,10 @@ class displayFunctionClass(Node):
             # Need to kill thread
             print("HAPPENING\n")
             stayAlive.terminate()
-            if (cPID != -1):
-                os.kill(cPID, 9)
+            if (cPID != None and cPID.value != 0):
+                os.kill(cPID, )
         # Now Project from givin string
-        sharedVal = multiprocessing.Value('i', cPID)
+        cPID = multiprocessing.Value('i', 0)
         videoString = '/home/spacecal/test_video/' + msg.data
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,cPID,))
         stayAlive.daemon=True
@@ -50,7 +50,7 @@ class displayFunctionClass(Node):
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        cPID = supProc.pid
+        cPID.value = supProc.pid
         supProc.wait()
         #mProcess.wait()
         # When dead turn off projector
