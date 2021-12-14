@@ -34,7 +34,7 @@ class displayFunctionClass(Node):
         # Turn our LED on to project
         subprocess.run(['ledOn'])
         mProcess = subprocess.Popen(
-            ['mplayer', "-slave", "-quiet", videoString]),
+            ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         time.sleep(.5)
