@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'jetson_main'
+package_name = 'jetsonMainLogic'
 
 setup(
     name=package_name,
@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'videoSend = jetson_main.videoSend:main'
+            'printController = jetsonMainLogic.printController:main'
         ],
     },
 )

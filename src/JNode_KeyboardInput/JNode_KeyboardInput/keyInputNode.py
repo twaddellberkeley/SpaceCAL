@@ -26,6 +26,7 @@ import rclpy
 from rclpy.node import Node
 from pynput import keyboard
 from std_msgs.msg import String, Int32
+from interfaces.msg import PrintData
 import time
 # Setting correct display
 # import os
@@ -41,6 +42,7 @@ class keyTalkerClass(Node):
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
         self.velocitySpin = self.create_publisher(Int32, 'setVelocity', 10)
         self.videoChange = self.create_publisher(String, 'videoName', 10)
+        self.printQueueTesting = self.create_publisher(PrintData, 'printSend', 10)
         self.keyTalker()
 
     def on_press(self, key):
@@ -70,9 +72,15 @@ class keyTalkerClass(Node):
             elif (inputKey == "u"):
                 msg.data = "out2.mp4"
                 self.videoChange.publish(msg)
-            elif (inputKey == "v"):
-                intMsg.data = 20000000
-                self.velocitySpin.publish(intMsg)
+            elif (inputKey == "b"):
+                printMsg = PrintData()
+                printMsg.speed = 5
+                printMsg.length = 10
+                printMsg.name = "out.mp4"
+                printMsg.location = 25
+                printMsg.printernum = 1 
+                self.printQueueTesting.publish(printMsg)
+                print("data sent")
             time.sleep(.5)
         # If it nots a char, we error
         except AttributeError:
