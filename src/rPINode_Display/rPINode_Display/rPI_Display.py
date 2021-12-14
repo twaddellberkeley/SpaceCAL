@@ -28,7 +28,7 @@ class displayFunctionClass(Node):
         if(stayAlive != None and stayAlive.is_alive()):
             # Need to kill thread
             print("HAPPENING\n")
-            stayAlive.kill()
+            stayAlive.terminate()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,))
