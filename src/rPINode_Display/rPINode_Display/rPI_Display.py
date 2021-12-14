@@ -46,8 +46,7 @@ class displayFunctionClass(Node):
         global mProcess
         # Check to see if our projection process is running
         print( "CHECK PROCESS: " + str(mProcess.poll()))
-        while (mProcess.poll() is None): 
-            print(mProcess)
+        mProcess.wait()
         print("Killing\n")
         # When dead turn off projector
         subprocess.run(['ledZero'])
