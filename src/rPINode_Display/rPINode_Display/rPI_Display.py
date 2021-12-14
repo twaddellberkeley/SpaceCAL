@@ -33,9 +33,9 @@ class displayFunctionClass(Node):
         # Turn our LED on to project
         subprocess.run(['ledOn'])
         mProcess = subprocess.Popen(
-            ['mplayer', "-slave", "-quiet", videoString],
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL)
+            ['mplayer', "-slave", "-quiet", videoString])#,
+            #stderr=subprocess.DEVNULL,
+            #stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
         stayAlive = multiprocessing.Process(target=self.kill_me)
         stayAlive.start()
@@ -43,7 +43,7 @@ class displayFunctionClass(Node):
     def kill_me(self):
         global mProcess
         # Check to see if our projection process is running
-        print( "CHECK PROCESS: " + mProcess.poll())
+        print( "CHECK PROCESS: " + str(mProcess.poll()))
         while (mProcess.poll() is None): 
             print(mProcess)
         print("Killing\n")
