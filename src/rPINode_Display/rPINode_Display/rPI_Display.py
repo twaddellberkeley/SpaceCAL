@@ -25,27 +25,24 @@ class displayFunctionClass(Node):
         global stayAlive
         global mProcess
         print("DISPLAYING\n")
-        if(mProcess != None and mProcess.poll() is None):
+        if(stayAlive.is_alive()):
             # Need to kill thread
             print("HAPPENING]\n")
             stayAlive.terminate()
-            mProcess.kill()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
-        # Turn our LED on to project
-        subprocess.run(['ledOn'])
-        # Create multiprocess to turn of projector when done
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,))
         stayAlive.start()
 
     def kill_me(self, videoString):
-        global mProcess
-        mProcess = subprocess.Popen(
-            ['mplayer', "-slave", "-quiet", videoString],
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL)
-        mProcess.wait()
-        print("Killing\n")
+        # Turn our LED on to project
+        subprocess.run(['ledOn'])
+        os.system("mplayer -slace -quiet " + videoString)
+        #mProcess = subprocess.Popen(
+        #    ['mplayer', "-slave", "-quiet", videoString],
+        #    stderr=subprocess.DEVNULL,
+        #    stdout=subprocess.DEVNULL)
+        #time.sleep(.5)
         # When dead turn off projector
         subprocess.run(['ledZero'])
 
