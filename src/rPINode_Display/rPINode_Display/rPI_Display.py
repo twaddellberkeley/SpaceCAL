@@ -28,8 +28,7 @@ class displayFunctionClass(Node):
         if(stayAlive != None and stayAlive.is_alive()):
             # Need to kill thread
             print("HAPPENING\n")
-            stayAlive.join()
-            stayAlive.close()
+            stayAlive.kill()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,))
@@ -41,11 +40,6 @@ class displayFunctionClass(Node):
         subprocess.run(["mplayer", "-slave", "-quiet", videoString],
         stderr=subprocess.DEVNULL,
         stdout=subprocess.DEVNULL)
-        #mProcess = subprocess.Popen(
-        #    ['mplayer', "-slave", "-quiet", videoString],
-        #    stderr=subprocess.DEVNULL,
-        #    stdout=subprocess.DEVNULL)
-        #time.sleep(.5)
         # When dead turn off projector
         subprocess.run(['ledZero'])
 
