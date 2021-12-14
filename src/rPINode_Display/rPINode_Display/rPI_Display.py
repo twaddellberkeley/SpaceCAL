@@ -25,7 +25,7 @@ class displayFunctionClass(Node):
         global stayAlive
         global mProcess
         print("DISPLAYING\n")
-        if(stayAlive.is_alive()):
+        if(stayAlive != None and stayAlive.is_alive()):
             # Need to kill thread
             print("HAPPENING]\n")
             stayAlive.terminate()
