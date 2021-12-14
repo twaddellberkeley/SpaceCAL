@@ -256,14 +256,12 @@ class keySubscriber(Node):
 
     # Make tic go to current position in mm
     def go_to(self, msg):
-        logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
             tic.set_target_position(round(msg.data*incrBit))
 
     # Sets speed of tic in rot/min
     def set_speed(self, msg):
-        logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
             tic.set_target_speed(round(msg.data*velBit))
@@ -277,6 +275,7 @@ class keySubscriber(Node):
             #publish Position in mm
             intMsg.data = round(tic.get_current_position()/incrBit)
             self.motorCLocPublisher.publish(intMsg)
+            logger.info(intMsg.data)
             #publish velocity
             intMsg.data = tic.get_current_velocity()
             self.motorCVelpublisher.publish(intMsg)
