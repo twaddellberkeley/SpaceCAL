@@ -8,7 +8,6 @@ import time
 
 mProcess = None 
 stayAlive = None
-cPID = None
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
@@ -23,38 +22,41 @@ class displayFunctionClass(Node):
     def displayVideo(self, msg):
         # First kill any current projection
         os.environ['DISPLAY']=":0"
-        global stayAlive
         global mProcess
-        global cPID
+        global stayAlive
         print("DISPLAYING\n")
-        if(stayAlive != None and stayAlive.is_alive()):
+        if(mProcess != None and mProcess.poll() is None):
             # Need to kill thread
-            print("HAPPENING\n")
             stayAlive.terminate()
-            if (cPID != None and cPID.value != 0):
-                os.kill(cPID.value, 9)
+            mProcess.kill()
         # Now Project from givin string
-        cPID = multiprocessing.Value('i', 0)
         videoString = '/home/spacecal/test_video/' + msg.data
-        stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,cPID,))
-        stayAlive.daemon=True
-        stayAlive.start()
-
-    def kill_me(self, videoString, cPID):
         # Turn our LED on to project
         subprocess.run(['ledOn'])
-        #subprocess.call(["mplayer", "-slave", "-quiet", videoString],
-        #stderr=subprocess.DEVNULL,
-        #stdout=subprocess.DEVNULL)
-        supProc = subprocess.Popen(
+        mProcess = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        cPID.value = supProc.pid
-        supProc.wait()
-        #mProcess.wait()
+        time.sleep(.5)
+        # Create multiprocess to turn of projector when done
+        stayAlive = multiprocessing.Process(target=self.kill_me,args=(mProcess.pid,))
+        stayAlive.start()
+
+    def kill_me(self,pid):
+        global mProcess
+        while (self.check_pid(pid)): 
+            print(mProcess)
+        print("Killing\n")
         # When dead turn off projector
         subprocess.run(['ledZero'])
+    
+    def check_pid(self,pid):
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return False
+        else:
+            return True
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
