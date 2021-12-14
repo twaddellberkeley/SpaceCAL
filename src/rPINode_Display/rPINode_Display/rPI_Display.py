@@ -37,15 +37,15 @@ class displayFunctionClass(Node):
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        time.sleep(.5)
         # Create multiprocess to turn of projector when done
         stayAlive = multiprocessing.Process(target=self.kill_me,args=(mProcess.pid,))
         stayAlive.start()
 
     def kill_me(self,pid):
-        global mProcess
+        print(pid)
         while (self.check_pid(pid)): 
-            print(mProcess)
+            pass
+            #print(mProcess)
         print("Killing\n")
         # When dead turn off projector
         subprocess.run(['ledZero'])
