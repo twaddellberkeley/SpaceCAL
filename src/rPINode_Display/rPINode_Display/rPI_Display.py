@@ -45,10 +45,12 @@ class displayFunctionClass(Node):
     def kill_me(self,pid):
         print(pid)
         process = psutil.Process(pid)
+        psutil.Status
         while (process.status() != psutil.STATUS_ZOMBIE): 
             pass
             #print(mProcess)
         print("Killing\n")
+        process.kill()
         # When dead turn off projector
         subprocess.run(['ledZero'])
     
