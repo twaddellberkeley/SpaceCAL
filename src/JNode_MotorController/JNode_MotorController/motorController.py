@@ -207,6 +207,15 @@ class keySubscriber(Node):
         self.subscriptionGoTo
         self.subscriptionSpeed
         self.subscriptionInput  # prevent unused variable warnings
+
+        self.motorCLocPublisher = self.create_publisher(Int32, 'getPosition', 10)
+        self.motorCVelpublisher = self.create_publisher(Int32, 'getVelocity', 10)
+        self.motorStatusPublisher = self.create_publisher(Int32, 'getStatus', 10)
+
+        self.motorCLocPublisher
+        self.motorCVelpublisher
+        self.motorStatusPublisher
+
         # edit global logger object with node logger
         self.declare_parameter("Address")
         global logger
@@ -258,6 +267,20 @@ class keySubscriber(Node):
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
             tic.set_target_speed(round(msg.data*velBit))
+
+    def publish_data(self):
+        while rclpy.ok():
+            intMsg = Int32()
+            #publish status
+            intMsg.data = tic.get_current_status()
+            self.motorStatusPublisher.publish(intMsg)
+            #publish Position
+            intMsg.data = tic.get_current_position()
+            self.motorCLocPublisher.publish(intMsg)
+            #publish velocity
+            intMsg.data = tic.get_current_velocity()
+            self.motorCVelpublisher.publish(intMsg)
+            time.sleep(.1)
 
 
 def main(args=None):

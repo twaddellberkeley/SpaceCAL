@@ -49,7 +49,6 @@ class displayFunctionClass(Node):
             pass
             #print(mProcess)
         print("Killing\n")
-        process.kill()
         # When dead turn off projector
         subprocess.run(['ledZero'])
     
