@@ -28,6 +28,7 @@ class displayFunctionClass(Node):
         if(stayAlive != None and stayAlive.is_alive()):
             # Need to kill thread
             print("HAPPENING\n")
+            stayAlive.terminate()
             stayAlive.close()
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
