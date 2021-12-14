@@ -27,6 +27,7 @@ class displayFunctionClass(Node):
         print("DISPLAYING\n")
         if(mProcess != None and mProcess.poll() is None):
             # Need to kill thread
+            print("HAPPENING]\n")
             stayAlive.terminate()
             mProcess.kill()
         # Now Project from givin string
@@ -38,11 +39,13 @@ class displayFunctionClass(Node):
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         time.sleep(.5)
+        print(mProcess)
         # Create multiprocess to turn of projector when done
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(mProcess,))
         stayAlive.start()
 
     def kill_me(self, mProcess):
+        print(mProcess)
         # Check to see if our projection process is running
         print( "CHECK PROCESS: " + str(mProcess.poll()))
         mProcess.wait()
