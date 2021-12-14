@@ -43,7 +43,7 @@ class displayFunctionClass(Node):
     def kill_me(self):
         global mProcess
         # Check to see if our projection process is running
-        print(mProcess)
+        print( "CHECK PROCESS: " + mProcess.poll())
         while (mProcess.poll() is None): 
             print(mProcess)
         print("Killing\n")
