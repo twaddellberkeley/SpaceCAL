@@ -4,6 +4,7 @@ from std_msgs.msg import String
 import subprocess
 import multiprocessing
 import os
+import time
 
 mProcess = None 
 stayAlive = None
@@ -36,6 +37,7 @@ class displayFunctionClass(Node):
             ['mplayer', "-slave", "-quiet", videoString])#,
             #stderr=subprocess.DEVNULL,
             #stdout=subprocess.DEVNULL)
+        time.sleep(.5)
         # Create multiprocess to turn of projector when done
         stayAlive = multiprocessing.Process(target=self.kill_me)
         stayAlive.start()
