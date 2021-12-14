@@ -54,6 +54,7 @@ class displayFunctionClass(Node):
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
+    print("STARTING")
     # Set the proper OS variable to display on
     os.environ['DISPLAY']=":0"
     # Resets the display to resize correctly
