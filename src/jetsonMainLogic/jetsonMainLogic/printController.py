@@ -83,6 +83,7 @@ class printQueueClass(Node):
         self.cSpeed = msg.data
     def getLocation(self, msg):
         self.cLoc = msg.data
+        print("Location: " + self.cLoc)
     def getStatus(self,msg):
         self.cStatus = msg.data
 
