@@ -32,6 +32,7 @@ class displayFunctionClass(Node):
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,))
+        stayAlive.daemon =True
         stayAlive.start()
 
     def kill_me(self, videoString):
