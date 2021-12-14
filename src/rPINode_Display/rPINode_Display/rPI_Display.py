@@ -5,6 +5,7 @@ import subprocess
 import multiprocessing
 import os
 import time
+import psutil
 
 mProcess = None 
 stayAlive = None
@@ -43,20 +44,14 @@ class displayFunctionClass(Node):
 
     def kill_me(self,pid):
         print(pid)
-        #while (self.check_pid(pid)): 
-        #    pass
+        process = psutil.Process(pid)
+        while (process.status() == psutil.STATUS_RUNNING): 
+            pass
             #print(mProcess)
-        #print("Killing\n")
+        print("Killing\n")
         # When dead turn off projector
-        #subprocess.run(['ledZero'])
+        subprocess.run(['ledZero'])
     
-    def check_pid(self,pid):
-        try:
-            os.kill(pid, 0)
-        except OSError:
-            return False
-        else:
-            return True
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
