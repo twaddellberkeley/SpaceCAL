@@ -45,7 +45,7 @@ class displayFunctionClass(Node):
     def kill_me(self,pid):
         print(pid)
         process = psutil.Process(pid)
-        while (process.status() == psutil.STATUS_RUNNING): 
+        while (process.status() != psutil.STATUS_ZOMBIE): 
             pass
             #print(mProcess)
         print("Killing\n")
