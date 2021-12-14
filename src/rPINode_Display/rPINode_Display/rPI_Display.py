@@ -8,7 +8,7 @@ import time
 
 mProcess = None 
 stayAlive = None
-cPID = None
+cPID = -1
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
@@ -31,7 +31,7 @@ class displayFunctionClass(Node):
             # Need to kill thread
             print("HAPPENING\n")
             stayAlive.terminate()
-            if (cPID != None):
+            if (cPID != -1):
                 os.kill(cPID, 9)
         # Now Project from givin string
         sharedVal = multiprocessing.Value('i', cPID)
@@ -50,7 +50,7 @@ class displayFunctionClass(Node):
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL).pid
-        cPID = None
+        cPID = -1
         #mProcess.wait()
         # When dead turn off projector
         subprocess.run(['ledZero'])
