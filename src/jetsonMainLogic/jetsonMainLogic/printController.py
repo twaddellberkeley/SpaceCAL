@@ -76,6 +76,7 @@ class printQueueClass(Node):
         self.motorStatusSubscriber
         
         qThread = Thread(target=self.qPrint, args=())
+        qThread.daemon=True
         qThread.start()
         #self.qPrint()
     
