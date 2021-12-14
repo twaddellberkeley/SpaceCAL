@@ -168,7 +168,7 @@ class TicI2C(object):
     def get_current_velocity(self):
         b = self.get_variables(0x26, 4)
         velocity = b[0] + (b[1] << 8) + (b[2] << 16) + (b[3] << 24)
-        if velcocity >= (1 << 31):
+        if velocity >= (1 << 31):
             velocity -= (1 << 32)
         return velocity
 
