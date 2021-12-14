@@ -236,7 +236,7 @@ class keySubscriber(Node):
         tic.exit_safe_start()
         tic.energize()
 
-        publishData = threading.Thread(target=publish, args=())
+        publishData = threading.Thread(target=self.publish_data, args=())
         publishData.daemon = True
         publishData.start()
 
