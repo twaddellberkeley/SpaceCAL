@@ -76,19 +76,29 @@ class keyTalkerClass(Node):
                 printMsg = PrintData()
                 printMsg.speed = 5
                 printMsg.length = 10
-                printMsg.name = "out.mp4"
+                printMsg.name = "dot.mp4"
+                printMsg.location = 0
+                printMsg.printernum = 1 
+                self.printQueueTesting.publish(printMsg)
+                printMsg.location = 5
+                printMsg.length = 30 
+                self.printQueueTesting.publish(printMsg)
+                printMsg.location = 10
+                printMsg.length = 60 
+                self.printQueueTesting.publish(printMsg)
+                printMsg.location = 15
+                printMsg.length = 90
+                self.printQueueTesting.publish(printMsg)
+                printMsg.location = 20
+                printMsg.length = 180
+                self.printQueueTesting.publish(printMsg)
                 printMsg.location = 25
-                printMsg.printernum = 1 
+                printMsg.length = 250
                 self.printQueueTesting.publish(printMsg)
-                print("data sent")
-            elif (inputKey == "g"):
-                printMsg = PrintData()
-                printMsg.speed = 5
-                printMsg.length = 10
-                printMsg.name = "out.mp4"
-                printMsg.location = 28
-                printMsg.printernum = 1 
+                printMsg.location = 30
+                printMsg.length = 300
                 self.printQueueTesting.publish(printMsg)
+                
                 print("data sent")
             time.sleep(.5)
         # If it nots a char, we error
