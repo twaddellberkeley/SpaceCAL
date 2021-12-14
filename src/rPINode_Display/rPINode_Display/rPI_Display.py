@@ -46,11 +46,12 @@ class displayFunctionClass(Node):
         #subprocess.call(["mplayer", "-slave", "-quiet", videoString],
         #stderr=subprocess.DEVNULL,
         #stdout=subprocess.DEVNULL)
-        cPID = subprocess.Popen(
+        supProc = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL).pid
-        cPID = -1
+            stdout=subprocess.DEVNULL)
+        cPID = supProc.pid
+        supProc.wait()
         #mProcess.wait()
         # When dead turn off projector
         subprocess.run(['ledZero'])
