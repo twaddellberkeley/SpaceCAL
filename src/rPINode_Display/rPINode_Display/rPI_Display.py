@@ -32,13 +32,13 @@ class displayFunctionClass(Node):
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,))
-        stayAlive.daemon =True
+        stayAlive.daemon=True
         stayAlive.start()
 
     def kill_me(self, videoString):
         # Turn our LED on to project
         subprocess.run(['ledOn'])
-        subprocess.run(["mplayer", "-slave", "-quiet", videoString],
+        subprocess.call(["mplayer", "-slave", "-quiet", videoString],
         stderr=subprocess.DEVNULL,
         stdout=subprocess.DEVNULL)
         #mProcess = subprocess.Popen(
