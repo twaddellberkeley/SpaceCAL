@@ -81,6 +81,15 @@ class keyTalkerClass(Node):
                 printMsg.printernum = 1 
                 self.printQueueTesting.publish(printMsg)
                 print("data sent")
+            elif (inputKey == "g"):
+                printMsg = PrintData()
+                printMsg.speed = 5
+                printMsg.length = 10
+                printMsg.name = "out.mp4"
+                printMsg.location = 28
+                printMsg.printernum = 1 
+                self.printQueueTesting.publish(printMsg)
+                print("data sent")
             time.sleep(.5)
         # If it nots a char, we error
         except AttributeError:

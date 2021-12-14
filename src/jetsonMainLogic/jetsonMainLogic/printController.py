@@ -84,7 +84,6 @@ class printQueueClass(Node):
         self.cSpeed = msg.data
     def getLocation(self, msg):
         self.cLoc = msg.data
-        print("Location: " + self.cLoc)
     def getStatus(self,msg):
         self.cStatus = msg.data
 
@@ -105,8 +104,8 @@ class printQueueClass(Node):
                 print("Printing: " + str(printArg.name))
                 #publish speed
                 intMsg = Int32()
-                intMsg.data = printArg.speed
-                self.motorVelPublisher.publish(intMsg)                
+                #intMsg.data = printArg.speed
+                #self.motorVelPublisher.publish(intMsg)                
                 #publish location & wait for return
                 intMsg.data = printArg.location
                 self.motorLocPublisher.publish(intMsg)
@@ -114,8 +113,13 @@ class printQueueClass(Node):
                 while(self.cLoc != printArg.location):
                     pass
                 #publish name to print
-                self.videoSend.publish(printArg.name)
+                strMsg = String()
+                strMsg.data = printArg.name
+                self.videoSend.publish(strMsg)
                 time.sleep(printArg.length)
+                #kill projection just in case
+                strMsg.data = "EXIT"
+                self.videoSend.publish(strMsg)
 
 def main(args=None):
     rclpy.init(args=args)

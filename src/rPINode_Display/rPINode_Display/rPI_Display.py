@@ -30,6 +30,9 @@ class displayFunctionClass(Node):
             # Need to kill thread
             stayAlive.terminate()
             mProcess.kill()
+        if(msg.data == "EXIT"):
+            subprocess.run(['ledZero'])
+            exit(0)
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
         # Turn our LED on to project
