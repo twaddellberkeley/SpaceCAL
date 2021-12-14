@@ -22,8 +22,8 @@ class displayFunctionClass(Node):
     def displayVideo(self, msg):
         # First kill any current projection
         os.environ['DISPLAY']=":0"
-        global mProcess
         global stayAlive
+        global mProcess
         print("DISPLAYING\n")
         if(mProcess != None and mProcess.poll() is None):
             # Need to kill thread
@@ -39,7 +39,6 @@ class displayFunctionClass(Node):
             stdout=subprocess.DEVNULL)
         time.sleep(.5)
         # Create multiprocess to turn of projector when done
-        mProcess.wait()
         stayAlive = multiprocessing.Process(target=self.kill_me)
         stayAlive.start()
 
