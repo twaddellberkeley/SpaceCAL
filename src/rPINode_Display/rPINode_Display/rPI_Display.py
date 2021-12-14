@@ -32,7 +32,7 @@ class displayFunctionClass(Node):
             print("HAPPENING\n")
             stayAlive.terminate()
             if (cPID != None and cPID.value != 0):
-                os.kill(cPID, )
+                os.kill(cPID.value, 9)
         # Now Project from givin string
         cPID = multiprocessing.Value('i', 0)
         videoString = '/home/spacecal/test_video/' + msg.data
