@@ -34,26 +34,20 @@ class displayFunctionClass(Node):
         videoString = '/home/spacecal/test_video/' + msg.data
         # Turn our LED on to project
         subprocess.run(['ledOn'])
+        # Create multiprocess to turn of projector when done
+        stayAlive = multiprocessing.Process(target=self.kill_me, args=(videoString,))
+        stayAlive.start()
+
+    def kill_me(self, videoString):
+        global mProcess
         mProcess = subprocess.Popen(
             ['mplayer', "-slave", "-quiet", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
-        time.sleep(.5)
-        print(mProcess)
-        print( "CHECK PROCESS: " + str(mProcess.poll()))
-        # Create multiprocess to turn of projector when done
-        stayAlive = multiprocessing.Process(target=self.kill_me, args=(mProcess,))
-        stayAlive.start()
-        self.kill_me(mProcess)
-
-    def kill_me(self, mProcess):
-        print(mProcess)
-        # Check to see if our projection process is running
-        print( "CHECK PROCESS: " + str(mProcess.poll()))
         mProcess.wait()
         print("Killing\n")
         # When dead turn off projector
-        #subprocess.run(['ledZero'])
+        subprocess.run(['ledZero'])
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
