@@ -37,7 +37,7 @@ class displayFunctionClass(Node):
     def kill_me(self, videoString):
         # Turn our LED on to project
         subprocess.run(['ledOn'])
-        os.system("mplayer -slace -quiet " + videoString)
+        os.system("mplayer -slave -quiet " + videoString)
         #mProcess = subprocess.Popen(
         #    ['mplayer', "-slave", "-quiet", videoString],
         #    stderr=subprocess.DEVNULL,
