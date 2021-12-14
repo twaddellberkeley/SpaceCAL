@@ -44,6 +44,8 @@ class displayFunctionClass(Node):
         # Create multiprocess to turn of projector when done
         stayAlive = multiprocessing.Process(target=self.kill_me, args=(mProcess,))
         stayAlive.start()
+        time.sleep(1)
+        print( "CHECK PROCESS: " + str(mProcess.poll()))
 
     def kill_me(self, mProcess):
         print(mProcess)
@@ -52,7 +54,7 @@ class displayFunctionClass(Node):
         mProcess.wait()
         print("Killing\n")
         # When dead turn off projector
-        subprocess.run(['ledZero'])
+        #subprocess.run(['ledZero'])
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
