@@ -57,6 +57,9 @@ class keyTalkerClass(Node):
             elif (inputKey == "s"):
                 msg.data = str(key.char)
                 self.keyPublisher.publish(msg)
+            elif (inputKey == "h"):
+                msg.data = str(key.char)
+                self.keyPublisher.publish(msg)
             elif (inputKey == "j"):
                 msg.data = inputKey
                 self.keyPublisher.publish(msg)
