@@ -281,7 +281,7 @@ class keySubscriber(Node):
             intMsg.data = tic.get_current_status()
             self.motorStatusPublisher.publish(intMsg)
             #publish Position in mm
-            intMsg.data = round(tic.get_current_position()/incrBit,3)
+            intMsg.data = int(round(tic.get_current_position()/incrBit,3)*1000)
             self.motorCLocPublisher.publish(intMsg)
             #logger.info(str(intMsg.data))
             #publish velocity
