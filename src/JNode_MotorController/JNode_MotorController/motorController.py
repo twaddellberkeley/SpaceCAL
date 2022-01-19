@@ -45,7 +45,8 @@ tic = None
 incrBit = 51200/25.4 # Is 1mm per bit unit
 
 # Step veloicty to achieve 1rot/min
-velBit = 1024000000/60
+velBit = 1024000000/60 # Max 500000000
+
 # Logger of the node
 logger = None
 # Address and bus of motor controlling
@@ -257,6 +258,9 @@ class keySubscriber(Node):
         elif(msg.data == 'm'):
             tic.exit_safe_start()
             tic.set_target_position(round(curPosition - incrBit*25.4))
+        elif(msg.data == 'h'):
+            tic.exit_safe_start()
+            tic.go_home()
 
     # Make tic go to current position in mm
     def go_to(self, msg):
