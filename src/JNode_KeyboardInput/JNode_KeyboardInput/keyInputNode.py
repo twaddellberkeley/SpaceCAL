@@ -40,7 +40,7 @@ class keyTalkerClass(Node):
         # Create publisher under keyTalker
         super().__init__('keyTalker')
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
-        self.velocitySpin = self.create_publisher(Int32, 'setVelocity', 10)
+        self.velocitySpin = self.create_publisher(Int32, 'setVelocityV2', 10)
         self.videoChange = self.create_publisher(String, 'videoName', 10)
         self.printQueueTesting = self.create_publisher(PrintData, 'printSend', 10)
         self.keyTalker()
@@ -75,6 +75,9 @@ class keyTalkerClass(Node):
             elif (inputKey == "u"):
                 msg.data = "out2.mp4"
                 self.videoChange.publish(msg)
+            elif (inputKey == "p"):
+                intMsg.data = 5
+                self.velocitySpin.publish(intMsg)
             elif (inputKey == "b"):
                 printMsg = PrintData()
                 printMsg.speed = 5
