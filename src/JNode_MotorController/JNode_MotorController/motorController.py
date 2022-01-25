@@ -47,6 +47,8 @@ incrBit = 51200/25.4 # Is 1mm per bit unit
 # Step veloicty to achieve 1rot/min
 velBit = 1024000000/60 # Max 500000000
 
+
+
 # Logger of the node
 logger = None
 # Address and bus of motor controlling
@@ -185,6 +187,12 @@ class TicI2C(object):
         status = b[0]
         return status
 
+    # Gets current flag
+    def get_current_step(self):
+        b = self.get_variables(0x49, 1)
+        status = b[0]
+        return status
+
 
 class keySubscriber(Node):
     def __init__(self):
@@ -236,7 +244,7 @@ class keySubscriber(Node):
         stayAlive.start()
         tic.exit_safe_start()
         tic.energize()
-
+        logger.info(str(tic.get_current_step()))
         publishData = threading.Thread(target=self.publish_data, args=())
         publishData.daemon = True
         publishData.start()
