@@ -69,7 +69,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 18}],
-            remappings=[("setVelocity","setVelocityV1")],
+            remappings=[("setVelocity","setVelocityV1"),("keyInput","deadInput")],
             name="motorV1",
         ),
         Node(
@@ -79,7 +79,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 19}],
-            remappings=[("setVelocity","setVelocityV2")],
+            remappings=[("setVelocity","setVelocityV2"),("keyInput","deadInput")],
             name="motorV2",
         ),
         Node(
@@ -89,7 +89,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 20}],
-            remappings=[("setVelocity","setVelocityV3")],
+            remappings=[("setVelocity","setVelocityV3"),("keyInput","deadInput")],
             name="motorV3",
         ),
         Node(
@@ -99,7 +99,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 21}],
-            remappings=[("setVelocity","setVelocityV4")],
+            remappings=[("setVelocity","setVelocityV4"),("keyInput","deadInput")],
             name="motorV4",
         ),
         Node(
@@ -109,7 +109,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 22}],
-            remappings=[("setVelocity","setVelocityV5")],
+            remappings=[("setVelocity","setVelocityV5"),("keyInput","deadInput")],
             name="motorV5",
         )
     ])
