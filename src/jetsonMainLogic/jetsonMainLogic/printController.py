@@ -72,6 +72,13 @@ class printQueueClass(Node):
     # Lift motors: 14,15,16,17
     # Rotation motors: 18,19,20,21,22
 
+    # Converstion bits
+    # incrBit = 51200 # Is one rotation or one inch
+    incrBit = 51200/25.4 # Is 1mm per bit unit
+
+    # Step veloicty to achieve 1rot/min
+    velBit = 1024000000/60 # Max 500000000
+
     def __init__(self):
         super().__init__('queueClass')
         #publishers
@@ -209,7 +216,7 @@ class printQueueClass(Node):
                     #Wait till all motors are at correct height before starting projections
                     for val in range(3):
                         print(self.cLoc[val])
-                        while(self.cLoc[val] != printSet.printHeight):
+                        while(self.cLoc[val]* self.incrBit != printSet.printHeight):
                             pass
                     #Loop through and and thread to print each print on current set
                     for val in printSet.printdata:

@@ -291,8 +291,8 @@ class keySubscriber(Node):
             global address
             motorMsg = MotorData()
             motorMsg.motornum = address
-            motorMsg.speed = round(tic.get_current_velocity()*velBit)
-            motorMsg.location = round(tic.get_current_position()*incrBit)
+            motorMsg.speed = tic.get_current_velocity()
+            motorMsg.location = tic.get_current_position()
             motorMsg.status = tic.get_current_status()
             motorMsg.flags = tic.get_current_flags()
             self.motorDataPublisher.publish(motorMsg)
