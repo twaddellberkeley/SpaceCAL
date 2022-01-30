@@ -26,7 +26,6 @@ import rclpy
 from rclpy.node import Node
 from pynput import keyboard
 from std_msgs.msg import String, Int32
-from interfaces.msg import PrintData
 import time
 # Setting correct display
 # import os
