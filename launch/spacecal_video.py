@@ -27,9 +27,9 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='rPINode_Display',
-            #MAKE SURE TO CHANGE THIS FOR EACH PI
-            executable='videoDisplayV1',
+            executable='videoDisplay',
             namespace='printerTesting',
-            name="display"
+            # MAKE SURE TO CHANGE THIS
+            name="videoDisplayV1"
         )
     ])
