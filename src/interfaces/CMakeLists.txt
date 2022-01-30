@@ -39,7 +39,7 @@ find_package(rosidl_typesupport_c REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/PrintData.msg"
+  "msg/MotorData.msg"
  )
 ament_package()
 
