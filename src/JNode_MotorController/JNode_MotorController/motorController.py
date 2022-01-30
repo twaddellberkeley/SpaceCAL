@@ -273,7 +273,7 @@ class keySubscriber(Node):
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
             #If positive we will go to position
-            if(msg.data > 0):
+            if(msg.data >= 0):
                 tic.set_target_position(round(msg.data*incrBit))
             #If negative we do homing procedure
             else:
