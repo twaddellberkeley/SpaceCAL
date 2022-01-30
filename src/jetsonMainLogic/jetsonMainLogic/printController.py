@@ -58,6 +58,8 @@ class printQueueClass(Node):
 
     #Print queue to move base 
     printQ = queue.Queue()
+    #Var that allows print process to start
+    okToRun = False
 
     #Global Checkup Vars
     cSpeed = [-1] * 9
@@ -118,7 +120,11 @@ class printQueueClass(Node):
         # Motor data subscriber
         self.motorDataSubscriber = self.create_subscription(MotorData, 'motorData', self.getMotorData, 10)
         # Keyboard input subscriber
-        #self.KeyboardInputSubscriber = self.create_subscription(, topic, callback, qos_profile)
+        self.KeyboardInputSubscriber = self.create_subscription(
+            String,
+            'keyinput',
+            self.letsLaunch,
+            10)
         # TODO add keyboard input to simulate touch screen
         # Thread to send base change too
         qThread = Thread(target=self.qPrint, args=())
@@ -154,16 +160,21 @@ class printQueueClass(Node):
                 #If -1 then we must home
                 printQ.put(-1)
 
+    def letsLaunch(self,msg):
+        if (msg.data =="g"):
+            self.okToRun = True
+
     def qPrint(self):
         while rclpy.ok():
-            if(not self.printQ.empty()):
+            if(not self.printQ.empty() and sef.okToRun == True):
                 printSet = self.printQ.get()
                 loc = Int32()
                 # Go Home
                 if(printSet == -1):
                     #Go home, do this by sending -1 to distance
                     loc.data = printSet
-                    self.motorLocPublisher(loc)
+                    print("running")
+                    #self.motorLocPublisher(loc)
                     #Wait for home to complete from all mototrs
                     for liftMotorFlag in self.cFlags[:3]:
                         while ((liftMotorFlag & 0x10) == 1):
@@ -174,7 +185,8 @@ class printQueueClass(Node):
                 # Begin printing normal printer data
                 else:
                     loc.data = printSet.printHeight
-                    self.motorLocPublisher(loc)
+                    print("running")
+                    #self.motorLocPublisher(loc)
                     #Wait till all motors are at correct height before starting projections
                     for liftMotorHeight in self.cLoc[:3]:
                         while(liftMotorHeight != printArg.printHeight):
@@ -187,6 +199,7 @@ class printQueueClass(Node):
                     time.sleep(printArg.maxTime)
                 # If printSet is 0, we have moved back to 0/home
                 if(printSet == 0):
+                    self.okToRun = False
                     print("Waiting for next vial stack to be loaded")
                     print("Waiting for next vial stack to be loaded")
 

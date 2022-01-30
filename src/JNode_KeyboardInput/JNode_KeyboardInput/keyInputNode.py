@@ -71,7 +71,7 @@ class keyTalkerClass(Node):
                 msg.data = "out.mp4"
                 self.videoChange.publish(msg)
             elif (inputKey == "u"):
-                msg.data = "out2.mp4"
+                msg.data = "dot.mp4"
                 self.videoChange.publish(msg)
             elif (inputKey == "p"):
                 intMsg.data = 5
