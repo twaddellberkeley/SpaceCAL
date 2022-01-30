@@ -199,6 +199,14 @@ class keySubscriber(Node):
     def __init__(self):
         # Create the subscriber node that listens to key input
         super().__init__('MotorControllerSubscriber')
+
+        # edit global logger object with node logger
+        self.declare_parameter("Address")
+        global logger
+        logger = self.get_logger()
+        adrNum = self.get_parameter('Address').get_parameter_value()
+        address = adrNum.integer_value
+
         self.subscriptionInput = self.create_subscription(
             String,
             'keyinput',
@@ -220,12 +228,6 @@ class keySubscriber(Node):
 
         self.motorDataPublisher = self.create_publisher(MotorData, 'motorData', 10)
         self.motorDataPublisher
-        # edit global logger object with node logger
-        self.declare_parameter("Address")
-        global logger
-        logger = self.get_logger()
-        adrNum = self.get_parameter('Address').get_parameter_value()
-        address = adrNum.integer_value
         # Create tic object with with motor on /dev/i2c-1
         bus = SMBus(busNum)
         # Select the I2C address of the Tic (the device number).
