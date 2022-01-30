@@ -204,6 +204,7 @@ class keySubscriber(Node):
         self.declare_parameter("Address")
         global logger
         logger = self.get_logger()
+        global address
         adrNum = self.get_parameter('Address').get_parameter_value()
         address = adrNum.integer_value
 
@@ -287,6 +288,7 @@ class keySubscriber(Node):
 
     def publish_data(self):
         while rclpy.ok():
+            global address
             motorMsg = MotorData()
             motorMsg.motornum = address
             motorMsg.speed = tic.get_current_velocity()
@@ -308,6 +310,7 @@ def main(args=None):
         # (optional - otherwise it will be done automatically
         # when the garbage collector destroys the node object)
         # Stopping motor completely
+        global address
         logger.info("Shutting down motor %d" % address)
         tic.powerdown()
         subscriber.destroy_node()
