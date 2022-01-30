@@ -52,7 +52,7 @@ class printQueueClass(Node):
     @dataclass 
     class baseMove:
         printNum: int
-        timeWait: int
+        maxTime: int
         printHeight: int
         printdata: list
 
@@ -65,7 +65,7 @@ class printQueueClass(Node):
     cSpeed = [-1] * 9
     cLoc = [-1] * 9
     cStatus = [-1] * 9
-    cFlags = [-1] * 9
+    cFlags = [0] * 9
 
     # Motor address offset
     mOffset = 14
@@ -136,39 +136,50 @@ class printQueueClass(Node):
     # Get custom message from the motor, index info in its array, its 
     # motornum is its address
     def getMotorData(self, msg):
+        print(msg.motornum)
         self.cSpeed[msg.motornum - self.mOffset] = msg.speed
         self.cStatus[msg.motornum - self.mOffset] = msg.status
         self.cLoc[msg.motornum - self.mOffset] = msg.location
         self.cFlags[msg.motornum - self.mOffset] = msg.flags
 
-    def readPrintFile():
+    def readPrintFile(self):
         # TODO create solid path for this
-        script_dir = os.path.dirname(__file__)
-        file = open(script_dir + "/printTest.json")
+        #script_dir = os.path.dirname(__file__)
+        #file = open(script_dir + "/printTest.json")
+        file = open("/home/spacecal/Desktop/printTest.json")
         data = json.load(file)
         # Loop through JSON and create object for each print set
         for val in data:
             if val['printNum'] != -1:
-                printData = baseMove(
+                printData = self.baseMove(
                     val['printNum'],
                     val['maxTime'],
                     val['printHeight'],
                     val['prints']
                 )    
-                printQ.put(printData)
+                self.printQ.put(printData)
             else:
                 #If -1 then we must home
-                printQ.put(-1)
+                self.printQ.put(-1)
 
     def letsLaunch(self,msg):
         if (msg.data =="g"):
             self.okToRun = True
 
     def qPrint(self):
+        self.readPrintFile()
         while rclpy.ok():
-            if(not self.printQ.empty() and sef.okToRun == True):
+            if(not self.printQ.empty() and self.okToRun == True):
                 printSet = self.printQ.get()
+                print(self.printQ.qsize())
                 loc = Int32()
+                # Wait for motors to be good
+                for status in self.cStatus:
+                    while(status != 10):
+                        print(status)
+                        print("waiting for motors to come online")
+                        time.sleep(.1)
+                        pass
                 # Go Home
                 if(printSet == -1):
                     #Go home, do this by sending -1 to distance
@@ -176,32 +187,37 @@ class printQueueClass(Node):
                     print("running")
                     #self.motorLocPublisher(loc)
                     #Wait for home to complete from all mototrs
-                    for liftMotorFlag in self.cFlags[:3]:
+                    for liftMotorFlag in self.cFlags[:4]:
+                        print("Motor flag " + str((liftMotorFlag & 0x10) == 1))
                         while ((liftMotorFlag & 0x10) == 1):
                             pass
                         # If postion is uncertain than something bad has happened
-                        if ((cFlags & x02) == 1):
+                        if ((liftMotorFlag & 0x02) == 1):
                             print("ERROR IN HOMING")
                 # Begin printing normal printer data
                 else:
+                    if (printSet.printNum > 0):
+                        print("Starting print number: " + str(printSet.printNum))
+                    else:
+                        print("Returning to 0")
                     loc.data = printSet.printHeight
                     print("running")
                     #self.motorLocPublisher(loc)
                     #Wait till all motors are at correct height before starting projections
-                    for liftMotorHeight in self.cLoc[:3]:
-                        while(liftMotorHeight != printArg.printHeight):
-                            pass
+                    ##for liftMotorHeight in self.cLoc[:4]:
+                    ##    while(liftMotorHeight != printSet.printHeight):
+                    ##        pass
                     #Loop through and and thread to print each print on current set
-                    for val in printArg.printdata:
-                        qThread = Thread(target=self.printPart, args=(val))
+                    for val in printSet.printdata:
+                        #print(val)
+                        qThread = Thread(target=self.printPart, args=([val]))
                         qThread.daemon=True
                         qThread.start()
-                    time.sleep(printArg.maxTime)
-                # If printSet is 0, we have moved back to 0/home
-                if(printSet == 0):
-                    self.okToRun = False
-                    print("Waiting for next vial stack to be loaded")
-                    print("Waiting for next vial stack to be loaded")
+                    time.sleep(printSet.maxTime)
+                    # If printSet is 0, we have moved back to 0/home
+                    if(printSet.printNum == 0):
+                        self.okToRun = False
+                        print("Waiting for next vial stack to be loaded")
 
     
     def printPart(self, printData):
