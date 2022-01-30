@@ -70,7 +70,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 18}],
-            remappings=[("setVelocity","setVelocityV1"),("keyinput","deadInput")],
+            remappings=[("setVelocity","setVelocityV1"),("keyinput","deadInput"),("setPosition","deadPosition")],
             name="motorV1",
         ),
         Node(
@@ -80,7 +80,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 19}],
-            remappings=[("setVelocity","setVelocityV2"),("keyinput","deadInput")],
+            remappings=[("setVelocity","setVelocityV2"),("keyinput","deadInput"),("setPosition","deadPosition")],
             name="motorV2",
         ),
         Node(
@@ -90,7 +90,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 20}],
-            remappings=[("setVelocity","setVelocityV3"),("keyinput","deadInput")],
+            remappings=[("setVelocity","setVelocityV3"),("keyinput","deadInput"),("setPosition","deadPosition")],
             name="motorV3",
         ),
         Node(
@@ -100,7 +100,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 21}],
-            remappings=[("setVelocity","setVelocityV4"),("keyinput","deadInput")],
+            remappings=[("setVelocity","setVelocityV4"),("keyinput","deadInput"),("setPosition","deadPosition")],
             name="motorV4",
         ),
         Node(
@@ -110,7 +110,7 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             parameters=[{"Address": 22}],
-            remappings=[("setVelocity","setVelocityV5"),("keyinput","deadInput")],
+            remappings=[("setVelocity","setVelocityV5"),("keyinput","deadInput"),("setPosition","deadPosition")],
             name="motorV5",
         )
     ])
