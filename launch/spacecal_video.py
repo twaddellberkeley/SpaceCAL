@@ -30,8 +30,8 @@ def generate_launch_description():
             executable='videoDisplay',
             namespace='printerTesting',
             # MAKE SURE TO CHANGE THIS
-            name="videoDisplayV1",
-            remappings=[("videoName","videoNameV1")]
+            name="videoDisplayV2",
+            remappings=[("videoName","videoNameV2")]
 
         )
     ])
