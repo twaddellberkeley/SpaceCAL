@@ -286,7 +286,7 @@ class keySubscriber(Node):
     def publish_data(self):
         while rclpy.ok():
             motorMsg = MotorData()
-            motorMsg.motornum = self.get_parameter('Address').get_parameter_value()
+            motorMsg.motornum = int(self.get_parameter('Address').get_parameter_value())
             motorMsg.speed = tic.get_current_velocity()
             motorMsg.location = tic.get_current_position()
             motorMsg.status = tic.get_current_status()
