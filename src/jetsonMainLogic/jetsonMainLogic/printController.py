@@ -24,10 +24,12 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32, Int64
 import time
-from interfaces.msg import PrintData
+from interfaces.msg import MotorData
 from dataclasses import dataclass
 import queue
 from threading import Thread
+import json
+import os
 
 #Subscribe: What to print, where to print it, how fast to rotate, how long to print
 
@@ -38,88 +40,174 @@ from threading import Thread
 
 class printQueueClass(Node):
 
+    #Data Class to send to pi to print
     @dataclass
     class printDataClass:
         speed: int
         length: int
         name: str
-        location: int
         printernum: int
     
+    #Data class to send where to move
+    @dataclass 
+    class baseMove:
+        printNum: int
+        timeWait: int
+        printHeight: int
+        printdata: list
+
+    #Print queue to move base 
     printQ = queue.Queue()
 
-    cSpeed = 0
-    cLoc = 0
-    cStatus = 0
+    #Global Checkup Vars
+    cSpeed = [-1] * 9
+    cLoc = [-1] * 9
+    cStatus = [-1] * 9
+    cFlags = [-1] * 9
+
+    # Motor address offset
+    mOffset = 14
+    # Lift motors: 14,15,16,17
+    # Rotation motors: 18,19,20,21,22
 
     def __init__(self):
         super().__init__('queueClass')
         #publishers
-        self.videoSend = self.create_publisher(String, 'videoName', 10)
-        self.videoSend
 
+        #Motors for moving base
         self.motorLocPublisher = self.create_publisher(Int32, 'setPosition', 10)
-        self.motorVelPublisher = self.create_publisher(Int32, 'setVelocity', 10)
         self.motorLocPublisher
-        self.motorVelPublisher
-        #subscribers
-        self.printSubscriber = self.create_subscription(
-            PrintData, 'printSend', self.printAddQueue, 10)
-        self.printSubscriber
-                
-        self.motorCLSubscriber = self.create_subscription(Int32, 'getPosition', self.getLocation, 10)
-        self.motorCVSubscriber = self.create_subscription(Int32, 'getVelocity', self.getSpeed, 10)
-        self.motorStatusSubscriber = self.create_subscription(Int32, 'getStatus', self.getStatus, 10)
-
-        self.motorCLSubscriber
-        self.motorCVSubscriber
-        self.motorStatusSubscriber
         
+        #publishers for sending velecotiy
+        self.motorVelPublisherV1 = self.create_publisher(Int32, 'setVelocityV1', 10)
+        self.motorVelPublisherV1
+
+        self.motorVelPublisherV2 = self.create_publisher(Int32, 'setVelocityV2', 10)
+        self.motorVelPublisherV2
+
+        self.motorVelPublisherV3 = self.create_publisher(Int32, 'setVelocityV3', 10)
+        self.motorVelPublisherV3
+
+        self.motorVelPublisherV4 = self.create_publisher(Int32, 'setVelocityV4', 10)
+        self.motorVelPublisherV4
+
+        self.motorVelPublisherV5 = self.create_publisher(Int32, 'setVelocityV5', 10)
+        self.motorVelPublisherV5
+
+        self.velocityPublishers = [self.motorVelPublisherV1,self.motorVelPublisherV2,self.motorVelPublisherV3,self.motorVelPublisherV4,self.motorVelPublisherV5]
+
+        #publishers for sending video
+        self.videoSendV1 = self.create_publisher(String, 'videoNameV1', 10)
+        self.videoSendV1
+
+        self.videoSendV2 = self.create_publisher(String, 'videoNameV2', 10)
+        self.videoSendV2
+
+        self.videoSendV3 = self.create_publisher(String, 'videoNameV3', 10)
+        self.videoSendV3
+
+        self.videoSendV4 = self.create_publisher(String, 'videoNameV4', 10)
+        self.videoSendV4
+
+        self.videoSendV5 = self.create_publisher(String, 'videoNameV5', 10)
+        self.videoSendV5
+
+        self.videoPublishers = [self.videoSendV1,self.videoSendV2,self.videoSendV3,self.videoSendV4,self.videoSendV5]
+
+        # subscribers
+        # Motor data subscriber
+        self.motorDataSubscriber = self.create_subscription(MotorData, 'motorData', self.getMotorData, 10)
+        # Keyboard input subscriber
+        #self.KeyboardInputSubscriber = self.create_subscription(, topic, callback, qos_profile)
+        # TODO add keyboard input to simulate touch screen
+        # Thread to send base change too
         qThread = Thread(target=self.qPrint, args=())
         qThread.daemon=True
         qThread.start()
-        #self.qPrint()
-    
-    def getSpeed(self, msg):
-        self.cSpeed = msg.data
-    def getLocation(self, msg):
-        self.cLoc = msg.data
-    def getStatus(self,msg):
-        self.cStatus = msg.data
 
-    def printAddQueue(self, msg):
-        print("got info")
-        self.printQ.put(self.printDataClass(
-            msg.speed,
-            msg.length,
-            msg.name,
-            msg.location,
-            msg.printernum
-        ))
+
+    # Get variables from everything
+    # Get custom message from the motor, index info in its array, its 
+    # motornum is its address
+    def getMotorData(self, msg):
+        self.cSpeed[msg.motornum - self.mOffset] = msg.speed
+        self.cStatus[msg.motornum - self.mOffset] = msg.status
+        self.cLoc[msg.motornum - self.mOffset] = msg.location
+        self.cFlags[msg.motornum - self.mOffset] = msg.flags
+
+    def readPrintFile():
+        # TODO create solid path for this
+        script_dir = os.path.dirname(__file__)
+        file = open(script_dir + "/printTest.json")
+        data = json.load(file)
+        # Loop through JSON and create object for each print set
+        for val in data:
+            if val['printNum'] != -1:
+                printData = baseMove(
+                    val['printNum'],
+                    val['maxTime'],
+                    val['printHeight'],
+                    val['prints']
+                )    
+                printQ.put(printData)
+            else:
+                #If -1 then we must home
+                printQ.put(-1)
 
     def qPrint(self):
         while rclpy.ok():
             if(not self.printQ.empty()):
-                printArg = self.printQ.get()
-                print("Printing: " + str(printArg.name))
-                #publish speed
-                intMsg = Int32()
-                #intMsg.data = printArg.speed
-                #self.motorVelPublisher.publish(intMsg)                
-                #publish location & wait for return
-                intMsg.data = printArg.location
-                self.motorLocPublisher.publish(intMsg)
-                #wait for motor to be in position
-                while(self.cLoc != printArg.location):
-                    pass
-                #publish name to print
-                strMsg = String()
-                strMsg.data = printArg.name
-                self.videoSend.publish(strMsg)
-                time.sleep(printArg.length)
-                #kill projection just in case
-                strMsg.data = "EXIT"
-                self.videoSend.publish(strMsg)
+                printSet = self.printQ.get()
+                loc = Int32()
+                # Go Home
+                if(printSet == -1):
+                    #Go home, do this by sending -1 to distance
+                    loc.data = printSet
+                    self.motorLocPublisher(loc)
+                    #Wait for home to complete from all mototrs
+                    for liftMotorFlag in self.cFlags[:3]:
+                        while ((liftMotorFlag & 0x10) == 1):
+                            pass
+                        # If postion is uncertain than something bad has happened
+                        if ((cFlags & x02) == 1):
+                            print("ERROR IN HOMING")
+                # Begin printing normal printer data
+                else:
+                    loc.data = printSet.printHeight
+                    self.motorLocPublisher(loc)
+                    #Wait till all motors are at correct height before starting projections
+                    for liftMotorHeight in self.cLoc[:3]:
+                        while(liftMotorHeight != printArg.printHeight):
+                            pass
+                    #Loop through and and thread to print each print on current set
+                    for val in printArg.printdata:
+                        qThread = Thread(target=self.printPart, args=(val))
+                        qThread.daemon=True
+                        qThread.start()
+                    time.sleep(printArg.maxTime)
+                # If printSet is 0, we have moved back to 0/home
+                if(printSet == 0):
+                    print("Waiting for next vial stack to be loaded")
+                    print("Waiting for next vial stack to be loaded")
+
+    
+    def printPart(self, printData):
+        print("Printing: " + str(printData['videoName']) + " on projector" + str(printData['projNum']))
+        # Set publish types
+        vel = Int32()
+        video = String()
+        # Get data from array
+        vel.data = printData['printSpeed']
+        video.data = printData['videoName']
+        # Send to projector and motor
+        self.velocityPublishers[printData['projNum'] - 1].publish(vel)
+        self.videoPublishers[printData['projNum'] - 1].publish(video)
+        # Wait set time to print
+        time.sleep(printData['printTime'])
+        # kill projection just in case
+        video.data = "EXIT"
+        self.videoPublishers[printData['projNum'] - 1].publish(video)
+
 
 def main(args=None):
     rclpy.init(args=args)

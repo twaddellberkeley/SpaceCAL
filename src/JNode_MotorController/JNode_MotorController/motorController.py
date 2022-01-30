@@ -37,6 +37,7 @@ import threading
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
 from smbus2 import SMBus, i2c_msg
+from interfaces.msg import MotorData
 # globl vars
 # Tic object
 tic = None
@@ -217,14 +218,8 @@ class keySubscriber(Node):
         self.subscriptionSpeed
         self.subscriptionInput  # prevent unused variable warnings
 
-        self.motorCLocPublisher = self.create_publisher(Int32, 'getPosition', 10)
-        self.motorCVelpublisher = self.create_publisher(Int32, 'getVelocity', 10)
-        self.motorStatusPublisher = self.create_publisher(Int32, 'getStatus', 10)
-
-        self.motorCLocPublisher
-        self.motorCVelpublisher
-        self.motorStatusPublisher
-
+        self.motorDataPublisher = self.create_publisher(MotorData, 'motorData', 10)
+        self.motorDataPublisher
         # edit global logger object with node logger
         self.declare_parameter("Address")
         global logger
@@ -244,7 +239,7 @@ class keySubscriber(Node):
         stayAlive.start()
         tic.exit_safe_start()
         tic.energize()
-        logger.info(str(tic.get_current_step()))
+        # Keep publishing current status of motor
         publishData = threading.Thread(target=self.publish_data, args=())
         publishData.daemon = True
         publishData.start()
@@ -274,7 +269,13 @@ class keySubscriber(Node):
     def go_to(self, msg):
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
-            tic.set_target_position(round(msg.data*incrBit))
+            #If positive we will go to position
+            if(msg.data > 0):
+                tic.set_target_position(round(msg.data*incrBit))
+            #If negative we do homing procedure
+            else:
+                tic.go_home()
+
 
     # Sets speed of tic in rot/min
     def set_speed(self, msg):
@@ -284,17 +285,13 @@ class keySubscriber(Node):
 
     def publish_data(self):
         while rclpy.ok():
-            intMsg = Int32()
-            #publish status
-            intMsg.data = tic.get_current_status()
-            self.motorStatusPublisher.publish(intMsg)
-            #publish Position in mm
-            intMsg.data = int(round(tic.get_current_position()/incrBit,3)*1000)
-            self.motorCLocPublisher.publish(intMsg)
-            #logger.info(str(intMsg.data))
-            #publish velocity
-            intMsg.data = tic.get_current_velocity()
-            self.motorCVelpublisher.publish(intMsg)
+            motorMsg = MotorData()
+            motorMsg.motornum = self.get_parameter('Address').get_parameter_value()
+            motorMsg.speed = tic.get_current_velocity()
+            motorMsg.location = tic.get_current_position()
+            motorMsg.status = tic.get_current_status()
+            motorMsg.flags = tic.get_current_flags()
+            self.motorDataPublisher.publish(motorMsg)
             time.sleep(.1)
 
 
@@ -351,7 +348,7 @@ def doneHoming(testAddress):
         bus = SMBus(busNum)
         tic = TicI2C(bus, testAddress)
         retVal = tic.get_current_flags()
-        while ((retVal >> 0 & 0x10) == 1):
+        while ((retVal & 0x10) == 1):
             retVal = tic.get_current_flags()
             time.sleep(0.1)
         # Checking to make sure we are homed

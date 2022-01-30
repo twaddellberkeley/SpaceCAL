@@ -32,13 +32,14 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             name='keyboard'
-        ),
-        Node(
-            package='jetsonMainLogic',
-            namespace='printerTesting',
-            executable='printController',
-            output='screen',
-            emulate_tty=True,
-            name='control'
         )
+        #,
+        #Node(
+        #    package='jetsonMainLogic',
+        ##    namespace='printerTesting',
+         #   executable='printController',
+         #   output='screen',
+        #    emulate_tty=True,
+        #    name='control'
+        #)
     ])
