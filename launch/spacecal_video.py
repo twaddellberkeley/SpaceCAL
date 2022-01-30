@@ -29,6 +29,8 @@ def generate_launch_description():
             package='rPINode_Display',
             executable='videoDisplay',
             namespace='printerTesting',
+            output='screen',
+            emulate_tty=True,
             # MAKE SURE TO CHANGE THIS
             name="videoDisplayV2",
             remappings=[("videoName","videoNameV2")]

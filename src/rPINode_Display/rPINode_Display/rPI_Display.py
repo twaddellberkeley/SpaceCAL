@@ -22,6 +22,7 @@ class displayFunctionClass(Node):
     
     def displayVideo(self, msg):
         # First kill any current projection
+        print(msg.data)
         os.environ['DISPLAY']=":0"
         global mProcess
         global stayAlive

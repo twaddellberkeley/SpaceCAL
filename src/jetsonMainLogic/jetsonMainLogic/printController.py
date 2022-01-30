@@ -247,6 +247,7 @@ class printQueueClass(Node):
         video.data = printData['videoName']
         # Send to projector and motor
         self.velocityPublishers[printData['projNum'] - 1].publish(vel)
+        print(video.data)
         self.videoPublishers[printData['projNum'] - 1].publish(video)
         # Wait set time to print
         time.sleep(printData['printTime'])
