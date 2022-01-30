@@ -136,7 +136,6 @@ class printQueueClass(Node):
     # Get custom message from the motor, index info in its array, its 
     # motornum is its address
     def getMotorData(self, msg):
-        print(msg.motornum)
         self.cSpeed[msg.motornum - self.mOffset] = msg.speed
         self.cStatus[msg.motornum - self.mOffset] = msg.status
         self.cLoc[msg.motornum - self.mOffset] = msg.location
@@ -167,16 +166,18 @@ class printQueueClass(Node):
             self.okToRun = True
 
     def qPrint(self):
+        #Read the print file
         self.readPrintFile()
+        #Value for message later
+        vel = Int32()
         while rclpy.ok():
             if(not self.printQ.empty() and self.okToRun == True):
                 printSet = self.printQ.get()
                 print(self.printQ.qsize())
                 loc = Int32()
                 # Wait for motors to be good
-                for status in self.cStatus:
-                    while(status != 10):
-                        print(status)
+                for val in range(len(self.cStatus) - 1):
+                    while(self.cStatus[val] != 10):
                         print("waiting for motors to come online")
                         time.sleep(.1)
                         pass
@@ -185,15 +186,17 @@ class printQueueClass(Node):
                     #Go home, do this by sending -1 to distance
                     loc.data = printSet
                     print("running")
-                    #self.motorLocPublisher(loc)
+                    self.motorLocPublisher.publish(loc)
                     #Wait for home to complete from all mototrs
-                    for liftMotorFlag in self.cFlags[:4]:
-                        print("Motor flag " + str((liftMotorFlag & 0x10) == 1))
-                        while ((liftMotorFlag & 0x10) == 1):
+                    for val in range(3):
+                        while ((self.cFlags[val] & 0x10) == 0x10 or (self.cFlags[val] & 0x02) == 0x02):
+                            print(self.cFlags[val])
+                            time.sleep(.1)
                             pass
                         # If postion is uncertain than something bad has happened
-                        if ((liftMotorFlag & 0x02) == 1):
+                        if ((self.cFlags[val] & 0x02) == 1):
                             print("ERROR IN HOMING")
+                    print("Done Homing")
                 # Begin printing normal printer data
                 else:
                     if (printSet.printNum > 0):
@@ -202,11 +205,12 @@ class printQueueClass(Node):
                         print("Returning to 0")
                     loc.data = printSet.printHeight
                     print("running")
-                    #self.motorLocPublisher(loc)
+                    self.motorLocPublisher.publish(loc)
                     #Wait till all motors are at correct height before starting projections
-                    ##for liftMotorHeight in self.cLoc[:4]:
-                    ##    while(liftMotorHeight != printSet.printHeight):
-                    ##        pass
+                    for val in range(3):
+                        print(self.cLoc[val])
+                        while(self.cLoc[val] != printSet.printHeight):
+                            pass
                     #Loop through and and thread to print each print on current set
                     for val in printSet.printdata:
                         #print(val)
@@ -217,6 +221,10 @@ class printQueueClass(Node):
                     # If printSet is 0, we have moved back to 0/home
                     if(printSet.printNum == 0):
                         self.okToRun = False
+                        #Set all rotation to 0
+                        for velPublisher in self.velocityPublishers:
+                            vel.data = 0
+                            velPublisher.publish(vel)
                         print("Waiting for next vial stack to be loaded")
 
     
