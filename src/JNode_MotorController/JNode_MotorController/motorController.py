@@ -272,9 +272,12 @@ class keySubscriber(Node):
     def go_to(self, msg):
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
+            stepVal = round(msg.data*incrBit)
             #If positive we will go to position
             if(msg.data >= 0):
-                tic.set_target_position(round(msg.data*incrBit))
+                if (round(msg.data*incrBit) > 1600504):
+                    stepVal = 1600504
+                tic.set_target_position(stepVal)
             #If negative we do homing procedure
             else:
                 tic.go_home()
