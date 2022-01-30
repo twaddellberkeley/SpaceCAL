@@ -215,8 +215,8 @@ class printQueueClass(Node):
                     self.motorLocPublisher.publish(loc)
                     #Wait till all motors are at correct height before starting projections
                     for val in range(3):
-                        print(self.cLoc[val])
                         while(self.cLoc[val]* self.incrBit != printSet.printHeight):
+                            print(self.cLoc[val]*self.incrBit)
                             pass
                     #Loop through and and thread to print each print on current set
                     for val in printSet.printdata:
