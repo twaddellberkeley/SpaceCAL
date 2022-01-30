@@ -42,7 +42,6 @@ class keyTalkerClass(Node):
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
         self.velocitySpin = self.create_publisher(Int32, 'setVelocityV2', 10)
         self.videoChange = self.create_publisher(String, 'videoName', 10)
-        self.printQueueTesting = self.create_publisher(PrintData, 'printSend', 10)
         self.keyTalker()
 
     def on_press(self, key):
@@ -78,34 +77,6 @@ class keyTalkerClass(Node):
             elif (inputKey == "p"):
                 intMsg.data = 5
                 self.velocitySpin.publish(intMsg)
-            elif (inputKey == "b"):
-                printMsg = PrintData()
-                printMsg.speed = 5
-                printMsg.length = 10
-                printMsg.name = "dot.mp4"
-                printMsg.location = 0
-                printMsg.printernum = 1 
-                self.printQueueTesting.publish(printMsg)
-                printMsg.location = 5
-                printMsg.length = 30 
-                self.printQueueTesting.publish(printMsg)
-                printMsg.location = 10
-                printMsg.length = 60 
-                self.printQueueTesting.publish(printMsg)
-                printMsg.location = 15
-                printMsg.length = 90
-                self.printQueueTesting.publish(printMsg)
-                printMsg.location = 20
-                printMsg.length = 180
-                self.printQueueTesting.publish(printMsg)
-                printMsg.location = 25
-                printMsg.length = 250
-                self.printQueueTesting.publish(printMsg)
-                printMsg.location = 30
-                printMsg.length = 300
-                self.printQueueTesting.publish(printMsg)
-                
-                print("data sent")
             time.sleep(.5)
         # If it nots a char, we error
         except AttributeError:

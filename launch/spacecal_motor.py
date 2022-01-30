@@ -61,7 +61,8 @@ def generate_launch_description():
             parameters=[{"Address": 17}],
             name="motor4",
         ),
-        # Spin motors
+        # Spin motors, are addressed 18-22
+        # Remap velocity to their own topic, remove any input from keyboard
         Node(
             package='JNode_MotorController',
             namespace='printerTesting',
