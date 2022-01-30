@@ -210,6 +210,9 @@ class printQueueClass(Node):
                         print("Starting print number: " + str(printSet.printNum))
                     else:
                         print("Returning to 0")
+                    # Max height we can go
+                    if (printSet.printHeight > 794):
+                        printSet.printHeight = 794
                     loc.data = printSet.printHeight
                     print("running")
                     self.motorLocPublisher.publish(loc)
