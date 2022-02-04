@@ -40,7 +40,7 @@ class keyTalkerClass(Node):
         super().__init__('keyTalker')
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
         self.velocitySpin = self.create_publisher(Int32, 'setVelocityV2', 10)
-        self.videoChange = self.create_publisher(String, 'videoName', 10)
+        self.videoChange = self.create_publisher(String, 'videoNameV2', 10)
         self.keyTalker()
 
     def on_press(self, key):

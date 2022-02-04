@@ -251,6 +251,7 @@ class printQueueClass(Node):
         self.videoPublishers[printData['projNum'] - 1].publish(video)
         # Wait set time to print
         time.sleep(printData['printTime'])
+        print("WAITING")
         # kill projection just in case
         video.data = "EXIT"
         self.videoPublishers[printData['projNum'] - 1].publish(video)
