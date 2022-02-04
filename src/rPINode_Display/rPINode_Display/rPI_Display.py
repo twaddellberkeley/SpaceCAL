@@ -39,7 +39,7 @@ class displayFunctionClass(Node):
         # Turn our LED on to project
         subprocess.run(['ledOn'])
         mProcess = subprocess.Popen(
-            ['mplayer', "-slave", "-quiet", videoString],
+            ['mplayer', "-slave", "-quiet", "-vf", "rotate=1", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
