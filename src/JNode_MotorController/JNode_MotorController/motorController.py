@@ -42,8 +42,8 @@ from interfaces.msg import MotorData
 # Tic object
 tic = None
 # Pulse to move moto
-# incrBit = 51200 # Is one rotation or one inch
-incrBit = 51200/25.4 # Is 1mm per bit unit
+# 1 mm per unit sent, max 310
+incrBit = 1280 # Is 1mm per bit unit
 
 # Step veloicty to achieve 1rot/min
 velBit = 1024000000/60 # Max 500000000
@@ -274,9 +274,10 @@ class keySubscriber(Node):
             tic.exit_safe_start()
             stepVal = round(msg.data*incrBit)
             #If positive we will go to position
+            # Max position 310mm
             if(msg.data >= 0):
-                if (round(msg.data*incrBit) > 1600504):
-                    stepVal = 1600504
+                if (round(msg.data*incrBit) > 396800 ):
+                    stepVal = 396800 
                 tic.set_target_position(stepVal)
             #If negative we do homing procedure
             else:
@@ -289,6 +290,7 @@ class keySubscriber(Node):
             tic.exit_safe_start()
             tic.set_target_speed(round(msg.data*velBit))
 
+    # TODO Maybe check that position never goes over max.
     def publish_data(self):
         while rclpy.ok():
             global address
