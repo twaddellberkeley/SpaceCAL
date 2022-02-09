@@ -183,7 +183,7 @@ class printQueueClass(Node):
                 print(self.printQ.qsize())
                 loc = Int32()
                 # Wait for motors to be good
-                for val in range(len(self.cStatus) - 1):
+                for val in range(len(self.cStatus)):
                     while(self.cStatus[val] != 10):
                         print("waiting for motors to come online")
                         time.sleep(.1)
@@ -195,9 +195,10 @@ class printQueueClass(Node):
                     print("running")
                     self.motorLocPublisher.publish(loc)
                     #Wait for home to complete from all mototrs
-                    for val in range(3):
+                    for val in range(4):
+                        print(val)
                         while ((self.cFlags[val] & 0x10) == 0x10 or (self.cFlags[val] & 0x02) == 0x02):
-                            print(self.cFlags[val])
+                            print(str(val) + " " + str(self.cFlags[val]))
                             time.sleep(.1)
                             pass
                         # If postion is uncertain than something bad has happened
@@ -211,13 +212,13 @@ class printQueueClass(Node):
                     else:
                         print("Returning to 0")
                     # Max height we can go
-                    if (printSet.printHeight > 794):
-                        printSet.printHeight = 794
+                    if (printSet.printHeight > 310):
+                        printSet.printHeight = 310
                     loc.data = printSet.printHeight
                     print("running")
                     self.motorLocPublisher.publish(loc)
                     #Wait till all motors are at correct height before starting projections
-                    for val in range(3):
+                    for val in range(4):
                         while(round(self.cLoc[val]) != round(printSet.printHeight * self.incrBit)):
                             pass
                     #Loop through and and thread to print each print on current set
