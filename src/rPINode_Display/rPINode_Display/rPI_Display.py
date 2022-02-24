@@ -40,7 +40,7 @@ class displayFunctionClass(Node):
         subprocess.run(['ledOn'])
         # 
         mProcess = subprocess.Popen(
-            ['vlc-pi', '-f', '--no-audio', '--no-osd', '--intf', 'dummy', videoString, 'vlc://quit'],
+            ['mplayer', "-slave", "-quiet", "-vf", "rotate=1", videoString],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
@@ -64,6 +64,7 @@ def main(args=None):
     # Set the proper OS variable to display on
     os.environ['DISPLAY']=":0"
     # Resets the display to resize correctly
+    subprocess.run(["xrandr" ,"-o" ,"right"])
     subprocess.run(['xset', 'dpms', 'force', 'off'])
     subprocess.run(['ledZero'])
     rclpy.init(args=args)
