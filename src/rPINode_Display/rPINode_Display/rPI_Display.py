@@ -40,7 +40,7 @@ class displayFunctionClass(Node):
         subprocess.run(['ledOn'])
         # 
         mProcess = subprocess.Popen(
-            ['mplayer', "-slave", "-quiet", "-vf", "rotate=1", videoString],
+            args = ['vlc-pi', "-f", "--no-audio", "--no-osd", "--intf", "dummy", videoString, "vlc://quit"],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
