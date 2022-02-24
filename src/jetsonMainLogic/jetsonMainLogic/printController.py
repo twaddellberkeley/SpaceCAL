@@ -74,7 +74,7 @@ class printQueueClass(Node):
 
     # Converstion bits
     # incrBit = 51200 # Is one rotation or one inch
-    incrBit = 51200/25.4 # Is 1mm per bit unit
+    incrBit = 1280 # Is 1mm per bit unit
 
     # Step veloicty to achieve 1rot/min
     velBit = 1024000000/60 # Max 500000000
@@ -195,10 +195,10 @@ class printQueueClass(Node):
                     print("running")
                     self.motorLocPublisher.publish(loc)
                     #Wait for home to complete from all mototrs
+                    time.sleep(.5)
                     for val in range(4):
-                        print(val)
+                        print(str(val) + "Flag num " + str(self.cFlags[val]))
                         while ((self.cFlags[val] & 0x10) == 0x10 or (self.cFlags[val] & 0x02) == 0x02):
-                            print(str(val) + " " + str(self.cFlags[val]))
                             time.sleep(.1)
                             pass
                         # If postion is uncertain than something bad has happened
