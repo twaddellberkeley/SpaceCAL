@@ -37,11 +37,19 @@ import threading
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
 from smbus2 import SMBus, i2c_msg
+from interfaces.msg import MotorData
 # globl vars
 # Tic object
 tic = None
 # Pulse to move moto
-incrBit = 20000
+# 1 mm per unit sent, max 310
+incrBit = 1280 # Is 1mm per bit unit
+
+# Step veloicty to achieve 1rot/min
+velBit = 1024000000/60 # Max 500000000
+
+
+
 # Logger of the node
 logger = None
 # Address and bus of motor controlling
@@ -75,6 +83,7 @@ class TicI2C(object):
     # For more information about what this command does, see the
     # "Set target position" command in the "Command reference" section of the
     # Tic user's guide.
+    # Size per 1/256 microstep is .0004960938mm in linear length
     def set_target_position(self, target):
         logger.info("Target %d" % target)
         command = [0xE0,
@@ -96,8 +105,8 @@ class TicI2C(object):
         self.bus.i2c_rdwr(write)
 
     # Tells motor to home
-    def set_home(self):
-        command = [0xE0]
+    def go_home(self):
+        command = [0x97,0]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
 
@@ -159,9 +168,29 @@ class TicI2C(object):
             position -= (1 << 32)
         return position
 
+    # Gets the "Current speed" variable from the Tic.
+    def get_current_velocity(self):
+        b = self.get_variables(0x26, 4)
+        velocity = b[0] + (b[1] << 8) + (b[2] << 16) + (b[3] << 24)
+        if velocity >= (1 << 31):
+            velocity -= (1 << 32)
+        return velocity
+
     # Gets current status
     def get_current_status(self):
         b = self.get_variables(0x00, 1)
+        status = b[0]
+        return status
+
+    # Gets current flag
+    def get_current_flags(self):
+        b = self.get_variables(0x01, 1)
+        status = b[0]
+        return status
+
+    # Gets current flag
+    def get_current_step(self):
+        b = self.get_variables(0x49, 1)
         status = b[0]
         return status
 
@@ -170,6 +199,15 @@ class keySubscriber(Node):
     def __init__(self):
         # Create the subscriber node that listens to key input
         super().__init__('MotorControllerSubscriber')
+
+        # edit global logger object with node logger
+        self.declare_parameter("Address")
+        global logger
+        logger = self.get_logger()
+        global address
+        adrNum = self.get_parameter('Address').get_parameter_value()
+        address = adrNum.integer_value
+
         self.subscriptionInput = self.create_subscription(
             String,
             'keyinput',
@@ -188,12 +226,9 @@ class keySubscriber(Node):
         self.subscriptionGoTo
         self.subscriptionSpeed
         self.subscriptionInput  # prevent unused variable warnings
-        # edit global logger object with node logger
-        self.declare_parameter("Address")
-        global logger
-        logger = self.get_logger()
-        adrNum = self.get_parameter('Address').get_parameter_value()
-        address = adrNum.integer_value
+
+        self.motorDataPublisher = self.create_publisher(MotorData, 'motorData', 10)
+        self.motorDataPublisher
         # Create tic object with with motor on /dev/i2c-1
         bus = SMBus(busNum)
         # Select the I2C address of the Tic (the device number).
@@ -207,6 +242,10 @@ class keySubscriber(Node):
         stayAlive.start()
         tic.exit_safe_start()
         tic.energize()
+        # Keep publishing current status of motor
+        publishData = threading.Thread(target=self.publish_data, args=())
+        publishData.daemon = True
+        publishData.start()
 
 # Checks current position and message data and sends command accordingly
     def checkRun(self, msg):
@@ -215,24 +254,58 @@ class keySubscriber(Node):
         curPosition = tic.get_current_position()
         if (msg.data == 'w'):
             tic.exit_safe_start()
-            tic.set_target_position(curPosition + incrBit)
+            tic.set_target_position(round(curPosition + incrBit))
         elif(msg.data == 's'):
             tic.exit_safe_start()
-            tic.set_target_position(curPosition - incrBit)
+            tic.set_target_position(round(curPosition - incrBit))
+        elif (msg.data == 'j'):
+            tic.exit_safe_start()
+            tic.set_target_position(round(curPosition + incrBit*25.4))
+        elif(msg.data == 'm'):
+            tic.exit_safe_start()
+            tic.set_target_position(round(curPosition - incrBit*25.4))
+        elif(msg.data == 'h'):
+            tic.exit_safe_start()
+            tic.go_home()
 
-    # Make tic go to current position
+    # Make tic go to current position in mm
     def go_to(self, msg):
-        logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
-            tic.set_target_position(msg.data)
+            stepVal = round(msg.data*incrBit)
+            #If positive we will go to position
+            # Max position 310mm
+            if(msg.data >= 0):
+                if (round(msg.data*incrBit) > 396800 ):
+                    stepVal = 396800 
+                tic.set_target_position(stepVal)
+            #If negative we do homing procedure
+            else:
+                tic.go_home()
+<<<<<<< HEAD
+            
+=======
+>>>>>>> a4b5b761945cb6b7885cdb3576c741ea702423ff
 
-    # Sets speed of tic
+
+    # Sets speed of tic in rot/min
     def set_speed(self, msg):
-        logger.info(str(tic.get_current_status()))
         if(tic.get_current_status() == 10):
             tic.exit_safe_start()
-            tic.set_target_speed(msg.data)
+            tic.set_target_speed(round(msg.data*velBit))
+
+    # TODO Maybe check that position never goes over max.
+    def publish_data(self):
+        while rclpy.ok():
+            global address
+            motorMsg = MotorData()
+            motorMsg.motornum = address
+            motorMsg.speed = tic.get_current_velocity()
+            motorMsg.location = tic.get_current_position()
+            motorMsg.status = tic.get_current_status()
+            motorMsg.flags = tic.get_current_flags()
+            self.motorDataPublisher.publish(motorMsg)
+            time.sleep(.1)
 
 
 def main(args=None):
@@ -246,11 +319,15 @@ def main(args=None):
         # (optional - otherwise it will be done automatically
         # when the garbage collector destroys the node object)
         # Stopping motor completely
+        global address
         logger.info("Shutting down motor %d" % address)
         tic.powerdown()
         subscriber.destroy_node()
         rclpy.shutdown()
 
+
+
+# Tests
 
 def motorConnectTest(testAddress):
     try:
@@ -258,6 +335,60 @@ def motorConnectTest(testAddress):
         # Select the I2C address of the Tic (the device number).
         bus.read_byte_data(testAddress, 0)
         return 0
+    except Exception:
+        return 1
+
+def motorPositionTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        #tic.reset_motor()
+        retVal = tic.get_current_position()
+        return 0
+    except Exception:
+        return 1
+
+def motorHomeTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        retVal = tic.go_home()
+        return 0
+    except Exception:
+        return 1
+
+def doneHoming(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        retVal = tic.get_current_flags()
+        while ((retVal & 0x10) == 1):
+            retVal = tic.get_current_flags()
+            time.sleep(0.1)
+        # Checking to make sure we are homed
+        return not (tic.get_current_position() == 0)
+    except Exception:
+        return 1
+
+def velocityTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        tic.set_target_speed(200)
+        time.sleep(0.5)
+        retVal = tic.get_current_velocity()
+        assert not (retVal == 200)
+    except Exception:
+        return 1
+
+def velocityStopTest(testAddress):
+    try:
+        bus = SMBus(busNum)
+        tic = TicI2C(bus, testAddress)
+        tic.set_target_speed(0)
+        time.sleep(0.5)
+        retVal = tic.get_current_velocity()
+        assert not (retVal == 0)
     except Exception:
         return 1
 

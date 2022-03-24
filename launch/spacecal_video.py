@@ -26,32 +26,14 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='JNode_KeyboardInput',
-            namespace='keyboardTesting',
-            executable='JNodeInput',
+            package='rPINode_Display',
+            executable='videoDisplay',
+            namespace='printerTesting',
             output='screen',
             emulate_tty=True,
-            name='keyboard'
-        ),
-        Node(
-            package='JNode_MotorController',
-            namespace='keyboardTesting',
-            executable='motorRun',
-            output='screen',
-            emulate_tty=True,
-            parameters=[{"Address": 14}],
-            name="motor"
-        ),
-        Node(
-            package='JNode_MotorController',
-            namespace='keyboardTesting',
-            executable='motorRun',
-            output='screen',
-            emulate_tty=True,
-            parameters=[{"Address": 13}],
-            name="motor2",
-            remappings=[
-                ("keyinput", "keyinput2")
-            ]
+            # MAKE SURE TO CHANGE THIS
+            name="videoDisplayV2",
+            remappings=[("videoName","videoNameV2")]
+
         )
     ])

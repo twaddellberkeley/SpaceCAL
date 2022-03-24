@@ -27,11 +27,10 @@ from rclpy.node import Node
 from pynput import keyboard
 from std_msgs.msg import String, Int32
 import time
-import sys
 # Setting correct display
-if sys.platform not in ('darwin', 'win32'):
-    import os
-    os.environ.setdefault('DISPLAY', ':0')
+# import os
+# os.environ.setdefault('DISPLAY', ':0')
+# os.environ['DISPLAY'] = ":0"
 
 
 # generic keytalker class
@@ -40,7 +39,8 @@ class keyTalkerClass(Node):
         # Create publisher under keyTalker
         super().__init__('keyTalker')
         self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
-        self.velocitySpin = self.create_publisher(Int32, 'setVelocity', 10)
+        self.velocitySpin = self.create_publisher(Int32, 'setVelocityV2', 10)
+        self.videoChange = self.create_publisher(String, 'videoNameV2', 10)
         self.keyTalker()
 
     def on_press(self, key):
@@ -55,8 +55,29 @@ class keyTalkerClass(Node):
             elif (inputKey == "s"):
                 msg.data = str(key.char)
                 self.keyPublisher.publish(msg)
-            elif (inputKey == "v"):
-                intMsg.data = 20000000
+            elif (inputKey == "h"):
+                msg.data = str(key.char)
+                self.keyPublisher.publish(msg)
+            elif (inputKey == "g"):
+                msg.data = str(key.char)
+                self.keyPublisher.publish(msg)
+            elif (inputKey == "j"):
+                msg.data = inputKey
+                self.keyPublisher.publish(msg)
+            elif (inputKey == "m"):
+                msg.data = str(key.char)
+                self.keyPublisher.publish(msg)
+            elif (inputKey == "t"):
+                msg.data = "test.mkv"
+                self.videoChange.publish(msg)
+            elif (inputKey == "y"):
+                msg.data = "out.mp4"
+                self.videoChange.publish(msg)
+            elif (inputKey == "u"):
+                msg.data = "dot.mp4"
+                self.videoChange.publish(msg)
+            elif (inputKey == "p"):
+                intMsg.data = 5
                 self.velocitySpin.publish(intMsg)
             time.sleep(.5)
         # If it nots a char, we error
