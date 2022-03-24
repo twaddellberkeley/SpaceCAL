@@ -16,3 +16,5 @@ __pycache__/
 =======
 *.py[cod]
 >>>>>>> a4b5b761945cb6b7885cdb3576c741ea702423ff
+.vscode
+.vscode/
