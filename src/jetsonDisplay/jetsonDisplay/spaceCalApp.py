@@ -45,6 +45,7 @@ class UI(QMainWindow):
         self.disBtn(self.PausePrintingBtn)
         self.StartRunBtn.setText("Initiate Test")
         self.StartRunBtn.setStyleSheet("background-color:yellow;")
+        self.accelVectorOutput.display(0.00)
 
         # message confirmation window
         self.msgWindow = QMessageBox()
@@ -122,6 +123,7 @@ class UI(QMainWindow):
                     self.disBtn(self.PausePrintingBtn)
                     self.enGreenBtn(self.StartRunBtn)
                     self.StartRunBtn.setText("Start Run")
+
         else:
             self.msgWindow.setIcon(QMessageBox.Information)
             self.msgWindow.setText("Setting level to home!")
@@ -133,6 +135,7 @@ class UI(QMainWindow):
             self.enGreenBtn(self.StartRunBtn)
             self.StartRunBtn.setText("Start Run")
             self.setLevelStatus("Home")
+            self.setAccelVector(0.203)
 
     def onClick_pauseBtn(self):
         self.msgWindow.setText("Are you sure you want to pause the system?")
@@ -166,23 +169,24 @@ class UI(QMainWindow):
         self.R_statusOutput.setText(str)
         self.R_statusOutput.setStyleSheet("color:green;")
 
-    def setRpm():
-        pass
+    def setRpm(self, num):
+        self.R_rpmOutput.display(num)
 
-    def setLevel():
-        pass
+    def setLevel(self, num):
+        self.L_levelOutput.display(num)
 
-    def setParabolaCount(self):
-        pass
+    def setParabolaCount(self, num):
+        self.parabolaCountOutput.display(num)
 
-    def setAccelVector(self):
-        pass
+    def setAccelVector(self, num):
+        print(num)
+        self.accelVectorOutput.display(num)
 
-    def setProjType(sef):
-        pass
+    def setProjType(self, str):
+        self.typeOutput.setText(str)
 
-    def setProjStatus(self):
-        pass
+    def setProjStatus(self, str):
+        self.statusOutput.setText(str)
 
 
 app = QApplication(sys.argv)
