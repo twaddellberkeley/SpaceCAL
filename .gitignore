@@ -6,4 +6,8 @@ test.pp
 __pycache__/
 __pycache__/*
 __pycache__/
-*.py[cod]
+*.py[cod].vscode/browse.vc.db
+.vscode/browse.vc.db-shm
+.vscode/browse.vc.db-wal
+.vscode/c_cpp_properties.json
+.vscode/settings.json
