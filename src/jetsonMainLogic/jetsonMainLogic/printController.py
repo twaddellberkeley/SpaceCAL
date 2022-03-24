@@ -28,6 +28,7 @@ from interfaces.msg import MotorData
 from dataclasses import dataclass
 import queue
 from threading import Thread
+from threading import Event
 import json
 import os
 
@@ -78,6 +79,12 @@ class printQueueClass(Node):
 
     # Step veloicty to achieve 1rot/min
     velBit = 1024000000/60 # Max 500000000
+
+    # Decoded JSON print set
+    printSet = None
+
+    #Thread event
+    tEvent = Event()
 
     def __init__(self):
         super().__init__('queueClass')
@@ -130,14 +137,14 @@ class printQueueClass(Node):
         self.KeyboardInputSubscriber = self.create_subscription(
             String,
             'keyinput',
-            self.letsLaunch,
+            self.touchScreenHandler,
             10)
-        # TODO add keyboard input to simulate touch screen
         # Thread to send base change too
+        #Read the print file
+        self.readPrintFile()
         qThread = Thread(target=self.qPrint, args=())
         qThread.daemon=True
-        qThread.start()
-
+        tqThread.start()
 
     # Get variables from everything
     # Get custom message from the motor, index info in its array, its 
@@ -168,21 +175,33 @@ class printQueueClass(Node):
                 #If -1 then we must home
                 self.printQ.put(-1)
 
-    def letsLaunch(self,msg):
-        if (msg.data =="g"):
+    #Subscribe to touchscreen variables
+    def touchScreenHandler(self,msg):
+        if (msg.data =="c"):
+            self.killProjection = True
+        elif (msg.data =="c"):
+            self.startProjection = True
+        elif (msg.data =="d"):
             self.okToRun = True
+        elif (msg.data =="e"):
+            self.pauseAll = True
+        elif (msg.data =="g"):
+            self.options = True
 
+    #Loop for printing EVERYTHING
     def qPrint(self):
-        #Read the print file
-        self.readPrintFile()
+        global printSet
         #Value for message later
         vel = Int32()
+        #Location to go to publish
+        loc = Int32()
+        #Keep running while alive
         while rclpy.ok():
-            if(not self.printQ.empty() and self.okToRun == True):
+            #Keep running until there is not a print to go, only run if it is safe
+            while (not self.printQ.empty() and self.okToRun == True):
+                #Get the current print job in queue
                 printSet = self.printQ.get()
-                print(self.printQ.qsize())
-                loc = Int32()
-                # Wait for motors to be good
+                # Wait for motors to be good and online
                 for val in range(len(self.cStatus)):
                     while(self.cStatus[val] != 10):
                         print("waiting for motors to come online")
@@ -194,12 +213,13 @@ class printQueueClass(Node):
                     loc.data = printSet
                     print("running")
                     self.motorLocPublisher.publish(loc)
-                    #Wait for home to complete from all mototrs
-                    time.sleep(.5)
+                    #Wait for home to complete from all mototrs, need this line as it sometimes jumps ahead
+                    time.sleep(1)
                     for val in range(4):
                         print(str(val) + "Flag num " + str(self.cFlags[val]))
                         while ((self.cFlags[val] & 0x10) == 0x10 or (self.cFlags[val] & 0x02) == 0x02):
                             time.sleep(.1)
+                            if(self.okToRun == False): break
                             pass
                         # If postion is uncertain than something bad has happened
                         if ((self.cFlags[val] & 0x02) == 1):
@@ -220,15 +240,30 @@ class printQueueClass(Node):
                     #Wait till all motors are at correct height before starting projections
                     for val in range(4):
                         while(round(self.cLoc[val]) != round(printSet.printHeight * self.incrBit)):
+                            if(self.okToRun == False): break
                             pass
-                    #Loop through and and thread to print each print on current set
+                    #Loop through and and thread to prep print each print on current set
                     for val in printSet.printdata:
-                        #print(val)
-                        qThread = Thread(target=self.printPart, args=([val]))
+                        qThread = Thread(target=self.readyPart, args=([val]))
                         qThread.daemon=True
                         qThread.start()
-                    time.sleep(printSet.maxTime)
-                    # If printSet is 0, we have moved back to 0/home
+                    # Set up each video, but do not display
+                    
+                    # Wait for user input to display
+                    while (not self.startProjection):
+                        if(self.okToRun == False): break
+                        pass
+                    # Loop through and turn projectors on
+                    for val in printSet.printdata:
+                        #print(val)
+                        qThread = Thread(target=self.projectorOn, args=([val]))
+                        qThread.daemon=True
+                        qThread.start()
+                    #Wait the max display time before movingW
+                    while not self.tEvent.is_set():
+                        self.tEvent.wait(printSet.maxTime)
+                    if(self.okToRun == False): break
+                    # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False
                         #Set all rotation to 0
@@ -236,9 +271,33 @@ class printQueueClass(Node):
                             vel.data = 0
                             velPublisher.publish(vel)
                         print("Waiting for next vial stack to be loaded")
+            if (pauseAll == True):
+                # Stop the repeating of the function
+                self.okToRun = False
+                # Stop all rotation
+                for velPublisher in self.velocityPublishers:
+                    vel.data = 0
+                    velPublisher.publish(vel)
+                # Stop all projections
+                self.killProjection()
+                # Tell motors to stop where current location is
+                loc.data = self.cLoc[0]
+                print("pausing")
+                self.motorLocPublisher.publish(loc)
+                self.tEvent.set()
+
+
+    # Set all projector LEDs to 0
+    def killProjection(self):
+        video = String()
+        video.data = "EXIT"
+        for val in videoPublishers:
+            val.publish(video)
+
 
     
-    def printPart(self, printData):
+    #Send video to project and get up to speed
+    def readyPart(self, printData):
         print("Printing: " + str(printData['videoName']) + " on projector" + str(printData['projNum']))
         # Set publish types
         vel = Int32()
@@ -250,12 +309,21 @@ class printQueueClass(Node):
         self.velocityPublishers[printData['projNum'] - 1].publish(vel)
         print(video.data)
         self.videoPublishers[printData['projNum'] - 1].publish(video)
+
+    def projectorOn(self,printData):
+        video = String()
+        video.data = "PRINT"
+        self.videoPublishers[printData['projNum'] - 1].publish(video)
         # Wait set time to print
         time.sleep(printData['printTime'])
         print("WAITING")
         # kill projection just in case
         video.data = "EXIT"
+        # Kill Projection
         self.videoPublishers[printData['projNum'] - 1].publish(video)
+
+
+
 
 
 def main(args=None):
