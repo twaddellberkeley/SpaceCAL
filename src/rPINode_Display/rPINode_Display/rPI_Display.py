@@ -21,6 +21,7 @@ class displayFunctionClass(Node):
         # Starting a loop to detect if the projector should be on or off
     
     def displayVideo(self, msg):
+<<<<<<< HEAD
             if (msg.data == "PRINT"):
                 subprocess.run(['ledOn'])
                 return
@@ -47,6 +48,33 @@ class displayFunctionClass(Node):
             # Create multiprocess to turn of projector when done
             stayAlive = multiprocessing.Process(target=self.kill_me,args=(mProcess.pid,))
             stayAlive.start()
+=======
+        # First kill any current projection
+        print(msg.data)
+        os.environ['DISPLAY']=":0"
+        global mProcess
+        global stayAlive
+        print("DISPLAYING\n")
+        if(mProcess != None and mProcess.poll() is None):
+            # Need to kill thread
+            stayAlive.terminate()
+            mProcess.kill()
+        if(msg.data == "EXIT"):
+            subprocess.run(['ledZero'])
+            return
+        # Now Project from givin string
+        videoString = '/home/spacecal/test_video/' + msg.data
+        # Turn our LED on to project
+        subprocess.run(['ledOn'])
+        # 
+        mProcess = subprocess.Popen(
+            args = ['vlc-pi', "-f", "--no-audio", "--no-osd", "--intf", "dummy", videoString, "vlc://quit"],
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL)
+        # Create multiprocess to turn of projector when done
+        stayAlive = multiprocessing.Process(target=self.kill_me,args=(mProcess.pid,))
+        stayAlive.start()
+>>>>>>> a4b5b761945cb6b7885cdb3576c741ea702423ff
 
     def kill_me(self,pid):
         print(pid)
