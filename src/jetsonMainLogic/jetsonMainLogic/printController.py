@@ -143,8 +143,8 @@ class printQueueClass(Node):
         #Read the print file
         self.readPrintFile()
         qThread = Thread(target=self.qPrint, args=())
-        qThread.daemon=True
-        tqThread.start()
+        #qThread.daemon=True
+        qThread.start()
 
     # Get variables from everything
     # Get custom message from the motor, index info in its array, its 
