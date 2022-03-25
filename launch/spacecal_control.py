@@ -26,12 +26,12 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='JNode_KeyboardInput',
+            package='jetsonDisplay',
             namespace='printerTesting',
-            executable='JNodeInput',
+            executable='guiMain',
             output='screen',
             emulate_tty=True,
-            name='keyboard'
+            name='gui'
         ),
         Node(
             package='jetsonMainLogic',
