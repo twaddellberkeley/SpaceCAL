@@ -276,7 +276,7 @@ class printQueueClass(Node):
                             vel.data = 0
                             velPublisher.publish(vel)
                         print("Waiting for next vial stack to be loaded")
-            if (pauseAll == True):
+            if (self.pauseAll == True):
                 # Stop the repeating of the function
                 self.okToRun = False
                 # Stop all rotation
