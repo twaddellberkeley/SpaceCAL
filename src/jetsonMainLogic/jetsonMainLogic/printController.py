@@ -320,9 +320,10 @@ class printQueueClass(Node):
         video.data = "PRINT"
         self.videoPublishers[printData['projNum'] - 1].publish(video)
         # Wait set time to print
-        time.sleep(printData['printTime'])
         print("WAITING")
+        time.sleep(printData['printTime'])
         # kill projection just in case
+        print("KILLING")
         video.data = "EXIT"
         # Kill Projection
         self.videoPublishers[printData['projNum'] - 1].publish(video)

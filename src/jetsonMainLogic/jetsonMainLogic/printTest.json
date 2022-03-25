@@ -2,6 +2,12 @@
   {"printNum": -1
   }, 
   {
+    "printNum" : 0,
+    "maxTime": 0,
+    "printHeight" : 0,
+    "prints" : []
+  },
+  {
     "printNum" : 1,
     "maxTime": 10,
     "printHeight" : 10,
@@ -40,7 +46,7 @@
   {
     "printNum" : 2,
     "maxTime": 30,
-    "printHeight" : 11,
+    "printHeight" : 20,
     "prints" : [{
       "projNum" : 1,
       "printSpeed" : 5,

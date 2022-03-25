@@ -130,7 +130,12 @@ class UI(QMainWindow):
         ret = self.msgWindow.exec()
         if (QMessageBox.Yes == ret):
             print("Send Command to ROS: Start Projecton")
+
             self.statusOutput.setText("On")
+            global inputPublisher
+            msg = String()
+            msg.data = "start"
+            inputPublisher.publish(msg)
             self.enRedBtn(self.ProjectorStopBtn)
             self.disBtn(self.ProjectorStartBtn)
             self.statusOutput.setStyleSheet("QLabel{color: green;}")
@@ -145,6 +150,10 @@ class UI(QMainWindow):
             ret = self.msgWindow.exec()
             if (QMessageBox.Yes == ret):
                 print("Send command to ROS: Stop Projection")
+                global inputPublisher
+                msg = String()
+                msg.data = "stop"
+                inputPublisher.publish(msg)
                 self.enGreenBtn(self.ProjectorStartBtn)
                 self.disBtn(self.ProjectorStopBtn)
                 self.statusOutput.setText("Off")
@@ -159,8 +168,8 @@ class UI(QMainWindow):
             ret = self.msgWindow.exec()
             if (QMessageBox.Yes == ret):
                 print("Send Command to ROS: Start Run")
-                #TODO THIS IS START PROJECTION
-                msg.data = "start"
+                #TODO THIS IS START RUN
+                msg.data = "ok"
                 inputPublisher.publish(msg)
                 print("Subscribe to ROS: get RPM value")
                 self.enGreenBtn(self.ProjectorStartBtn)
