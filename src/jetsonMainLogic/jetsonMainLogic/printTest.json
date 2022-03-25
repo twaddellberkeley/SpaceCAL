@@ -9,19 +9,19 @@
   },
   {
     "printNum" : 1,
-    "maxTime": 10,
+    "maxTime": 120,
     "printHeight" : 10,
     "prints" : [{
       "projNum" : 1,
-      "printSpeed" : 5,
+      "printSpeed" : 6,
       "videoName" : "test.mp4",
-      "printTime": 10
+      "printTime": 120
       },
       {
       "projNum" : 2,
-      "printSpeed" : 5,
+      "printSpeed" : 6,
       "videoName" : "test2.mp4",
-      "printTime": 10
+      "printTime": 120
       },
       {
       "projNum" : 3,

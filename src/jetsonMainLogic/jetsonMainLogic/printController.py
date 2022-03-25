@@ -258,6 +258,7 @@ class printQueueClass(Node):
                         while (not self.startProjection):
                             if(self.okToRun == False): break
                             pass
+                        #Unset variable for next time
                         self.startProjection = False
                         # Loop through and turn projectors on
                         for val in printSet.printdata:
@@ -269,6 +270,7 @@ class printQueueClass(Node):
                         while not self.tEvent.is_set():
                             self.tEvent.wait(timeout=printSet.maxTime)
                             self.tEvent.set()
+                        #Unset the event for next time
                         self.tEvent.clear()
                         if(self.okToRun == False): break
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation

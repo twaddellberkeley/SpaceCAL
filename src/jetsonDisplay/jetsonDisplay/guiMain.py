@@ -256,6 +256,8 @@ class UI(QMainWindow):
         pass
 
 def main(args=None):
+    # Set the proper OS variable to display on
+    os.environ['DISPLAY']=":0"
     rclpy.init(args=args)
     publisher =  guiDisplay()
     rclpy.spin(publisher)
