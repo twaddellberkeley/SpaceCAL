@@ -240,7 +240,7 @@ class printQueueClass(Node):
                     if (printSet.printHeight > 310):
                         printSet.printHeight = 310
                     loc.data = printSet.printHeight
-                    print("running to height" + printset.printHeight)
+                    print("running to height" + printSet.printHeight)
                     self.motorLocPublisher.publish(loc)
                     #Wait till all motors are at correct height before starting projections
                     for val in range(4):
