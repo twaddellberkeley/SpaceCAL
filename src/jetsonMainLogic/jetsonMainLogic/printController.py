@@ -240,34 +240,34 @@ class printQueueClass(Node):
                     if (printSet.printHeight > 310):
                         printSet.printHeight = 310
                     loc.data = printSet.printHeight
-                    print("running to height" + printSet.printHeight)
+                    print("running to height" + str(printSet.printHeight))
                     self.motorLocPublisher.publish(loc)
                     #Wait till all motors are at correct height before starting projections
                     for val in range(4):
                         while(round(self.cLoc[val]) != round(printSet.printHeight * self.incrBit)):
                             if(self.okToRun == False): break
                             pass
-                    #Loop through and and thread to prep print each print on current set
-                    for val in printSet.printdata:
-                        qThread = Thread(target=self.readyPart, args=([val]))
-                        qThread.daemon=True
-                        qThread.start()
-                    # Set up each video, but do not display
-                    
-                    # Wait for user input to display
-                    while (not self.startProjection):
+                    if (printSet.printNum > 0):
+                        #Loop through and and thread to prep print each print on current set
+                        for val in printSet.printdata:
+                            qThread = Thread(target=self.readyPart, args=([val]))
+                            qThread.daemon=True
+                            qThread.start()
+                        # Set up each video, but do not display            
+                        # Wait for user input to display
+                        while (not self.startProjection):
+                            if(self.okToRun == False): break
+                            pass
+                        # Loop through and turn projectors on
+                        for val in printSet.printdata:
+                            #print(val)
+                            qThread = Thread(target=self.projectorOn, args=([val]))
+                            qThread.daemon=True
+                            qThread.start()
+                        #Wait the max display time before movingW
+                        while not self.tEvent.is_set():
+                            self.tEvent.wait(printSet.maxTime)
                         if(self.okToRun == False): break
-                        pass
-                    # Loop through and turn projectors on
-                    for val in printSet.printdata:
-                        #print(val)
-                        qThread = Thread(target=self.projectorOn, args=([val]))
-                        qThread.daemon=True
-                        qThread.start()
-                    #Wait the max display time before movingW
-                    while not self.tEvent.is_set():
-                        self.tEvent.wait(printSet.maxTime)
-                    if(self.okToRun == False): break
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False
