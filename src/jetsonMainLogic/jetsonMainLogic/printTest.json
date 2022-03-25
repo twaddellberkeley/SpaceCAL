@@ -21,13 +21,13 @@
       "projNum" : 2,
       "printSpeed" : 5,
       "videoName" : "test2.mp4",
-      "printTime": 20
+      "printTime": 10
       },
       {
       "projNum" : 3,
       "printSpeed" : 5,
       "videoName" : "test.mp4",
-      "printTime": 30
+      "printTime": 10
       },
       {
       "projNum" : 4,
