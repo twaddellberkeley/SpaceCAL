@@ -31,33 +31,34 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QHB
 from PyQt5 import uic, QtTest
 import sys
 from threading import Thread
+import os
 
 # Setting correct display
 # import os
 # os.environ.setdefault('DISPLAY', ':0')
 # os.environ['DISPLAY'] = ":0"
-
+global testVar
 
 # generic keytalker class
 class guiDisplay(Node):
     def __init__(self):
         # Create publisher under keyTalker
         super().__init__('guiDisplay')
-        self.keyPublisher = self.create_publisher(String, 'keyinput', 10)
-        self.velocitySpin = self.create_publisher(Int32, 'setVelocityV2', 10)
-        self.videoChange = self.create_publisher(String, 'videoNameV2', 10)
-        qThread = Thread(target=self.runGUI, args=())
-        qThread.start()
-    def runGUI():
+        global keyPublisher
+        keyPublisher = self.create_publisher(String, 'keyinput', 10)
+        keyPublisher
         app = QApplication(sys.argv)
         window = UI()
         window.show()
         app.exec()
+        #qThread = Thread(target=self.runGUI, args=())
+        #qThread.start()
 
 class UI(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("spaceCalMainWindow.ui", self)
+        script_dir = os.path.dirname(__file__)
+        uic.loadUi(script_dir + "/spaceCalMainWindow.ui", self)
 
         # Buttons: (QPushButton)
         #   OptionBtn
@@ -156,6 +157,10 @@ class UI(QMainWindow):
             ret = self.msgWindow.exec()
             if (QMessageBox.Yes == ret):
                 print("Send Command to ROS: Start Run")
+                global keyPublisher
+                msg = String()
+                msg.data = "Test"
+                keyPublisher.publish(msg)
                 print("Subscribe to ROS: get RPM value")
                 self.enGreenBtn(self.ProjectorStartBtn)
                 self.enRedBtn(self.PausePrintingBtn)
