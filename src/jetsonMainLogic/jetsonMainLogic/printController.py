@@ -264,10 +264,11 @@ class printQueueClass(Node):
                             qThread = Thread(target=self.projectorOn, args=([val]))
                             qThread.daemon=True
                             qThread.start()
+                        print("TEST")
                         #Wait the max display time before movingW
                         while not self.tEvent.is_set():
+                            print("TEST3")
                             self.tEvent.wait(printSet.maxTime)
-                        print("TEST")
                         if(self.okToRun == False): break
                         print("TEST2")
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
