@@ -258,21 +258,19 @@ class printQueueClass(Node):
                         while (not self.startProjection):
                             if(self.okToRun == False): break
                             pass
+                        self.startProjection = False
                         # Loop through and turn projectors on
                         for val in printSet.printdata:
                             #print(val)
                             qThread = Thread(target=self.projectorOn, args=([val]))
                             qThread.daemon=True
                             qThread.start()
-                        print("TEST")
                         #Wait the max display time before movingW
                         while not self.tEvent.is_set():
-                            print("TEST3")
                             self.tEvent.wait(timeout=printSet.maxTime)
                             self.tEvent.set()
-                
+                        self.tEvent.clear()
                         if(self.okToRun == False): break
-                        print("TEST2")
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False

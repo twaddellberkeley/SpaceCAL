@@ -55,7 +55,7 @@
       },
       {
       "projNum" : 2,
-      "printSpeed" : 5,
+      "printSpeed" : 30,
       "videoName" : "test2.mp4",
       "printTime": 20
       },
