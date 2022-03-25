@@ -44,7 +44,7 @@ class guiDisplay(Node):
     def __init__(self):
         # Create publisher under keyTalker
         super().__init__('guiDisplay')
-        global keyPublisher
+        global inputPublisher
         inputPublisher = self.create_publisher(String, 'input', 10)
         inputPublisher
         app = QApplication(sys.argv)
