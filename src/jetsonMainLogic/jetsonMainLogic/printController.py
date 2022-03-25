@@ -216,7 +216,7 @@ class printQueueClass(Node):
                 if(printSet == -1):
                     #Go home, do this by sending -1 to distance
                     loc.data = printSet
-                    print("running")
+                    print("Homing")
                     self.motorLocPublisher.publish(loc)
                     #Wait for home to complete from all mototrs, need this line as it sometimes jumps ahead
                     time.sleep(1)
@@ -240,7 +240,7 @@ class printQueueClass(Node):
                     if (printSet.printHeight > 310):
                         printSet.printHeight = 310
                     loc.data = printSet.printHeight
-                    print("running")
+                    print("running to height" + printset.printHeight)
                     self.motorLocPublisher.publish(loc)
                     #Wait till all motors are at correct height before starting projections
                     for val in range(4):
