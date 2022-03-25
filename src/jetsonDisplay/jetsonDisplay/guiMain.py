@@ -45,8 +45,8 @@ class guiDisplay(Node):
         # Create publisher under keyTalker
         super().__init__('guiDisplay')
         global keyPublisher
-        keyPublisher = self.create_publisher(String, 'keyinput', 10)
-        keyPublisher
+        inputPublisher = self.create_publisher(String, 'input', 10)
+        inputPublisher
         app = QApplication(sys.argv)
         window = UI()
         window.show()
@@ -152,15 +152,16 @@ class UI(QMainWindow):
 
     def onClick_startRunBtn(self):
         self.msgWindow.setIcon(QMessageBox.Question)
+        global inputPublisher
+        msg = String()
         if (self.StartRunBtn.text() == "Start Run"):
             self.msgWindow.setText("Would you like to start Run?")
             ret = self.msgWindow.exec()
             if (QMessageBox.Yes == ret):
                 print("Send Command to ROS: Start Run")
-                global keyPublisher
-                msg = String()
-                msg.data = "Test"
-                keyPublisher.publish(msg)
+                #TODO THIS IS START PROJECTION
+                msg.data = "start"
+                inputPublisher.publish(msg)
                 print("Subscribe to ROS: get RPM value")
                 self.enGreenBtn(self.ProjectorStartBtn)
                 self.enRedBtn(self.PausePrintingBtn)
@@ -175,14 +176,19 @@ class UI(QMainWindow):
                 ret = self.msgWindow.exec()
                 if (QMessageBox.Yes == ret):
                     print("send command to ROS: Stop Run")
+                    msg.data = "kill"
+                    inputPublisher.publish(msg)
                     self.disBtn(self.PausePrintingBtn)
                     self.enGreenBtn(self.StartRunBtn)
                     self.StartRunBtn.setText("Start Run")
         else:
+            #TODO THIS IS INIT
             self.msgWindow.setIcon(QMessageBox.Information)
             self.msgWindow.setText("Setting level to home!")
             ret = self.msgWindow.exec()
             print("Send command to ROS: Set Home Level")
+            msg.data = "ok"
+            inputPublisher.publish(msg)
             self.setLevelStatus("Reseting...")
             self.disBtn(self.StartRunBtn)
             QtTest.QTest.qWait(3000)

@@ -134,14 +134,19 @@ class printQueueClass(Node):
         # Motor data subscriber
         self.motorDataSubscriber = self.create_subscription(MotorData, 'motorData', self.getMotorData, 10)
         # Keyboard input subscriber
-        self.KeyboardInputSubscriber = self.create_subscription(
+        self.touchInputSubscriber = self.create_subscription(
             String,
-            'keyinput',
+            'input',
             self.touchScreenHandler,
             10)
+        self.touchInputSubscriber
         # Thread to send base change too
         #Read the print file
         self.readPrintFile()
+        self.okToRun = False
+        self.startProjection = False
+        self.killProjection = False
+        self.pauseAll = False
         qThread = Thread(target=self.qPrint, args=())
         #qThread.daemon=True
         qThread.start()
@@ -177,15 +182,15 @@ class printQueueClass(Node):
 
     #Subscribe to touchscreen variables
     def touchScreenHandler(self,msg):
-        if (msg.data =="c"):
+        if (msg.data =="kill"):
             self.killProjection = True
-        elif (msg.data =="c"):
+        elif (msg.data =="start"):
             self.startProjection = True
-        elif (msg.data =="d"):
+        elif (msg.data =="ok"):
             self.okToRun = True
-        elif (msg.data =="e"):
+        elif (msg.data =="pause"):
             self.pauseAll = True
-        elif (msg.data =="g"):
+        elif (msg.data =="options"):
             self.options = True
 
     #Loop for printing EVERYTHING
