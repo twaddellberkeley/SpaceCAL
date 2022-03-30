@@ -282,10 +282,7 @@ class keySubscriber(Node):
             #If negative we do homing procedure
             else:
                 tic.go_home()
-<<<<<<< HEAD
             
-=======
->>>>>>> a4b5b761945cb6b7885cdb3576c741ea702423ff
 
 
     # Sets speed of tic in rot/min

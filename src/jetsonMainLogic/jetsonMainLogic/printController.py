@@ -134,17 +134,22 @@ class printQueueClass(Node):
         # Motor data subscriber
         self.motorDataSubscriber = self.create_subscription(MotorData, 'motorData', self.getMotorData, 10)
         # Keyboard input subscriber
-        self.KeyboardInputSubscriber = self.create_subscription(
+        self.touchInputSubscriber = self.create_subscription(
             String,
-            'keyinput',
+            'input',
             self.touchScreenHandler,
             10)
+        self.touchInputSubscriber
         # Thread to send base change too
         #Read the print file
         self.readPrintFile()
+        self.okToRun = False
+        self.startProjection = False
+        self.killProjection = False
+        self.pauseAll = False
         qThread = Thread(target=self.qPrint, args=())
-        qThread.daemon=True
-        tqThread.start()
+        #qThread.daemon=True
+        qThread.start()
 
     # Get variables from everything
     # Get custom message from the motor, index info in its array, its 
@@ -177,15 +182,15 @@ class printQueueClass(Node):
 
     #Subscribe to touchscreen variables
     def touchScreenHandler(self,msg):
-        if (msg.data =="c"):
+        if (msg.data =="kill"):
             self.killProjection = True
-        elif (msg.data =="c"):
+        elif (msg.data =="start"):
             self.startProjection = True
-        elif (msg.data =="d"):
+        elif (msg.data =="ok"):
             self.okToRun = True
-        elif (msg.data =="e"):
+        elif (msg.data =="pause"):
             self.pauseAll = True
-        elif (msg.data =="g"):
+        elif (msg.data =="options"):
             self.options = True
 
     #Loop for printing EVERYTHING
@@ -211,7 +216,7 @@ class printQueueClass(Node):
                 if(printSet == -1):
                     #Go home, do this by sending -1 to distance
                     loc.data = printSet
-                    print("running")
+                    print("Homing")
                     self.motorLocPublisher.publish(loc)
                     #Wait for home to complete from all mototrs, need this line as it sometimes jumps ahead
                     time.sleep(1)
@@ -235,34 +240,39 @@ class printQueueClass(Node):
                     if (printSet.printHeight > 310):
                         printSet.printHeight = 310
                     loc.data = printSet.printHeight
-                    print("running")
+                    print("running to height" + str(printSet.printHeight))
                     self.motorLocPublisher.publish(loc)
                     #Wait till all motors are at correct height before starting projections
                     for val in range(4):
                         while(round(self.cLoc[val]) != round(printSet.printHeight * self.incrBit)):
                             if(self.okToRun == False): break
                             pass
-                    #Loop through and and thread to prep print each print on current set
-                    for val in printSet.printdata:
-                        qThread = Thread(target=self.readyPart, args=([val]))
-                        qThread.daemon=True
-                        qThread.start()
-                    # Set up each video, but do not display
-                    
-                    # Wait for user input to display
-                    while (not self.startProjection):
+                    if (printSet.printNum > 0):
+                        #Loop through and and thread to prep print each print on current set
+                        for val in printSet.printdata:
+                            qThread = Thread(target=self.readyPart, args=([val]))
+                            qThread.daemon=True
+                            qThread.start()
+                        # Set up each video, but do not display            
+                        # Wait for user input to display
+                        while (not self.startProjection):
+                            if(self.okToRun == False): break
+                            pass
+                        #Unset variable for next time
+                        self.startProjection = False
+                        # Loop through and turn projectors on
+                        for val in printSet.printdata:
+                            #print(val)
+                            qThread = Thread(target=self.projectorOn, args=([val]))
+                            qThread.daemon=True
+                            qThread.start()
+                        #Wait the max display time before movingW
+                        while not self.tEvent.is_set():
+                            self.tEvent.wait(timeout=printSet.maxTime)
+                            self.tEvent.set()
+                        #Unset the event for next time
+                        self.tEvent.clear()
                         if(self.okToRun == False): break
-                        pass
-                    # Loop through and turn projectors on
-                    for val in printSet.printdata:
-                        #print(val)
-                        qThread = Thread(target=self.projectorOn, args=([val]))
-                        qThread.daemon=True
-                        qThread.start()
-                    #Wait the max display time before movingW
-                    while not self.tEvent.is_set():
-                        self.tEvent.wait(printSet.maxTime)
-                    if(self.okToRun == False): break
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False
@@ -271,7 +281,7 @@ class printQueueClass(Node):
                             vel.data = 0
                             velPublisher.publish(vel)
                         print("Waiting for next vial stack to be loaded")
-            if (pauseAll == True):
+            if (self.pauseAll == True):
                 # Stop the repeating of the function
                 self.okToRun = False
                 # Stop all rotation
@@ -315,9 +325,10 @@ class printQueueClass(Node):
         video.data = "PRINT"
         self.videoPublishers[printData['projNum'] - 1].publish(video)
         # Wait set time to print
-        time.sleep(printData['printTime'])
         print("WAITING")
+        time.sleep(printData['printTime'])
         # kill projection just in case
+        print("KILLING")
         video.data = "EXIT"
         # Kill Projection
         self.videoPublishers[printData['projNum'] - 1].publish(video)
