@@ -24,7 +24,6 @@
 # Author: Taylor Waddel
 import rclpy
 from rclpy.node import Node
-from pynput import keyboard
 from std_msgs.msg import String, Int32
 import time
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QHBoxLayout, QMessageBox
