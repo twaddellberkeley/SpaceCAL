@@ -10,3 +10,4 @@ __pycache__/
 .vscode
 .vscode/
 **.DS_Store
+**.qt_for_python
