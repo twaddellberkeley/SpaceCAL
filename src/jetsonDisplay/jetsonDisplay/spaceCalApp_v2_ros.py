@@ -136,11 +136,11 @@ QPushButton {
     text-align:center;
     font-size: 40px;
 }
-QPushButton[text="Ok"] {
+QPushButton[text="OK"] {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #4e9af1, stop: 1 #0762d7);
 }
-QPushButton[text="Ok"]:pressed {
+QPushButton[text="OK"]:pressed {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #0762d7, stop: 1 #4e9af1);
 }
@@ -221,8 +221,9 @@ class UI(QMainWindow):
         self.msgConfirm.setIcon(QMessageBox.Question)
         self.msgConfirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         self.msgConfirm.setDefaultButton(QMessageBox.Ok)
-        # self.msgInfo.buttons().setTex('OK')
+        self.msgInfo.buttons().setTex('OK')
         print(self.msgConfirm.buttons()[0].text())
+        print(self.msgConfirm.buttons()[1].text())
         self.msgConfirm.setStyleSheet(msgStyleSheet)
 
         # Information message
@@ -230,7 +231,7 @@ class UI(QMainWindow):
         self.msgInfo.setIcon(QMessageBox.Information)
         self.msgInfo.setStandardButtons(QMessageBox.Ok)
         self.msgInfo.setDefaultButton(QMessageBox.Ok)
-        # self.msgInfo.buttons()[0].setTex('OK')
+        self.msgInfo.buttons()[0].setTex('OK')
         # self.msgInfo.setStyleSheet(msgStyleSheet)
         print(self.msgInfo.buttons()[0].text())
         # self.show()
