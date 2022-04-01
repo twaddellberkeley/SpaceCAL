@@ -152,21 +152,18 @@ class WorkerSignals(QObject):
 
 class Worker(QRunnable):
 
-    def __init__(self, fn, *args, **kwargs):
+    def __init__(self, fn):
         super(Worker, self).__init__()
 
         self.fn = fn
-        self.args = args
-        self.kwargs = kwargs
         self.signals = WorkerSignals()
 
     @pyqtSlot()
     def run(self):
         try:
-            result = self.fn(*self.args, **self.kwargs)
+            result = self.fn()
         except:
             traceback.print_exc()
-
         else:
             # Return the result of the processing
             self.signals.lcdRpm.emit(result)
@@ -443,6 +440,7 @@ class UI(QMainWindow):
             int, 'rpm_display_topic', self.setLcdRpmDisplay, 10)
         rclpy.spin(node)
         node.destroy_node()
+        return 100
 
 # ******************************************* Helper Functions ******************************************** #
 
