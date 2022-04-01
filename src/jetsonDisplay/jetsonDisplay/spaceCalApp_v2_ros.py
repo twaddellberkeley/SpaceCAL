@@ -6,6 +6,7 @@ from PyQt5 import uic, QtTest
 import time
 import traceback
 import sys
+import os
 
 import rclpy
 from rclpy.node import Node
@@ -142,7 +143,7 @@ QPushButton[text="Cancel"]:pressed {
 """
 
 
-class WorkerSignals(QObjet):
+class WorkerSignals(QObject):
     lcdRpm = pyqtSignal(int)
     lcdLevel = pyqtSignal(int)
     lcdParabola = pyqtSignal(int)
@@ -175,7 +176,8 @@ class UI(QMainWindow):
     def __init__(self):
         super(UI, self).__init__()
         # Load GUI design into python
-        uic.loadUi("spaceCalMW.ui", self)
+        script_dir = os.path.dirname(__file__)
+        uic.loadUi(script_dir + "/spaceCalMW.ui", self)
         # apply CSS styleSheets to the GUI
         self.updateStyleSheet()
 
