@@ -136,11 +136,11 @@ QPushButton {
     text-align:center;
     font-size: 40px;
 }
-QPushButton[text="OK"] {
+QPushButton[text="OK"], QPushButton[text="Resume"] {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #4e9af1, stop: 1 #0762d7);
 }
-QPushButton[text="OK"]:pressed {
+QPushButton[text="OK"]:pressed, QPushButton[text="Resume"]:pressed {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #0762d7, stop: 1 #4e9af1);
 }
