@@ -222,7 +222,7 @@ class UI(QMainWindow):
         self.msgConfirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         self.msgConfirm.setDefaultButton(QMessageBox.Ok)
         self.msgConfirm.buttons()[0].setText('OK')
-        self.msgConfirm.buttons()[0].setText('Cancel')
+        self.msgConfirm.buttons()[1].setText('Cancel')
         self.msgConfirm.setStyleSheet(msgStyleSheet)
         print(self.msgConfirm.buttons()[0].text())
         print(self.msgConfirm.buttons()[1].text())
