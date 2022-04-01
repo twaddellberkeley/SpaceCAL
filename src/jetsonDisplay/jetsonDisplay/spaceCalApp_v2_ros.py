@@ -221,11 +221,11 @@ class UI(QMainWindow):
         self.msgConfirm.setIcon(QMessageBox.Question)
         self.msgConfirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         self.msgConfirm.setDefaultButton(QMessageBox.Ok)
-
+        self.msgConfirm.buttons()[0].setText('OK')
+        self.msgConfirm.buttons()[0].setText('Cancel')
+        self.msgConfirm.setStyleSheet(msgStyleSheet)
         print(self.msgConfirm.buttons()[0].text())
         print(self.msgConfirm.buttons()[1].text())
-        self.msgConfirm.buttons()[0].setText('OK')
-        self.msgConfirm.setStyleSheet(msgStyleSheet)
 
         # Information message
         self.msgInfo = QMessageBox()
@@ -233,7 +233,7 @@ class UI(QMainWindow):
         self.msgInfo.setStandardButtons(QMessageBox.Ok)
         self.msgInfo.setDefaultButton(QMessageBox.Ok)
         self.msgInfo.buttons()[0].setText('OK')
-        # self.msgInfo.setStyleSheet(msgStyleSheet)
+        self.msgInfo.setStyleSheet(msgStyleSheet)
         print(self.msgInfo.buttons()[0].text())
         # self.show()
 
@@ -286,7 +286,6 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 
 # The following function define the logic for all button states in the gui
-
 
     def execBtnInit_init(self):
         # Set the message for the information text
@@ -414,6 +413,7 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
 
     def publishBtnInit(self, str):
         msg = String()
