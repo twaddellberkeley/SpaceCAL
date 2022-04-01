@@ -47,11 +47,11 @@ lcdAccelVectorNum = "gravity_display"
 # ROS2 Publish Topic name
 btnTopic = 'buttons_topic'
 # ROS2 Publish mgs
-msgBtnInit_init = "ok"
-msgBtnInit_start = "ok"
+msgBtnInit_init = "init"
+msgBtnInit_start = "start_motors"
 msgBtnInit_stop = "kill"
-msgBtnProject_start = "start"
-msgBtnProject_stop = "stop"
+msgBtnProject_start = "start_proj"
+msgBtnProject_stop = "stop_proj"
 msgBtnPause_pause = "pause"
 msgBtnPause_resume = "resume"
 
@@ -136,27 +136,23 @@ QPushButton {
     text-align:center;
     font-size: 40px;
 }
-QPushButton {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #4e9af1, stop: 1 #0762d7);
+QPushButton[text="Ok"] {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #4e9af1, stop: 1 #0762d7);
+}
+QPushButton[text="Ok"]:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #0762d7, stop: 1 #4e9af1);
+}
+QPushButton[text="Cancel"] {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #b4bec3, stop: 1 #484c4e);
+}
+QPushButton[text="Cancel"]:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #484c4e, stop: 1 #b4bec3);
 }
 """
-# QPushButton[text="OK"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #4e9af1, stop: 1 #0762d7);
-# }
-# QPushButton[text="OK"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #0762d7, stop: 1 #4e9af1);
-# }
-# QPushButton[text="Cancel"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #b4bec3, stop: 1 #484c4e);
-# }
-# QPushButton[text="Cancel"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #484c4e, stop: 1 #b4bec3);
-# }
 
 
 class WorkerSignals(QObject):
@@ -225,6 +221,8 @@ class UI(QMainWindow):
         self.msgConfirm.setIcon(QMessageBox.Question)
         self.msgConfirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         self.msgConfirm.setDefaultButton(QMessageBox.Ok)
+        # self.msgInfo.buttons().setTex('OK')
+        print(self.msgConfirm.buttons()[0].text())
         self.msgConfirm.setStyleSheet(msgStyleSheet)
 
         # Information message
@@ -232,14 +230,15 @@ class UI(QMainWindow):
         self.msgInfo.setIcon(QMessageBox.Information)
         self.msgInfo.setStandardButtons(QMessageBox.Ok)
         self.msgInfo.setDefaultButton(QMessageBox.Ok)
-        self.msgInfo.setStyleSheet(msgStyleSheet)
-        print(self.msgConfirm.buttons()[0].text())
+        # self.msgInfo.buttons()[0].setTex('OK')
+        # self.msgInfo.setStyleSheet(msgStyleSheet)
+        print(self.msgInfo.buttons()[0].text())
         # self.show()
 
         ###### ROS2 init #####
         # Initialize rospy
         rclpy.init(args=None)
-        self.node = Node('buttons_signals')
+        self.node = Node(pubNodeStr)
         self.pub = self.node.create_publisher(String, btnTopic, 10)
 
         # creating a multithread pool
@@ -285,6 +284,7 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 
 # The following function define the logic for all button states in the gui
+
 
     def execBtnInit_init(self):
         # Set the message for the information text
@@ -413,7 +413,6 @@ class UI(QMainWindow):
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
 
-
     def publishBtnInit(self, str):
         msg = String()
         if str == runBtnInit:
@@ -490,12 +489,10 @@ class UI(QMainWindow):
 
     def displayInfoMsg(self, msg):
         self.msgInfo.setText(msg)
-        self.msgInfo.setStyleSheet(msgStyleSheet)
         return self.msgInfo.exec()
 
     def displayConfirmatonMsg(self, msg):
         self.msgConfirm.setText(msg)
-        self.msgConfirm.setStyleSheet(msgStyleSheet)
         return self.msgConfirm.exec()
 
 
