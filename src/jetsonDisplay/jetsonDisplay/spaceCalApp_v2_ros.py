@@ -149,8 +149,9 @@ class WorkerSignals(QObjet):
     lcdParabola = pyqtSignal(int)
     lcdAccelVector = pyqtSignal(float)
 
+
 class Worker(QRunnable):
-    
+
     def __init__(self, fn):
         super(Worker).__init__()
 
@@ -163,12 +164,13 @@ class Worker(QRunnable):
             result = self.fn()
         except:
             traceback.print_exc()
-            
+
         else:
             # Return the result of the processing
             self.signals.lcdRpm.emit(result)
         finally:
             self.signals.finished.emit()  # Done
+
 
 class UI(QMainWindow):
 
@@ -263,6 +265,7 @@ class UI(QMainWindow):
 
 # The following function define the logic for all button states in the gui
 
+
     def execBtnInit_init(self):
         # Set the message for the information text
         self.displayInfoMsg(initRunMsg)
@@ -349,8 +352,45 @@ class UI(QMainWindow):
     def execBtnOptions(self):
         pass
 
+# ********************************* Labels and LCDNumber Setter Functions ******************************** #
+    """
+    QLabels:
+        statusProjector
+        statusMotor
+        statusLevel
+
+    QLCDNumber:
+        lcdRpm
+        lcdLevel
+        lcdParabola
+        lcdAccelVector
+    """
+
+    def setStatusProjectorDisplay(self, str):
+        self.statusProjector.setText(str)
+
+    def setStatusMotorDisplay(self, str):
+        self.statusMotor.setText(str)
+
+    def setStatusLevelDisplay(self, str):
+        self.statusLevel.setText(str)
+
+    def setLcdRpmDisplay(self, num):
+        self.lcdRpm.display(num)
+
+    def setLcdLevelDisplay(self, num):
+        self.lcdLevel.display(num)
+
+    def setLcdParabolaDisplay(self, num):
+        self.lcdParabola.display(num)
+
+    def setLcdAccelVectorDisplay(self, num):
+        self.lcdAccelVector.display(num)
+
+
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
     def publishBtnInit(self, str):
         msg = String()
         if str == runBtnInit:
@@ -384,6 +424,7 @@ class UI(QMainWindow):
 # *************************************** Define Subscriber Functions ************************************* #
 
 # ******************************************* Helper Functions ******************************************** #
+
 
     def updateStyleSheet(self):
         self.setStyleSheet(styleSheet)
