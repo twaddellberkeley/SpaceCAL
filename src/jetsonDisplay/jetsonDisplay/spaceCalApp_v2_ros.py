@@ -136,23 +136,27 @@ QPushButton {
     text-align:center;
     font-size: 40px;
 }
-QPushButton[text="OK"] {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #4e9af1, stop: 1 #0762d7);
-}
-QPushButton[text="OK"]:pressed {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #0762d7, stop: 1 #4e9af1);
-}
-QPushButton[text="Cancel"] {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #b4bec3, stop: 1 #484c4e);
-}
-QPushButton[text="Cancel"]:pressed {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #484c4e, stop: 1 #b4bec3);
+QPushButton {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #4e9af1, stop: 1 #0762d7);
 }
 """
+# QPushButton[text="OK"] {
+#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+#                                       stop: 0 #4e9af1, stop: 1 #0762d7);
+# }
+# QPushButton[text="OK"]:pressed {
+#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+#                                       stop: 0 #0762d7, stop: 1 #4e9af1);
+# }
+# QPushButton[text="Cancel"] {
+#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+#                                       stop: 0 #b4bec3, stop: 1 #484c4e);
+# }
+# QPushButton[text="Cancel"]:pressed {
+#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+#                                       stop: 0 #484c4e, stop: 1 #b4bec3);
+# }
 
 
 class WorkerSignals(QObject):
