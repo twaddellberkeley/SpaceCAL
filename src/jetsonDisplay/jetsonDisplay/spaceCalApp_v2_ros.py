@@ -175,8 +175,8 @@ class UI(QMainWindow):
     # This function sets initial gui state
     def __init__(self):
         super(UI, self).__init__()
-        # Load GUI design into python
         script_dir = os.path.dirname(__file__)
+        # Load GUI design into python
         uic.loadUi(script_dir + "/spaceCalMW.ui", self)
         # apply CSS styleSheets to the GUI
         self.updateStyleSheet()
@@ -222,7 +222,7 @@ class UI(QMainWindow):
         self.msgInfo.setDefaultButton(QMessageBox.Ok)
         self.msgInfo.setStyleSheet(msgStyleSheet)
         print(self.msgConfirm.buttons()[0].text())
-
+        self.show()
         ###### ROS2 init #####
         # Initialize rospy
         rclpy.init(args=None)
@@ -397,7 +397,13 @@ class UI(QMainWindow):
         return self.msgConfirm.exec()
 
 
-app = QApplication(sys.argv)
-window = UI()
-window.show()
-app.exec()
+def main():
+    # Set the proper OS variable to display on
+    os.environ['DISPLAY'] = ":0"
+    app = QApplication(sys.argv)
+    window = UI()
+    app.exec()
+
+
+if __name__ == '__main__':
+    main()
