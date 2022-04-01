@@ -24,7 +24,7 @@
 # Author: Taylor Waddel
 import rclpy
 from rclpy.node import Node
-from pynput import keyboard
+#from pynput import keyboard
 from std_msgs.msg import String, Int32
 import time
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QHBoxLayout, QMessageBox
@@ -58,6 +58,7 @@ class UI(QMainWindow):
     def __init__(self):
         super().__init__()
         script_dir = os.path.dirname(__file__)
+        print(script_dir)
         uic.loadUi(script_dir + "/spaceCalMainWindow.ui", self)
 
         # Buttons: (QPushButton)
