@@ -437,7 +437,7 @@ class UI(QMainWindow):
     def exec_subNode(self):
         node = Node("Display_Node")
         sub = node.create_subscription(
-            int, 'rpm_display_topic', self.setLcdRpmDisplay, 10)
+            Int32, 'rpm_display_topic', self.setLcdRpmDisplay, 10)
         rclpy.spin(node)
         node.destroy_node()
         return 100
