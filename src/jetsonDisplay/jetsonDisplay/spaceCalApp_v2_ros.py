@@ -1,5 +1,10 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QHBoxLayout, QMessageBox
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from PyQt5 import uic, QtTest
+
+import time
+import traceback
 import sys
 import os
 
@@ -137,6 +142,33 @@ QPushButton[text="Cancel"]:pressed {
                                       stop: 0 #484c4e, stop: 1 #b4bec3);
 """
 
+
+class WorkerSignals(QObjet):
+    lcdRpm = pyqtSignal(int)
+    lcdLevel = pyqtSignal(int)
+    lcdParabola = pyqtSignal(int)
+    lcdAccelVector = pyqtSignal(float)
+
+class Worker(QRunnable):
+    
+    def __init__(self, fn):
+        super(Worker).__init__()
+
+        self.fn = fn
+        self.signals = WorkerSignals()
+
+    @pyqtSlot()
+    def run(self):
+        try:
+            result = self.fn()
+        except:
+            traceback.print_exc()
+            
+        else:
+            # Return the result of the processing
+            self.signals.lcdRpm.emit(result)
+        finally:
+            self.signals.finished.emit()  # Done
 
 class UI(QMainWindow):
 
