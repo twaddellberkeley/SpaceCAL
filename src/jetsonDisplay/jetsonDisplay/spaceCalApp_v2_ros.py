@@ -385,7 +385,8 @@ class UI(QMainWindow):
         self.statusLevel.setText(str)
 
     def setLcdRpmDisplay(self, num):
-        self.lcdRpm.display(num)
+        print(num)
+        # self.lcdRpm.display(num)
 
     def setLcdLevelDisplay(self, num):
         self.lcdLevel.display(num)
