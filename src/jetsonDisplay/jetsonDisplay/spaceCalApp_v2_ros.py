@@ -153,7 +153,7 @@ class WorkerSignals(QObject):
 class Worker(QRunnable):
 
     def __init__(self, fn, *args, **kwargs):
-        super(Worker).__init__()
+        super(Worker, self).__init__()
 
         self.fn = fn
         self.args = args
