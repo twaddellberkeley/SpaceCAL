@@ -152,16 +152,18 @@ class WorkerSignals(QObject):
 
 class Worker(QRunnable):
 
-    def __init__(self, fn):
+    def __init__(self, fn, *args, **kwargs):
         super(Worker).__init__()
 
         self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
         self.signals = WorkerSignals()
 
     @pyqtSlot()
     def run(self):
         try:
-            result = self.fn()
+            result = self.fn(*self.args, **self.kwargs)
         except:
             traceback.print_exc()
 
@@ -169,7 +171,7 @@ class Worker(QRunnable):
             # Return the result of the processing
             self.signals.lcdRpm.emit(result)
         finally:
-            self.signals.finished.emit()  # Done
+            self.signals.lcdLevel.emit(10)  # Done
 
 
 class UI(QMainWindow):
@@ -225,11 +227,22 @@ class UI(QMainWindow):
         self.msgInfo.setStyleSheet(msgStyleSheet)
         print(self.msgConfirm.buttons()[0].text())
         self.show()
+
+        # creating a multithread pool
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" %
+              self.threadpool.maxThreadCount())
+
         ###### ROS2 init #####
         # Initialize rospy
         rclpy.init(args=None)
         self.node = Node('buttons_signals')
         self.pub = self.node.create_publisher(String, btnTopic, 10)
+
+        worker = Worker(self.exec_subNode)
+        worker.signals.lcdRpm.connect(self.setLcdRpmDisplay)
+        # Execute
+        self.threadpool.start(worker)
 
 # ******************************* Buttons CallBack Function Definitions ******************************* #
 
@@ -264,7 +277,6 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 
 # The following function define the logic for all button states in the gui
-
 
     def execBtnInit_init(self):
         # Set the message for the information text
@@ -391,6 +403,7 @@ class UI(QMainWindow):
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
 
+
     def publishBtnInit(self, str):
         msg = String()
         if str == runBtnInit:
@@ -423,8 +436,15 @@ class UI(QMainWindow):
 
 # *************************************** Define Subscriber Functions ************************************* #
 
-# ******************************************* Helper Functions ******************************************** #
 
+    def exec_subNode(self):
+        node = Node("Display_Node")
+        sub = node.create_subscription(
+            int, 'rpm_display_topic', self.setLcdRpmDisplay, 10)
+        rclpy.spin(node)
+        node.destroy_node()
+
+# ******************************************* Helper Functions ******************************************** #
 
     def updateStyleSheet(self):
         self.setStyleSheet(styleSheet)
