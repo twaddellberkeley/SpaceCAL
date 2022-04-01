@@ -221,7 +221,7 @@ class UI(QMainWindow):
         self.msgConfirm.setIcon(QMessageBox.Question)
         self.msgConfirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         self.msgConfirm.setDefaultButton(QMessageBox.Ok)
-        self.msgInfo.buttons().setTex('OK')
+        self.msgConfirm.buttons().setTex('OK')
         print(self.msgConfirm.buttons()[0].text())
         print(self.msgConfirm.buttons()[1].text())
         self.msgConfirm.setStyleSheet(msgStyleSheet)
