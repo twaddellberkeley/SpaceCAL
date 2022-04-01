@@ -224,7 +224,7 @@ class UI(QMainWindow):
 
         print(self.msgConfirm.buttons()[0].text())
         print(self.msgConfirm.buttons()[1].text())
-        self.msgConfirm.buttons()[0].setTex('OK')
+        self.msgConfirm.buttons()[0].setText('OK')
         self.msgConfirm.setStyleSheet(msgStyleSheet)
 
         # Information message
@@ -232,7 +232,7 @@ class UI(QMainWindow):
         self.msgInfo.setIcon(QMessageBox.Information)
         self.msgInfo.setStandardButtons(QMessageBox.Ok)
         self.msgInfo.setDefaultButton(QMessageBox.Ok)
-        self.msgInfo.buttons()[0].setTex('OK')
+        self.msgInfo.buttons()[0].setText('OK')
         # self.msgInfo.setStyleSheet(msgStyleSheet)
         print(self.msgInfo.buttons()[0].text())
         # self.show()
