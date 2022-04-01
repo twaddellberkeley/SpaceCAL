@@ -386,7 +386,7 @@ class UI(QMainWindow):
 
     def setLcdRpmDisplay(self, num):
         print(num)
-        # self.lcdRpm.display(num)
+        self.lcdRpm.display(num.data)
 
     def setLcdLevelDisplay(self, num):
         self.lcdLevel.display(num)
