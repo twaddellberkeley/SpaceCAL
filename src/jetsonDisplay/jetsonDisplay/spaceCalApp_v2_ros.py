@@ -230,7 +230,7 @@ class UI(QMainWindow):
         self.msgInfo.setDefaultButton(QMessageBox.Ok)
         self.msgInfo.setStyleSheet(msgStyleSheet)
         print(self.msgConfirm.buttons()[0].text())
-        self.show()
+        # self.show()
 
         ###### ROS2 init #####
         # Initialize rospy
@@ -500,6 +500,7 @@ def main():
     os.environ['DISPLAY'] = ":0"
     app = QApplication(sys.argv)
     window = UI()
+    window.show()
     app.exec()
 
 
