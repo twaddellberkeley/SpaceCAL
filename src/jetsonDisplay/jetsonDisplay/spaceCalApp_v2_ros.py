@@ -383,6 +383,7 @@ class UI(QMainWindow):
     """
 
     def setStatusProjectorDisplay(self, str):
+        print(str)
         self.statusProjector.setText(str.data)
 
     def setStatusMotorDisplay(self, str):
@@ -485,10 +486,12 @@ class UI(QMainWindow):
 
     def displayInfoMsg(self, msg):
         self.msgInfo.setText(msg)
+        self.msgInfo.setStyleSheet(msgStyleSheet)
         return self.msgInfo.exec()
 
     def displayConfirmatonMsg(self, msg):
         self.msgConfirm.setText(msg)
+        self.msgConfirm.setStyleSheet(msgStyleSheet)
         return self.msgConfirm.exec()
 
 
