@@ -143,7 +143,7 @@ QPushButton[text="Cancel"]:pressed {
 """
 
 
-class WorkerSignals(QObjet):
+class WorkerSignals(QObject):
     lcdRpm = pyqtSignal(int)
     lcdLevel = pyqtSignal(int)
     lcdParabola = pyqtSignal(int)
