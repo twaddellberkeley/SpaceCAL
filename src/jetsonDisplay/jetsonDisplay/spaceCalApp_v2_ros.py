@@ -140,6 +140,7 @@ QPushButton[text="Cancel"] {
 QPushButton[text="Cancel"]:pressed {
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                       stop: 0 #484c4e, stop: 1 #b4bec3);
+}
 """
 
 
@@ -161,14 +162,9 @@ class Worker(QRunnable):
     @pyqtSlot()
     def run(self):
         try:
-            result = self.fn()
+            self.fn()
         except:
             traceback.print_exc()
-        else:
-            # Return the result of the processing
-            self.signals.lcdRpm.emit(result)
-        finally:
-            self.signals.lcdLevel.emit(10)  # Done
 
 
 class UI(QMainWindow):
@@ -225,19 +221,19 @@ class UI(QMainWindow):
         print(self.msgConfirm.buttons()[0].text())
         self.show()
 
-        # creating a multithread pool
-        self.threadpool = QThreadPool()
-        print("Multithreading with maximum %d threads" %
-              self.threadpool.maxThreadCount())
-
         ###### ROS2 init #####
         # Initialize rospy
         rclpy.init(args=None)
         self.node = Node('buttons_signals')
         self.pub = self.node.create_publisher(String, btnTopic, 10)
 
+        # creating a multithread pool
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" %
+              self.threadpool.maxThreadCount())
+
+        # create new thread for subcriber node
         worker = Worker(self.exec_subNode)
-        worker.signals.lcdRpm.connect(self.setLcdRpmDisplay)
         # Execute
         self.threadpool.start(worker)
 
@@ -274,6 +270,7 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 
 # The following function define the logic for all button states in the gui
+
 
     def execBtnInit_init(self):
         # Set the message for the information text
@@ -376,31 +373,30 @@ class UI(QMainWindow):
     """
 
     def setStatusProjectorDisplay(self, str):
-        self.statusProjector.setText(str)
+        self.statusProjector.setText(str.data)
 
     def setStatusMotorDisplay(self, str):
-        self.statusMotor.setText(str)
+        self.statusMotor.setText(str.data)
 
     def setStatusLevelDisplay(self, str):
-        self.statusLevel.setText(str)
+        self.statusLevel.setText(str.data)
 
     def setLcdRpmDisplay(self, num):
         print(num)
         self.lcdRpm.display(num.data)
 
     def setLcdLevelDisplay(self, num):
-        self.lcdLevel.display(num)
+        self.lcdLevel.display(num.data)
 
     def setLcdParabolaDisplay(self, num):
-        self.lcdParabola.display(num)
+        self.lcdParabola.display(num.data)
 
     def setLcdAccelVectorDisplay(self, num):
-        self.lcdAccelVector.display(num)
+        self.lcdAccelVector.display(num.data)
 
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
-
 
     def publishBtnInit(self, str):
         msg = String()
@@ -434,14 +430,12 @@ class UI(QMainWindow):
 
 # *************************************** Define Subscriber Functions ************************************* #
 
-
     def exec_subNode(self):
         node = Node("Display_Node")
         sub = node.create_subscription(
             Int32, 'rpm_display_topic', self.setLcdRpmDisplay, 10)
         rclpy.spin(node)
         node.destroy_node()
-        return 100
 
 # ******************************************* Helper Functions ******************************************** #
 
