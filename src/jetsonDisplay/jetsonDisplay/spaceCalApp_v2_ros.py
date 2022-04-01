@@ -142,6 +142,33 @@ QPushButton[text="Cancel"]:pressed {
 """
 
 
+class WorkerSignals(QObjet):
+    lcdRpm = pyqtSignal(int)
+    lcdLevel = pyqtSignal(int)
+    lcdParabola = pyqtSignal(int)
+    lcdAccelVector = pyqtSignal(float)
+
+class Worker(QRunnable):
+    
+    def __init__(self, fn):
+        super(Worker).__init__()
+
+        self.fn = fn
+        self.signals = WorkerSignals()
+
+    @pyqtSlot()
+    def run(self):
+        try:
+            result = self.fn()
+        except:
+            traceback.print_exc()
+            
+        else:
+            # Return the result of the processing
+            self.signals.lcdRpm.emit(result)
+        finally:
+            self.signals.finished.emit()  # Done
+
 class UI(QMainWindow):
 
     # This function sets initial gui state
