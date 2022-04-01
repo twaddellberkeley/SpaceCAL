@@ -502,6 +502,7 @@ def main():
     window = UI()
     window.show()
     app.exec()
+    rclpy.shutdown()
 
 
 if __name__ == '__main__':
