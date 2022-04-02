@@ -1,4 +1,4 @@
 Header header
 String name 
-String strValue
-int32 numValue
+String str_value
+int32 num_value
