@@ -1,4 +1,4 @@
-std_msgs/msg/Header header
+Header header
 String name 
 String strValue
 int32 numValue
