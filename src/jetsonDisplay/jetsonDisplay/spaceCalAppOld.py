@@ -1,64 +1,12 @@
-# Copyright 2021 UC-Berkeley
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-
-
-# Generic node that will check for various key inputs and
-# communicate them via String
-# Author: Taylor Waddel
-import rclpy
-from rclpy.node import Node
-from std_msgs.msg import String, Int32
-import time
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QHBoxLayout, QMessageBox
 from PyQt5 import uic, QtTest
 import sys
-from threading import Thread
-import os
 
-# Setting correct display
-# import os
-# os.environ.setdefault('DISPLAY', ':0')
-# os.environ['DISPLAY'] = ":0"
-global testVar
-
-# generic keytalker class
-class guiDisplay(Node):
-    def __init__(self):
-        # Create publisher under keyTalker
-        super().__init__('guiDisplay')
-        global inputPublisher
-        inputPublisher = self.create_publisher(String, 'input', 10)
-        inputPublisher
-        app = QApplication(sys.argv)
-        window = UI()
-        window.show()
-        app.exec()
-        #qThread = Thread(target=self.runGUI, args=())
-        #qThread.start()
 
 class UI(QMainWindow):
     def __init__(self):
         super().__init__()
-        script_dir = os.path.dirname(__file__)
-        print(script_dir)
-        uic.loadUi(script_dir + "/spaceCalMainWindow.ui", self)
+        uic.loadUi("spaceCalApp.ui", self)
 
         # Buttons: (QPushButton)
         #   OptionBtn
@@ -97,6 +45,7 @@ class UI(QMainWindow):
         self.disBtn(self.PausePrintingBtn)
         self.StartRunBtn.setText("Initiate Test")
         self.StartRunBtn.setStyleSheet("background-color:yellow;")
+        self.accelVectorOutput.display(0.00)
 
         # message confirmation window
         self.msgWindow = QMessageBox()
@@ -130,12 +79,7 @@ class UI(QMainWindow):
         ret = self.msgWindow.exec()
         if (QMessageBox.Yes == ret):
             print("Send Command to ROS: Start Projecton")
-
             self.statusOutput.setText("On")
-            global inputPublisher
-            msg = String()
-            msg.data = "start"
-            inputPublisher.publish(msg)
             self.enRedBtn(self.ProjectorStopBtn)
             self.disBtn(self.ProjectorStartBtn)
             self.statusOutput.setStyleSheet("QLabel{color: green;}")
@@ -150,10 +94,6 @@ class UI(QMainWindow):
             ret = self.msgWindow.exec()
             if (QMessageBox.Yes == ret):
                 print("Send command to ROS: Stop Projection")
-                global inputPublisher
-                msg = String()
-                msg.data = "stop"
-                inputPublisher.publish(msg)
                 self.enGreenBtn(self.ProjectorStartBtn)
                 self.disBtn(self.ProjectorStopBtn)
                 self.statusOutput.setText("Off")
@@ -161,16 +101,11 @@ class UI(QMainWindow):
 
     def onClick_startRunBtn(self):
         self.msgWindow.setIcon(QMessageBox.Question)
-        global inputPublisher
-        msg = String()
         if (self.StartRunBtn.text() == "Start Run"):
             self.msgWindow.setText("Would you like to start Run?")
             ret = self.msgWindow.exec()
             if (QMessageBox.Yes == ret):
                 print("Send Command to ROS: Start Run")
-                #TODO THIS IS START RUN
-                msg.data = "ok"
-                inputPublisher.publish(msg)
                 print("Subscribe to ROS: get RPM value")
                 self.enGreenBtn(self.ProjectorStartBtn)
                 self.enRedBtn(self.PausePrintingBtn)
@@ -185,25 +120,22 @@ class UI(QMainWindow):
                 ret = self.msgWindow.exec()
                 if (QMessageBox.Yes == ret):
                     print("send command to ROS: Stop Run")
-                    msg.data = "kill"
-                    inputPublisher.publish(msg)
                     self.disBtn(self.PausePrintingBtn)
                     self.enGreenBtn(self.StartRunBtn)
                     self.StartRunBtn.setText("Start Run")
+
         else:
-            #TODO THIS IS INIT
             self.msgWindow.setIcon(QMessageBox.Information)
             self.msgWindow.setText("Setting level to home!")
             ret = self.msgWindow.exec()
             print("Send command to ROS: Set Home Level")
-            msg.data = "ok"
-            inputPublisher.publish(msg)
             self.setLevelStatus("Reseting...")
             self.disBtn(self.StartRunBtn)
             QtTest.QTest.qWait(3000)
             self.enGreenBtn(self.StartRunBtn)
             self.StartRunBtn.setText("Start Run")
             self.setLevelStatus("Home")
+            self.setAccelVector(0.203)
 
     def onClick_pauseBtn(self):
         self.msgWindow.setText("Are you sure you want to pause the system?")
@@ -237,35 +169,27 @@ class UI(QMainWindow):
         self.R_statusOutput.setText(str)
         self.R_statusOutput.setStyleSheet("color:green;")
 
-    def setRpm():
-        pass
+    def setRpm(self, num):
+        self.R_rpmOutput.display(num)
 
-    def setLevel():
-        pass
+    def setLevel(self, num):
+        self.L_levelOutput.display(num)
 
-    def setParabolaCount(self):
-        pass
+    def setParabolaCount(self, num):
+        self.parabolaCountOutput.display(num)
 
-    def setAccelVector(self):
-        pass
+    def setAccelVector(self, num):
+        print(num)
+        self.accelVectorOutput.display(num)
 
-    def setProjType(sef):
-        pass
+    def setProjType(self, str):
+        self.typeOutput.setText(str)
 
-    def setProjStatus(self):
-        pass
+    def setProjStatus(self, str):
+        self.statusOutput.setText(str)
 
-def main(args=None):
-    # Set the proper OS variable to display on
-    os.environ['DISPLAY']=":0"
-    rclpy.init(args=args)
-    publisher =  guiDisplay()
-    rclpy.spin(publisher)
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    publisher.destroy_node()
-    rclpy.shutdown()
 
-if __name__ == '__main__':
-    main()
+app = QApplication(sys.argv)
+window = UI()
+window.show()
+app.exec()
