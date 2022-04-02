@@ -24,7 +24,6 @@
 # Author: Taylor Waddel
 import rclpy
 from rclpy.node import Node
-from pynput import keyboard
 from std_msgs.msg import String, Int32
 import time
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QHBoxLayout, QMessageBox
@@ -256,6 +255,8 @@ class UI(QMainWindow):
         pass
 
 def main(args=None):
+    # Set the proper OS variable to display on
+    os.environ['DISPLAY']=":0"
     rclpy.init(args=args)
     publisher =  guiDisplay()
     rclpy.spin(publisher)
