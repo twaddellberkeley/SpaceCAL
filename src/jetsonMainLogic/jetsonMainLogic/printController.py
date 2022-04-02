@@ -136,7 +136,7 @@ class printQueueClass(Node):
         # Keyboard input subscriber
         self.touchInputSubscriber = self.create_subscription(
             String,
-            'input',
+            'buttons_topic',
             self.touchScreenHandler,
             10)
         self.touchInputSubscriber
