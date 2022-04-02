@@ -44,9 +44,9 @@ lcdRpmNum = "rpm_display"
 lcdLevelNum = "level_display"
 lcdParabolaNum = "parabola_display"
 lcdAccelVectorNum = "gravity_display"
-# ROS2 Publish Topic name
+# ROS2 Publisher Topic name
 btnTopic = 'buttons_topic'
-# ROS2 Publish mgs
+# ROS2 Publishing mgs
 msgBtnInit_init = "motor_ok"
 msgBtnInit_start = "motor_ok"
 msgBtnInit_stop = "kill"
@@ -237,7 +237,7 @@ class UI(QMainWindow):
         print(self.msgInfo.buttons()[0].text())
         # self.show()
 
-        ###### ROS2 init #####
+        ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
         rclpy.init(args=None)
         self.pubNode = Node(pubNodeStr)
@@ -445,7 +445,7 @@ class UI(QMainWindow):
         return True
 
 
-# *************************************** Define Subscriber Functions ************************************* #
+# *************************************** Define Subscriber Node function ************************************* #
     """
     QPushButton:
         btnInit
