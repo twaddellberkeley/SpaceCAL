@@ -47,8 +47,8 @@ lcdAccelVectorNum = "gravity_display"
 # ROS2 Publish Topic name
 btnTopic = 'buttons_topic'
 # ROS2 Publish mgs
-msgBtnInit_init = "init"
-msgBtnInit_start = "start_motors"
+msgBtnInit_init = "motor_ok"
+msgBtnInit_start = "motor_ok"
 msgBtnInit_stop = "kill"
 msgBtnProject_start = "start_proj"
 msgBtnProject_stop = "stop_proj"

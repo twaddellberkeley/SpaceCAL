@@ -182,11 +182,11 @@ class printQueueClass(Node):
 
     #Subscribe to touchscreen variables
     def touchScreenHandler(self,msg):
-        if (msg.data =="kill"):
+        if (msg.data =="stop_proj"):
             self.killProjection = True
-        elif (msg.data =="start"):
+        elif (msg.data =="start_proj"):
             self.startProjection = True
-        elif (msg.data =="ok"):
+        elif (msg.data =="motor_ok"):
             self.okToRun = True
         elif (msg.data =="pause"):
             self.pauseAll = True
