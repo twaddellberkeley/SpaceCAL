@@ -6,16 +6,8 @@ test.pp
 __pycache__/
 __pycache__/*
 __pycache__/
-<<<<<<< HEAD
-*.py[cod].vscode/browse.vc.db
-.vscode/browse.vc.db-shm
-.vscode/browse.vc.db-wal
-.vscode/c_cpp_properties.json
-.vscode/settings.json
-.vscode/browse.vc.db
-=======
 *.py[cod]
->>>>>>> a4b5b761945cb6b7885cdb3576c741ea702423ff
 .vscode
 .vscode/
 **.DS_Store
+**.qt_for_python
