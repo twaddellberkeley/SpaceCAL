@@ -240,8 +240,8 @@ class UI(QMainWindow):
         ###### ROS2 init #####
         # Initialize rospy
         rclpy.init(args=None)
-        self.node = Node(pubNodeStr)
-        self.pub = self.node.create_publisher(String, btnTopic, 10)
+        self.pubNode = Node(pubNodeStr)
+        self.pub = self.pubNode.create_publisher(String, btnTopic, 10)
 
         # creating a multithread pool
         self.threadpool = QThreadPool()
@@ -466,23 +466,23 @@ class UI(QMainWindow):
     """
 
     def exec_subNode(self):
-        node = Node(subNodeStr)
-        subProjStatus = node.create_subscription(
+        pubNode = Node(subNodeStr)
+        subProjStatus = pubNode.create_subscription(
             String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
-        subMotorStatus = node.create_subscription(
+        subMotorStatus = pubNode.create_subscription(
             String, statusMotorStr, self.setStatusMotorDisplay, 10)
-        subLelelStatus = node.create_subscription(
+        subLelelStatus = pubNode.create_subscription(
             String, statusLevelStr, self.setStatusLevelDisplay, 10)
-        subRpm = node.create_subscription(
+        subRpm = pubNode.create_subscription(
             Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
-        subLevel = node.create_subscription(
+        subLevel = pubNode.create_subscription(
             Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
-        subParabola = node.create_subscription(
+        subParabola = pubNode.create_subscription(
             Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
-        subAccelVec = node.create_subscription(
+        subAccelVec = pubNode.create_subscription(
             Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
-        rclpy.spin(node)
-        node.destroy_node()
+        rclpy.spin(pubNode)
+        pubNode.destroy_node()
 
 # ******************************************* Helper Functions ******************************************** #
 
