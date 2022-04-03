@@ -11,6 +11,7 @@ import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
+from interfaces.msg import DisplayData
 
 # QMessageBox messages text for setText
 initRunMsg = "Motors will be set to home position!"
@@ -37,6 +38,7 @@ pauseBtnResume = "Resume"
 pubNodeStr = "buttons_node"
 subNodeStr = "display_node"
 # ROS2 Subscriber Topic names
+displayTopic = "display_topic"
 statusProjectorStr = "projector_status"
 statusMotorStr = "motor_status"
 statusLevelStr = "level_status"
@@ -120,7 +122,7 @@ QMessageBox {
 msgStyleSheet = """
 
 QLabel {
-    font-size: 30px; 
+    font-size: 30px;
     text-align:center;
 }
 QWidget icon{
@@ -201,7 +203,7 @@ class UI(QMainWindow):
             statusProjector
             statusMotor
             statusLevel
-        
+
         QLCDNumber:
             lcdRpm
             lcdLevel
@@ -286,6 +288,7 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 
 # The following function define the logic for all button states in the gui
+
 
     def execBtnInit_init(self):
         # Set the message for the information text
@@ -414,7 +417,6 @@ class UI(QMainWindow):
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
 
-
     def publishBtnInit(self, str):
         msg = String()
         if str == runBtnInit:
@@ -444,6 +446,21 @@ class UI(QMainWindow):
         self.pub.publish(msg)
         return True
 
+# *************************************** Define Subscriber Functions ************************************** #
+
+    def subcriberNodeHandler(self, data):
+        if data.name == statusProjectorStr:
+            self.setStatusProjectorDisplay(data.str_value)
+        elif data.name == statusMotorStr:
+            self.setStatusMotorDisplay(data.str_value)
+        elif data.name == statusLevelStr:
+            self.setStatusLevelDisplay(data.str_value)
+        elif data.name == lcdRpmNum:
+            self.setLcdRpmDisplay(data.num_value)
+        elif data.name == lcdLevelNum:
+            self.setLcdLevelDisplay(data.num_value)
+        elif data.name == lcdParabolaNum:
+            self.setLcdParabolaDisplay(data.num_val)
 
 # *************************************** Define Subscriber Node function ************************************* #
     """
@@ -457,7 +474,7 @@ class UI(QMainWindow):
         statusProjector
         statusMotor
         statusLevel
-    
+
     QLCDNumber:
         lcdRpm
         lcdLevel
@@ -466,23 +483,28 @@ class UI(QMainWindow):
     """
 
     def exec_subNode(self):
-        pubNode = Node(subNodeStr)
-        subProjStatus = pubNode.create_subscription(
+        subNode = Node(subNodeStr)
+        sub = subNode.create_subscription(
+            DisplayData,
+            displayTopic,
+            self.subcriberNodeHandler, 10)
+
+        subProjStatus = subNode.create_subscription(
             String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
-        subMotorStatus = pubNode.create_subscription(
+        subMotorStatus = subNode.create_subscription(
             String, statusMotorStr, self.setStatusMotorDisplay, 10)
-        subLelelStatus = pubNode.create_subscription(
+        subLelelStatus = subNode.create_subscription(
             String, statusLevelStr, self.setStatusLevelDisplay, 10)
-        subRpm = pubNode.create_subscription(
+        subRpm = subNode.create_subscription(
             Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
-        subLevel = pubNode.create_subscription(
+        subLevel = subNode.create_subscription(
             Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
-        subParabola = pubNode.create_subscription(
+        subParabola = subNode.create_subscription(
             Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
-        subAccelVec = pubNode.create_subscription(
+        subAccelVec = subNode.create_subscription(
             Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
-        rclpy.spin(pubNode)
-        pubNode.destroy_node()
+        rclpy.spin(subNode)
+        subNode.destroy_node()
 
 # ******************************************* Helper Functions ******************************************** #
 
