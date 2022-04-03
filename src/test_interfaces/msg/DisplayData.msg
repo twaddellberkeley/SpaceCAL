@@ -1,3 +1,3 @@
-String name 
-String str_value
+string name 
+string str_value
 int32 num_value
