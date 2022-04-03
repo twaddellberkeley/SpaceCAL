@@ -34,8 +34,8 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_typesupport_c REQUIRED)
-
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
