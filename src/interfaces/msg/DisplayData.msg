@@ -1,3 +1,4 @@
-String name 
-String str_value
+header header
+string name 
+string str_value
 int32 num_value
