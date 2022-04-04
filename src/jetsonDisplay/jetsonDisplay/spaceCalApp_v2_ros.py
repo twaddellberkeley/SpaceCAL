@@ -509,20 +509,20 @@ class UI(QMainWindow):
             displayTopic,
             self.subcriberNodeHandler, 10)
 
-        subProjStatus = subNode.create_subscription(
-            String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
-        subMotorStatus = subNode.create_subscription(
-            String, statusMotorStr, self.setStatusMotorDisplay, 10)
-        subLelelStatus = subNode.create_subscription(
-            String, statusLevelStr, self.setStatusLevelDisplay, 10)
-        subRpm = subNode.create_subscription(
-            Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
-        subLevel = subNode.create_subscription(
-            Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
-        subParabola = subNode.create_subscription(
-            Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
-        subAccelVec = subNode.create_subscription(
-            Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
+        # subProjStatus = subNode.create_subscription(
+        #     String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
+        # subMotorStatus = subNode.create_subscription(
+        #     String, statusMotorStr, self.setStatusMotorDisplay, 10)
+        # subLelelStatus = subNode.create_subscription(
+        #     String, statusLevelStr, self.setStatusLevelDisplay, 10)
+        # subRpm = subNode.create_subscription(
+        #     Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
+        # subLevel = subNode.create_subscription(
+        #     Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
+        # subParabola = subNode.create_subscription(
+        #     Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
+        # subAccelVec = subNode.create_subscription(
+        #     Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
         rclpy.spin(subNode)
         subNode.destroy_node()
 
