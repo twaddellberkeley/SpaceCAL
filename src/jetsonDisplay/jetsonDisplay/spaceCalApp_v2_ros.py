@@ -435,7 +435,7 @@ class UI(QMainWindow):
             ####### publish motors "On" #######
             dis.name = statusMotorStr
             dis.str_value = motorStatusArr[0]
-            self.pubDisplay(dis)
+            self.pubDisplay.publish(dis)
         elif str == runBtnStart:
             msg.data = msgBtnInit_start
         elif str == runBtnStop:
@@ -451,13 +451,13 @@ class UI(QMainWindow):
             ####### publish projection "On" ########
             dis.name = statusProjectorStr
             dis.str_value = projStatusArr[0]
-            self.pubDisplay(dis)
+            self.pubDisplay.publish(dis)
         elif str == projectBtnStop:
             msg.data = msgBtnProject_stop
             ####### publish projection "Off" ########
             dis.name = statusProjectorStr
             dis.str_value = projStatusArr[1]
-            self.pubDisplay(dis)
+            self.pubDisplay.publish(dis)
         self.pub.publish(msg)
         return True
 
