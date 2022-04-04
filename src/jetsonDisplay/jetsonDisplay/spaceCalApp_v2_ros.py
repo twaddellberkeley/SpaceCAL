@@ -295,7 +295,6 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 # The following function define the logic for all button states in the gui
 
-
     def execBtnInit_init(self):
         # Set the message for the information text
         self.displayInfoMsg(initRunMsg)
@@ -349,8 +348,6 @@ class UI(QMainWindow):
                 print("Projector Started Succesfuly!!")
                 self.btnProject.setText(projectBtnStop)
                 self.btnPause.setEnabled(True)
-                ####### publish projection "On" #######
-                self.pubDisplay(projStatusArr[0])
 
     def execBtnProject_stop(self, displayMsg):
         msg = True
@@ -366,8 +363,6 @@ class UI(QMainWindow):
             if retPub == True:
                 print("Projector Stoped Succesfuly!!")
                 self.btnProject.setText(projectBtnStart)
-                # publish projection "Off"
-                self.pubDisplay(projStatusArr[1])
         if self.btnInit.text() == runBtnStart:
             self.btnPause.setEnabled(False)
 
@@ -402,30 +397,31 @@ class UI(QMainWindow):
 
     def setStatusProjectorDisplay(self, str):
         print(str)
-        self.statusProjector.setText(str.data)
+        self.statusProjector.setText(str)
 
     def setStatusMotorDisplay(self, str):
-        self.statusMotor.setText(str.data)
+        self.statusMotor.setText(str)
 
     def setStatusLevelDisplay(self, str):
-        self.statusLevel.setText(str.data)
+        self.statusLevel.setText(str)
 
     def setLcdRpmDisplay(self, num):
         print(num)
-        self.lcdRpm.display(num.data)
+        self.lcdRpm.display(num)
 
     def setLcdLevelDisplay(self, num):
-        self.lcdLevel.display(num.data)
+        self.lcdLevel.display(num)
 
     def setLcdParabolaDisplay(self, num):
-        self.lcdParabola.display(num.data)
+        self.lcdParabola.display(num)
 
     def setLcdAccelVectorDisplay(self, num):
-        self.lcdAccelVector.display(num.data)
+        self.lcdAccelVector.display(num)
 
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
 
     def publishBtnInit(self, str):
         msg = String()
