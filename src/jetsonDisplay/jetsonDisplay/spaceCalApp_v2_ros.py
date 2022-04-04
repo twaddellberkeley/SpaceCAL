@@ -33,6 +33,11 @@ optionBtn = "Options"
 pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
+# Display labels
+projStatusArr = ['On', 'Off', 'Loding...']
+motorStatusArr = ['On', 'Off']
+levelStatusArr = ['Leveled', 'Rising...', 'Lowering...', 'Home']
+
 ###### *********************** ROS2 Variables **************************** ######
 # ROS2 Nodes
 pubNodeStr = "buttons_node"
@@ -244,6 +249,8 @@ class UI(QMainWindow):
         rclpy.init(args=None)
         self.pubNode = Node(pubNodeStr)
         self.pub = self.pubNode.create_publisher(String, btnTopic, 10)
+        self.pubDisplay = self.pubNode.create_publisher(
+            String, displayTopic, 10)
 
         # creating a multithread pool
         self.threadpool = QThreadPool()
@@ -286,14 +293,13 @@ class UI(QMainWindow):
 
 
 # ******************************** Button Functionality Functions **************************************** #
-
 # The following function define the logic for all button states in the gui
 
 
     def execBtnInit_init(self):
         # Set the message for the information text
         self.displayInfoMsg(initRunMsg)
-        # Pubish to ros2 topic (Initialize Printing Process)
+        ####### Pubish to ros2 topic (Initialize Printing Process) #######
         retPub = self.publishBtnInit(runBtnInit)
         # verify that motors were set to home
         if retPub == True:
@@ -305,7 +311,7 @@ class UI(QMainWindow):
         # Set the message for the confirmation text
         retMsg = self.displayConfirmatonMsg(startRunMsg)
         if retMsg == QMessageBox.Ok:
-            # Publish to ros2 topic
+            ###### Publish to ros2 topic #######
             retPub = self.publishBtnInit(runBtnStart)
             # Confirm message was publish succesfully
             if retPub == True:
@@ -322,7 +328,7 @@ class UI(QMainWindow):
             # Confirm selection
             retMsg = self.displayConfirmatonMsg(confStopRunMsg)
             if retMsg == QMessageBox.Ok:
-                # Publish to ros2 topic
+                ####### Publish to ros2 topic #######
                 retPub = self.publishBtnInit(runBtnStop)
                 # Confirm message was publish succesfully
                 if retPub == True:
@@ -336,13 +342,15 @@ class UI(QMainWindow):
         # Set the message for the confirmation text
         retMsg = self.displayConfirmatonMsg(startProjectionMsg)
         if retMsg == QMessageBox.Ok:
-            # Publish to ros2 topic
+            ###### Publish to ros2 topic #######
             retPub = self.publishBtnProject(projectBtnStart)
             # Confirm message was publish succesfully
             if retPub == True:
                 print("Projector Started Succesfuly!!")
                 self.btnProject.setText(projectBtnStop)
                 self.btnPause.setEnabled(True)
+                ####### publish projection "On" #######
+                self.pubDisplay(projStatusArr[0])
 
     def execBtnProject_stop(self, displayMsg):
         msg = True
@@ -358,6 +366,8 @@ class UI(QMainWindow):
             if retPub == True:
                 print("Projector Stoped Succesfuly!!")
                 self.btnProject.setText(projectBtnStart)
+                # publish projection "Off"
+                self.pubDisplay(projStatusArr[1])
         if self.btnInit.text() == runBtnStart:
             self.btnPause.setEnabled(False)
 
@@ -419,8 +429,13 @@ class UI(QMainWindow):
 
     def publishBtnInit(self, str):
         msg = String()
+        dis = DisplayData()
         if str == runBtnInit:
             msg.data = msgBtnInit_init
+            ####### publish motors "On" #######
+            dis.name = statusMotorStr
+            dis.str_value = motorStatusArr[0]
+            self.pubDisplay(dis)
         elif str == runBtnStart:
             msg.data = msgBtnInit_start
         elif str == runBtnStop:
@@ -430,10 +445,19 @@ class UI(QMainWindow):
 
     def publishBtnProject(self, str):
         msg = String()
+        dis = DisplayData()
         if str == projectBtnStart:
             msg.data = msgBtnProject_start
+            ####### publish projection "On" ########
+            dis.name = statusProjectorStr
+            dis.str_value = projStatusArr[0]
+            self.pubDisplay(dis)
         elif str == projectBtnStop:
             msg.data = msgBtnProject_stop
+            ####### publish projection "Off" ########
+            dis.name = statusProjectorStr
+            dis.str_value = projStatusArr[1]
+            self.pubDisplay(dis)
         self.pub.publish(msg)
         return True
 
