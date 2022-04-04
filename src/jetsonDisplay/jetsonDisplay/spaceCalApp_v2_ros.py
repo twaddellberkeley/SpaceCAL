@@ -250,7 +250,7 @@ class UI(QMainWindow):
         self.pubNode = Node(pubNodeStr)
         self.pub = self.pubNode.create_publisher(String, btnTopic, 10)
         self.pubDisplay = self.pubNode.create_publisher(
-            String, displayTopic, 10)
+            DisplayData, displayTopic, 10)
 
         # creating a multithread pool
         self.threadpool = QThreadPool()
