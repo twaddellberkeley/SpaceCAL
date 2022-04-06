@@ -24,12 +24,16 @@ pauseAllMsg = "Would you like to pause all running proccesses?"
 pauseInfoMsg = "Press 'OK' to resume all proccesses"
 
 # Button string names:
+# btn 1
 runBtnInit = "Initialize Run"
 runBtnStart = "Start Run"
 runBtnStop = "Stop Run"
+# btn 2
 projectBtnStart = "Start Projection"
 projectBtnStop = "Stop Projection"
+# btn 3
 optionBtn = "Options"
+# btn 4
 pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
@@ -39,11 +43,12 @@ motorStatusArr = ['On', 'Off']
 levelStatusArr = ['Leveled', 'Rising...', 'Lowering...', 'Home']
 
 ###### *********************** ROS2 Variables **************************** ######
-# ROS2 Nodes
+# ROS2 Nodes names
 pubNodeStr = "buttons_node"
 subNodeStr = "display_node"
-# ROS2 Subscriber Topic names
+# ROS2 Subscriber Topic name
 displayTopic = "display_topic"
+# Display label names:
 statusProjectorStr = "projector_status"
 statusMotorStr = "motor_status"
 statusLevelStr = "level_status"
@@ -53,7 +58,7 @@ lcdParabolaNum = "parabola_display"
 lcdAccelVectorNum = "gravity_display"
 # ROS2 Publisher Topic name
 btnTopic = 'buttons_topic'
-# ROS2 Publishing mgs
+# ROS2 Publishing mgs for "buttons_topic"
 msgBtnInit_init = "motor_ok"
 msgBtnInit_start = "motor_ok"
 msgBtnInit_stop = "kill"
@@ -422,7 +427,6 @@ class UI(QMainWindow):
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
 
-
     def publishBtnInit(self, str):
         msg = String()
         dis = DisplayData()
@@ -481,6 +485,8 @@ class UI(QMainWindow):
             self.setLcdLevelDisplay(data.num_value)
         elif data.name == lcdParabolaNum:
             self.setLcdParabolaDisplay(data.num_val)
+        else:
+            print("No label with name: " + data.name)
 
 # *************************************** Define Subscriber Node function ************************************* #
     """
