@@ -17,7 +17,7 @@ public:
   //
   // string::string topic_name = "imu_topic";
 
-  MinimalPublisher()
+  ImuPublisher()
       : Node("imu_publisher"), count_(0)
   {
     publisher_ = this->create_publisher<std_msgs::msg::String>("imu_topic", 10);
