@@ -5,6 +5,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include "bno055_imu_pub/example.hpp"
 
 using namespace std::chrono_literals;
 
@@ -31,6 +32,7 @@ private:
     auto message = std_msgs::msg::String();
     message.data = "Hello, world! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
+    RCLCPP_INFO(this->get_logger(), "imu address: '%x' ", BNO055_ADDRESS_A)
     publisher_->publish(message);
   }
   rclcpp::TimerBase::SharedPtr timer_;
