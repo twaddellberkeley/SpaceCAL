@@ -20,7 +20,8 @@ class BagRecorder(Node):
         self.writer = rosbag2_py.SequentialWriter()
 
         # get current date to make unique bag
-        dt = "" + date.today().strftime("%b-%d-%Y") + datetime.now().strftime("%H:%M:%S")
+        dt = "" + date.today().strftime("%b-%d-%Y") + "/" + \
+            datetime.now().strftime("%H:%M:%S")
         print("d4 =" + dt)
         storage_options = rosbag2_py._storage.StorageOptions(
             uri='my_bags/' + dt,
