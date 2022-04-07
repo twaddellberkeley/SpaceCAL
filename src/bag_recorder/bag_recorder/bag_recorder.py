@@ -48,6 +48,8 @@ class BagRecorder(Node):
     def topic_callback(self, msg):
         for topic in self.topicList:
             print(type(msg) == type(topic[2]))
+            print(type(msg))
+            print(type(topic[2]))
             if type(msg) == type(topic[2]):
                 self.writer.write(
                     topic[0],
