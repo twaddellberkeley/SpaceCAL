@@ -10,6 +10,8 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 
 add_executable(imu_node src/imu_node.cpp)
 target_include_directories(imu_node PUBLIC
