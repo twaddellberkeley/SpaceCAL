@@ -3,7 +3,7 @@ from rclpy.node import Node
 from rclpy.serialization import serialize_message
 from std_msgs.msg import String
 from interfaces.msg import DisplayData, MotorData
-from datetime import date, datetime, time
+from datetime import date, datetime
 
 import rosbag2_py
 
@@ -20,7 +20,7 @@ class BagRecorder(Node):
         self.writer = rosbag2_py.SequentialWriter()
 
         # get current date to make unique bag
-        dt = "" + date.today().strftime("%b-%d-%Y") + "-" + time.time()
+        dt = "" + date.today().strftime("%b-%d-%Y") + datetime.now().strftime("%H:%M:%S")
         print("d4 =" + dt)
         storage_options = rosbag2_py._storage.StorageOptions(
             uri='my_bags/' + dt,
