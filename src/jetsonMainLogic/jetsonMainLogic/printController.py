@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-#Node that will recognize prints in the queue, and print accordingly
+# Node that will recognize prints in the queue, and print accordingly
 # Author: Taylor Waddell
 import rclpy
 from rclpy.node import Node
@@ -32,37 +32,35 @@ from threading import Event
 import json
 import os
 
-#Subscribe: What to print, where to print it, how fast to rotate, how long to print
+# Subscribe: What to print, where to print it, how fast to rotate, how long to print
 
-#Publish: Where to go to print, how fast to rotate the motor, what to print
-
-
+# Publish: Where to go to print, how fast to rotate the motor, what to print
 
 
 class printQueueClass(Node):
 
-    #Data Class to send to pi to print
+    # Data Class to send to pi to print
     @dataclass
     class printDataClass:
         speed: int
         length: int
         name: str
         printernum: int
-    
-    #Data class to send where to move
-    @dataclass 
+
+    # Data class to send where to move
+    @dataclass
     class baseMove:
         printNum: int
         maxTime: int
         printHeight: int
         printdata: list
 
-    #Print queue to move base 
+    # Print queue to move base
     printQ = queue.Queue()
-    #Var that allows print process to start
+    # Var that allows print process to start
     okToRun = False
 
-    #Global Checkup Vars
+    # Global Checkup Vars
     cSpeed = [-1] * 9
     cLoc = [-1] * 9
     cStatus = [-1] * 9
@@ -75,44 +73,51 @@ class printQueueClass(Node):
 
     # Converstion bits
     # incrBit = 51200 # Is one rotation or one inch
-    incrBit = 1280 # Is 1mm per bit unit
+    incrBit = 1280  # Is 1mm per bit unit
 
     # Step veloicty to achieve 1rot/min
-    velBit = 1024000000/60 # Max 500000000
+    velBit = 1024000000/60  # Max 500000000
 
     # Decoded JSON print set
     printSet = None
 
-    #Thread event
+    # Thread event
     tEvent = Event()
 
     def __init__(self):
         super().__init__('queueClass')
-        #publishers
+        # publishers
 
-        #Motors for moving base
-        self.motorLocPublisher = self.create_publisher(Int32, 'setPosition', 10)
+        # Motors for moving base
+        self.motorLocPublisher = self.create_publisher(
+            Int32, 'setPosition', 10)
         self.motorLocPublisher
-        
-        #publishers for sending velecotiy
-        self.motorVelPublisherV1 = self.create_publisher(Int32, 'setVelocityV1', 10)
+
+        # publishers for sending velecotiy
+        self.motorVelPublisherV1 = self.create_publisher(
+            Int32, 'setVelocityV1', 10)
         self.motorVelPublisherV1
 
-        self.motorVelPublisherV2 = self.create_publisher(Int32, 'setVelocityV2', 10)
+        self.motorVelPublisherV2 = self.create_publisher(
+            Int32, 'setVelocityV2', 10)
         self.motorVelPublisherV2
 
-        self.motorVelPublisherV3 = self.create_publisher(Int32, 'setVelocityV3', 10)
+        self.motorVelPublisherV3 = self.create_publisher(
+            Int32, 'setVelocityV3', 10)
         self.motorVelPublisherV3
 
-        self.motorVelPublisherV4 = self.create_publisher(Int32, 'setVelocityV4', 10)
+        self.motorVelPublisherV4 = self.create_publisher(
+            Int32, 'setVelocityV4', 10)
         self.motorVelPublisherV4
 
-        self.motorVelPublisherV5 = self.create_publisher(Int32, 'setVelocityV5', 10)
+        self.motorVelPublisherV5 = self.create_publisher(
+            Int32, 'setVelocityV5', 10)
         self.motorVelPublisherV5
 
-        self.velocityPublishers = [self.motorVelPublisherV1,self.motorVelPublisherV2,self.motorVelPublisherV3,self.motorVelPublisherV4,self.motorVelPublisherV5]
+        self.velocityPublishers = [self.motorVelPublisherV1, self.motorVelPublisherV2,
+                                   self.motorVelPublisherV3, self.motorVelPublisherV4, self.motorVelPublisherV5]
 
-        #publishers for sending video
+        # publishers for sending video
         self.videoSendV1 = self.create_publisher(String, 'videoNameV1', 10)
         self.videoSendV1
 
@@ -128,11 +133,13 @@ class printQueueClass(Node):
         self.videoSendV5 = self.create_publisher(String, 'videoNameV5', 10)
         self.videoSendV5
 
-        self.videoPublishers = [self.videoSendV1,self.videoSendV2,self.videoSendV3,self.videoSendV4,self.videoSendV5]
+        self.videoPublishers = [self.videoSendV1, self.videoSendV2,
+                                self.videoSendV3, self.videoSendV4, self.videoSendV5]
 
         # subscribers
         # Motor data subscriber
-        self.motorDataSubscriber = self.create_subscription(MotorData, 'motorData', self.getMotorData, 10)
+        self.motorDataSubscriber = self.create_subscription(
+            MotorData, 'motorData', self.getMotorData, 10)
         # Keyboard input subscriber
         self.touchInputSubscriber = self.create_subscription(
             String,
@@ -141,18 +148,18 @@ class printQueueClass(Node):
             10)
         self.touchInputSubscriber
         # Thread to send base change too
-        #Read the print file
+        # Read the print file
         self.readPrintFile()
         self.okToRun = False
         self.startProjection = False
         self.killProjection = False
         self.pauseAll = False
         qThread = Thread(target=self.qPrint, args=())
-        #qThread.daemon=True
+        # qThread.daemon=True
         qThread.start()
 
     # Get variables from everything
-    # Get custom message from the motor, index info in its array, its 
+    # Get custom message from the motor, index info in its array, its
     # motornum is its address
     def getMotorData(self, msg):
         self.cSpeed[msg.motornum - self.mOffset] = msg.speed
@@ -162,9 +169,9 @@ class printQueueClass(Node):
 
     def readPrintFile(self):
         # TODO create solid path for this
-        #script_dir = os.path.dirname(__file__)
-        #file = open(script_dir + "/printTest.json")
-        file = open("/home/spacecal/Desktop/printTest.json")
+        script_dir = os.path.dirname(__file__)
+        file = open(script_dir + "/printTest.json")
+        # file = open("/home/spacecal/Desktop/printTest.json")
         data = json.load(file)
         # Loop through JSON and create object for each print set
         for val in data:
@@ -174,37 +181,37 @@ class printQueueClass(Node):
                     val['maxTime'],
                     val['printHeight'],
                     val['prints']
-                )    
+                )
                 self.printQ.put(printData)
             else:
-                #If -1 then we must home
+                # If -1 then we must home
                 self.printQ.put(-1)
 
-    #Subscribe to touchscreen variables
-    def touchScreenHandler(self,msg):
-        if (msg.data =="stop_proj"):
+    # Subscribe to touchscreen variables
+    def touchScreenHandler(self, msg):
+        if (msg.data == "stop_proj"):
             self.killProjection = True
-        elif (msg.data =="start_proj"):
+        elif (msg.data == "start_proj"):
             self.startProjection = True
-        elif (msg.data =="motor_ok"):
+        elif (msg.data == "motor_ok"):
             self.okToRun = True
-        elif (msg.data =="pause"):
+        elif (msg.data == "pause"):
             self.pauseAll = True
-        elif (msg.data =="options"):
+        elif (msg.data == "options"):
             self.options = True
 
-    #Loop for printing EVERYTHING
+    # Loop for printing EVERYTHING
     def qPrint(self):
         global printSet
-        #Value for message later
+        # Value for message later
         vel = Int32()
-        #Location to go to publish
+        # Location to go to publish
         loc = Int32()
-        #Keep running while alive
+        # Keep running while alive
         while rclpy.ok():
-            #Keep running until there is not a print to go, only run if it is safe
+            # Keep running until there is not a print to go, only run if it is safe
             while (not self.printQ.empty() and self.okToRun == True):
-                #Get the current print job in queue
+                # Get the current print job in queue
                 printSet = self.printQ.get()
                 # Wait for motors to be good and online
                 for val in range(len(self.cStatus)):
@@ -214,17 +221,18 @@ class printQueueClass(Node):
                         pass
                 # Go Home
                 if(printSet == -1):
-                    #Go home, do this by sending -1 to distance
+                    # Go home, do this by sending -1 to distance
                     loc.data = printSet
                     print("Homing")
                     self.motorLocPublisher.publish(loc)
-                    #Wait for home to complete from all mototrs, need this line as it sometimes jumps ahead
+                    # Wait for home to complete from all mototrs, need this line as it sometimes jumps ahead
                     time.sleep(1)
                     for val in range(4):
                         print(str(val) + "Flag num " + str(self.cFlags[val]))
                         while ((self.cFlags[val] & 0x10) == 0x10 or (self.cFlags[val] & 0x02) == 0x02):
                             time.sleep(.1)
-                            if(self.okToRun == False): break
+                            if(self.okToRun == False):
+                                break
                             pass
                         # If postion is uncertain than something bad has happened
                         if ((self.cFlags[val] & 0x02) == 1):
@@ -233,7 +241,8 @@ class printQueueClass(Node):
                 # Begin printing normal printer data
                 else:
                     if (printSet.printNum > 0):
-                        print("Starting print number: " + str(printSet.printNum))
+                        print("Starting print number: " +
+                              str(printSet.printNum))
                     else:
                         print("Returning to 0")
                     # Max height we can go
@@ -242,41 +251,46 @@ class printQueueClass(Node):
                     loc.data = printSet.printHeight
                     print("running to height" + str(printSet.printHeight))
                     self.motorLocPublisher.publish(loc)
-                    #Wait till all motors are at correct height before starting projections
+                    # Wait till all motors are at correct height before starting projections
                     for val in range(4):
                         while(round(self.cLoc[val]) != round(printSet.printHeight * self.incrBit)):
-                            if(self.okToRun == False): break
+                            if(self.okToRun == False):
+                                break
                             pass
                     if (printSet.printNum > 0):
-                        #Loop through and and thread to prep print each print on current set
+                        # Loop through and and thread to prep print each print on current set
                         for val in printSet.printdata:
-                            qThread = Thread(target=self.readyPart, args=([val]))
-                            qThread.daemon=True
+                            qThread = Thread(
+                                target=self.readyPart, args=([val]))
+                            qThread.daemon = True
                             qThread.start()
-                        # Set up each video, but do not display            
+                        # Set up each video, but do not display
                         # Wait for user input to display
                         while (not self.startProjection):
-                            if(self.okToRun == False): break
+                            if(self.okToRun == False):
+                                break
                             pass
-                        #Unset variable for next time
+                        # Unset variable for next time
                         self.startProjection = False
                         # Loop through and turn projectors on
                         for val in printSet.printdata:
-                            #print(val)
-                            qThread = Thread(target=self.projectorOn, args=([val]))
-                            qThread.daemon=True
+                            # print(val)
+                            qThread = Thread(
+                                target=self.projectorOn, args=([val]))
+                            qThread.daemon = True
                             qThread.start()
-                        #Wait the max display time before movingW
+                        # Wait the max display time before movingW
                         while not self.tEvent.is_set():
                             self.tEvent.wait(timeout=printSet.maxTime)
                             self.tEvent.set()
-                        #Unset the event for next time
+                        # Unset the event for next time
                         self.tEvent.clear()
-                        if(self.okToRun == False): break
+                        if(self.okToRun == False):
+                            break
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False
-                        #Set all rotation to 0
+                        # Set all rotation to 0
                         for velPublisher in self.velocityPublishers:
                             vel.data = 0
                             velPublisher.publish(vel)
@@ -296,19 +310,19 @@ class printQueueClass(Node):
                 self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
 
-
     # Set all projector LEDs to 0
+
     def killProjection(self):
         video = String()
         video.data = "EXIT"
         for val in videoPublishers:
             val.publish(video)
 
+    # Send video to project and get up to speed
 
-    
-    #Send video to project and get up to speed
     def readyPart(self, printData):
-        print("Printing: " + str(printData['videoName']) + " on projector" + str(printData['projNum']))
+        print("Printing: " + str(printData['videoName']) +
+              " on projector" + str(printData['projNum']))
         # Set publish types
         vel = Int32()
         video = String()
@@ -320,7 +334,7 @@ class printQueueClass(Node):
         print(video.data)
         self.videoPublishers[printData['projNum'] - 1].publish(video)
 
-    def projectorOn(self,printData):
+    def projectorOn(self, printData):
         video = String()
         video.data = "PRINT"
         self.videoPublishers[printData['projNum'] - 1].publish(video)
@@ -332,9 +346,6 @@ class printQueueClass(Node):
         video.data = "EXIT"
         # Kill Projection
         self.videoPublishers[printData['projNum'] - 1].publish(video)
-
-
-
 
 
 def main(args=None):
