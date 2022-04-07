@@ -3,6 +3,7 @@ from rclpy.node import Node
 from rclpy.serialization import serialize_message
 from std_msgs.msg import String
 from interfaces.msg import DisplayData, MotorData
+from datetime import date
 
 import rosbag2_py
 
@@ -18,8 +19,11 @@ class BagRecorder(Node):
         super().__init__('bag_recorder')
         self.writer = rosbag2_py.SequentialWriter()
 
+        # get current date to make unique bag
+        d4 = date.today().strftime("%b-%d-%Y")
+        print("d4 =", d4)
         storage_options = rosbag2_py._storage.StorageOptions(
-            uri='my_bag',
+            uri='my_bags/' + d4,
             storage_id='sqlite3')
         converter_options = rosbag2_py._storage.ConverterOptions('', '')
         self.writer.open(storage_options, converter_options)
@@ -43,7 +47,7 @@ class BagRecorder(Node):
 
     def topic_callback(self, msg):
         for topic in self.topicList:
-            if type(msg) == topic[2]:
+            if type(msg) == type(topic[2]):
                 self.writer.write(
                     topic[0],
                     serialize_message(msg),
