@@ -14,6 +14,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
 add_executable(imu_node src/imu_node.cpp)
+ament_target_dependencies(imu_node rclcpp std_msgs)
 target_include_directories(imu_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
