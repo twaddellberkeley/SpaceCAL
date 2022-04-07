@@ -10,7 +10,7 @@
   {
     "printNum" : 1,
     "maxTime": 120,
-    "printHeight" : 10,
+    "printHeight" : 8,
     "prints" : [{
       "projNum" : 1,
       "printSpeed" : 6,
@@ -43,42 +43,7 @@
       }
     ]
   },
-  {
-    "printNum" : 2,
-    "maxTime": 30,
-    "printHeight" : 20,
-    "prints" : [{
-      "projNum" : 1,
-      "printSpeed" : 5,
-      "videoName" : "test.mp4",
-      "printTime": 10
-      },
-      {
-      "projNum" : 2,
-      "printSpeed" : 30,
-      "videoName" : "test2.mp4",
-      "printTime": 20
-      },
-      {
-      "projNum" : 3,
-      "printSpeed" : 5,
-      "videoName" : "test.mp4",
-      "printTime": 30
-      },
-      {
-      "projNum" : 4,
-      "printSpeed" : 10,
-      "videoName" : "test1.mp4",
-      "printTime": 10  
-      },
-      {
-      "projNum" : 5,
-      "printSpeed" : 15,
-      "videoName" : "test3.mp4",
-      "printTime": 10
-      }
-    ]
-  },
+  
   {
     "printNum" : 0,
     "maxTime": 0,

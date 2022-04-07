@@ -11,6 +11,7 @@ import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
+from interfaces.msg import DisplayData
 
 # QMessageBox messages text for setText
 initRunMsg = "Motors will be set to home position!"
@@ -23,20 +24,31 @@ pauseAllMsg = "Would you like to pause all running proccesses?"
 pauseInfoMsg = "Press 'OK' to resume all proccesses"
 
 # Button string names:
+# btn 1
 runBtnInit = "Initialize Run"
 runBtnStart = "Start Run"
 runBtnStop = "Stop Run"
+# btn 2
 projectBtnStart = "Start Projection"
 projectBtnStop = "Stop Projection"
+# btn 3
 optionBtn = "Options"
+# btn 4
 pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
+# Display labels
+projStatusArr = ['On', 'Off', 'Loding...']
+motorStatusArr = ['On', 'Off']
+levelStatusArr = ['Leveled', 'Rising...', 'Lowering...', 'Home']
+
 ###### *********************** ROS2 Variables **************************** ######
-# ROS2 Nodes
+# ROS2 Nodes names
 pubNodeStr = "buttons_node"
 subNodeStr = "display_node"
-# ROS2 Subscriber Topic names
+# ROS2 Subscriber Topic name
+displayTopic = "display_topic"
+# Display label names:
 statusProjectorStr = "projector_status"
 statusMotorStr = "motor_status"
 statusLevelStr = "level_status"
@@ -44,11 +56,11 @@ lcdRpmNum = "rpm_display"
 lcdLevelNum = "level_display"
 lcdParabolaNum = "parabola_display"
 lcdAccelVectorNum = "gravity_display"
-# ROS2 Publish Topic name
+# ROS2 Publisher Topic name
 btnTopic = 'buttons_topic'
-# ROS2 Publish mgs
-msgBtnInit_init = "init"
-msgBtnInit_start = "start_motors"
+# ROS2 Publishing mgs for "buttons_topic"
+msgBtnInit_init = "motor_ok"
+msgBtnInit_start = "motor_ok"
 msgBtnInit_stop = "kill"
 msgBtnProject_start = "start_proj"
 msgBtnProject_stop = "stop_proj"
@@ -120,7 +132,7 @@ QMessageBox {
 msgStyleSheet = """
 
 QLabel {
-    font-size: 30px; 
+    font-size: 30px;
     text-align:center;
 }
 QWidget icon{
@@ -201,7 +213,7 @@ class UI(QMainWindow):
             statusProjector
             statusMotor
             statusLevel
-        
+
         QLCDNumber:
             lcdRpm
             lcdLevel
@@ -237,11 +249,13 @@ class UI(QMainWindow):
         print(self.msgInfo.buttons()[0].text())
         # self.show()
 
-        ###### ROS2 init #####
+        ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
         rclpy.init(args=None)
-        self.node = Node(pubNodeStr)
-        self.pub = self.node.create_publisher(String, btnTopic, 10)
+        self.pubNode = Node(pubNodeStr)
+        self.pub = self.pubNode.create_publisher(String, btnTopic, 10)
+        self.pubDisplay = self.pubNode.create_publisher(
+            DisplayData, displayTopic, 10)
 
         # creating a multithread pool
         self.threadpool = QThreadPool()
@@ -284,13 +298,12 @@ class UI(QMainWindow):
 
 
 # ******************************** Button Functionality Functions **************************************** #
-
 # The following function define the logic for all button states in the gui
 
     def execBtnInit_init(self):
         # Set the message for the information text
         self.displayInfoMsg(initRunMsg)
-        # Pubish to ros2 topic (Initialize Printing Process)
+        ####### Pubish to ros2 topic (Initialize Printing Process) #######
         retPub = self.publishBtnInit(runBtnInit)
         # verify that motors were set to home
         if retPub == True:
@@ -302,7 +315,7 @@ class UI(QMainWindow):
         # Set the message for the confirmation text
         retMsg = self.displayConfirmatonMsg(startRunMsg)
         if retMsg == QMessageBox.Ok:
-            # Publish to ros2 topic
+            ###### Publish to ros2 topic #######
             retPub = self.publishBtnInit(runBtnStart)
             # Confirm message was publish succesfully
             if retPub == True:
@@ -319,7 +332,7 @@ class UI(QMainWindow):
             # Confirm selection
             retMsg = self.displayConfirmatonMsg(confStopRunMsg)
             if retMsg == QMessageBox.Ok:
-                # Publish to ros2 topic
+                ####### Publish to ros2 topic #######
                 retPub = self.publishBtnInit(runBtnStop)
                 # Confirm message was publish succesfully
                 if retPub == True:
@@ -333,7 +346,7 @@ class UI(QMainWindow):
         # Set the message for the confirmation text
         retMsg = self.displayConfirmatonMsg(startProjectionMsg)
         if retMsg == QMessageBox.Ok:
-            # Publish to ros2 topic
+            ###### Publish to ros2 topic #######
             retPub = self.publishBtnProject(projectBtnStart)
             # Confirm message was publish succesfully
             if retPub == True:
@@ -389,36 +402,40 @@ class UI(QMainWindow):
 
     def setStatusProjectorDisplay(self, str):
         print(str)
-        self.statusProjector.setText(str.data)
+        self.statusProjector.setText(str)
 
     def setStatusMotorDisplay(self, str):
-        self.statusMotor.setText(str.data)
+        self.statusMotor.setText(str)
 
     def setStatusLevelDisplay(self, str):
-        self.statusLevel.setText(str.data)
+        self.statusLevel.setText(str)
 
     def setLcdRpmDisplay(self, num):
         print(num)
-        self.lcdRpm.display(num.data)
+        self.lcdRpm.display(num)
 
     def setLcdLevelDisplay(self, num):
-        self.lcdLevel.display(num.data)
+        self.lcdLevel.display(num)
 
     def setLcdParabolaDisplay(self, num):
-        self.lcdParabola.display(num.data)
+        self.lcdParabola.display(num)
 
     def setLcdAccelVectorDisplay(self, num):
-        self.lcdAccelVector.display(num.data)
+        self.lcdAccelVector.display(num)
 
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
 
-
     def publishBtnInit(self, str):
         msg = String()
+        dis = DisplayData()
         if str == runBtnInit:
             msg.data = msgBtnInit_init
+            ####### publish motors "On" #######
+            dis.name = statusMotorStr
+            dis.str_value = motorStatusArr[0]
+            self.pubDisplay.publish(dis)
         elif str == runBtnStart:
             msg.data = msgBtnInit_start
         elif str == runBtnStop:
@@ -428,10 +445,19 @@ class UI(QMainWindow):
 
     def publishBtnProject(self, str):
         msg = String()
+        dis = DisplayData()
         if str == projectBtnStart:
             msg.data = msgBtnProject_start
+            ####### publish projection "On" ########
+            dis.name = statusProjectorStr
+            dis.str_value = projStatusArr[0]
+            self.pubDisplay.publish(dis)
         elif str == projectBtnStop:
             msg.data = msgBtnProject_stop
+            ####### publish projection "Off" ########
+            dis.name = statusProjectorStr
+            dis.str_value = projStatusArr[1]
+            self.pubDisplay.publish(dis)
         self.pub.publish(msg)
         return True
 
@@ -444,8 +470,25 @@ class UI(QMainWindow):
         self.pub.publish(msg)
         return True
 
+# *************************************** Define Subscriber Functions ************************************** #
 
-# *************************************** Define Subscriber Functions ************************************* #
+    def subcriberNodeHandler(self, data):
+        if data.name == statusProjectorStr:
+            self.setStatusProjectorDisplay(data.str_value)
+        elif data.name == statusMotorStr:
+            self.setStatusMotorDisplay(data.str_value)
+        elif data.name == statusLevelStr:
+            self.setStatusLevelDisplay(data.str_value)
+        elif data.name == lcdRpmNum:
+            self.setLcdRpmDisplay(data.num_value)
+        elif data.name == lcdLevelNum:
+            self.setLcdLevelDisplay(data.num_value)
+        elif data.name == lcdParabolaNum:
+            self.setLcdParabolaDisplay(data.num_val)
+        else:
+            print("No label with name: " + data.name)
+
+# *************************************** Define Subscriber Node function ************************************* #
     """
     QPushButton:
         btnInit
@@ -457,7 +500,7 @@ class UI(QMainWindow):
         statusProjector
         statusMotor
         statusLevel
-    
+
     QLCDNumber:
         lcdRpm
         lcdLevel
@@ -466,23 +509,28 @@ class UI(QMainWindow):
     """
 
     def exec_subNode(self):
-        node = Node(subNodeStr)
-        subProjStatus = node.create_subscription(
-            String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
-        subMotorStatus = node.create_subscription(
-            String, statusMotorStr, self.setStatusMotorDisplay, 10)
-        subLelelStatus = node.create_subscription(
-            String, statusLevelStr, self.setStatusLevelDisplay, 10)
-        subRpm = node.create_subscription(
-            Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
-        subLevel = node.create_subscription(
-            Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
-        subParabola = node.create_subscription(
-            Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
-        subAccelVec = node.create_subscription(
-            Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
-        rclpy.spin(node)
-        node.destroy_node()
+        subNode = Node(subNodeStr)
+        sub = subNode.create_subscription(
+            DisplayData,
+            displayTopic,
+            self.subcriberNodeHandler, 10)
+
+        # subProjStatus = subNode.create_subscription(
+        #     String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
+        # subMotorStatus = subNode.create_subscription(
+        #     String, statusMotorStr, self.setStatusMotorDisplay, 10)
+        # subLelelStatus = subNode.create_subscription(
+        #     String, statusLevelStr, self.setStatusLevelDisplay, 10)
+        # subRpm = subNode.create_subscription(
+        #     Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
+        # subLevel = subNode.create_subscription(
+        #     Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
+        # subParabola = subNode.create_subscription(
+        #     Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
+        # subAccelVec = subNode.create_subscription(
+        #     Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
+        rclpy.spin(subNode)
+        subNode.destroy_node()
 
 # ******************************************* Helper Functions ******************************************** #
 
