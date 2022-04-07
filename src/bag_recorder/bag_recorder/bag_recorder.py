@@ -35,11 +35,11 @@ class BagRecorder(Node):
             self.writer.create_topic(topic_info)
 
             # create topic subscriber
-            self.subList[index] = self.create_subscription(
+            self.subList.append(self.create_subscription(
                 topic[2],  # ROS2 message type
                 topic[0],  # Topic name
                 self.topic_callback,
-                10)
+                10))
 
     def topic_callback(self, msg):
         for topic in self.topicList:
