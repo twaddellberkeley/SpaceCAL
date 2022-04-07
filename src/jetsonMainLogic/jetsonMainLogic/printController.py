@@ -168,7 +168,7 @@ class printQueueClass(Node):
         self.cFlags[msg.motornum - self.mOffset] = msg.flags
 
     def readPrintFile(self):
-        # TODO create solid path for this
+        # TODO create solid path for this DONE!!!
         script_dir = os.path.dirname(__file__)
         file = open(script_dir + "/printTest.json")
         # file = open("/home/spacecal/Desktop/printTest.json")
