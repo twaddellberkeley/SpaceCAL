@@ -20,10 +20,11 @@ public:
   // string::string topic_name = "imu_topic";
 
   ImuPublisher()
-      : Node("imu_publisher"), imu_fusion_("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS), imu_raw_("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO), count_(0)
+      : Node("imu_publisher"),
+        imu_fusion_("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS),
+        imu_raw_("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO),
+        count_(0)
   {
-    // imu_fusion_ = bno055_imu::BNO055Driver("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS);
-    // imu_raw_ = bno055_imu::BNO055Driver("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO);
     imu_fusion_.init();
     imu_raw_.init();
 
