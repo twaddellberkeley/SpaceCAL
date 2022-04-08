@@ -40,6 +40,7 @@
 
 #include "smbus_func.h"
 
+#include "std_msgs/msg/string.hpp"
 #include "interfaces/msg/MotorData.hpp"
 #include "interfaces/msg/FusionImu.hpp"
 #include "interfaces/msg/RawImu.hpp"
