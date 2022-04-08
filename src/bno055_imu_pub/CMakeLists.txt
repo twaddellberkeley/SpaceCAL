@@ -14,6 +14,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(interfaces REQUIRED)
 
 
 add_executable(imu_node src/imu_node.cpp src/bno055_driver.cpp)
