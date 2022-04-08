@@ -35,19 +35,19 @@ if(BUILD_TESTING)
 endif()
 
 find_package(builtin_interfaces REQUIRED)
-# find_package(std_msgs REQUIRED)
-# find_package(geometry_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(rosidl_typesupport_c REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   msg/MotorData.msg
   msg/DisplayData.msg
-  # msg/FusionImu.msg
-  # msg/RawImu.msg
+  msg/FusionImu.msg
+  msg/RawImu.msg
   DEPENDENCIES builtin_interfaces
-  # std_msgs  # Or other packages containing msgs
-  # geometry_msgs
+  std_msgs  # Or other packages containing msgs
+  geometry_msgs
  )
 ament_package()
 
