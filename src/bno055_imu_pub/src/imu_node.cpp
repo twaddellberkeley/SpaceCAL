@@ -40,8 +40,8 @@ public:
 private:
   rclcpp::TimerBase::SharedPtr fusion_timer_;
   rclcpp::TimerBase::SharedPtr raw_timer_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr fusion_publisher_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr raw_publisher_;
+  rclcpp::Publisher<interfaces::msg::FusionImu>::SharedPtr fusion_publisher_;
+  rclcpp::Publisher<interfaces::msg::RawImu>::SharedPtr raw_publisher_;
   size_t count_;
 
   void fusion_callback()
