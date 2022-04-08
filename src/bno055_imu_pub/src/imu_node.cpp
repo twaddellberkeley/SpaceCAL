@@ -38,6 +38,11 @@ public:
   bno055_imu::BNO055Driver imu_raw_;
 
 private:
+  rclcpp::TimerBase::SharedPtr fusion_timer_;
+  rclcpp::TimerBase::SharedPtr raw_timer_;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr fusion_publisher_;
+  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr raw_publisher_;
+  size_t count_;
   void fusion_callback()
   {
     auto message = std_msgs::msg::String();
@@ -55,12 +60,6 @@ private:
     RCLCPP_INFO(this->get_logger(), "imu address: '%x' ", BNO055_ADDRESS_DEFAULT);
     raw_publisher_->publish(message);
   }
-
-  rclcpp::TimerBase::SharedPtr fusion_timer_;
-  rclcpp::TimerBase::SharedPtr raw_timer_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr fusion_publisher_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr raw_publisher_;
-  size_t count_;
 };
 
 int main(int argc, char *argv[])
