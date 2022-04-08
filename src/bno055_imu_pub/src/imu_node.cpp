@@ -5,7 +5,6 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "bno055_imu_pub/example.hpp"
 #include "bno055_imu_pub/bno055_driver.hpp"
 
 using namespace std::chrono_literals;
