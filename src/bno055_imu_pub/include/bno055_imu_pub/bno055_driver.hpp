@@ -41,8 +41,8 @@
 #include "smbus_func.h"
 
 #include "std_msgs/msg/string.hpp"
-#include "interfaces/msg/MotorData.hpp"
 #include "interfaces/msg/fusionImu.hpp"
+#include "interfaces/msg/MotorData.hpp"
 #include "interfaces/msg/rawImu.hpp"
 
 /** BNO055 Address Alternative **/
