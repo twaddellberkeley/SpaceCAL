@@ -68,7 +68,7 @@ namespace bno055_imu
         // Set the device to fusion imu mode
         set_opmode(_opmode);
 
-        ROS_INFO_STREAM("BNO055 imu sensor was succesfully initiated.");
+        RCLCPP_INFO("BNO055 imu sensor was succesfully initiated.");
     }
 
     /**
@@ -79,12 +79,12 @@ namespace bno055_imu
     {
         uint8_t bno055_id = read8(BNO055_CHIP_ID_ADDR);
         set_opmode(OPERATION_MODE_CONFIG);
-        ROS_INFO_STREAM("reseting chip");
+        RCLCPP_INFO("reseting chip");
         write8(BNO055_SYS_TRIGGER_ADDR, 0x20);
 
         /** Wait for the chip to restart **/
         std::this_thread::sleep_for(std::chrono::milliseconds(800));
-        ROS_INFO_STREAM("after 800 millisecods.");
+        RCLCPP_INFO("after 800 millisecods.");
         if (bno055_id != read8(BNO055_CHIP_ID_ADDR))
         {
             throw std::runtime_error("Could not reset chip");
