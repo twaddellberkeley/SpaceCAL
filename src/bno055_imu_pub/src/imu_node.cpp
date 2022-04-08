@@ -21,8 +21,8 @@ public:
         imu_raw_("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO),
         count_(0)
   {
-    // imu_fusion_.init();
-    // imu_raw_.init();
+    imu_fusion_.init();
+    imu_raw_.init();
 
     fusion_publisher_ = this->create_publisher<interfaces::msg::FusionImu>("fusion_imu_topic", 10);
     raw_publisher_ = this->create_publisher<interfaces::msg::RawImu>("raw_imu_topic", 10);
@@ -48,7 +48,7 @@ private:
     fusion_data.euler_angles.x = (double)10.9090;
     message.data = "Fusion data! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
-    // imu_fusion_.read_imu_data(fusion_data);
+    imu_fusion_.read_imu_data(fusion_data);
     RCLCPP_INFO(this->get_logger(), "imu address: '%x' ", BNO055_ADDRESS_A);
     fusion_publisher_->publish(fusion_data);
   }
@@ -60,7 +60,7 @@ private:
     raw_data.acceleration.x = (double)100.90;
     message.data = "Raw data! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
-    // imu_raw_.read_imu_data_raw(raw_data);
+    imu_raw_.read_imu_data_raw(raw_data);
     RCLCPP_INFO(this->get_logger(), "imu address: '%x' ", BNO055_ADDRESS_DEFAULT);
     raw_publisher_->publish(raw_data);
   }
