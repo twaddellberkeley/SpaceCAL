@@ -1,4 +1,4 @@
-std_msgs/Header header
-geometry_msgs/Vector3 acceleration
-geometry_msgs/Vector3 magnetometer
-geometry_msgs/Vector3 angular_velocity
+header header
+vector3 acceleration
+vector3 magnetometer
+vector3 angular_velocity
