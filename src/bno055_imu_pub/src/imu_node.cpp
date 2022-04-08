@@ -54,8 +54,8 @@ private:
     raw_publisher_->publish(message);
   }
 
-  bno055_imu::BNO055Driver imu_fusion_("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS);
-  bno055_imu::BNO055Driver imu_raw_("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO);
+  bno055_imu::BNO055Driver imu_fusion_;
+  bno055_imu::BNO055Driver imu_raw_;
   rclcpp::TimerBase::SharedPtr fusion_timer_;
   rclcpp::TimerBase::SharedPtr raw_timer_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr fusion_publisher_;
