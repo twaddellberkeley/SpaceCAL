@@ -27,8 +27,8 @@ public:
     // imu_fusion_.init();
     // imu_raw_.init();
 
-    fusion_publisher_ = this->create_publisher<interface::msg::FusionImu>("fusion_imu_topic", 10);
-    raw_publisher_ = this->create_publisher<interface::msg::RawImu>("raw_imu_topic", 10);
+    fusion_publisher_ = this->create_publisher<interfaces::msg::FusionImu>("fusion_imu_topic", 10);
+    raw_publisher_ = this->create_publisher<interfaces::msg::RawImu>("raw_imu_topic", 10);
     fusion_timer_ = this->create_wall_timer(
         500ms, std::bind(&ImuPublisher::fusion_callback, this));
     raw_timer_ = this->create_wall_timer(
@@ -59,7 +59,7 @@ private:
   void raw_callback()
   {
     auto message = std_msgs::msg::String();
-    auto raw_data = interface::msg::RawImu();
+    auto raw_data = interfaces::msg::RawImu();
     raw_data.acceleration = (double)100.90;
     message.data = "Raw data! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
