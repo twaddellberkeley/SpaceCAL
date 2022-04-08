@@ -15,9 +15,6 @@ using namespace std::chrono_literals;
 class ImuPublisher : public rclcpp::Node
 {
 public:
-  //
-  // string::string topic_name = "imu_topic";
-
   ImuPublisher()
       : Node("imu_publisher"),
         imu_fusion_("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS),
