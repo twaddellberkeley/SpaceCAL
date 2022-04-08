@@ -48,7 +48,7 @@ private:
   {
     auto message = std_msgs::msg::String();
     auto fusion_data = interfaces::msg::FusionImu();
-    fusion_data.euler_angles = (double)10.9090;
+    fusion_data.euler_angles.x = (double)10.9090;
     message.data = "Fusion data! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
     // imu_fusion_.read_imu_data(fusion_data);
@@ -60,7 +60,7 @@ private:
   {
     auto message = std_msgs::msg::String();
     auto raw_data = interfaces::msg::RawImu();
-    raw_data.acceleration = (double)100.90;
+    raw_data.acceleration.x = (double)100.90;
     message.data = "Raw data! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
     // imu_raw_.read_imu_data_raw(raw_data);
