@@ -1,6 +1,6 @@
-header header
-quaternion orientation
-vector3 euler_angles
-vector3 angular_velocity
-vector3 linear_acceleration
-vector3 gravity_vector
+Header header
+Quaternion orientation
+Vector3 euler_angles
+Vector3 angular_velocity
+Vector3 linear_acceleration
+Vector3 gravity_vector
