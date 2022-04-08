@@ -40,8 +40,8 @@
 
 #include "smbus_func.h"
 
-#include "interfaces/msg/fusion_imu.hpp"
-#include "interfaces/msg/raw_imu.hpp"
+#include "interfaces/msg/fusionImu.hpp"
+#include "interfaces/msg/rawImu.hpp"
 
 /** BNO055 Address Alternative **/
 #define BNO055_ADDRESS_A (0x28) // This requires the ADR pin on the bno055 to be low
@@ -356,8 +356,8 @@ namespace bno055_imu
         void init();
         void reset();
         // bool calibrate();
-        bool read_imu_data(interfaces::msg::Fusion_imu &imu);
-        bool read_imu_data_raw(interfaces::msg::Raw_imu &imu);
+        bool read_imu_data(interfaces::msg::FusionImu &imu);
+        bool read_imu_data_raw(interfaces::msg::RawImu &imu);
         int8_t get_temp(void);
         bool calibrate_sensor(void);
 

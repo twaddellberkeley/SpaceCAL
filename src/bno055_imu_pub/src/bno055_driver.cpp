@@ -94,7 +94,7 @@ namespace bno055_imu
     /**
      *  @brief reads imu sensor measurments
      */
-    bool BNO055Driver::read_imu_data(interfaces::msg::Fusion_imu &imu)
+    bool BNO055Driver::read_imu_data(interfaces::msg::FusionImu &imu)
     {
         imu_data_t data;
         if (bno_i2c_smbus_read_i2c_block_data(file, BNO055_GYRO_DATA_X_LSB_ADDR, 32, (uint8_t *)&data) != 0x20)
@@ -149,7 +149,7 @@ namespace bno055_imu
     /**
      *  @brief reads imu sensor measurments
      */
-    bool BNO055Driver::read_imu_data_raw(interfaces::msg::Raw_imu &imu)
+    bool BNO055Driver::read_imu_data_raw(interfaces::msg::RawImu &imu)
     {
         imu_data_raw_t data;
         if (bno_i2c_smbus_read_i2c_block_data(file, BNO055_ACCEL_DATA_X_LSB_ADDR, 18, (uint8_t *)&data) != 18)
