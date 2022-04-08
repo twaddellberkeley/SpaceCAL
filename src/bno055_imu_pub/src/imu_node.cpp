@@ -34,6 +34,8 @@ public:
     raw_timer_ = this->create_wall_timer(
         500ms, std::bind(&ImuPublisher::raw_callback, this));
   }
+  bno055_imu::BNO055Driver imu_fusion_;
+  bno055_imu::BNO055Driver imu_raw_;
 
 private:
   void fusion_callback()
@@ -54,8 +56,6 @@ private:
     raw_publisher_->publish(message);
   }
 
-  bno055_imu::BNO055Driver imu_fusion_;
-  bno055_imu::BNO055Driver imu_raw_;
   rclcpp::TimerBase::SharedPtr fusion_timer_;
   rclcpp::TimerBase::SharedPtr raw_timer_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr fusion_publisher_;
