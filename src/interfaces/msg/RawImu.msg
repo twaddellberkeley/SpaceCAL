@@ -1,4 +1,0 @@
-Veader header
-Vector3 acceleration
-Vector3 magnetometer
-Vector3 angular_velocity
