@@ -26,7 +26,7 @@
  *
  */
 
-#include "bno055_imu_pub/bno055_driver.h"
+#include "bno055_imu_pub/bno055_driver.hpp"
 
 namespace bno055_imu
 {
