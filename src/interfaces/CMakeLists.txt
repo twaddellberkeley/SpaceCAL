@@ -41,7 +41,12 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   msg/MotorData.msg
   msg/DisplayData.msg
-  DEPENDENCIES builtin_interfaces
+  msg/Fusion_imu.msg
+  msg/Raw_imu.msg
+  DEPENDENCIES 
+  builtin_interfaces
+  std_msgs  # Or other packages containing msgs
+  geometry_msgs
  )
 ament_package()
 
