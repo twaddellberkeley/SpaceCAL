@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.serialization import serialize_message
 from std_msgs.msg import String
-from interfaces.msg import DisplayData, MotorData
+from interfaces.msg import DisplayData, FusionImu, RawImu, MotorData
 from datetime import date, datetime
 
 import rosbag2_py
@@ -12,7 +12,9 @@ class BagRecorder(Node):
     # Here we add topics that we want to record with the following format:
     # dictionary object with tupels containing (topicName, msgType, ROS2Type, etc..)
     topicList = [('buttons_topic', 'std_msgs/msg/String', String),
-                 ('display_topic', 'interfaces/msg/DisplayData', DisplayData)]
+                 ('display_topic', 'interfaces/msg/DisplayData', DisplayData),
+                 ('fusion_imu_topic', 'interfaces/msg/FusionImu', FusionImu),
+                 ('raw_imu_topic', 'interfaces/msg/RawImu', RawImu)]
     subList = []
 
     def __init__(self):
