@@ -24,11 +24,11 @@ public:
         imu_raw_("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO),
         count_(0)
   {
-    imu_fusion_.init();
-    imu_raw_.init();
+    // imu_fusion_.init();
+    // imu_raw_.init();
 
-    fusion_publisher_ = this->create_publisher<std_msgs::msg::String>("fusion_imu_topic", 10);
-    raw_publisher_ = this->create_publisher<std_msgs::msg::String>("raw_imu_topic", 10);
+    fusion_publisher_ = this->create_publisher<interface::msg::FusionImu>("fusion_imu_topic", 10);
+    raw_publisher_ = this->create_publisher<interface::msg::RawImu>("raw_imu_topic", 10);
     fusion_timer_ = this->create_wall_timer(
         500ms, std::bind(&ImuPublisher::fusion_callback, this));
     raw_timer_ = this->create_wall_timer(
@@ -48,22 +48,24 @@ private:
   {
     auto message = std_msgs::msg::String();
     auto fusion_data = interfaces::msg::FusionImu();
+    fusion_data.euler_angles = (double)10.9090;
     message.data = "Fusion data! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
-    imu_fusion_.read_imu_data(fusion_data);
+    // imu_fusion_.read_imu_data(fusion_data);
     RCLCPP_INFO(this->get_logger(), "imu address: '%x' ", BNO055_ADDRESS_A);
-    fusion_publisher_->publish(message);
+    fusion_publisher_->publish(fusion_data);
   }
 
   void raw_callback()
   {
     auto message = std_msgs::msg::String();
     auto raw_data = interface::msg::RawImu();
+    raw_data.acceleration = (double)100.90;
     message.data = "Raw data! " + std::to_string(count_++);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
-    imu_raw_.read_imu_data_raw(raw_data);
+    // imu_raw_.read_imu_data_raw(raw_data);
     RCLCPP_INFO(this->get_logger(), "imu address: '%x' ", BNO055_ADDRESS_DEFAULT);
-    raw_publisher_->publish(message);
+    raw_publisher_->publish(raw_data);
   }
 };
 
