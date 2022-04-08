@@ -40,8 +40,8 @@
 
 #include "smbus_func.h"
 
-#include "interfaces/msg/fusionImu.hpp"
-#include "interfaces/msg/rawImu.hpp"
+#include "interfaces/msg/FusionImu.hpp"
+#include "interfaces/msg/FawImu.hpp"
 
 /** BNO055 Address Alternative **/
 #define BNO055_ADDRESS_A (0x28) // This requires the ADR pin on the bno055 to be low
