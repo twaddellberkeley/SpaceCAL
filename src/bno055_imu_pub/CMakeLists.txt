@@ -12,13 +12,13 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-# find_package(sensor_msgs REQUIRED)
-# find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(interfaces REQUIRED)
 
 
 add_executable(imu_node src/imu_node.cpp src/bno055_driver.cpp)
-ament_target_dependencies(imu_node rclcpp std_msgs interfaces)
+ament_target_dependencies(imu_node rclcpp std_msgs interfaces sensor_msgs geometry_msgs)
 target_include_directories(imu_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)

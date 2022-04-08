@@ -41,7 +41,7 @@
 #include "smbus_func.h"
 
 #include "std_msgs/msg/string.hpp"
-#include "interfaces/msg/motor_data.hpp"
+
 #include "interfaces/msg/fusion_imu.hpp"
 #include "interfaces/msg/raw_imu.hpp"
 
