@@ -22,10 +22,10 @@ public:
   ImuPublisher()
       : Node("imu_publisher"), count_(0)
   {
-    imu_fusion_ = bno055_imu::BNO055Driver("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS);
-    imu_raw_ = bno055_imu::BNO055Driver("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO);
-    imu_fusion_.init();
-    imu_raw_.init();
+    // imu_fusion_ = bno055_imu::BNO055Driver("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS);
+    // imu_raw_ = bno055_imu::BNO055Driver("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO);
+    // imu_fusion_.init();
+    // imu_raw_.init();
 
     fusion_publisher_ = this->create_publisher<std_msgs::msg::String>("fusion_imu_topic", 10);
     raw_publisher_ = this->create_publisher<std_msgs::msg::String>("raw_imu_topic", 10);
@@ -54,8 +54,8 @@ private:
     raw_publisher_->publish(message);
   }
 
-  bno055_imu::BNO055Driver imu_fusion_;
-  bno055_imu::BNO055Driver imu_raw_;
+  bno055_imu::BNO055Driver imu_fusion_("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS);
+  bno055_imu::BNO055Driver imu_raw_("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO);
   rclcpp::TimerBase::SharedPtr fusion_timer_;
   rclcpp::TimerBase::SharedPtr raw_timer_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr fusion_publisher_;
