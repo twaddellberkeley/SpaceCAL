@@ -42,8 +42,8 @@
 
 #include "std_msgs/msg/string.hpp"
 #include "interfaces/msg/motor_data.hpp"
-#include "interfaces/msg/fusionImu.hpp"
-#include "interfaces/msg/rawImu.hpp"
+#include "interfaces/msg/fusion_imu.hpp"
+#include "interfaces/msg/raw_imu.hpp"
 
 /** BNO055 Address Alternative **/
 #define BNO055_ADDRESS_A (0x28) // This requires the ADR pin on the bno055 to be low
