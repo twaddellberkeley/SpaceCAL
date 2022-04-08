@@ -27,12 +27,12 @@ public:
     // imu_fusion_.init();
     // imu_raw_.init();
 
-    fusion_publisher_ = this->create_publisher<std_msgs::msg::String>("fusion_imu_topic", 10);
-    raw_publisher_ = this->create_publisher<std_msgs::msg::String>("raw_imu_topic", 10);
-    fusion_timer_ = this->create_wall_timer(
-        500ms, std::bind(&ImuPublisher::fusion_callback, this));
-    raw_timer_ = this->create_wall_timer(
-        500ms, std::bind(&ImuPublisher::raw_callback, this));
+    // fusion_publisher_ = this->create_publisher<std_msgs::msg::String>("fusion_imu_topic", 10);
+    // raw_publisher_ = this->create_publisher<std_msgs::msg::String>("raw_imu_topic", 10);
+    // fusion_timer_ = this->create_wall_timer(
+    //     500ms, std::bind(&ImuPublisher::fusion_callback, this));
+    // raw_timer_ = this->create_wall_timer(
+    //     500ms, std::bind(&ImuPublisher::raw_callback, this));
   }
 
 private:
