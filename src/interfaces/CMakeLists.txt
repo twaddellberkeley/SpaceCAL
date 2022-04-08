@@ -35,6 +35,8 @@ if(BUILD_TESTING)
 endif()
 
 find_package(builtin_interfaces REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(rosidl_typesupport_c REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
