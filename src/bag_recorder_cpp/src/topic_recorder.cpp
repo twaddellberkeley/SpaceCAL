@@ -7,10 +7,7 @@
 #include <interfaces/msg/motor_data.hpp>
 #include <interfaces/msg/display_data.hpp>
 
-#include <rosbag2_cpp/typesupport_helpers.hpp>
 #include <rosbag2_cpp/writer.hpp>
-#include <rosbag2_cpp/writers/sequential_writer.hpp>
-#include <rosbag2_storage/serialized_bag_message.hpp>
 
 using std::placeholders::_1;
 
@@ -26,7 +23,7 @@ public:
     std::string data = ctime(&ttime);
     std::string time = "my_bag/" + data;
 
-    writer_->open(time);
+    writer_->open("My_bag");
 
     subscription_ = create_subscription<std_msgs::msg::String>(
         "buttons_topic", 10, std::bind(&BagRecorder::topic_callback, this, _1));
