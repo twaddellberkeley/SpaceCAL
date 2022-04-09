@@ -17,13 +17,24 @@ public:
   BagRecorder()
       : Node("bag_recorder")
   {
-    writer_ = std::make_unique<rosbag2_cpp::Writer>();
     time_t ttime = time(0);
     // tm *local_time = localtime(&ttime);
     std::string data = ctime(&ttime);
     std::string time = "my_bag/" + data;
+    const rosbag2_cpp::StorageOptions storage_options({time, "sqlite3"});
+    const rosbag2_cpp::ConverterOptions converter_options(
+        {rmw_get_serialization_format(),
+         rmw_get_serialization_format()});
 
-    writer_->open("My_bag");
+    writer_ = std::make_unique<rosbag2_cpp::Writer>();
+
+    writer_->open(storage_options, converter_options);
+
+    writer_->create_topic(
+        {"buttons_topic",
+         "std_msgs/msg/String",
+         rmw_get_serialization_format(),
+         ""});
 
     subscription_ = create_subscription<std_msgs::msg::String>(
         "buttons_topic", 10, std::bind(&BagRecorder::topic_callback, this, _1));
