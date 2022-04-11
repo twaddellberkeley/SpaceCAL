@@ -64,36 +64,56 @@ public:
        ""});
     display_sub_ = create_subscription<interfaces::msg::DisplayData>(
       DISPLAY, 10, std::bind(&BagRecorder::display_topic_callback, this, _1));
+
+    writer_->create_topic(
+      {FUSION_IMU,
+       "interfaces/msg/FusionImu",
+       rmw_get_serialization_format(),
+       ""});
+    fusion_imu_sub_ = create_subscription<interfaces::msg::FusionImu>(
+      FUSION_IMU, 10, std::bind(&BagRecorder::fusion_imu_topic_callback, this, _1));
+
+    writer_->create_topic(
+      {RAW_IMU,
+       "interfaces/msg/RawImu",
+       rmw_get_serialization_format(),
+       ""});
+    raw_imu_sub_ = create_subscription<interfaces::msg::RawImu>(
+        RAW_IMU, 10, std::bind(&BagRecorder::raw_imu_topic_callback, this, _1));
+
+    writer_->create_topic(
+      {MOTOR,
+       "interfaces/msg/MotorData",
+       rmw_get_serialization_format(),
+       ""});
+    motor_sub_ = create_subscription<interfaces::msg::MotorData>(
+      MOTOR, 10, std::bind(&BagRecorder::motor_topic_callback, this, _1));
     
   }
 
 private:
   void buttons_topic_callback(std::shared_ptr<rclcpp::SerializedMessage> msg) const
   {
-    auto bag_message = std::make_shared<rosbag2_storage::SerializedBagMessage>();
-
-    bag_message->serialized_data = std::shared_ptr<rcutils_uint8_array_t>(
-      new rcutils_uint8_array_t,
-      [this](rcutils_uint8_array_t *msg) {
-        auto fini_return = rcutils_uint8_array_fini(msg);
-        delete msg;
-        if (fini_return != RCUTILS_RET_OK) {
-          RCLCPP_ERROR(get_logger(),
-            "Failed to destroy serialized message %s", rcutils_get_error_string().str);
-        }
-      });
-    *bag_message->serialized_data = msg->release_rcl_serialized_message();
-
-    bag_message->topic_name = BUTTONS;
-    if (rcutils_system_time_now(&bag_message->time_stamp) != RCUTILS_RET_OK) {
-      RCLCPP_ERROR(get_logger(), "Error getting current time: %s",
-        rcutils_get_error_string().str);
-    }
-
-    writer_->write(bag_message);
+    callback_writer_helper(msg, BUTTONS);
   }
-
   void display_topic_callback(std::shared_ptr<rclcpp::SerializedMessage> msg) const
+  {
+    callback_writer_helper(msg, DISPLAY);
+  }
+  void fusioin_imu_topic_callback(std::shared_ptr<rclcpp::SerializedMessage> msg) const
+  {
+    callback_writer_helper(msg, FUSION_IMU);
+  }
+  void raw_imu_topic_callback(std::shared_ptr<rclcpp::SerializedMessage> msg) const
+  {
+    callback_writer_helper(msg, RAW_IMU);
+  }
+  void motor_topic_callback(std::shared_ptr<rclcpp::SerializedMessage> msg) const
+  {
+    callback_writer_helper(msg, MOTOR);
+  }
+  
+  void callback_writer_helper(std::shared_ptr<rclcpp::SerializedMessage> msg, std::string topic_name) const
   {
     auto bag_message = std::make_shared<rosbag2_storage::SerializedBagMessage>();
 
@@ -109,7 +129,7 @@ private:
       });
     *bag_message->serialized_data = msg->release_rcl_serialized_message();
 
-    bag_message->topic_name = DISPLAY;
+    bag_message->topic_name = topic_name;
     if (rcutils_system_time_now(&bag_message->time_stamp) != RCUTILS_RET_OK) {
       RCLCPP_ERROR(get_logger(), "Error getting current time: %s",
         rcutils_get_error_string().str);
