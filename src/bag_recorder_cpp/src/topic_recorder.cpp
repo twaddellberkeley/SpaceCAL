@@ -100,7 +100,7 @@ private:
   {
     callback_writer_helper(msg, DISPLAY);
   }
-  void fusioin_imu_topic_callback(std::shared_ptr<rclcpp::SerializedMessage> msg) const
+  void fusion_imu_topic_callback(std::shared_ptr<rclcpp::SerializedMessage> msg) const
   {
     callback_writer_helper(msg, FUSION_IMU);
   }
@@ -112,7 +112,7 @@ private:
   {
     callback_writer_helper(msg, MOTOR);
   }
-  
+
   void callback_writer_helper(std::shared_ptr<rclcpp::SerializedMessage> msg, std::string topic_name) const
   {
     auto bag_message = std::make_shared<rosbag2_storage::SerializedBagMessage>();
@@ -189,6 +189,9 @@ private:
 
   rclcpp::Subscription<rclcpp::SerializedMessage>::SharedPtr buttons_sub_;
   rclcpp::Subscription<rclcpp::SerializedMessage>::SharedPtr display_sub_;
+  rclcpp::Subscription<rclcpp::SerializedMessage>::SharedPtr fusion_imu_sub_;
+  rclcpp::Subscription<rclcpp::SerializedMessage>::SharedPtr raw_imu_sub_;
+  rclcpp::Subscription<rclcpp::SerializedMessage>::SharedPtr motor_sub_;
   std::unique_ptr<rosbag2_cpp::writers::SequentialWriter> writer_;
 
 };
