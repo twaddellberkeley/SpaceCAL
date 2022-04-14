@@ -134,7 +134,7 @@ private:
       RCLCPP_ERROR(get_logger(), "Error getting current time: %s",
         rcutils_get_error_string().str);
     }
-
+    std::cout << "message: " << topic_name << std::endl;
     writer_->write(bag_message);
   }
 
