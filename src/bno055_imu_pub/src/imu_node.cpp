@@ -17,8 +17,8 @@ class ImuPublisher : public rclcpp::Node
 public:
   ImuPublisher()
       : Node("imu_publisher"),
-        imu_fusion_("/dev/i2c-1", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS),
-        imu_raw_("/dev/i2c-1", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO),
+        imu_fusion_("/dev/i2c-0", 0x28, bno055_imu::OPERATION_MODE_IMUPLUS),
+        imu_raw_("/dev/i2c-0", 0x29, bno055_imu::OPERATION_MODE_ACCGYRO),
         count_(0)
   {
     imu_fusion_.init();
