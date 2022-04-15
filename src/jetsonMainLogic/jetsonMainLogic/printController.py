@@ -152,7 +152,6 @@ class printQueueClass(Node):
         self.readPrintFile()
         self.okToRun = False
         self.startProjection = False
-        self.killProjection = False
         self.pauseAll = False
         qThread = Thread(target=self.qPrint, args=())
         # qThread.daemon=True
