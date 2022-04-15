@@ -168,7 +168,6 @@ class printQueueClass(Node):
         self.cFlags[msg.motornum - self.mOffset] = msg.flags
 
     def readPrintFile(self):
-        # TODO create solid path for this DONE!!!
         script_dir = os.path.dirname(__file__)
         file = open(script_dir + "/printTest.json")
         # file = open("/home/spacecal/Desktop/printTest.json")
@@ -190,7 +189,7 @@ class printQueueClass(Node):
     # Subscribe to touchscreen variables
     def touchScreenHandler(self, msg):
         if (msg.data == "stop_proj"):
-            self.killProjection = True
+            self.killProjection()
         elif (msg.data == "start_proj"):
             self.startProjection = True
         elif (msg.data == "motor_ok"):
