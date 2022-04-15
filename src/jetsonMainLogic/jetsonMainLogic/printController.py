@@ -354,7 +354,7 @@ class printQueueClass(Node):
                 #loc.data = self.cLoc[0]
                 print("pausing")
                 print(round(self.cLoc[0]/self.incrBit))
-                #self.motorLocPublisher.publish(loc)
+                self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
                 tdata.name = "rpm_display"
                 tdata.num_value = 0
