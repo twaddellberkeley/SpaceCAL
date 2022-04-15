@@ -531,6 +531,7 @@ class UI(QMainWindow):
     def setStatusMotorDisplay(self, str):
         if str == motorStatusArr[0]:  # Idle
             self.btnProject.setEnabled(False)
+            self.btnInit.setText(runBtnStart)
         elif str == motorStatusArr[1]:  # Rotating
             pass
         elif str == motorStatusArr[2]:  # Stopped
