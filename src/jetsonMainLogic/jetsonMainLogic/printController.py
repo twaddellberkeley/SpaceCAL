@@ -253,6 +253,14 @@ class printQueueClass(Node):
                     loc.data = printSet.printHeight
                     print("running to height" + str(printSet.printHeight))
                     self.motorLocPublisher.publish(loc)
+                    # Send parabola name
+                    tdata.name = "lcdParabolaNum"
+                    tdata.num_value = printSet.printNum
+                    self.touchScreenPublisher.publish(tdata)
+                    # Send level in mm
+                    tdata.name = "lcdLevelNum"
+                    tdata.num_value = printSet.printHeight
+                    self.touchScreenPublisher.publish(tdata)
                     # Wait till all motors are at correct height before starting projections
                     for val in range(4):
                         while(round(self.cLoc[val]) != round(printSet.printHeight * self.incrBit)):
