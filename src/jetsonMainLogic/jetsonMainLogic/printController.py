@@ -335,12 +335,12 @@ class printQueueClass(Node):
                                 target=self.projectorOn, args=([val]))
                             qThread.daemon = True
                             qThread.start()
-                        # Wait the max display time before movingW
+                        # Wait the max display time before moving
                         while not self.tEvent.is_set():
                             self.tEvent.wait(timeout=printSet.maxTime)
                             self.tEvent.set()
+                            self.killProjection()
                         # Kill all projections just in case
-                        self.killProjection()
                         # Unset the event for next time
                         self.tEvent.clear()
                         if(self.okToRun == False):
@@ -391,6 +391,7 @@ class printQueueClass(Node):
     # Set all projector LEDs to 0
 
     def killProjection(self):
+        self.tEvent.set()
         tdata = DisplayData()
         tdata.name = "projection_status"
         tdata.str_value = "Projection Off"
