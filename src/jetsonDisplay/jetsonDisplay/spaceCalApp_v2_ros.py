@@ -530,20 +530,20 @@ class UI(QMainWindow):
     # motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
     def setStatusMotorDisplay(self, str):
         if str == motorStatusArr[0]:  # Idle
-            pass
+            self.btnProject.setEnabled(False)
         elif str == motorStatusArr[1]:  # Rotating
             pass
         elif str == motorStatusArr[2]:  # Stopped
             self.btnProject.setText(projectBtnStart)
             self.btnInit.setText(runBtnStart)
             self.btnProject.setEnabled(False)
-            pass
         self.statusMotor.setText(str)
         self.updateStyleSheet()
 
     # levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving' 'Set']
     def setStatusLevelDisplay(self, str):
         if str == levelStatusArr[0]:    # Idle
+            self.btnProject.setEnabled(False)
             pass
         elif str == levelStatusArr[1]:  # Homing
             self.btnProject.setEnabled(False)
