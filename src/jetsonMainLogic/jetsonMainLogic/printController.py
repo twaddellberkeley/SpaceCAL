@@ -195,6 +195,8 @@ class printQueueClass(Node):
         elif (msg.data == "motor_ok"):
             self.okToRun = True
         elif (msg.data == "pause"):
+            self.tEvent.set()
+            self.okToRun = False
             self.pauseAll = True
         elif (msg.data == "options"):
             self.options = True
@@ -302,6 +304,8 @@ class printQueueClass(Node):
                             if(self.okToRun == False):
                                 break
                             pass
+                        if(self.okToRun == False):
+                            break
                         # Unset variable for next time
                         self.startProjection = False
                         # Loop through and turn projectors on
@@ -347,9 +351,10 @@ class printQueueClass(Node):
                 # Stop all projections
                 self.killProjection()
                 # Tell motors to stop where current location is
-                loc.data = self.cLoc[0]
+                #loc.data = self.cLoc[0]
                 print("pausing")
-                self.motorLocPublisher.publish(loc)
+                print(self.cLoc[0])
+                #self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
                 tdata.name = "rpm_display"
                 tdata.num_value = 0
