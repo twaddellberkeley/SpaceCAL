@@ -559,7 +559,7 @@ class UI(QMainWindow):
     # NEW
     def resetGuiRun(self):
         self.btnInit.setText(runBtnStart)
-        self.updateStyleSheet()
+        # self.updateStyleSheet()
 
     def resetProjection(self):
         self.btnProject.setText(projectBtnStart)
