@@ -514,11 +514,11 @@ class UI(QMainWindow):
     def setStatusProjectorDisplay(self, str):
         print(str)
         if str == projStatusArr[0]:  # on
-            if self.btnProject.Text() != projectBtnStop:
+            if self.btnProject.text() != projectBtnStop:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
         elif str == projStatusArr[1]:  # off
-            if self.btnProject.Text() != projectBtnStart:
+            if self.btnProject.text() != projectBtnStart:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
         self.statusProjector.setText(str)
