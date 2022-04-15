@@ -226,6 +226,9 @@ class printQueueClass(Node):
                     # Go home, do this by sending -1 to distance
                     loc.data = printSet
                     print("Homing")
+                    tdata.name = "level_status"
+                    tdata.str_value = "Homing"
+                    self.touchScreenPublisher.publish(tdata)
                     self.motorLocPublisher.publish(loc)
                     # Wait for home to complete from all mototrs, need this line as it sometimes jumps ahead
                     time.sleep(1)
@@ -240,6 +243,9 @@ class printQueueClass(Node):
                         if ((self.cFlags[val] & 0x02) == 1):
                             print("ERROR IN HOMING")
                     print("Done Homing")
+                    tdata.name = "level_status"
+                    tdata.str_value = "Home"
+                    self.touchScreenPublisher.publish(tdata)
                 # Begin printing normal printer data
                 else:
                     if (printSet.printNum > 0):
@@ -257,6 +263,7 @@ class printQueueClass(Node):
                     # Send level in mm
                     tdata.name = "level_display"
                     tdata.num_value = printSet.printHeight
+                    tdata.str_value = "Moving"
                     self.touchScreenPublisher.publish(tdata)
                     # Wait till all motors are at correct height before starting projections
                     for val in range(4):
@@ -264,6 +271,9 @@ class printQueueClass(Node):
                             if(self.okToRun == False):
                                 break
                             pass
+                    tdata.name = "level_status"
+                    tdata.str_value = "Set"
+                    self.touchScreenPublisher.publish(tdata)
                     if (printSet.printNum > 0):
                         #Set current parabola we are on
                         tdata.name = "parabola_display"
@@ -329,7 +339,7 @@ class printQueueClass(Node):
 
     def killProjection(self):
         tdata = DisplayData()
-        tdata.name = "reset_run"
+        tdata.name = "reset_projection"
         self.touchScreenPublisher.publish(tdata)
         print("stoping projection")
         video = String()
