@@ -194,6 +194,102 @@ class Worker(QRunnable):
 
 
 class UI(QMainWindow):
+    styleSheet = """
+    QPushButton {
+        padding:0.3em 1.2em;
+        margin:0 0.1em 0.1em 0;
+        border:0.16em solid rgba(255,255,255,0);
+        border-radius: 20%;
+        text-decoration:none;
+        color:#FFFFFF;
+        text-align:center;
+    }
+
+    QPushButton[text="Start Projection"], QPushButton[text="Options"],
+    QPushButton[text="Start Run"] {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #4e9af1, stop: 1 #0762d7);
+    }
+
+    QPushButton[text="Start Projection"]:pressed, QPushButton[text="Options"]:pressed,
+    QPushButton[text="Start Run"]:pressed {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #0762d7, stop: 1 #4e9af1);
+    }
+
+    QPushButton[text="Pause"], QPushButton[text="Stop Projection"],
+    QPushButton[text="Stop Run"] {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #ff4040, stop: 1 #992626);
+    }
+
+    QPushButton[text="Pause"]:pressed, QPushButton[text="Stop Projection"]:pressed,
+    QPushButton[text="Stop Run"]:pressed {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #992626, stop: 1 #ff4040);
+    }
+
+    QPushButton[text="Initialize Run"] {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #5bc11c, stop: 1 #2d600e);
+    }
+
+    QPushButton[text="Initialize Run"]:pressed {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #2d600e, stop: 1 #5bc11c);
+    }
+
+    QPushButton[enabled="false"] {
+        background-color: gray;
+    }
+
+    QMessageBox {
+        padding:0.3em 1.2em;
+        margin:0 0.1em 0.1em 0;
+        border:0.16em solid rgba(255,255,255,0);
+        border-radius: 20%;
+        text-decoration:none;
+        color:#FFFFFF;
+        text-align:center;
+    }
+
+    """
+    msgStyleSheet = """
+
+    QLabel {
+        font-size: 30px;
+        text-align:center;
+    }
+    QWidget icon{
+        heigh: 60px;
+    }
+    QPushButton {
+        padding:0.3em 1.2em;
+        margin:0 0.1em 0.1em 0;
+        border:0.16em solid rgba(255,255,255,0);
+        border-radius: 20%;
+        text-decoration:none;
+        color:#FFFFFF;
+        text-align:center;
+        font-size: 40px;
+    }
+    QPushButton[text="OK"], QPushButton[text="Resume"] {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #4e9af1, stop: 1 #0762d7);
+    }
+    QPushButton[text="OK"]:pressed, QPushButton[text="Resume"]:pressed {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #0762d7, stop: 1 #4e9af1);
+    }
+    QPushButton[text="Cancel"] {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #b4bec3, stop: 1 #484c4e);
+    }
+    QPushButton[text="Cancel"]:pressed {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #484c4e, stop: 1 #b4bec3);
+    }
+    """
 
     # This function sets initial gui state
     def __init__(self):
@@ -546,7 +642,7 @@ class UI(QMainWindow):
 # ******************************************* Helper Functions ******************************************** #
 
     def updateStyleSheet(self):
-        self.setStyleSheet(styleSheet)
+        self.setStyleSheet(self.styleSheet)
 
     def displayInfoMsg(self, msg):
         self.msgInfo.setText(msg)
@@ -559,11 +655,11 @@ class UI(QMainWindow):
     # NEW
     def resetGuiRun(self):
         self.btnInit.setText(runBtnStart)
-        # self.updateStyleSheet()
+        self.updateStyleSheet()
 
     def resetProjection(self):
         self.btnProject.setText(projectBtnStart)
-        # self.updateStyleSheet()
+        self.updateStyleSheet()
 
 
 def main():
