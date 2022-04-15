@@ -293,6 +293,8 @@ class printQueueClass(Node):
                         while not self.tEvent.is_set():
                             self.tEvent.wait(timeout=printSet.maxTime)
                             self.tEvent.set()
+                        # Kill all projections just in case
+                        self.killProjection()
                         # Unset the event for next time
                         self.tEvent.clear()
                         if(self.okToRun == False):
