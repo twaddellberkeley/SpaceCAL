@@ -189,6 +189,7 @@ class printQueueClass(Node):
     # Subscribe to touchscreen variables
     def touchScreenHandler(self, msg):
         if (msg.data == "stop_proj"):
+            print("STOP BUTTON")
             self.killProjection()
         elif (msg.data == "start_proj"):
             self.startProjection = True
@@ -312,6 +313,7 @@ class printQueueClass(Node):
     # Set all projector LEDs to 0
 
     def killProjection(self):
+        print("stoping projection")
         video = String()
         video.data = "EXIT"
         for val in videoPublishers:
