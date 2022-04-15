@@ -71,7 +71,7 @@ msgBtnPause_pause = "pause"
 msgBtnPause_resume = "resume"
 
 ###### ******************* StyleSheets Variabels ************************* ######
-
+global styleSheet
 styleSheet = """
 QPushButton {
     padding:0.3em 1.2em;
@@ -563,7 +563,7 @@ class UI(QMainWindow):
 
     def resetProjection(self):
         self.btnProject.setText(projectBtnStart)
-        self.updateStyleSheet()
+        # self.updateStyleSheet()
 
 
 def main():
