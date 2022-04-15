@@ -225,10 +225,10 @@ class printQueueClass(Node):
         tdata = DisplayData()
         # Setting OG values
         tdata.name = "motor_status"
-        tdata.str_value = "Ready"
+        tdata.str_value = "Idle"
         self.touchScreenPublisher.publish(tdata)
         tdata.name = "level_status"
-        tdata.str_value = "Ready"
+        tdata.str_value = "Idle"
         self.touchScreenPublisher.publish(tdata)
         # Keep running while alive
         while rclpy.ok():
@@ -270,7 +270,7 @@ class printQueueClass(Node):
                                 break
                     print("Done Homing")
                     tdata.name = "level_status"
-                    tdata.str_value = "Home"
+                    tdata.str_value = "Homed"
                     self.touchScreenPublisher.publish(tdata)
                 # Begin printing normal printer data
                 else:
