@@ -64,7 +64,7 @@ class printQueueClass(Node):
     # Stop run and home
     killRun = False
     # current parabola number
-    printNum = 0
+    printNumCur = 0
 
     # Global Checkup Vars
     cSpeed = [-1] * 9
@@ -276,7 +276,7 @@ class printQueueClass(Node):
                     self.touchScreenPublisher.publish(tdata)
                 # Begin printing normal printer data
                 else:
-                    self.printNum = printSet.printNum
+                    self.printNumCur = printSet.printNum
                     if (printSet.printNum > 0):
                         print("Starting print number: " +
                               str(printSet.printNum))
@@ -335,7 +335,7 @@ class printQueueClass(Node):
                         for val in printSet.printdata:
                             # print(val)
                             qThread = Thread(
-                                target=self.projectorOn, args=([val],printSet.printNum))
+                                target=self.projectorOn, args=([val,printSet.printNum]))
                             qThread.daemon = True
                             qThread.start()
                         # Wait the max display time before moving
@@ -441,7 +441,7 @@ class printQueueClass(Node):
         time.sleep(printData['printTime'])
         # kill projection just in case
         print("KILLING")
-        if (tempPrintNum == self.printNum):
+        if (tempPrintNum == self.printNumCur):
             video.data = "EXIT"
             # Kill Projection
             self.videoPublishers[printData['projNum'] - 1].publish(video)
