@@ -40,7 +40,7 @@ pauseBtnResume = "Resume"
 # Display labels
 projStatusArr = ['Off', 'On']
 motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
-levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving' 'Set']
+levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving', 'Set']
 
 ###### *********************** ROS2 Variables **************************** ######
 # ROS2 Nodes names
