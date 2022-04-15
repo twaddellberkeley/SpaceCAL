@@ -59,6 +59,8 @@ class printQueueClass(Node):
     printQ = queue.Queue()
     # Var that allows print process to start
     okToRun = False
+    #If resuming need to skip
+    skipPop = False
 
     # Global Checkup Vars
     cSpeed = [-1] * 9
@@ -200,6 +202,10 @@ class printQueueClass(Node):
             self.pauseAll = True
         elif (msg.data == "options"):
             self.options = True
+        elif (msg.data == "resume"):
+            self.options = True
+            self.tEvent.clear()
+            self.skipPop = True
 
     # Loop for printing EVERYTHING
     def qPrint(self):
@@ -222,7 +228,8 @@ class printQueueClass(Node):
             # Keep running until there is not a print to go, only run if it is safe
             while (not self.printQ.empty() and self.okToRun == True):
                 # Get the current print job in queue
-                printSet = self.printQ.get()
+                if (self.skipPop == False):
+                    printSet = self.printQ.get()
                 # Wait for motors to be good and online
                 for val in range(len(self.cStatus)):
                     while(self.cStatus[val] != 10):
