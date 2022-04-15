@@ -171,6 +171,7 @@ msgBtnPause_resume = "resume"
 
 
 class WorkerSignals(QObject):
+    btnChange = pyqtSignal()
     lcdRpm = pyqtSignal(int)
     lcdLevel = pyqtSignal(int)
     lcdParabola = pyqtSignal(int)
@@ -363,9 +364,10 @@ class UI(QMainWindow):
               self.threadpool.maxThreadCount())
 
         # create new thread for subcriber node
-        worker = Worker(self.exec_subNode)
+        self.worker = Worker(self.exec_subNode)
+        self.worker.signals.btnChange.connect(self.updateStyleSheet)
         # Execute
-        self.threadpool.start(worker)
+        self.threadpool.start(self.worker)
 
 # ******************************* Buttons CallBack Function Definitions ******************************* #
 
@@ -656,10 +658,12 @@ class UI(QMainWindow):
     # NEW
     def resetGuiRun(self):
         self.btnInit.setText(runBtnStart)
+        self.worker.signals.btnChange.emit()
         # self.updateStyleSheet()
 
     def resetProjection(self):
         self.btnProject.setText(projectBtnStart)
+        self.worker.signals.btnChange.emit()
         # self.updateStyleSheet()
 
 
