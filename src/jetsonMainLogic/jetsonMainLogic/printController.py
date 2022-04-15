@@ -312,6 +312,7 @@ class printQueueClass(Node):
     # Set all projector LEDs to 0
 
     def killProjection(self):
+        print("stoping projection")
         video = String()
         video.data = "EXIT"
         for val in videoPublishers:
