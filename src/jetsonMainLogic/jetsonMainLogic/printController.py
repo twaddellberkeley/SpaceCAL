@@ -22,7 +22,7 @@
 # Author: Taylor Waddell
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Int32, Int64
+from std_msgs.msg import String, Int32, Int64, DisplayData
 import time
 from interfaces.msg import MotorData
 from dataclasses import dataclass
@@ -135,7 +135,8 @@ class printQueueClass(Node):
 
         self.videoPublishers = [self.videoSendV1, self.videoSendV2,
                                 self.videoSendV3, self.videoSendV4, self.videoSendV5]
-
+        self.touchScreenPublisher(DisplayData, 'display_topic', 10)
+        self.touchScreenPublisher
         # subscribers
         # Motor data subscriber
         self.motorDataSubscriber = self.create_subscription(
@@ -206,6 +207,8 @@ class printQueueClass(Node):
         vel = Int32()
         # Location to go to publish
         loc = Int32()
+        # Data to send to touch screen
+        tdata = DisplayData()
         # Keep running while alive
         while rclpy.ok():
             # Keep running until there is not a print to go, only run if it is safe
@@ -289,6 +292,8 @@ class printQueueClass(Node):
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False
+                        tdata.name = "reset_run"
+                        self.touchScreenPublisher.publish(tdata)
                         # Set all rotation to 0
                         for velPublisher in self.velocityPublishers:
                             vel.data = 0
