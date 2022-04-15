@@ -22,9 +22,9 @@
 # Author: Taylor Waddell
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Int32, Int64, DisplayData
+from std_msgs.msg import String, Int32, Int64
 import time
-from interfaces.msg import MotorData
+from interfaces.msg import MotorData, DisplayData
 from dataclasses import dataclass
 import queue
 from threading import Thread
