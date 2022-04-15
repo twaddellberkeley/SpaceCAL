@@ -353,7 +353,8 @@ class printQueueClass(Node):
                 # Tell motors to stop where current location is
                 #loc.data = self.cLoc[0]
                 print("pausing")
-                print(round(self.cLoc[0]/self.incrBit))
+                print(-2)
+                loc.data = -2
                 self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
                 tdata.name = "rpm_display"
@@ -362,6 +363,7 @@ class printQueueClass(Node):
                 tdata.name = "motor_status"
                 tdata.str_value = "Stopped"
                 self.touchScreenPublisher.publish(tdata)
+                self.pauseAll = False
 
     # Set all projector LEDs to 0
 
