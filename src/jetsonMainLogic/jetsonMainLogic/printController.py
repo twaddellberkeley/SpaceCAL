@@ -233,8 +233,9 @@ class printQueueClass(Node):
         # Keep running while alive
         while rclpy.ok():
             # Keep running until there is not a print to go, only run if it is safe
-            while (not self.printQ.empty() and self.okToRun == True):
+            while ((not self.printQ.empty() or self.skipPop == True) and self.okToRun == True):
                 # Get the current print job in queue
+                print("Running set")
                 if (self.skipPop == False):
                     printSet = self.printQ.get()
                 self.skipPop = False
