@@ -40,7 +40,7 @@ pauseBtnResume = "Resume"
 # Display labels
 projStatusArr = ['On', 'Off']
 motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
-levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving' 'Set']
+levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving', 'Set']
 
 ###### *********************** ROS2 Variables **************************** ######
 # ROS2 Nodes names
@@ -517,11 +517,11 @@ class UI(QMainWindow):
     def setStatusProjectorDisplay(self, str):
         print(str)
         if str == projStatusArr[0]:  # on
-            if self.btnProject.Text() != projectBtnStop:
+            if self.btnProject.text() != projectBtnStop:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
         elif str == projStatusArr[1]:  # off
-            if self.btnProject.Text() != projectBtnStart:
+            if self.btnProject.text() != projectBtnStart:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
         self.statusProjector.setText(str)
@@ -536,7 +536,7 @@ class UI(QMainWindow):
         elif str == motorStatusArr[2]:  # Stopped
             self.btnProject.setText(projectBtnStart)
             self.btnInit.setText(runBtnStart)
-            self.btnProject.setEnable(False)
+            self.btnProject.setEnabled(False)
             pass
         self.statusMotor.setText(str)
         self.updateStyleSheet()
@@ -546,18 +546,18 @@ class UI(QMainWindow):
         if str == levelStatusArr[0]:    # Idle
             pass
         elif str == levelStatusArr[1]:  # Homing
-            self.btnProject.setEnable(False)
-            self.btnInit.setEnable(False)
+            self.btnProject.setEnabled(False)
+            self.btnInit.setEnabled(False)
             pass
         elif str == levelStatusArr[2]:  # Homed
-            self.btnProject.setEnable(True)
-            self.btnInit.setEnable(True)
+            self.btnProject.setEnabled(True)
+            self.btnInit.setEnabled(True)
             pass
         elif str == levelStatusArr[3]:  # Moving
-            self.btnProject.setEnable(False)
+            self.btnProject.setEnabled(False)
             pass
         elif str == levelStatusArr[4]:  # Set
-            self.btnProject.setEnable(True)
+            self.btnProject.setEnabled(True)
             pass
         self.statusLevel.setText(str)
         self.updateStyleSheet()

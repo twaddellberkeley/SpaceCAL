@@ -351,7 +351,12 @@ class printQueueClass(Node):
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False
-                        tdata.name = "reset_run"
+                        self.touchScreenPublisher.publish(tdata)
+                        tdata.name = "motor_status"
+                        tdata.str_value = "Idle"
+                        self.touchScreenPublisher.publish(tdata)
+                        tdata.name = "level_status"
+                        tdata.str_value = "Idle"
                         self.touchScreenPublisher.publish(tdata)
                         # Set all rotation to 0
                         for velPublisher in self.velocityPublishers:
@@ -359,13 +364,6 @@ class printQueueClass(Node):
                             velPublisher.publish(vel)
                         tdata.name = "rpm_display"
                         tdata.num_value = 0
-                        self.touchScreenPublisher.publish(tdata)
-                        tdata.name = "motor_status"
-                        tdata.str_value = "Paused"
-                        self.touchScreenPublisher.publish(tdata)
-                        tdata.name = "level_status"
-                        tdata.str_value = "Paused"
-                        self.touchScreenPublisher.publish(tdata)
                         print("Waiting for next vial stack to be loaded")
             if (self.pauseAll == True or self.killRun == True):
                 # Stop the repeating of the function
@@ -381,6 +379,13 @@ class printQueueClass(Node):
                 print("pausing")
                 if (self.pauseAll == True):
                     loc.data = -2
+                    self.touchScreenPublisher.publish(tdata)
+                    tdata.name = "motor_status"
+                    tdata.str_value = "Paused"
+                    self.touchScreenPublisher.publish(tdata)
+                    tdata.name = "level_status"
+                    tdata.str_value = "Paused"
+                    self.touchScreenPublisher.publish(tdata)
                 if (self.killRun == True):
                     loc.data = -1
                 self.motorLocPublisher.publish(loc)
