@@ -135,7 +135,7 @@ class printQueueClass(Node):
 
         self.videoPublishers = [self.videoSendV1, self.videoSendV2,
                                 self.videoSendV3, self.videoSendV4, self.videoSendV5]
-        self.touchScreenPublisher(DisplayData, 'display_topic', 10)
+        self.touchScreenPublisher = self.create_publisher(DisplayData, 'display_topic', 10)
         self.touchScreenPublisher
         # subscribers
         # Motor data subscriber
