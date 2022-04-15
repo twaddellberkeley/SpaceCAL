@@ -301,6 +301,7 @@ class UI(QMainWindow):
         # Load GUI design into python
         uic.loadUi(script_dir + "/spaceCalMW.ui", self)
         # apply CSS styleSheets to the GUI
+        self.btnPause.setEnable(True)
         self.updateStyleSheet()
 
         # Use the following objectNames to acces GUI properties:
