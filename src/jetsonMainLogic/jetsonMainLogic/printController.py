@@ -195,8 +195,6 @@ class printQueueClass(Node):
         elif (msg.data == "motor_ok"):
             self.okToRun = True
         elif (msg.data == "pause"):
-            self.tEvent.set()
-            self.okToRun = False
             self.pauseAll = True
         elif (msg.data == "options"):
             self.options = True
@@ -304,8 +302,6 @@ class printQueueClass(Node):
                             if(self.okToRun == False):
                                 break
                             pass
-                        if(self.okToRun == False):
-                            break
                         # Unset variable for next time
                         self.startProjection = False
                         # Loop through and turn projectors on
@@ -315,7 +311,7 @@ class printQueueClass(Node):
                                 target=self.projectorOn, args=([val]))
                             qThread.daemon = True
                             qThread.start()
-                        # Wait the max display time before moving
+                        # Wait the max display time before movingW
                         while not self.tEvent.is_set():
                             self.tEvent.wait(timeout=printSet.maxTime)
                             self.tEvent.set()
