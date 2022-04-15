@@ -624,7 +624,7 @@ class UI(QMainWindow):
 # *************************************** Define Subscriber Functions ************************************** #
 
     def subcriberNodeHandler(self, data):
-        self.worker.signals.processRecieveMsg(data)
+        self.worker.signals.processRecieveMsg.emit(data)
 
     def subcriberHelper(self, data):
         print("got")
