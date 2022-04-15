@@ -353,10 +353,10 @@ class printQueueClass(Node):
                         self.okToRun = False
                         self.touchScreenPublisher.publish(tdata)
                         tdata.name = "motor_status"
-                        tdata.str_value = "Paused"
+                        tdata.str_value = "Idle"
                         self.touchScreenPublisher.publish(tdata)
                         tdata.name = "level_status"
-                        tdata.str_value = "Paused"
+                        tdata.str_value = "Idle"
                         self.touchScreenPublisher.publish(tdata)
                         # Set all rotation to 0
                         for velPublisher in self.velocityPublishers:
