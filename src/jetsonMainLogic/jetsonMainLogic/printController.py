@@ -241,7 +241,6 @@ class printQueueClass(Node):
                 if (self.skipPop == False):
                     printSet = self.printQ.get()
                 self.skipPop = False
-                self.printNum = printSet.printNum
                 # Wait for motors to be good and online
                 for val in range(len(self.cStatus)):
                     while(self.cStatus[val] != 10):
@@ -277,6 +276,7 @@ class printQueueClass(Node):
                     self.touchScreenPublisher.publish(tdata)
                 # Begin printing normal printer data
                 else:
+                    self.printNum = printSet.printNum
                     if (printSet.printNum > 0):
                         print("Starting print number: " +
                               str(printSet.printNum))
