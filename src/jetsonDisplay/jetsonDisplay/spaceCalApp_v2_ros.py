@@ -533,7 +533,7 @@ class UI(QMainWindow):
         elif str == motorStatusArr[2]:  # Stopped
             self.btnProject.setText(projectBtnStart)
             self.btnInit.setText(runBtnStart)
-            self.btnProject.setEnable(False)
+            self.btnProject.setEnabled(False)
             pass
         self.statusMotor.setText(str)
         self.updateStyleSheet()
@@ -543,18 +543,18 @@ class UI(QMainWindow):
         if str == levelStatusArr[0]:    # Idle
             pass
         elif str == levelStatusArr[1]:  # Homing
-            self.btnProject.setEnable(False)
-            self.btnInit.setEnable(False)
+            self.btnProject.setEnabled(False)
+            self.btnInit.setEnabled(False)
             pass
         elif str == levelStatusArr[2]:  # Homed
-            self.btnProject.setEnable(True)
-            self.btnInit.setEnable(True)
+            self.btnProject.setEnabled(True)
+            self.btnInit.setEnabled(True)
             pass
         elif str == levelStatusArr[3]:  # Moving
-            self.btnProject.setEnable(False)
+            self.btnProject.setEnabled(False)
             pass
         elif str == levelStatusArr[4]:  # Set
-            self.btnProject.setEnable(True)
+            self.btnProject.setEnabled(True)
             pass
         self.statusLevel.setText(str)
         self.updateStyleSheet()
