@@ -379,7 +379,6 @@ class printQueueClass(Node):
                 print("pausing")
                 if (self.pauseAll == True):
                     loc.data = -2
-                    self.touchScreenPublisher.publish(tdata)
                     tdata.name = "motor_status"
                     tdata.str_value = "Paused"
                     self.touchScreenPublisher.publish(tdata)
@@ -388,14 +387,13 @@ class printQueueClass(Node):
                     self.touchScreenPublisher.publish(tdata)
                 if (self.killRun == True):
                     loc.data = -1
+                    tdata.name = "motor_status"
+                    tdata.str_value = "Stopped"
+                    self.touchScreenPublisher.publish(tdata)
                 self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
                 tdata.name = "rpm_display"
                 tdata.num_value = 0
-                self.touchScreenPublisher.publish(tdata)
-                tdata.name = "motor_status"
-                tdata.str_value = "Stopped"
-                self.touchScreenPublisher.publish(tdata)
                 self.killRun = False
                 self.pauseAll = False
 
