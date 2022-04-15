@@ -63,6 +63,8 @@ class printQueueClass(Node):
     skipPop = False
     # Stop run and home
     killRun = False
+    # current parabola number
+    printNum = 0
 
     # Global Checkup Vars
     cSpeed = [-1] * 9
@@ -239,6 +241,7 @@ class printQueueClass(Node):
                 if (self.skipPop == False):
                     printSet = self.printQ.get()
                 self.skipPop = False
+                self.printNum = printSet.printNum
                 # Wait for motors to be good and online
                 for val in range(len(self.cStatus)):
                     while(self.cStatus[val] != 10):
@@ -332,7 +335,7 @@ class printQueueClass(Node):
                         for val in printSet.printdata:
                             # print(val)
                             qThread = Thread(
-                                target=self.projectorOn, args=([val]))
+                                target=self.projectorOn, args=([val],printSet.printNum))
                             qThread.daemon = True
                             qThread.start()
                         # Wait the max display time before moving
@@ -358,7 +361,10 @@ class printQueueClass(Node):
                         tdata.num_value = 0
                         self.touchScreenPublisher.publish(tdata)
                         tdata.name = "motor_status"
-                        tdata.str_value = "Stopped"
+                        tdata.str_value = "Paused"
+                        self.touchScreenPublisher.publish(tdata)
+                        tdata.name = "level_status"
+                        tdata.str_value = "Paused"
                         self.touchScreenPublisher.publish(tdata)
                         print("Waiting for next vial stack to be loaded")
             if (self.pauseAll == True or self.killRun == True):
@@ -422,7 +428,7 @@ class printQueueClass(Node):
         print(video.data)
         self.videoPublishers[printData['projNum'] - 1].publish(video)
 
-    def projectorOn(self, printData):
+    def projectorOn(self, printData, tempPrintNum):
         tdata = DisplayData()
         tdata.name = "projection_status"
         tdata.str_value = "Projection On"
@@ -435,9 +441,10 @@ class printQueueClass(Node):
         time.sleep(printData['printTime'])
         # kill projection just in case
         print("KILLING")
-        video.data = "EXIT"
-        # Kill Projection
-        self.videoPublishers[printData['projNum'] - 1].publish(video)
+        if (tempPrintNum == self.printNum):
+            video.data = "EXIT"
+            # Kill Projection
+            self.videoPublishers[printData['projNum'] - 1].publish(video)
 
 
 def main(args=None):
