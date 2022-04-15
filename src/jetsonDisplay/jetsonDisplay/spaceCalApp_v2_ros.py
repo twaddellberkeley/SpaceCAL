@@ -58,6 +58,7 @@ lcdParabolaNum = "parabola_display"
 lcdAccelVectorNum = "gravity_display"
 # Reset run
 resetRun = "reset_run"
+resetProjection = "reset_projection"
 # ROS2 Publisher Topic name
 btnTopic = 'buttons_topic'
 # ROS2 Publishing mgs for "buttons_topic"
@@ -302,7 +303,6 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 # The following function define the logic for all button states in the gui
 
-
     def execBtnInit_init(self):
         # Set the message for the information text
         self.displayInfoMsg(initRunMsg)
@@ -431,7 +431,6 @@ class UI(QMainWindow):
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
 
-
     def publishBtnInit(self, str):
         msg = String()
         dis = DisplayData()
@@ -495,6 +494,8 @@ class UI(QMainWindow):
         # NEW
         elif data.name == resetRun:
             self.resetGuiRun()
+        elif data.name == resetProjection:
+            self.resetProjection()
         else:
             print("No label with name: " + data.name)
 
@@ -558,6 +559,10 @@ class UI(QMainWindow):
     # NEW
     def resetGuiRun(self):
         self.btnInit.setText(runBtnStart)
+        self.updateStyleSheet()
+
+    def resetProjection(self):
+        self.btnProject.setText(projectBtnStart)
         self.updateStyleSheet()
 
 

@@ -254,9 +254,6 @@ class printQueueClass(Node):
                     print("running to height" + str(printSet.printHeight))
                     self.motorLocPublisher.publish(loc)
 
-                    tdata.name = "parabola_display"
-                    tdata.num_value = printSet.printNum
-                    self.touchScreenPublisher.publish(tdata)
                     # Send level in mm
                     tdata.name = "level_display"
                     tdata.num_value = printSet.printHeight
@@ -268,6 +265,10 @@ class printQueueClass(Node):
                                 break
                             pass
                     if (printSet.printNum > 0):
+                        #Set current parabola we are on
+                        tdata.name = "parabola_display"
+                        tdata.num_value = printSet.printNum
+                        self.touchScreenPublisher.publish(tdata)
                         # Loop through and and thread to prep print each print on current set
                         for val in printSet.printdata:
                             qThread = Thread(
@@ -327,6 +328,9 @@ class printQueueClass(Node):
     # Set all projector LEDs to 0
 
     def killProjection(self):
+        tdata = DisplayData()
+        tdata.name = "reset_run"
+        self.touchScreenPublisher.publish(tdata)
         print("stoping projection")
         video = String()
         video.data = "EXIT"
