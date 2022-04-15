@@ -423,6 +423,7 @@ class printQueueClass(Node):
         self.videoPublishers[printData['projNum'] - 1].publish(video)
 
     def projectorOn(self, printData):
+        tdata = DisplayData()
         tdata.name = "projection_status"
         tdata.str_value = "Projection On"
         self.touchScreenPublisher.publish(tdata)
