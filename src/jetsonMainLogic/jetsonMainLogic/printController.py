@@ -203,7 +203,8 @@ class printQueueClass(Node):
         elif (msg.data == "options"):
             self.options = True
         elif (msg.data == "resume"):
-            self.options = True
+            print("resuming")
+            self.okToRun = True
             self.tEvent.clear()
             self.skipPop = True
 
