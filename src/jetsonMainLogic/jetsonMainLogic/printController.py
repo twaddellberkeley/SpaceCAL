@@ -231,7 +231,7 @@ class printQueueClass(Node):
                 # Get the current print job in queue
                 if (self.skipPop == False):
                     printSet = self.printQ.get()
-                    self.skipPop = True
+                self.skipPop == False
                 # Wait for motors to be good and online
                 for val in range(len(self.cStatus)):
                     while(self.cStatus[val] != 10):
