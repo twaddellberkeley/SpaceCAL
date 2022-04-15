@@ -478,6 +478,7 @@ class UI(QMainWindow):
 # *************************************** Define Subscriber Functions ************************************** #
 
     def subcriberNodeHandler(self, data):
+        print("got")
         if data.name == statusProjectorStr:
             self.setStatusProjectorDisplay(data.str_value)
         elif data.name == statusMotorStr:
@@ -490,7 +491,7 @@ class UI(QMainWindow):
             self.setLcdLevelDisplay(data.num_value)
         elif data.name == lcdParabolaNum:
             print("got parabola number")
-            self.setLcdParabolaDisplay(data.num_val)
+            self.setLcdParabolaDisplay(data.num_value)
         # NEW
         elif data.name == resetRun:
             self.resetGuiRun()
