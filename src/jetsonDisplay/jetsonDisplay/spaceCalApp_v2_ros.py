@@ -38,7 +38,7 @@ pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
 # Display labels
-projStatusArr = ['Off', 'On']
+projStatusArr = ['On', 'Off']
 motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
 levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving', 'Set']
 
@@ -301,9 +301,12 @@ class UI(QMainWindow):
         # Load GUI design into python
         uic.loadUi(script_dir + "/spaceCalMW.ui", self)
         # apply CSS styleSheets to the GUI
-        
+
         self.btnPause.setEnabled(True)
-        
+        self.statusProjector.setText(projStatusArr[1])
+        self.statusMotor.setText(motorStatusArr[0])
+        self.statusLevel.setText(levelStatusArr[0])
+
         self.updateStyleSheet()
 
         # Use the following objectNames to acces GUI properties:
@@ -524,7 +527,7 @@ class UI(QMainWindow):
         self.statusProjector.setText(str)
         self.updateStyleSheet()
 
-    # motorStatusArr = ['Idle', 'Rotating', 'Stopped']
+    # motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
     def setStatusMotorDisplay(self, str):
         if str == motorStatusArr[0]:  # Idle
             pass
