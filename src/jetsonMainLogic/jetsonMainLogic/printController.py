@@ -353,7 +353,7 @@ class printQueueClass(Node):
                 # Tell motors to stop where current location is
                 #loc.data = self.cLoc[0]
                 print("pausing")
-                print(self.cLoc[0])
+                print(round(self.cLoc[0]/self.incrBit))
                 #self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
                 tdata.name = "rpm_display"
