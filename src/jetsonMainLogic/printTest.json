@@ -4,7 +4,7 @@
   {
     "printNum" : 0,
     "maxTime": 0,
-    "printHeight" : 0,
+    "printHeight" : 15,
     "prints" : []
   },
   {
