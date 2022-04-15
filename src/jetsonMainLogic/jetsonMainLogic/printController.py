@@ -315,7 +315,7 @@ class printQueueClass(Node):
         print("stoping projection")
         video = String()
         video.data = "EXIT"
-        for val in videoPublishers:
+        for val in self.videoPublishers:
             val.publish(video)
 
     # Send video to project and get up to speed
