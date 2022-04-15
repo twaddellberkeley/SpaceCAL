@@ -38,9 +38,9 @@ pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
 # Display labels
-projStatusArr = ['On', 'Off', 'Loding...']
-motorStatusArr = ['On', 'Off']
-levelStatusArr = ['Leveled', 'Rising...', 'Lowering...', 'Home']
+projStatusArr = ['Off', 'On']
+motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
+levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving' 'Set']
 
 ###### *********************** ROS2 Variables **************************** ######
 # ROS2 Nodes names
@@ -172,6 +172,7 @@ msgBtnPause_resume = "resume"
 
 class WorkerSignals(QObject):
     btnChange = pyqtSignal()
+    processRecieveMsg = pyqtSignal(DisplayData)
     lcdRpm = pyqtSignal(int)
     lcdLevel = pyqtSignal(int)
     lcdParabola = pyqtSignal(int)
@@ -328,6 +329,9 @@ class UI(QMainWindow):
         self.btnOptions.clicked.connect(self.onClick_btnOptions)
         self.btnPause.clicked.connect(self.onClick_btnPause)
 
+        ####### Create state signals ########
+        # self.lcdRpm.changeEvent(self.updateBtnState)
+
         ##### Create confirmation windows #####
         # Question message
         self.msgConfirm = QMessageBox()
@@ -366,6 +370,7 @@ class UI(QMainWindow):
         # create new thread for subcriber node
         self.worker = Worker(self.exec_subNode)
         self.worker.signals.btnChange.connect(self.updateStyleSheet)
+        self.worker.signals.processRecieveMsg.connect(self.subcriberHelper)
         # Execute
         self.threadpool.start(self.worker)
 
@@ -402,6 +407,7 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 # The following function define the logic for all button states in the gui
 
+
     def execBtnInit_init(self):
         # Set the message for the information text
         self.displayInfoMsg(initRunMsg)
@@ -425,7 +431,7 @@ class UI(QMainWindow):
                 # Set btnInit new text
                 self.btnInit.setText(runBtnStop)
                 self.btnProject.setEnabled(True)
-                self.btnPause.setEnabled(True)
+                # self.btnPause.setEnabled(True)
 
     def execBtnInit_stop(self):
         # Set the message for the confirmation text
@@ -442,7 +448,7 @@ class UI(QMainWindow):
                     self.btnInit.setText(runBtnStart)
                     if self.btnProject.text() == projectBtnStop:
                         self.execBtnProject_stop(False)
-                    self.btnPause.setEnabled(False)
+                    # self.btnPause.setEnabled(False)
 
     def execBtnProject_start(self):
         # Set the message for the confirmation text
@@ -454,7 +460,7 @@ class UI(QMainWindow):
             if retPub == True:
                 print("Projector Started Succesfuly!!")
                 self.btnProject.setText(projectBtnStop)
-                self.btnPause.setEnabled(True)
+                # self.btnPause.setEnabled(True)
 
     def execBtnProject_stop(self, displayMsg):
         msg = True
@@ -470,8 +476,8 @@ class UI(QMainWindow):
             if retPub == True:
                 print("Projector Stoped Succesfuly!!")
                 self.btnProject.setText(projectBtnStart)
-        if self.btnInit.text() == runBtnStart:
-            self.btnPause.setEnabled(False)
+        # if self.btnInit.text() == runBtnStart:
+        #     self.btnPause.setEnabled(False)
 
     def execBtnPause(self):
         retMsg = self.displayConfirmatonMsg(pauseAllMsg)
@@ -504,13 +510,51 @@ class UI(QMainWindow):
 
     def setStatusProjectorDisplay(self, str):
         print(str)
+        if str == projStatusArr[0]:  # on
+            if self.btnProject.Text() != projectBtnStop:
+                self.btnProject.setText(projectBtnStop)
+                # self.btnPause.setEnabled(True)
+        elif str == projStatusArr[1]:  # off
+            if self.btnProject.Text() != projectBtnStart:
+                self.btnProject.setText(projectBtnStop)
+                # self.btnPause.setEnabled(True)
         self.statusProjector.setText(str)
+        self.updateStyleSheet()
 
+    # motorStatusArr = ['Idle', 'Rotating', 'Stopped']
     def setStatusMotorDisplay(self, str):
+        if str == motorStatusArr[0]:  # Idle
+            pass
+        elif str == motorStatusArr[1]:  # Rotating
+            pass
+        elif str == motorStatusArr[2]:  # Stopped
+            self.btnProject.setText(projectBtnStart)
+            self.btnInit.setText(runBtnStart)
+            self.btnProject.setEnable(False)
+            pass
         self.statusMotor.setText(str)
+        self.updateStyleSheet()
 
+    # levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving' 'Set']
     def setStatusLevelDisplay(self, str):
+        if str == levelStatusArr[0]:    # Idle
+            pass
+        elif str == levelStatusArr[1]:  # Homing
+            self.btnProject.setEnable(False)
+            self.btnInit.setEnable(False)
+            pass
+        elif str == levelStatusArr[2]:  # Homed
+            self.btnProject.setEnable(True)
+            self.btnInit.setEnable(True)
+            pass
+        elif str == levelStatusArr[3]:  # Moving
+            self.btnProject.setEnable(False)
+            pass
+        elif str == levelStatusArr[4]:  # Set
+            self.btnProject.setEnable(True)
+            pass
         self.statusLevel.setText(str)
+        self.updateStyleSheet()
 
     def setLcdRpmDisplay(self, num):
         print(num)
@@ -529,6 +573,7 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
 
     def publishBtnInit(self, str):
         msg = String()
@@ -576,6 +621,9 @@ class UI(QMainWindow):
 # *************************************** Define Subscriber Functions ************************************** #
 
     def subcriberNodeHandler(self, data):
+        self.worker.signals.processRecieveMsg(data)
+
+    def subcriberHelper(self, data):
         print("got")
         if data.name == statusProjectorStr:
             self.setStatusProjectorDisplay(data.str_value)
@@ -588,15 +636,15 @@ class UI(QMainWindow):
         elif data.name == lcdLevelNum:
             self.setLcdLevelDisplay(data.num_value)
         elif data.name == lcdParabolaNum:
-            print("got parabola number")
             self.setLcdParabolaDisplay(data.num_value)
-        # NEW
+        # NEW TODO: delete the bottom 2 if stattements
         elif data.name == resetRun:
             self.resetGuiRun()
         elif data.name == resetProjection:
             self.resetProjection()
         else:
             print("No label with name: " + data.name)
+
 
 # *************************************** Define Subscriber Node function ************************************* #
     """
@@ -656,6 +704,10 @@ class UI(QMainWindow):
         return self.msgConfirm.exec()
 
     # NEW
+
+    def updateBtnState(slef):
+        pass
+
     def resetGuiRun(self):
         self.btnInit.setText(runBtnStart)
         self.worker.signals.btnChange.emit()
