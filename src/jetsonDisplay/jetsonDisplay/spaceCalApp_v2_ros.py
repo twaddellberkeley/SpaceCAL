@@ -38,7 +38,7 @@ pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
 # Display labels
-projStatusArr = ['Off', 'On']
+projStatusArr = ['On', 'Off']
 motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
 levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving', 'Set']
 
@@ -301,9 +301,12 @@ class UI(QMainWindow):
         # Load GUI design into python
         uic.loadUi(script_dir + "/spaceCalMW.ui", self)
         # apply CSS styleSheets to the GUI
-        
+
         self.btnPause.setEnabled(True)
-        
+        self.statusProjector.setText(projStatusArr[1])
+        self.statusMotor.setText(motorStatusArr[0])
+        self.statusLevel.setText(levelStatusArr[0])
+
         self.updateStyleSheet()
 
         # Use the following objectNames to acces GUI properties:
@@ -524,7 +527,7 @@ class UI(QMainWindow):
         self.statusProjector.setText(str)
         self.updateStyleSheet()
 
-    # motorStatusArr = ['Idle', 'Rotating', 'Stopped']
+    # motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
     def setStatusMotorDisplay(self, str):
         if str == motorStatusArr[0]:  # Idle
             pass
@@ -584,9 +587,9 @@ class UI(QMainWindow):
         if str == runBtnInit:
             msg.data = msgBtnInit_init
             ####### publish motors "On" #######
-            dis.name = statusMotorStr
-            dis.str_value = motorStatusArr[0]
-            self.pubDisplay.publish(dis)
+            # dis.name = statusMotorStr
+            # dis.str_value = motorStatusArr[0]
+            # self.pubDisplay.publish(dis)
         elif str == runBtnStart:
             msg.data = msgBtnInit_start
         elif str == runBtnStop:
@@ -600,15 +603,15 @@ class UI(QMainWindow):
         if str == projectBtnStart:
             msg.data = msgBtnProject_start
             ####### publish projection "On" ########
-            dis.name = statusProjectorStr
-            dis.str_value = projStatusArr[0]
-            self.pubDisplay.publish(dis)
+            # dis.name = statusProjectorStr
+            # dis.str_value = projStatusArr[0]
+            # self.pubDisplay.publish(dis)
         elif str == projectBtnStop:
             msg.data = msgBtnProject_stop
             ####### publish projection "Off" ########
-            dis.name = statusProjectorStr
-            dis.str_value = projStatusArr[1]
-            self.pubDisplay.publish(dis)
+            # dis.name = statusProjectorStr
+            # dis.str_value = projStatusArr[1]
+            # self.pubDisplay.publish(dis)
         self.pub.publish(msg)
         return True
 
