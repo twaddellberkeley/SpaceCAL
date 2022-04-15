@@ -554,7 +554,7 @@ class UI(QMainWindow):
 
     # NEW
     def resetGuiRun(self):
-        self.btnInit.setText(runBtnInit)
+        self.btnInit.setText(runBtnStart)
 
 
 def main():
