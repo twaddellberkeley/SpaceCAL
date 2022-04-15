@@ -61,6 +61,8 @@ class printQueueClass(Node):
     okToRun = False
     #If resuming need to skip
     skipPop = False
+    # Stop run and home
+    killRun = False
 
     # Global Checkup Vars
     cSpeed = [-1] * 9
@@ -207,6 +209,10 @@ class printQueueClass(Node):
             self.okToRun = True
             self.tEvent.clear()
             self.skipPop = True
+        elif (msg.data == "kill"):
+            self.okToRun = False
+            self.tEvent.clear()
+            self.killRun = True
 
     # Loop for printing EVERYTHING
     def qPrint(self):
@@ -259,6 +265,8 @@ class printQueueClass(Node):
                         # If postion is uncertain than something bad has happened
                         if ((self.cFlags[val] & 0x02) == 1):
                             print("ERROR IN HOMING")
+                        if(self.okToRun == False):
+                                break
                     print("Done Homing")
                     tdata.name = "level_status"
                     tdata.str_value = "Home"
@@ -290,6 +298,8 @@ class printQueueClass(Node):
                             if(self.okToRun == False):
                                 break
                             pass
+                        if(self.okToRun == False):
+                                break
                     tdata.name = "level_status"
                     tdata.str_value = "Set"
                     self.touchScreenPublisher.publish(tdata)
@@ -350,7 +360,7 @@ class printQueueClass(Node):
                         tdata.str_value = "Stopped"
                         self.touchScreenPublisher.publish(tdata)
                         print("Waiting for next vial stack to be loaded")
-            if (self.pauseAll == True):
+            if (self.pauseAll == True or self.killRun == True):
                 # Stop the repeating of the function
                 self.okToRun = False
                 # Stop all rotation
@@ -362,8 +372,10 @@ class printQueueClass(Node):
                 # Tell motors to stop where current location is
                 #loc.data = self.cLoc[0]
                 print("pausing")
-                print(-2)
-                loc.data = -2
+                if (self.pauseAll == True):
+                    loc.data = -2
+                if (self.killRun == True):
+                    loc.data = -1
                 self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
                 tdata.name = "rpm_display"
@@ -372,6 +384,7 @@ class printQueueClass(Node):
                 tdata.name = "motor_status"
                 tdata.str_value = "Stopped"
                 self.touchScreenPublisher.publish(tdata)
+                self.killRun = False
                 self.pauseAll = False
 
     # Set all projector LEDs to 0
