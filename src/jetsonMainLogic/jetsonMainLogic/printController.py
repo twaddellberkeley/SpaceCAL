@@ -355,9 +355,13 @@ class printQueueClass(Node):
         # Set publish types
         vel = Int32()
         video = String()
+        tdata = DisplayData()
         # Get data from array
         vel.data = printData['printSpeed']
         video.data = printData['videoName']
+        tdata.name = "rpm_display"
+        tdata.num_value = printData['printSpeed']
+        self.touchScreenPublisher.publish(tdata)
         # Send to projector and motor
         self.velocityPublishers[printData['projNum'] - 1].publish(vel)
         print(video.data)
