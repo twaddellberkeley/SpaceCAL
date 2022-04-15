@@ -392,7 +392,8 @@ class printQueueClass(Node):
 
     def killProjection(self):
         tdata = DisplayData()
-        tdata.name = "reset_projection"
+        tdata.name = "projection_status"
+        tdata.str_value = "Projection Off"
         self.touchScreenPublisher.publish(tdata)
         print("stoping projection")
         video = String()
@@ -421,6 +422,9 @@ class printQueueClass(Node):
         self.videoPublishers[printData['projNum'] - 1].publish(video)
 
     def projectorOn(self, printData):
+        tdata.name = "projection_status"
+        tdata.str_value = "Projection On"
+        self.touchScreenPublisher.publish(tdata)
         video = String()
         video.data = "PRINT"
         self.videoPublishers[printData['projNum'] - 1].publish(video)
