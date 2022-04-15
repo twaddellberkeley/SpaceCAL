@@ -421,6 +421,7 @@ class UI(QMainWindow):
         self.lcdLevel.display(num)
 
     def setLcdParabolaDisplay(self, num):
+
         self.lcdParabola.display(num)
 
     def setLcdAccelVectorDisplay(self, num):
@@ -488,6 +489,7 @@ class UI(QMainWindow):
         elif data.name == lcdLevelNum:
             self.setLcdLevelDisplay(data.num_value)
         elif data.name == lcdParabolaNum:
+            print("got parabola number")
             self.setLcdParabolaDisplay(data.num_val)
         # NEW
         elif data.name == resetRun:
