@@ -189,13 +189,14 @@ class printQueueClass(Node):
     # Subscribe to touchscreen variables
     def touchScreenHandler(self, msg):
         if (msg.data == "stop_proj"):
-            print("STOP BUTTON")
             self.killProjection()
         elif (msg.data == "start_proj"):
             self.startProjection = True
         elif (msg.data == "motor_ok"):
             self.okToRun = True
         elif (msg.data == "pause"):
+            self.tEvent.set()
+            self.okToRun = False
             self.pauseAll = True
         elif (msg.data == "options"):
             self.options = True
@@ -209,6 +210,13 @@ class printQueueClass(Node):
         loc = Int32()
         # Data to send to touch screen
         tdata = DisplayData()
+        # Setting OG values
+        tdata.name = "motor_status"
+        tdata.str_value = "Ready"
+        self.touchScreenPublisher.publish(tdata)
+        tdata.name = "level_status"
+        tdata.str_value = "Ready"
+        self.touchScreenPublisher.publish(tdata)
         # Keep running while alive
         while rclpy.ok():
             # Keep running until there is not a print to go, only run if it is safe
@@ -263,6 +271,8 @@ class printQueueClass(Node):
                     # Send level in mm
                     tdata.name = "level_display"
                     tdata.num_value = printSet.printHeight
+                    self.touchScreenPublisher.publish(tdata)
+                    tdata.name = "level_status"
                     tdata.str_value = "Moving"
                     self.touchScreenPublisher.publish(tdata)
                     # Wait till all motors are at correct height before starting projections
@@ -285,12 +295,17 @@ class printQueueClass(Node):
                                 target=self.readyPart, args=([val]))
                             qThread.daemon = True
                             qThread.start()
+                        tdata.name = "motor_status"
+                        tdata.str_value = "Rotating"
+                        self.touchScreenPublisher.publish(tdata)
                         # Set up each video, but do not display
                         # Wait for user input to display
                         while (not self.startProjection):
                             if(self.okToRun == False):
                                 break
                             pass
+                        if(self.okToRun == False):
+                            break
                         # Unset variable for next time
                         self.startProjection = False
                         # Loop through and turn projectors on
@@ -319,6 +334,12 @@ class printQueueClass(Node):
                         for velPublisher in self.velocityPublishers:
                             vel.data = 0
                             velPublisher.publish(vel)
+                        tdata.name = "rpm_display"
+                        tdata.num_value = 0
+                        self.touchScreenPublisher.publish(tdata)
+                        tdata.name = "motor_status"
+                        tdata.str_value = "Stopped"
+                        self.touchScreenPublisher.publish(tdata)
                         print("Waiting for next vial stack to be loaded")
             if (self.pauseAll == True):
                 # Stop the repeating of the function
@@ -330,10 +351,17 @@ class printQueueClass(Node):
                 # Stop all projections
                 self.killProjection()
                 # Tell motors to stop where current location is
-                loc.data = self.cLoc[0]
+                #loc.data = self.cLoc[0]
                 print("pausing")
+                print(round(self.cLoc[0]/self.incrBit))
                 self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
+                tdata.name = "rpm_display"
+                tdata.num_value = 0
+                self.touchScreenPublisher.publish(tdata)
+                tdata.name = "motor_status"
+                tdata.str_value = "Stopped"
+                self.touchScreenPublisher.publish(tdata)
 
     # Set all projector LEDs to 0
 
