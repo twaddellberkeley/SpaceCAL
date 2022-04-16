@@ -23,8 +23,8 @@
 #define TYPE_RAW_IMU interfaces::msg::RawImu
 #define BUTTONS "buttons_topic"
 #define DISPLAY "display_topic"
-#define FUSION_IMU "fusion_imu"
-#define RAW_IMU "raw_imu"
+#define FUSION_IMU "fusion_imu_topic"
+#define RAW_IMU "raw_imu_topic"
 #define MOTOR "motor_data"
 
 using std::placeholders::_1;
@@ -130,7 +130,7 @@ private:
       RCLCPP_ERROR(get_logger(), "Error getting current time: %s",
                    rcutils_get_error_string().str);
     }
-
+    std::cout << "message: " << topic_name << std::endl;
     writer_->write(bag_message);
   }
 
@@ -180,6 +180,10 @@ private:
       return "Nov";
     case 12:
       return "Dec";
+<<<<<<< HEAD
+=======
+    // you can have any number of case statements.
+>>>>>>> dev-christian
     default: // Optional
       return "Error";
     }

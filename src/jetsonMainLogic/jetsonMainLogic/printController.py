@@ -24,7 +24,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32, Int64
 import time
-from interfaces.msg import MotorData
+from interfaces.msg import MotorData, DisplayData
 from dataclasses import dataclass
 import queue
 from threading import Thread
@@ -59,6 +59,12 @@ class printQueueClass(Node):
     printQ = queue.Queue()
     # Var that allows print process to start
     okToRun = False
+    #If resuming need to skip
+    skipPop = False
+    # Stop run and home
+    killRun = False
+    # current parabola number
+    printNumCur = 0
 
     # Global Checkup Vars
     cSpeed = [-1] * 9
@@ -135,7 +141,8 @@ class printQueueClass(Node):
 
         self.videoPublishers = [self.videoSendV1, self.videoSendV2,
                                 self.videoSendV3, self.videoSendV4, self.videoSendV5]
-
+        self.touchScreenPublisher = self.create_publisher(DisplayData, 'display_topic', 10)
+        self.touchScreenPublisher
         # subscribers
         # Motor data subscriber
         self.motorDataSubscriber = self.create_subscription(
@@ -152,7 +159,6 @@ class printQueueClass(Node):
         self.readPrintFile()
         self.okToRun = False
         self.startProjection = False
-        self.killProjection = False
         self.pauseAll = False
         qThread = Thread(target=self.qPrint, args=())
         # qThread.daemon=True
@@ -168,7 +174,6 @@ class printQueueClass(Node):
         self.cFlags[msg.motornum - self.mOffset] = msg.flags
 
     def readPrintFile(self):
-        # TODO create solid path for this DONE!!!
         script_dir = os.path.dirname(__file__)
         file = open(script_dir + "/printTest.json")
         # file = open("/home/spacecal/Desktop/printTest.json")
@@ -190,15 +195,26 @@ class printQueueClass(Node):
     # Subscribe to touchscreen variables
     def touchScreenHandler(self, msg):
         if (msg.data == "stop_proj"):
-            self.killProjection = True
+            self.killProjection()
         elif (msg.data == "start_proj"):
             self.startProjection = True
         elif (msg.data == "motor_ok"):
             self.okToRun = True
         elif (msg.data == "pause"):
+            self.tEvent.set()
+            self.okToRun = False
             self.pauseAll = True
         elif (msg.data == "options"):
             self.options = True
+        elif (msg.data == "resume"):
+            print("resuming")
+            self.okToRun = True
+            self.tEvent.clear()
+            self.skipPop = True
+        elif (msg.data == "kill"):
+            self.okToRun = False
+            self.tEvent.clear()
+            self.killRun = True
 
     # Loop for printing EVERYTHING
     def qPrint(self):
@@ -207,12 +223,24 @@ class printQueueClass(Node):
         vel = Int32()
         # Location to go to publish
         loc = Int32()
+        # Data to send to touch screen
+        tdata = DisplayData()
+        # Setting OG values
+        tdata.name = "motor_status"
+        tdata.str_value = "Idle"
+        self.touchScreenPublisher.publish(tdata)
+        tdata.name = "level_status"
+        tdata.str_value = "Idle"
+        self.touchScreenPublisher.publish(tdata)
         # Keep running while alive
         while rclpy.ok():
             # Keep running until there is not a print to go, only run if it is safe
-            while (not self.printQ.empty() and self.okToRun == True):
+            while ((not self.printQ.empty() or self.skipPop == True) and self.okToRun == True):
                 # Get the current print job in queue
-                printSet = self.printQ.get()
+                print("Running set")
+                if (self.skipPop == False):
+                    printSet = self.printQ.get()
+                self.skipPop = False
                 # Wait for motors to be good and online
                 for val in range(len(self.cStatus)):
                     while(self.cStatus[val] != 10):
@@ -224,6 +252,9 @@ class printQueueClass(Node):
                     # Go home, do this by sending -1 to distance
                     loc.data = printSet
                     print("Homing")
+                    tdata.name = "level_status"
+                    tdata.str_value = "Homing"
+                    self.touchScreenPublisher.publish(tdata)
                     self.motorLocPublisher.publish(loc)
                     # Wait for home to complete from all mototrs, need this line as it sometimes jumps ahead
                     time.sleep(1)
@@ -237,9 +268,15 @@ class printQueueClass(Node):
                         # If postion is uncertain than something bad has happened
                         if ((self.cFlags[val] & 0x02) == 1):
                             print("ERROR IN HOMING")
+                        if(self.okToRun == False):
+                                break
                     print("Done Homing")
+                    tdata.name = "level_status"
+                    tdata.str_value = "Homed"
+                    self.touchScreenPublisher.publish(tdata)
                 # Begin printing normal printer data
                 else:
+                    self.printNumCur = printSet.printNum
                     if (printSet.printNum > 0):
                         print("Starting print number: " +
                               str(printSet.printNum))
@@ -251,38 +288,62 @@ class printQueueClass(Node):
                     loc.data = printSet.printHeight
                     print("running to height" + str(printSet.printHeight))
                     self.motorLocPublisher.publish(loc)
+
+                    # Send level in mm
+                    tdata.name = "level_display"
+                    tdata.num_value = printSet.printHeight
+                    self.touchScreenPublisher.publish(tdata)
+                    tdata.name = "level_status"
+                    tdata.str_value = "Moving"
+                    self.touchScreenPublisher.publish(tdata)
                     # Wait till all motors are at correct height before starting projections
                     for val in range(4):
                         while(round(self.cLoc[val]) != round(printSet.printHeight * self.incrBit)):
                             if(self.okToRun == False):
                                 break
                             pass
+                        if(self.okToRun == False):
+                                break
+                    tdata.name = "level_status"
+                    tdata.str_value = "Set"
+                    self.touchScreenPublisher.publish(tdata)
                     if (printSet.printNum > 0):
+                        #Set current parabola we are on
+                        tdata.name = "parabola_display"
+                        tdata.num_value = printSet.printNum
+                        self.touchScreenPublisher.publish(tdata)
                         # Loop through and and thread to prep print each print on current set
                         for val in printSet.printdata:
                             qThread = Thread(
                                 target=self.readyPart, args=([val]))
                             qThread.daemon = True
                             qThread.start()
+                        tdata.name = "motor_status"
+                        tdata.str_value = "Rotating"
+                        self.touchScreenPublisher.publish(tdata)
                         # Set up each video, but do not display
                         # Wait for user input to display
                         while (not self.startProjection):
                             if(self.okToRun == False):
                                 break
                             pass
+                        if(self.okToRun == False):
+                            break
                         # Unset variable for next time
                         self.startProjection = False
                         # Loop through and turn projectors on
                         for val in printSet.printdata:
                             # print(val)
                             qThread = Thread(
-                                target=self.projectorOn, args=([val]))
+                                target=self.projectorOn, args=([val,printSet.printNum]))
                             qThread.daemon = True
                             qThread.start()
-                        # Wait the max display time before movingW
+                        # Wait the max display time before moving
                         while not self.tEvent.is_set():
                             self.tEvent.wait(timeout=printSet.maxTime)
                             self.tEvent.set()
+                            self.killProjection()
+                        # Kill all projections just in case
                         # Unset the event for next time
                         self.tEvent.clear()
                         if(self.okToRun == False):
@@ -290,12 +351,21 @@ class printQueueClass(Node):
                     # If printSet is 0, we have moved back to 0/home, need to turn off rotation
                     if(printSet.printNum == 0):
                         self.okToRun = False
+                        self.touchScreenPublisher.publish(tdata)
+                        tdata.name = "motor_status"
+                        tdata.str_value = "Idle"
+                        self.touchScreenPublisher.publish(tdata)
+                        tdata.name = "level_status"
+                        tdata.str_value = "Idle"
+                        self.touchScreenPublisher.publish(tdata)
                         # Set all rotation to 0
                         for velPublisher in self.velocityPublishers:
                             vel.data = 0
                             velPublisher.publish(vel)
+                        tdata.name = "rpm_display"
+                        tdata.num_value = 0
                         print("Waiting for next vial stack to be loaded")
-            if (self.pauseAll == True):
+            if (self.pauseAll == True or self.killRun == True):
                 # Stop the repeating of the function
                 self.okToRun = False
                 # Stop all rotation
@@ -305,17 +375,40 @@ class printQueueClass(Node):
                 # Stop all projections
                 self.killProjection()
                 # Tell motors to stop where current location is
-                loc.data = self.cLoc[0]
+                #loc.data = self.cLoc[0]
                 print("pausing")
+                if (self.pauseAll == True):
+                    loc.data = -2
+                    tdata.name = "motor_status"
+                    tdata.str_value = "Paused"
+                    self.touchScreenPublisher.publish(tdata)
+                    tdata.name = "level_status"
+                    tdata.str_value = "Paused"
+                    self.touchScreenPublisher.publish(tdata)
+                if (self.killRun == True):
+                    loc.data = -1
+                    tdata.name = "motor_status"
+                    tdata.str_value = "Stopped"
+                    self.touchScreenPublisher.publish(tdata)
                 self.motorLocPublisher.publish(loc)
                 self.tEvent.set()
+                tdata.name = "rpm_display"
+                tdata.num_value = 0
+                self.killRun = False
+                self.pauseAll = False
 
     # Set all projector LEDs to 0
 
     def killProjection(self):
+        self.tEvent.set()
+        tdata = DisplayData()
+        tdata.name = "projection_status"
+        tdata.str_value = "Projection Off"
+        self.touchScreenPublisher.publish(tdata)
+        print("stoping projection")
         video = String()
         video.data = "EXIT"
-        for val in videoPublishers:
+        for val in self.videoPublishers:
             val.publish(video)
 
     # Send video to project and get up to speed
@@ -326,15 +419,23 @@ class printQueueClass(Node):
         # Set publish types
         vel = Int32()
         video = String()
+        tdata = DisplayData()
         # Get data from array
         vel.data = printData['printSpeed']
         video.data = printData['videoName']
+        tdata.name = "rpm_display"
+        tdata.num_value = printData['printSpeed']
+        self.touchScreenPublisher.publish(tdata)
         # Send to projector and motor
         self.velocityPublishers[printData['projNum'] - 1].publish(vel)
         print(video.data)
         self.videoPublishers[printData['projNum'] - 1].publish(video)
 
-    def projectorOn(self, printData):
+    def projectorOn(self, printData, tempPrintNum):
+        tdata = DisplayData()
+        tdata.name = "projection_status"
+        tdata.str_value = "Projection On"
+        self.touchScreenPublisher.publish(tdata)
         video = String()
         video.data = "PRINT"
         self.videoPublishers[printData['projNum'] - 1].publish(video)
@@ -342,10 +443,11 @@ class printQueueClass(Node):
         print("WAITING")
         time.sleep(printData['printTime'])
         # kill projection just in case
-        print("KILLING")
-        video.data = "EXIT"
-        # Kill Projection
-        self.videoPublishers[printData['projNum'] - 1].publish(video)
+        if (tempPrintNum == self.printNumCur):
+            print("KILLING")
+            video.data = "EXIT"
+            # Kill Projection
+            self.videoPublishers[printData['projNum'] - 1].publish(video)
 
 
 def main(args=None):

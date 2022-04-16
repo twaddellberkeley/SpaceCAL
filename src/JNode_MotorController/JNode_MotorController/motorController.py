@@ -280,8 +280,16 @@ class keySubscriber(Node):
                     stepVal = 396800 
                 tic.set_target_position(stepVal)
             #If negative we do homing procedure
-            else:
+            elif (msg.data == -1):
                 tic.go_home()
+            elif (msg.data == -2):
+                msg.data = tic.get_current_position()
+                print(msg.data)
+                print("Pausing")
+                if (msg.data >396800):
+                    msg.data = 396800
+                tic.set_target_position(msg.data)
+                
             
 
 
