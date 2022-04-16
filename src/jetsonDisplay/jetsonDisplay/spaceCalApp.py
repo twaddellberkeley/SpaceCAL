@@ -650,7 +650,7 @@ class UI(QMainWindow):
         # text = time.toString('mm:ss')
         self.timerSec += 1
 
-        print(dis)
+        # print(dis)
         self.projectionTime.display(dis)
 
     def stopTimer(self):
