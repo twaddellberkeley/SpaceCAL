@@ -49,7 +49,7 @@ subNodeStr = "display_node"
 # ROS2 Subscriber Topic name
 displayTopic = "display_topic"
 # Display label names:
-statusProjectorStr = "projector_status"
+statusProjectorStr = "projection_status"
 statusMotorStr = "motor_status"
 statusLevelStr = "level_status"
 lcdRpmNum = "rpm_display"
