@@ -303,9 +303,9 @@ class UI(QMainWindow):
         # apply CSS styleSheets to the GUI
 
         self.btnPause.setEnabled(True)
-        self.statusProjector.setText(projStatusArr[1])
-        self.statusMotor.setText(motorStatusArr[0])
-        self.statusLevel.setText(levelStatusArr[0])
+        self.setStatusProjectorDisplay(projStatusArr[1])
+        self.setStatusMotorDisplay(motorStatusArr[0])
+        self.setStatusLevelDisplay(levelStatusArr[0])
 
         self.updateStyleSheet()
 
@@ -535,8 +535,9 @@ class UI(QMainWindow):
             pass
         elif str == motorStatusArr[2]:  # Stopped
             self.btnProject.setText(projectBtnStart)
-            self.btnInit.setText(runBtnStart)
             self.btnProject.setEnabled(False)
+            self.btnInit.setText(runBtnStart)
+
         self.statusMotor.setText(str)
         self.updateStyleSheet()
 
@@ -544,21 +545,19 @@ class UI(QMainWindow):
     def setStatusLevelDisplay(self, str):
         if str == levelStatusArr[0]:    # Idle
             self.btnProject.setEnabled(False)
-            pass
+            self.btnInit.setText(runBtnStart)
         elif str == levelStatusArr[1]:  # Homing
+            self.btnProject.setText(projectBtnStart)
+            self.btnInit.setText(runBtnStart)
             self.btnProject.setEnabled(False)
             self.btnInit.setEnabled(False)
-            pass
         elif str == levelStatusArr[2]:  # Homed
             self.btnProject.setEnabled(True)
             self.btnInit.setEnabled(True)
-            pass
         elif str == levelStatusArr[3]:  # Moving
             self.btnProject.setEnabled(False)
-            pass
         elif str == levelStatusArr[4]:  # Set
             self.btnProject.setEnabled(True)
-            pass
         self.statusLevel.setText(str)
         self.updateStyleSheet()
 
