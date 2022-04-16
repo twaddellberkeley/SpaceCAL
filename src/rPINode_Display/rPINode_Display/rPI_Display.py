@@ -41,7 +41,7 @@ class displayFunctionClass(Node):
         videoString = '/home/spacecal/test_video/' + msg.data
         # 
         mProcess = subprocess.Popen(
-            args = ['vlc-pi', "-I", "dummy", "-f", "--repeat", "--no-audio", "--no-osd", videoString, "vlc://quit"],
+            args = ['vlc-pi', "-I", "dummy", "-f", "--repeat", "-no-audio", "--no-osd", videoString, "vlc://quit"],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
