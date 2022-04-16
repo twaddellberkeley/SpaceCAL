@@ -12,7 +12,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-	('lib/python3.8/site-packages/' + package_name,['spaceCalMW.ui']), # Replace [file] with correct file
+        ('lib/python3.8/site-packages/' + package_name,
+         ['spaceCalMW.ui']),  # Replace [file] with correct file
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -23,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'guiMain = jetsonDisplay.spaceCalApp_v2_ros:main'   # Replace "spaceCalApp_v2_ros" with correct python file
+            # Replace "spaceCalApp_v2_ros" with correct python file
+            'guiMain = jetsonDisplay.spaceCalApp:main'
         ],
     },
 )
