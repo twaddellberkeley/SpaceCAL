@@ -9,73 +9,73 @@
   },
   {
     "printNum" : 1,
-    "maxTime": 20,
+    "maxTime": 20000,
     "printHeight" : 18,
     "prints" : [{
       "projNum" : 1,
       "printSpeed" : 6,
-      "videoName" : "truss.mp4",
-      "printTime": 120
+      "videoName" : "test.mp4",
+      "printTime": 20000
       },
       {
       "projNum" : 2,
       "printSpeed" : 6,
-      "videoName" : "truss.mp4",
-      "printTime": 120
+      "videoName" : "test.mp4",
+      "printTime": 20000
       },
       {
       "projNum" : 3,
       "printSpeed" : 5,
       "videoName" : "test.mp4",
-      "printTime": 10
+      "printTime": 20000
       },
       {
       "projNum" : 4,
       "printSpeed" : 10,
-      "videoName" : "test1.mp4",
-      "printTime": 10  
+      "videoName" : "test.mp4",
+      "printTime": 20000
       },
       {
       "projNum" : 5,
       "printSpeed" : 15,
-      "videoName" : "test3.mp4",
-      "printTime": 10
+      "videoName" : "test.mp4",
+      "printTime": 20000
       }
     ]
   },
    {
     "printNum" : 2,
-    "maxTime": 20,
+    "maxTime": 20000,
     "printHeight" : 98,
     "prints" : [{
       "projNum" : 1,
       "printSpeed" : 6,
-      "videoName" : "truss.mp4",
-      "printTime": 120
+      "videoName" : "test.mp4",
+      "printTime": 20000
       },
       {
       "projNum" : 2,
       "printSpeed" : 6,
-      "videoName" : "truss.mp4",
-      "printTime": 120
+      "videoName" : "test.mp4",
+      "printTime": 20000
       },
       {
       "projNum" : 3,
       "printSpeed" : 5,
       "videoName" : "test.mp4",
-      "printTime": 10
+      "printTime": 20000
       },
       {
       "projNum" : 4,
       "printSpeed" : 10,
-      "videoName" : "test1.mp4",
-      "printTime": 10  
+      "videoName" : "test.mp4",
+      "printTime": 20000
       },
       {
       "projNum" : 5,
       "printSpeed" : 15,
-      "videoName" : "test3.mp4",
-      "printTime": 10
+      "videoName" : "test.mp4",
+      "printTime": 20000
       }
     ]
   }, 
