@@ -631,7 +631,15 @@ class UI(QMainWindow):
         # seconds = t - ((day*86400) + (hour*3600) + (min*60))
         # hello= datetime.time(hour.hour, min.minute, seconds.second)
         # print (hello )
-        x = time.strftime('%M:%S:%f', time.gmtime(self.timerSec))
+        strMill = ""
+        seconds = self.timerSec//1000
+        milli = self.timerSec % 1000
+        x = time.strftime('%M:%S', time.gmtime(seconds))
+        if (milli < 10):
+            strMill = ":" + "0" + milli
+        else:
+            strMill = ":" + milli
+        dis = "" + x + strMill
         # sec = self.timerSec % 60
         # min = self.timerSec // 60
         # text = time.toString('mm:ss')
