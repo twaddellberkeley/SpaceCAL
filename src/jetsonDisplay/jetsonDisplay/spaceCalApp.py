@@ -644,7 +644,7 @@ class UI(QMainWindow):
         # min = self.timerSec // 60
         # text = time.toString('mm:ss')
         self.timerSec += 1
-        self.projectionTime.display(dis)
+        self.projectionTime.display(x)
 
     def stopTimer(self):
         self.timer.stop()
