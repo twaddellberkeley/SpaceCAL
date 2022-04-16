@@ -303,9 +303,9 @@ class UI(QMainWindow):
         # apply CSS styleSheets to the GUI
 
         self.btnPause.setEnabled(True)
-        self.setStatusProjectorDisplay(projStatusArr[1])
-        self.setStatusMotorDisplay(motorStatusArr[0])
-        self.setStatusLevelDisplay(levelStatusArr[0])
+        self.statusProjector.setText(projStatusArr[1])
+        self.statusMotor.setText(motorStatusArr[0])
+        self.statusLevel.setText(levelStatusArr[0])
 
         self.updateStyleSheet()
 
