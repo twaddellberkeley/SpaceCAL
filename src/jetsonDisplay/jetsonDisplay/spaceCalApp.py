@@ -342,7 +342,6 @@ class UI(QMainWindow):
                 self.btnInit.setText(runBtnStop)
                 self.btnProject.setEnabled(True)
                 # self.btnPause.setEnabled(True)
-                self.startTimer()
 
     def execBtnInit_stop(self):
         # Set the message for the confirmation text
@@ -360,7 +359,6 @@ class UI(QMainWindow):
                     if self.btnProject.text() == projectBtnStop:
                         self.execBtnProject_stop(False)
                     # self.btnPause.setEnabled(False)
-                    self.stopTimer()
 
     def execBtnProject_start(self):
         # Set the message for the confirmation text
@@ -373,6 +371,7 @@ class UI(QMainWindow):
                 print("Projector Started Succesfuly!!")
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
+                self.startTimer()
 
     def execBtnProject_stop(self, displayMsg):
         msg = True
@@ -390,6 +389,7 @@ class UI(QMainWindow):
                 self.btnProject.setText(projectBtnStart)
         # if self.btnInit.text() == runBtnStart:
         #     self.btnPause.setEnabled(False)
+        self.stopTimer()
 
     def execBtnPause(self):
         retMsg = self.displayConfirmatonMsg(pauseAllMsg)
@@ -487,7 +487,6 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
-
 
     def publishBtnInit(self, str):
         msg = String()
@@ -632,7 +631,7 @@ class UI(QMainWindow):
         # seconds = t - ((day*86400) + (hour*3600) + (min*60))
         # hello= datetime.time(hour.hour, min.minute, seconds.second)
         # print (hello )
-        x = time.strftime('%M:%S', time.gmtime(self.timerSec))
+        x = time.strftime('%M:%S.%f', time.gmtime(self.timerSec))
         # sec = self.timerSec % 60
         # min = self.timerSec // 60
         # text = time.toString('mm:ss')
