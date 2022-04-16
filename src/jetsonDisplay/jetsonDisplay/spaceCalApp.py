@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
 
+import datetime
 import time
 import traceback
 import sys
@@ -194,7 +195,10 @@ class UI(QMainWindow):
     }
     """
 
+    timerSec = 0
+
     # This function sets initial gui state
+
     def __init__(self):
         super(UI, self).__init__()
         script_dir = os.path.dirname(__file__)
@@ -259,10 +263,8 @@ class UI(QMainWindow):
         # self.show()
 
         ##### Timer setup ######
-        timer = QTimer(self)
-        timer.timeout.connect(self.showlcd)
-        timer.start(1000)
-        self.showlcd()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.showlcd)
 
         ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
@@ -422,10 +424,12 @@ class UI(QMainWindow):
             if self.btnProject.text() != projectBtnStop:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
+            self.startTimer()
         elif str == projStatusArr[1]:  # off
             if self.btnProject.text() != projectBtnStart:
                 self.btnProject.setText(projectBtnStart)
                 # self.btnPause.setEnabled(True)
+            self.stopTimer()
         self.statusProjector.setText(str)
         self.updateStyleSheet()
 
@@ -481,6 +485,7 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
 
     def publishBtnInit(self, str):
         msg = String()
@@ -610,10 +615,30 @@ class UI(QMainWindow):
         self.msgConfirm.setText(msg)
         return self.msgConfirm.exec()
 
+    def startTimer(self):
+        self.timer.start(1000)
+        self.timerSec = 0
+        self.showlcd()
+
     def showlcd(self):
-        time = QTime.currentTime()
-        text = time.toString('mm:ss')
-        self.projectionTime.display(text)
+        # time = QTime.currentTime()
+        # x = 40000
+        # t = int(x)
+        # day = t//86400
+        # hour = (t-(day*86400))//3600
+        # min = (t - ((day*86400) + (hour*3600)))//60
+        # seconds = t - ((day*86400) + (hour*3600) + (min*60))
+        # hello= datetime.time(hour.hour, min.minute, seconds.second)
+        # print (hello )
+        x = time.strftime('%M:%S', time.gmtime(self.timerSec))
+        # sec = self.timerSec % 60
+        # min = self.timerSec // 60
+        # text = time.toString('mm:ss')
+        self.timerSec += 1
+        self.projectionTime.display(x)
+
+    def stopTimer(self):
+        self.timer.stop()
 
     # NEW
 
