@@ -169,7 +169,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLCDNumber" name="projection_time">
+             <widget class="QLCDNumber" name="projectionTime">
               <property name="font">
                <font>
                 <family>Comic Sans MS</family>

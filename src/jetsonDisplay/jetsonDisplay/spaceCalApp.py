@@ -613,7 +613,7 @@ class UI(QMainWindow):
     def showlcd(self):
         time = QTime.currentTime()
         text = time.toString('mm:ss')
-        self.projector_time.display(text)
+        self.projectionTime.display(text)
 
     # NEW
 
