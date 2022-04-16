@@ -70,105 +70,6 @@ msgBtnProject_stop = "stop_proj"
 msgBtnPause_pause = "pause"
 msgBtnPause_resume = "resume"
 
-###### ******************* StyleSheets Variabels ************************* ######
-# global styleSheet
-# styleSheet = """
-# QPushButton {
-#     padding:0.3em 1.2em;
-#     margin:0 0.1em 0.1em 0;
-#     border:0.16em solid rgba(255,255,255,0);
-#     border-radius: 20%;
-#     text-decoration:none;
-#     color:#FFFFFF;
-#     text-align:center;
-# }
-
-# QPushButton[text="Start Projection"], QPushButton[text="Options"],
-# QPushButton[text="Start Run"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #4e9af1, stop: 1 #0762d7);
-# }
-
-# QPushButton[text="Start Projection"]:pressed, QPushButton[text="Options"]:pressed,
-# QPushButton[text="Start Run"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #0762d7, stop: 1 #4e9af1);
-# }
-
-# QPushButton[text="Pause"], QPushButton[text="Stop Projection"],
-# QPushButton[text="Stop Run"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                        stop: 0 #ff4040, stop: 1 #992626);
-# }
-
-# QPushButton[text="Pause"]:pressed, QPushButton[text="Stop Projection"]:pressed,
-# QPushButton[text="Stop Run"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                        stop: 0 #992626, stop: 1 #ff4040);
-# }
-
-# QPushButton[text="Initialize Run"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #5bc11c, stop: 1 #2d600e);
-# }
-
-# QPushButton[text="Initialize Run"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #2d600e, stop: 1 #5bc11c);
-# }
-
-# QPushButton[enabled="false"] {
-#     background-color: gray;
-# }
-
-# QMessageBox {
-#     padding:0.3em 1.2em;
-#     margin:0 0.1em 0.1em 0;
-#     border:0.16em solid rgba(255,255,255,0);
-#     border-radius: 20%;
-#     text-decoration:none;
-#     color:#FFFFFF;
-#     text-align:center;
-# }
-
-# """
-# msgStyleSheet = """
-
-# QLabel {
-#     font-size: 30px;
-#     text-align:center;
-# }
-# QWidget icon{
-#     heigh: 60px;
-# }
-# QPushButton {
-#     padding:0.3em 1.2em;
-#     margin:0 0.1em 0.1em 0;
-#     border:0.16em solid rgba(255,255,255,0);
-#     border-radius: 20%;
-#     text-decoration:none;
-#     color:#FFFFFF;
-#     text-align:center;
-#     font-size: 40px;
-# }
-# QPushButton[text="OK"], QPushButton[text="Resume"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #4e9af1, stop: 1 #0762d7);
-# }
-# QPushButton[text="OK"]:pressed, QPushButton[text="Resume"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #0762d7, stop: 1 #4e9af1);
-# }
-# QPushButton[text="Cancel"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #b4bec3, stop: 1 #484c4e);
-# }
-# QPushButton[text="Cancel"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #484c4e, stop: 1 #b4bec3);
-# }
-# """
-
 
 class WorkerSignals(QObject):
     btnChange = pyqtSignal()
@@ -180,7 +81,6 @@ class WorkerSignals(QObject):
 
 
 class Worker(QRunnable):
-
     def __init__(self, fn):
         super(Worker, self).__init__()
 
@@ -300,13 +200,14 @@ class UI(QMainWindow):
         script_dir = os.path.dirname(__file__)
         # Load GUI design into python
         uic.loadUi(script_dir + "/spaceCalMW.ui", self)
-        # apply CSS styleSheets to the GUI
 
+        # Initial states
         self.btnPause.setEnabled(True)
         self.statusProjector.setText(projStatusArr[1])
         self.statusMotor.setText(motorStatusArr[0])
         self.statusLevel.setText(levelStatusArr[0])
 
+        # apply CSS styleSheets to the GUI
         self.updateStyleSheet()
 
         # Use the following objectNames to acces GUI properties:
@@ -334,9 +235,6 @@ class UI(QMainWindow):
         self.btnProject.clicked.connect(self.onClick_btnProject)
         self.btnOptions.clicked.connect(self.onClick_btnOptions)
         self.btnPause.clicked.connect(self.onClick_btnPause)
-
-        ####### Create state signals ########
-        # self.lcdRpm.changeEvent(self.updateBtnState)
 
         ##### Create confirmation windows #####
         # Question message
@@ -380,7 +278,7 @@ class UI(QMainWindow):
         # Execute
         self.threadpool.start(self.worker)
 
-# ******************************* Buttons CallBack Function Definitions ******************************* #
+    # ******************************* Buttons CallBack Function Definitions ******************************* #
 
     # This function defines the logic for the btnInit button.
     def onClick_btnInit(self):
@@ -409,20 +307,19 @@ class UI(QMainWindow):
         self.execBtnPause()
         pass
 
+    # ******************************** Button Functionality Functions **************************************** #
+    # The following function define the logic for all button states in the gui
 
-# ******************************** Button Functionality Functions **************************************** #
-# The following function define the logic for all button states in the gui
-
-    def execBtnInit_init(self):
-        # Set the message for the information text
-        self.displayInfoMsg(initRunMsg)
-        ####### Pubish to ros2 topic (Initialize Printing Process) #######
-        retPub = self.publishBtnInit(runBtnInit)
-        # verify that motors were set to home
-        if retPub == True:
-            print("Motors Set to Home Successfully!!")
-            # set btnInit new text
-            self.btnInit.setText(runBtnStart)
+    def execBtnInit_init(self): s
+    # Set the message for the information text
+    self.displayInfoMsg(initRunMsg)
+    ####### Pubish to ros2 topic (Initialize Printing Process) #######
+    retPub = self.publishBtnInit(runBtnInit)
+    # verify that motors were set to home
+    if retPub == True:
+        print("Motors Set to Home Successfully!!")
+        # set btnInit new text
+        self.btnInit.setText(runBtnStart)
 
     def execBtnInit_start(self):
         # Set the message for the confirmation text
