@@ -342,6 +342,7 @@ class UI(QMainWindow):
                 self.btnInit.setText(runBtnStop)
                 self.btnProject.setEnabled(True)
                 # self.btnPause.setEnabled(True)
+                self.startTimer()
 
     def execBtnInit_stop(self):
         # Set the message for the confirmation text
@@ -359,6 +360,7 @@ class UI(QMainWindow):
                     if self.btnProject.text() == projectBtnStop:
                         self.execBtnProject_stop(False)
                     # self.btnPause.setEnabled(False)
+                    self.stopTimer()
 
     def execBtnProject_start(self):
         # Set the message for the confirmation text
@@ -424,12 +426,12 @@ class UI(QMainWindow):
             if self.btnProject.text() != projectBtnStop:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
-            self.startTimer()
+            # self.startTimer()
         elif str == projStatusArr[1]:  # off
             if self.btnProject.text() != projectBtnStart:
                 self.btnProject.setText(projectBtnStart)
                 # self.btnPause.setEnabled(True)
-            self.stopTimer()
+            # self.stopTimer()
         self.statusProjector.setText(str)
         self.updateStyleSheet()
 

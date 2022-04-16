@@ -24,7 +24,7 @@
   </property>
   <property name="font">
    <font>
-    <family>Comic Sans MS</family>
+    <family>.AppleSystemUIFont</family>
    </font>
   </property>
   <property name="windowTitle">
@@ -84,7 +84,7 @@
         </property>
         <property name="font">
          <font>
-          <family>Comic Sans MS</family>
+          <family>.AppleSystemUIFont</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -108,7 +108,7 @@
              <widget class="QLabel" name="label_3">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>20</pointsize>
                 <bold>false</bold>
                </font>
@@ -125,7 +125,7 @@
              <widget class="QLabel" name="statusProjector">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>20</pointsize>
                 <bold>false</bold>
                </font>
@@ -155,7 +155,7 @@
              <widget class="QLabel" name="label_5">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>20</pointsize>
                 <bold>false</bold>
                </font>
@@ -233,7 +233,7 @@
           </property>
           <property name="font">
            <font>
-            <family>Comic Sans MS</family>
+            <family>.AppleSystemUIFont</family>
             <pointsize>40</pointsize>
            </font>
           </property>
@@ -255,7 +255,7 @@
           </property>
           <property name="font">
            <font>
-            <family>Comic Sans MS</family>
+            <family>.AppleSystemUIFont</family>
             <pointsize>40</pointsize>
            </font>
           </property>
@@ -280,7 +280,7 @@
     </property>
     <property name="font">
      <font>
-      <family>Comic Sans MS</family>
+      <family>.AppleSystemUIFont</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -327,7 +327,7 @@
           </property>
           <property name="font">
            <font>
-            <family>Comic Sans MS</family>
+            <family>.AppleSystemUIFont</family>
             <pointsize>18</pointsize>
            </font>
           </property>
@@ -349,7 +349,7 @@
           </property>
           <property name="font">
            <font>
-            <family>Comic Sans MS</family>
+            <family>.AppleSystemUIFont</family>
             <pointsize>18</pointsize>
            </font>
           </property>
@@ -371,7 +371,7 @@
        <widget class="QGroupBox" name="groupBox_4">
         <property name="font">
          <font>
-          <family>Comic Sans MS</family>
+          <family>.AppleSystemUIFont</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -395,7 +395,7 @@
              <widget class="QLabel" name="label_6">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -412,7 +412,7 @@
              <widget class="QLabel" name="statusMotor">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -442,7 +442,7 @@
              <widget class="QLabel" name="label_8">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -459,7 +459,7 @@
              <widget class="QLCDNumber" name="lcdRpm">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -494,7 +494,7 @@
        <widget class="QGroupBox" name="groupBox">
         <property name="font">
          <font>
-          <family>Comic Sans MS</family>
+          <family>.AppleSystemUIFont</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -518,7 +518,7 @@
              <widget class="QLabel" name="label_9">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -535,7 +535,7 @@
              <widget class="QLabel" name="statusLevel">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -565,7 +565,7 @@
              <widget class="QLabel" name="label_11">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -582,7 +582,7 @@
              <widget class="QLCDNumber" name="lcdLevel">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -617,7 +617,7 @@
        <widget class="QGroupBox" name="groupBox_2">
         <property name="font">
          <font>
-          <family>Comic Sans MS</family>
+          <family>.AppleSystemUIFont</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -641,7 +641,7 @@
              <widget class="QLabel" name="label_12">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -664,7 +664,7 @@
               </property>
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -691,7 +691,7 @@
              <widget class="QLabel" name="label_14">
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -714,7 +714,7 @@
               </property>
               <property name="font">
                <font>
-                <family>Comic Sans MS</family>
+                <family>.AppleSystemUIFont</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
