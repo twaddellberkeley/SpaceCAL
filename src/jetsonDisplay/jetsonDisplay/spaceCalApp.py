@@ -38,7 +38,7 @@ pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
 # Display labels
-projStatusArr = ['On', 'Off']
+projStatusArr = ['Projection On', 'Projection Off']
 motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
 levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving', 'Set']
 
