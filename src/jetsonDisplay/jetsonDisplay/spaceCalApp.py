@@ -310,16 +310,16 @@ class UI(QMainWindow):
     # ******************************** Button Functionality Functions **************************************** #
     # The following function define the logic for all button states in the gui
 
-    def execBtnInit_init(self): s
-    # Set the message for the information text
-    self.displayInfoMsg(initRunMsg)
-    ####### Pubish to ros2 topic (Initialize Printing Process) #######
-    retPub = self.publishBtnInit(runBtnInit)
-    # verify that motors were set to home
-    if retPub == True:
-        print("Motors Set to Home Successfully!!")
-        # set btnInit new text
-        self.btnInit.setText(runBtnStart)
+    def execBtnInit_init(self):
+        # Set the message for the information text
+        self.displayInfoMsg(initRunMsg)
+        ####### Pubish to ros2 topic (Initialize Printing Process) #######
+        retPub = self.publishBtnInit(runBtnInit)
+        # verify that motors were set to home
+        if retPub == True:
+            print("Motors Set to Home Successfully!!")
+            # set btnInit new text
+            self.btnInit.setText(runBtnStart)
 
     def execBtnInit_start(self):
         # Set the message for the confirmation text
