@@ -169,7 +169,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLCDNumber" name="lcdRpm_2">
+             <widget class="QLCDNumber" name="projection_time">
               <property name="font">
                <font>
                 <family>Comic Sans MS</family>
