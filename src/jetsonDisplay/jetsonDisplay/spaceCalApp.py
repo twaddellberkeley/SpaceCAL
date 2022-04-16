@@ -413,7 +413,6 @@ class UI(QMainWindow):
 # ******************************** Button Functionality Functions **************************************** #
 # The following function define the logic for all button states in the gui
 
-
     def execBtnInit_init(self):
         # Set the message for the information text
         self.displayInfoMsg(initRunMsg)
@@ -522,7 +521,7 @@ class UI(QMainWindow):
                 # self.btnPause.setEnabled(True)
         elif str == projStatusArr[1]:  # off
             if self.btnProject.text() != projectBtnStart:
-                self.btnProject.setText(projectBtnStop)
+                self.btnProject.setText(projectBtnStart)
                 # self.btnPause.setEnabled(True)
         self.statusProjector.setText(str)
         self.updateStyleSheet()
@@ -580,7 +579,6 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
-
 
     def publishBtnInit(self, str):
         msg = String()
