@@ -187,7 +187,7 @@
                <number>5</number>
               </property>
               <property name="digitCount">
-               <number>5</number>
+               <number>6</number>
               </property>
               <property name="segmentStyle">
                <enum>QLCDNumber::Flat</enum>
