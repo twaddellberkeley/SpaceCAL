@@ -1,7 +1,7 @@
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5 import uic, QtTest
+from PyQt5 import uic
 
 import time
 import traceback
@@ -257,6 +257,12 @@ class UI(QMainWindow):
         self.msgInfo.setStyleSheet(self.msgStyleSheet)
         print(self.msgInfo.buttons()[0].text())
         # self.show()
+
+        ##### Timer setup ######
+        timer = QTimer(self)
+        timer.timeout.connect(self.showlcd)
+        timer.start(1000)
+        self.showlcd()
 
         ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
@@ -603,6 +609,11 @@ class UI(QMainWindow):
     def displayConfirmatonMsg(self, msg):
         self.msgConfirm.setText(msg)
         return self.msgConfirm.exec()
+
+    def showlcd(self):
+        time = QTime.currentTime()
+        text = time.toString('mm:ss')
+        self.projector_time.display(text)
 
     # NEW
 
