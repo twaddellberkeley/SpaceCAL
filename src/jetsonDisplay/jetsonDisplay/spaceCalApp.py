@@ -632,7 +632,7 @@ class UI(QMainWindow):
         # hello= datetime.time(hour.hour, min.minute, seconds.second)
         # print (hello )
         strMill = ""
-        seconds = self.timerSec//1000
+        seconds = self.timerSec//100
         milli = self.timerSec % 100
         x = time.strftime('%M:%S', time.gmtime(seconds))
         if (milli < 10):
