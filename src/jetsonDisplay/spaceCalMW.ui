@@ -22,6 +22,11 @@
     <height>600</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Comic Sans MS</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>SpaceCal</string>
   </property>
@@ -79,6 +84,7 @@
         </property>
         <property name="font">
          <font>
+          <family>Comic Sans MS</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -102,6 +108,7 @@
              <widget class="QLabel" name="label_3">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>20</pointsize>
                 <bold>false</bold>
                </font>
@@ -118,6 +125,7 @@
              <widget class="QLabel" name="statusProjector">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>20</pointsize>
                 <bold>false</bold>
                </font>
@@ -142,17 +150,18 @@
            </layout>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,4">
+           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,3">
             <item>
              <widget class="QLabel" name="label_5">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>20</pointsize>
                 <bold>false</bold>
                </font>
               </property>
               <property name="text">
-               <string>Type:</string>
+               <string>Elapsed Time:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -160,10 +169,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLCDNumber" name="lcdRpm_2">
               <property name="font">
                <font>
-                <pointsize>20</pointsize>
+                <family>Comic Sans MS</family>
+                <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
               </property>
@@ -176,11 +186,14 @@
               <property name="lineWidth">
                <number>5</number>
               </property>
-              <property name="text">
-               <string>TextLabel</string>
+              <property name="digitCount">
+               <number>5</number>
               </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
+              <property name="segmentStyle">
+               <enum>QLCDNumber::Flat</enum>
+              </property>
+              <property name="intValue" stdset="0">
+               <number>0</number>
               </property>
              </widget>
             </item>
@@ -220,6 +233,7 @@
           </property>
           <property name="font">
            <font>
+            <family>Comic Sans MS</family>
             <pointsize>40</pointsize>
            </font>
           </property>
@@ -241,6 +255,7 @@
           </property>
           <property name="font">
            <font>
+            <family>Comic Sans MS</family>
             <pointsize>40</pointsize>
            </font>
           </property>
@@ -265,6 +280,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Comic Sans MS</family>
       <pointsize>18</pointsize>
      </font>
     </property>
@@ -311,6 +327,7 @@
           </property>
           <property name="font">
            <font>
+            <family>Comic Sans MS</family>
             <pointsize>18</pointsize>
            </font>
           </property>
@@ -332,6 +349,7 @@
           </property>
           <property name="font">
            <font>
+            <family>Comic Sans MS</family>
             <pointsize>18</pointsize>
            </font>
           </property>
@@ -353,6 +371,7 @@
        <widget class="QGroupBox" name="groupBox_4">
         <property name="font">
          <font>
+          <family>Comic Sans MS</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -376,6 +395,7 @@
              <widget class="QLabel" name="label_6">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -392,6 +412,7 @@
              <widget class="QLabel" name="statusMotor">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -421,6 +442,7 @@
              <widget class="QLabel" name="label_8">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -437,6 +459,7 @@
              <widget class="QLCDNumber" name="lcdRpm">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -471,6 +494,7 @@
        <widget class="QGroupBox" name="groupBox">
         <property name="font">
          <font>
+          <family>Comic Sans MS</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -494,6 +518,7 @@
              <widget class="QLabel" name="label_9">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -510,6 +535,7 @@
              <widget class="QLabel" name="statusLevel">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -539,6 +565,7 @@
              <widget class="QLabel" name="label_11">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -555,6 +582,7 @@
              <widget class="QLCDNumber" name="lcdLevel">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -589,6 +617,7 @@
        <widget class="QGroupBox" name="groupBox_2">
         <property name="font">
          <font>
+          <family>Comic Sans MS</family>
           <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
@@ -612,6 +641,7 @@
              <widget class="QLabel" name="label_12">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -634,6 +664,7 @@
               </property>
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -660,6 +691,7 @@
              <widget class="QLabel" name="label_14">
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
@@ -682,6 +714,7 @@
               </property>
               <property name="font">
                <font>
+                <family>Comic Sans MS</family>
                 <pointsize>18</pointsize>
                 <bold>false</bold>
                </font>
