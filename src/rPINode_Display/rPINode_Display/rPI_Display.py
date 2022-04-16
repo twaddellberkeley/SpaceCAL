@@ -41,8 +41,6 @@ class displayFunctionClass(Node):
         videoString = '/home/spacecal/test_video/' + msg.data
         # 
         mProcess = subprocess.Popen(
-            stderr=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
         stayAlive = multiprocessing.Process(target=self.kill_me,args=(mProcess.pid,))
         stayAlive.start()
