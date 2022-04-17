@@ -331,6 +331,12 @@ class printQueueClass(Node):
                             break
                         # Unset variable for next time
                         self.startProjection = False
+                        # Just waiting a couple seconds to allow video to load
+                        while not self.tEvent.is_set():
+                            self.tEvent.wait(timeout=4)
+                            self.tEvent.set()
+                        #Clearing event to not let it happen
+                        self.tEvent.clear()
                         # Loop through and turn projectors on
                         for val in printSet.printdata:
                             # print(val)
@@ -425,6 +431,7 @@ class printQueueClass(Node):
         video.data = printData['videoName']
         tdata.name = "rpm_display"
         tdata.num_value = printData['printSpeed']
+        print("Readying" + printData['projNum'])
         self.touchScreenPublisher.publish(tdata)
         # Send to projector and motor
         self.velocityPublishers[printData['projNum'] - 1].publish(vel)
@@ -440,7 +447,7 @@ class printQueueClass(Node):
         video.data = "PRINT"
         self.videoPublishers[printData['projNum'] - 1].publish(video)
         # Wait set time to print
-        print("WAITING")
+        print("Printing" + printData['projNum'])
         time.sleep(printData['printTime'])
         # kill projection just in case
         if (tempPrintNum == self.printNumCur):
