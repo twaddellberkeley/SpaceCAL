@@ -322,6 +322,12 @@ class printQueueClass(Node):
                         tdata.str_value = "Rotating"
                         self.touchScreenPublisher.publish(tdata)
                         # Set up each video, but do not display
+                        # Just waiting a couple seconds to allow video to load
+                        while not self.tEvent.is_set():
+                            self.tEvent.wait(timeout=4)
+                            self.tEvent.set()
+                        #Clearing event to not let it happen
+                        self.tEvent.clear()
                         # Wait for user input to display
                         while (not self.startProjection):
                             if(self.okToRun == False):
@@ -331,12 +337,6 @@ class printQueueClass(Node):
                             break
                         # Unset variable for next time
                         self.startProjection = False
-                        # Just waiting a couple seconds to allow video to load
-                        while not self.tEvent.is_set():
-                            self.tEvent.wait(timeout=4)
-                            self.tEvent.set()
-                        #Clearing event to not let it happen
-                        self.tEvent.clear()
                         # Loop through and turn projectors on
                         for val in printSet.printdata:
                             # print(val)
