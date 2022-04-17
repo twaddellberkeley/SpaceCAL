@@ -1,8 +1,9 @@
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5 import uic, QtTest
+from PyQt5 import uic
 
+import datetime
 import time
 import traceback
 import sys
@@ -38,7 +39,7 @@ pauseBtnPause = "Pause"
 pauseBtnResume = "Resume"
 
 # Display labels
-projStatusArr = ['On', 'Off']
+projStatusArr = ['Projection On', 'Projection Off']
 motorStatusArr = ['Idle', 'Rotating', 'Stopped', 'Pause']
 levelStatusArr = ['Idle', 'Homing', 'Homed', 'Moving', 'Set']
 
@@ -49,7 +50,7 @@ subNodeStr = "display_node"
 # ROS2 Subscriber Topic name
 displayTopic = "display_topic"
 # Display label names:
-statusProjectorStr = "projector_status"
+statusProjectorStr = "projection_status"
 statusMotorStr = "motor_status"
 statusLevelStr = "level_status"
 lcdRpmNum = "rpm_display"
@@ -70,105 +71,6 @@ msgBtnProject_stop = "stop_proj"
 msgBtnPause_pause = "pause"
 msgBtnPause_resume = "resume"
 
-###### ******************* StyleSheets Variabels ************************* ######
-# global styleSheet
-# styleSheet = """
-# QPushButton {
-#     padding:0.3em 1.2em;
-#     margin:0 0.1em 0.1em 0;
-#     border:0.16em solid rgba(255,255,255,0);
-#     border-radius: 20%;
-#     text-decoration:none;
-#     color:#FFFFFF;
-#     text-align:center;
-# }
-
-# QPushButton[text="Start Projection"], QPushButton[text="Options"],
-# QPushButton[text="Start Run"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #4e9af1, stop: 1 #0762d7);
-# }
-
-# QPushButton[text="Start Projection"]:pressed, QPushButton[text="Options"]:pressed,
-# QPushButton[text="Start Run"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #0762d7, stop: 1 #4e9af1);
-# }
-
-# QPushButton[text="Pause"], QPushButton[text="Stop Projection"],
-# QPushButton[text="Stop Run"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                        stop: 0 #ff4040, stop: 1 #992626);
-# }
-
-# QPushButton[text="Pause"]:pressed, QPushButton[text="Stop Projection"]:pressed,
-# QPushButton[text="Stop Run"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                        stop: 0 #992626, stop: 1 #ff4040);
-# }
-
-# QPushButton[text="Initialize Run"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #5bc11c, stop: 1 #2d600e);
-# }
-
-# QPushButton[text="Initialize Run"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #2d600e, stop: 1 #5bc11c);
-# }
-
-# QPushButton[enabled="false"] {
-#     background-color: gray;
-# }
-
-# QMessageBox {
-#     padding:0.3em 1.2em;
-#     margin:0 0.1em 0.1em 0;
-#     border:0.16em solid rgba(255,255,255,0);
-#     border-radius: 20%;
-#     text-decoration:none;
-#     color:#FFFFFF;
-#     text-align:center;
-# }
-
-# """
-# msgStyleSheet = """
-
-# QLabel {
-#     font-size: 30px;
-#     text-align:center;
-# }
-# QWidget icon{
-#     heigh: 60px;
-# }
-# QPushButton {
-#     padding:0.3em 1.2em;
-#     margin:0 0.1em 0.1em 0;
-#     border:0.16em solid rgba(255,255,255,0);
-#     border-radius: 20%;
-#     text-decoration:none;
-#     color:#FFFFFF;
-#     text-align:center;
-#     font-size: 40px;
-# }
-# QPushButton[text="OK"], QPushButton[text="Resume"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #4e9af1, stop: 1 #0762d7);
-# }
-# QPushButton[text="OK"]:pressed, QPushButton[text="Resume"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #0762d7, stop: 1 #4e9af1);
-# }
-# QPushButton[text="Cancel"] {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #b4bec3, stop: 1 #484c4e);
-# }
-# QPushButton[text="Cancel"]:pressed {
-#     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-#                                       stop: 0 #484c4e, stop: 1 #b4bec3);
-# }
-# """
-
 
 class WorkerSignals(QObject):
     btnChange = pyqtSignal()
@@ -180,7 +82,6 @@ class WorkerSignals(QObject):
 
 
 class Worker(QRunnable):
-
     def __init__(self, fn):
         super(Worker, self).__init__()
 
@@ -294,19 +195,23 @@ class UI(QMainWindow):
     }
     """
 
+    timerSec = 0
+
     # This function sets initial gui state
+
     def __init__(self):
         super(UI, self).__init__()
         script_dir = os.path.dirname(__file__)
         # Load GUI design into python
         uic.loadUi(script_dir + "/spaceCalMW.ui", self)
-        # apply CSS styleSheets to the GUI
 
+        # Initial states
         self.btnPause.setEnabled(True)
         self.statusProjector.setText(projStatusArr[1])
         self.statusMotor.setText(motorStatusArr[0])
         self.statusLevel.setText(levelStatusArr[0])
 
+        # apply CSS styleSheets to the GUI
         self.updateStyleSheet()
 
         # Use the following objectNames to acces GUI properties:
@@ -335,9 +240,6 @@ class UI(QMainWindow):
         self.btnOptions.clicked.connect(self.onClick_btnOptions)
         self.btnPause.clicked.connect(self.onClick_btnPause)
 
-        ####### Create state signals ########
-        # self.lcdRpm.changeEvent(self.updateBtnState)
-
         ##### Create confirmation windows #####
         # Question message
         self.msgConfirm = QMessageBox()
@@ -360,6 +262,10 @@ class UI(QMainWindow):
         print(self.msgInfo.buttons()[0].text())
         # self.show()
 
+        ##### Timer setup ######
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.showlcd)
+
         ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
         rclpy.init(args=None)
@@ -380,7 +286,7 @@ class UI(QMainWindow):
         # Execute
         self.threadpool.start(self.worker)
 
-# ******************************* Buttons CallBack Function Definitions ******************************* #
+    # ******************************* Buttons CallBack Function Definitions ******************************* #
 
     # This function defines the logic for the btnInit button.
     def onClick_btnInit(self):
@@ -409,10 +315,8 @@ class UI(QMainWindow):
         self.execBtnPause()
         pass
 
-
-# ******************************** Button Functionality Functions **************************************** #
-# The following function define the logic for all button states in the gui
-
+    # ******************************** Button Functionality Functions **************************************** #
+    # The following function define the logic for all button states in the gui
 
     def execBtnInit_init(self):
         # Set the message for the information text
@@ -467,6 +371,7 @@ class UI(QMainWindow):
                 print("Projector Started Succesfuly!!")
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
+                self.startTimer()
 
     def execBtnProject_stop(self, displayMsg):
         msg = True
@@ -484,6 +389,7 @@ class UI(QMainWindow):
                 self.btnProject.setText(projectBtnStart)
         # if self.btnInit.text() == runBtnStart:
         #     self.btnPause.setEnabled(False)
+        self.stopTimer()
 
     def execBtnPause(self):
         retMsg = self.displayConfirmatonMsg(pauseAllMsg)
@@ -520,10 +426,12 @@ class UI(QMainWindow):
             if self.btnProject.text() != projectBtnStop:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
+            # self.startTimer()
         elif str == projStatusArr[1]:  # off
             if self.btnProject.text() != projectBtnStart:
-                self.btnProject.setText(projectBtnStop)
+                self.btnProject.setText(projectBtnStart)
                 # self.btnPause.setEnabled(True)
+            # self.stopTimer()
         self.statusProjector.setText(str)
         self.updateStyleSheet()
 
@@ -536,8 +444,9 @@ class UI(QMainWindow):
             pass
         elif str == motorStatusArr[2]:  # Stopped
             self.btnProject.setText(projectBtnStart)
-            self.btnInit.setText(runBtnStart)
             self.btnProject.setEnabled(False)
+            self.btnInit.setText(runBtnStart)
+
         self.statusMotor.setText(str)
         self.updateStyleSheet()
 
@@ -545,21 +454,19 @@ class UI(QMainWindow):
     def setStatusLevelDisplay(self, str):
         if str == levelStatusArr[0]:    # Idle
             self.btnProject.setEnabled(False)
-            pass
+            self.btnInit.setText(runBtnStart)
         elif str == levelStatusArr[1]:  # Homing
+            self.btnProject.setText(projectBtnStart)
+            self.btnInit.setText(runBtnStart)
             self.btnProject.setEnabled(False)
             self.btnInit.setEnabled(False)
-            pass
         elif str == levelStatusArr[2]:  # Homed
             self.btnProject.setEnabled(True)
             self.btnInit.setEnabled(True)
-            pass
         elif str == levelStatusArr[3]:  # Moving
             self.btnProject.setEnabled(False)
-            pass
         elif str == levelStatusArr[4]:  # Set
             self.btnProject.setEnabled(True)
-            pass
         self.statusLevel.setText(str)
         self.updateStyleSheet()
 
@@ -580,7 +487,6 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
-
 
     def publishBtnInit(self, str):
         msg = String()
@@ -709,6 +615,46 @@ class UI(QMainWindow):
     def displayConfirmatonMsg(self, msg):
         self.msgConfirm.setText(msg)
         return self.msgConfirm.exec()
+
+    def startTimer(self):
+        self.timer.start(100)
+        self.timerSec = 0
+        self.showlcd()
+
+    def showlcd(self):
+        # time = QTime.currentTime()
+        # x = 40000
+        # t = int(x)
+        # day = t//86400
+        # hour = (t-(day*86400))//3600
+        # min = (t - ((day*86400) + (hour*3600)))//60
+        # seconds = t - ((day*86400) + (hour*3600) + (min*60))
+        # hello= datetime.time(hour.hour, min.minute, seconds.second)
+        # print (hello )
+        strMill = ""
+        strSec = ""
+        seconds = self.timerSec//100
+        milli = self.timerSec % 100
+        # x = time.strftime('%M:%S', time.gmtime(seconds))
+        if seconds < 10:
+            strSec = "0" + str(seconds)
+        else:
+            strSec = str(seconds)
+        if (milli < 10):
+            strMill = ":" + "0" + str(milli)
+        else:
+            strMill = ":" + str(milli)
+        dis = "" + strSec + strMill
+        # sec = self.timerSec % 60
+        # min = self.timerSec // 60
+        # text = time.toString('mm:ss')
+        self.timerSec += 1
+
+        # print(dis)
+        self.projectionTime.display(dis)
+
+    def stopTimer(self):
+        self.timer.stop()
 
     # NEW
 
