@@ -431,7 +431,7 @@ class printQueueClass(Node):
         video.data = printData['videoName']
         tdata.name = "rpm_display"
         tdata.num_value = printData['printSpeed']
-        print("Readying" + printData['projNum'])
+        print("Readying" + int(printData['projNum']))
         self.touchScreenPublisher.publish(tdata)
         # Send to projector and motor
         self.velocityPublishers[printData['projNum'] - 1].publish(vel)
