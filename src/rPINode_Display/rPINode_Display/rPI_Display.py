@@ -3,7 +3,7 @@ from rclpy.node import Node
 from std_msgs.msg import String
 import subprocess
 import multiprocessing
-import threading
+from threading import Thread
 import os
 import time
 import psutil
