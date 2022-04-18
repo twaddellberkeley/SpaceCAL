@@ -3,12 +3,15 @@ from rclpy.node import Node
 from std_msgs.msg import String
 import subprocess
 import multiprocessing
+import threading
 import os
 import time
 import psutil
 
 mProcess = None 
 stayAlive = None
+
+started = False
 
 # Looks for a video string to display, and displays it
 class displayFunctionClass(Node):
@@ -57,16 +60,28 @@ class displayFunctionClass(Node):
         print("Killing\n")
         # When dead turn off projector
         subprocess.run(['ledZero'])
-    
+
+def reboot():
+    #Wait 5 seconds
+    time.sleep(3)
+    global started
+    #Reboot xserver if it crashed
+    if (started == False):
+        os.system("sudo systemctl restart xserver.service") 
 
 # Main function to start subscriber but also set display correctly
 def main(args=None):
     print("STARTING")
     # Set the proper OS variable to display on
     os.environ['DISPLAY']=":0"
+    #Start thread to do reboot
+    bootThread = Thread( target=reboot, args=())
+    bootThread.start()
     # Resets the display to resize correctly
     subprocess.run(["xrandr" ,"-o" ,"right"])
-    subprocess.run(['xset', 'dpms', 'force', 'off'])
+    #subprocess.run(['xset', 'dpms', 'force', 'off'])
+    global started
+    started = True
     subprocess.run(['ledZero'])
     rclpy.init(args=args)
     subscriber = displayFunctionClass()
