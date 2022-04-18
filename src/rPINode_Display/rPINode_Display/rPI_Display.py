@@ -79,7 +79,7 @@ def main(args=None):
     bootThread.start()
     # Resets the display to resize correctly
     subprocess.run(["xrandr" ,"-o" ,"right"])
-    #subprocess.run(['xset', 'dpms', 'force', 'off'])
+    subprocess.run(['xset', 'dpms', 'force', 'off'])
     global started
     started = True
     subprocess.run(['ledZero'])
