@@ -642,7 +642,7 @@ class UI(QMainWindow):
         self.printInfoMsg.print_end = "" + date.today().strftime("%b-%d-%Y") + "/" + \
             datetime.now().strftime("%H:%M:%S")
         print(self.printInfoMsg.print_start)
-        print(self.printInfoMsg.print_stop)
+        print(self.printInfoMsg.print_end)
         self.timer.stop()
 
     # NEW
