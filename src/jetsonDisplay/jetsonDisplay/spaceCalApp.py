@@ -626,6 +626,7 @@ class UI(QMainWindow):
         self.printInfoMsg.stamp_start = self.pubNode.get_clock().now().to_msg()
         self.printInfoMsg.print_start = "" + date.today().strftime("%b-%d-%Y") + "/" + \
             datetime.now().strftime("%H:%M:%S")
+        self.printInfoMsg.gravity_display_start = self.lcdGravity.value()
         self.timer.start(100)
         self.timerSec = 0
         self.showlcd()
@@ -653,7 +654,7 @@ class UI(QMainWindow):
         self.printInfoMsg.stamp_end = self.pubNode.get_clock().now().to_msg()
         self.printInfoMsg.level_display = int(self.lcdLevel.value())
         self.printInfoMsg.parabola_display = int(self.lcdParabola.value())
-        self.printInfoMsg.gravity_display = self.lcdGravity
+        self.printInfoMsg.gravity_display_end = self.lcdGravity.value()
         self.pubPrintInfo.publish(self.printInfoMsg)
         self.timer.stop()
 
