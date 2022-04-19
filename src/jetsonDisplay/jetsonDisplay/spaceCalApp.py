@@ -2,8 +2,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
-
-import datetime
+from datetime import date, datetime
 import time
 import traceback
 import sys
@@ -12,7 +11,7 @@ import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
-from interfaces.msg import DisplayData
+from interfaces.msg import DisplayData, PrintingInfo
 
 # QMessageBox messages text for setText
 initRunMsg = "Motors will be set to home position!"
@@ -62,6 +61,7 @@ resetRun = "reset_run"
 resetProjection = "reset_projection"
 # ROS2 Publisher Topic name
 btnTopic = 'buttons_topic'
+printingTopic = 'project_topic'
 # ROS2 Publishing mgs for "buttons_topic"
 msgBtnInit_init = "motor_ok"
 msgBtnInit_start = "motor_ok"
@@ -265,7 +265,7 @@ class UI(QMainWindow):
         ##### Timer setup ######
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.showlcd)
-        self.t = QTime()
+
         ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
         rclpy.init(args=None)
@@ -273,6 +273,11 @@ class UI(QMainWindow):
         self.pub = self.pubNode.create_publisher(String, btnTopic, 10)
         self.pubDisplay = self.pubNode.create_publisher(
             DisplayData, displayTopic, 10)
+        self.pubPrintInfo = self.pubNode.create_publisher(
+            PrintingInfo, printingTopic, 10)
+
+        # creating printin message datatype
+        self.printInfoMsg = PrintingInfo()
 
         # creating a multithread pool
         self.threadpool = QThreadPool()
@@ -609,7 +614,9 @@ class UI(QMainWindow):
             self.msgConfirm.reject()
 
     def startTimer(self):
-        self.t.start()
+        self.printInfoMsg = PrintingInfo()
+        self.printInfoMsg.print_start = "" + date.today().strftime("%b-%d-%Y") + "/" + \
+            datetime.now().strftime("%H:%M:%S")
         self.timer.start(100)
         self.timerSec = 0
         self.showlcd()
@@ -632,9 +639,11 @@ class UI(QMainWindow):
         self.projectionTime.display(dis)
 
     def stopTimer(self):
-        self.t = self.timer.restart()
+        self.printInfoMsg.print_end = "" + date.today().strftime("%b-%d-%Y") + "/" + \
+            datetime.now().strftime("%H:%M:%S")
+        print(self.printInfoMsg.print_start)
+        print(self.printInfoMsg.print_stop)
         self.timer.stop()
-        print(self.t)
 
     # NEW
 

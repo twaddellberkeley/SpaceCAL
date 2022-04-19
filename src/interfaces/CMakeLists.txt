@@ -45,6 +45,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   msg/DisplayData.msg
   msg/FusionImu.msg
   msg/RawImu.msg
+  msg/PrintingInfo.msg
   DEPENDENCIES builtin_interfaces
   std_msgs  # Or other packages containing msgs
   geometry_msgs
