@@ -265,7 +265,7 @@ class UI(QMainWindow):
         ##### Timer setup ######
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.showlcd)
-
+        self.t = QTime(self)
         ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
         rclpy.init(args=None)
@@ -609,6 +609,7 @@ class UI(QMainWindow):
             self.msgConfirm.reject()
 
     def startTimer(self):
+        self.t.start()
         self.timer.start(100)
         self.timerSec = 0
         self.showlcd()
@@ -631,7 +632,9 @@ class UI(QMainWindow):
         self.projectionTime.display(dis)
 
     def stopTimer(self):
+        self.t = self.timer.restart()
         self.timer.stop()
+        print(self.t)
 
     # NEW
 
