@@ -12,6 +12,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
 from interfaces.msg import DisplayData, PrintingInfo
+from builtin_interfaces import Time
 
 # QMessageBox messages text for setText
 initRunMsg = "Motors will be set to home position!"
@@ -641,8 +642,10 @@ class UI(QMainWindow):
     def stopTimer(self):
         self.printInfoMsg.print_end = "" + date.today().strftime("%b-%d-%Y") + "/" + \
             datetime.now().strftime("%H:%M:%S")
+        self.printInfoMsg.stamp_end = Time()
         print(self.printInfoMsg.print_start)
         print(self.printInfoMsg.print_end)
+        print(self.printInfoMsg.stamp_end)
         self.timer.stop()
 
     # NEW
