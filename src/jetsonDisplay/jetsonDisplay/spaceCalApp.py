@@ -488,6 +488,7 @@ class UI(QMainWindow):
         self.lcdParabola.display(num)
 
     def setLcdGravityDisplay(self, num):
+        print(num)
         self.lcdAccelVector.display(num)
 
 
