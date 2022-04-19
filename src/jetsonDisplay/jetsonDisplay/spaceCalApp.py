@@ -57,7 +57,7 @@ statusLevelStr = "level_status"
 lcdRpmNum = "rpm_display"
 lcdLevelNum = "level_display"
 lcdParabolaNum = "parabola_display"
-lcdAccelVectorNum = "gravity_display"
+lcdGravityNum = "gravity_display"
 # Reset run
 resetRun = "reset_run"
 resetProjection = "reset_projection"
@@ -80,7 +80,7 @@ class WorkerSignals(QObject):
     lcdRpm = pyqtSignal(int)
     lcdLevel = pyqtSignal(int)
     lcdParabola = pyqtSignal(int)
-    lcdAccelVector = pyqtSignal(float)
+    lcdGravity = pyqtSignal(float)
 
 
 class Worker(QRunnable):
@@ -233,7 +233,7 @@ class UI(QMainWindow):
             lcdRpm
             lcdLevel
             lcdParabola
-            lcdAccelVector
+            lcdGravity
         """
 
         ##### Connect buttons to callback functions #####
@@ -422,7 +422,7 @@ class UI(QMainWindow):
         lcdRpm
         lcdLevel
         lcdParabola
-        lcdAccelVector
+        lcdGravity
     """
 
     def setStatusProjectorDisplay(self, str):
@@ -489,7 +489,7 @@ class UI(QMainWindow):
 
     def setLcdGravityDisplay(self, num):
         print(num)
-        self.lcdAccelVector.display(num)
+        self.lcdGravity.display(num)
 
 
 # *************************************** Define Publisher Functions ************************************** #
@@ -586,7 +586,7 @@ class UI(QMainWindow):
         lcdRpm
         lcdLevel
         lcdParabola
-        lcdAccelVector
+        lcdGravity
     """
 
     def exec_subNode(self):
@@ -653,7 +653,7 @@ class UI(QMainWindow):
         self.printInfoMsg.stamp_end = self.pubNode.get_clock().now().to_msg()
         self.printInfoMsg.level_display = int(self.lcdLevel.value())
         self.printInfoMsg.parabola_display = int(self.lcdParabola.value())
-        # self.printInfoMsg.gravity_display = self.lcdGravity
+        self.printInfoMsg.gravity_display = self.lcdGravity
         self.pubPrintInfo.publish(self.printInfoMsg)
         self.timer.stop()
 
