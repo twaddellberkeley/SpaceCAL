@@ -468,13 +468,16 @@ class UI(QMainWindow):
             self.btnInit.setText(runBtnStart)
             self.btnProject.setEnabled(False)
             self.btnInit.setEnabled(False)
+            self.checkPopWindow()
         elif str == levelStatusArr[2]:  # Homed
             self.btnProject.setEnabled(True)
             self.btnInit.setEnabled(True)
         elif str == levelStatusArr[3]:  # Moving
             self.btnProject.setEnabled(False)
+            self.checkPopWindow()
         elif str == levelStatusArr[4]:  # Set
             self.btnProject.setEnabled(True)
+
         self.statusLevel.setText(str)
         self.updateStyleSheet()
 
@@ -494,6 +497,7 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
 
     def publishBtnInit(self, str):
         msg = String()
