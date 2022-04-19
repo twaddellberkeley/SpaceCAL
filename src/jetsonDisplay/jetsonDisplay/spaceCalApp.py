@@ -430,8 +430,11 @@ class UI(QMainWindow):
         elif str == projStatusArr[1]:  # off
             if self.btnProject.text() != projectBtnStart:
                 self.btnProject.setText(projectBtnStart)
+            # Make sure the popup window is close
+            # Reset the timer
                 # self.btnPause.setEnabled(True)
             # self.stopTimer()
+        self.checkPopWindow()
         self.statusProjector.setText(str)
         self.updateStyleSheet()
 
@@ -615,6 +618,12 @@ class UI(QMainWindow):
     def displayConfirmatonMsg(self, msg):
         self.msgConfirm.setText(msg)
         return self.msgConfirm.exec()
+
+    def checkPopWindow(self):
+        if self.msgConfirm.isActiveWindow():
+            self.msgConfirm.reject()
+        if self.msgConfirm.isActiveWindow():
+            self.msgConfirm.reject()
 
     def startTimer(self):
         self.timer.start(100)
