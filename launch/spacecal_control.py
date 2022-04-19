@@ -40,5 +40,13 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             name='control'
+        ),
+        Node(
+            package='bno055_imu_pub',
+            namespace='printerTesting',
+            executable='imu_node',
+            output='screen',
+            emulate_tty=True,
+            name='imu'
         )
     ])
