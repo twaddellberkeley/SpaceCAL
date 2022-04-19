@@ -4,3 +4,4 @@ geometry_msgs/Vector3 euler_angles
 geometry_msgs/Vector3 angular_velocity
 geometry_msgs/Vector3 linear_acceleration
 geometry_msgs/Vector3 gravity_vector
+float64 gravity_magnitude
