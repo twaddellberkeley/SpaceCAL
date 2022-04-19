@@ -586,21 +586,6 @@ class UI(QMainWindow):
             DisplayData,
             displayTopic,
             self.subcriberNodeHandler, 10)
-
-        # subProjStatus = subNode.create_subscription(
-        #     String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
-        # subMotorStatus = subNode.create_subscription(
-        #     String, statusMotorStr, self.setStatusMotorDisplay, 10)
-        # subLelelStatus = subNode.create_subscription(
-        #     String, statusLevelStr, self.setStatusLevelDisplay, 10)
-        # subRpm = subNode.create_subscription(
-        #     Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
-        # subLevel = subNode.create_subscription(
-        #     Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
-        # subParabola = subNode.create_subscription(
-        #     Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
-        # subAccelVec = subNode.create_subscription(
-        #     Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
         rclpy.spin(subNode)
         subNode.destroy_node()
 
@@ -629,20 +614,10 @@ class UI(QMainWindow):
         self.showlcd()
 
     def showlcd(self):
-        # time = QTime.currentTime()
-        # x = 40000
-        # t = int(x)
-        # day = t//86400
-        # hour = (t-(day*86400))//3600
-        # min = (t - ((day*86400) + (hour*3600)))//60
-        # seconds = t - ((day*86400) + (hour*3600) + (min*60))
-        # hello= datetime.time(hour.hour, min.minute, seconds.second)
-        # print (hello )
         strMill = ""
         strSec = ""
         seconds = self.timerSec//10
-        milli = self.timerSec % 100
-        # x = time.strftime('%M:%S', time.gmtime(seconds))
+        milli = self.timerSec % 10
         if seconds < 10:
             strSec = "0" + str(seconds)
         else:
@@ -652,12 +627,7 @@ class UI(QMainWindow):
         # else:
         strMill = "." + str(milli)
         dis = "" + strSec + strMill
-        # sec = self.timerSec % 60
-        # min = self.timerSec // 60
-        # text = time.toString('mm:ss')
         self.timerSec += 1
-
-        # print(dis)
         self.projectionTime.display(dis)
 
     def stopTimer(self):
