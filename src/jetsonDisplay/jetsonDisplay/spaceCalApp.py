@@ -371,7 +371,8 @@ class UI(QMainWindow):
                 print("Projector Started Succesfuly!!")
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
-                self.startTimer()
+                # TODO: temporary line for testing
+                self.setStatusProjectorDisplay(self, projStatusArr[0])
 
     def execBtnProject_stop(self, displayMsg):
         msg = True
@@ -389,7 +390,7 @@ class UI(QMainWindow):
                 self.btnProject.setText(projectBtnStart)
         # if self.btnInit.text() == runBtnStart:
         #     self.btnPause.setEnabled(False)
-        self.stopTimer()
+        self.setStatusProjectorDisplay(self, projStatusArr[1])
 
     def execBtnPause(self):
         retMsg = self.displayConfirmatonMsg(pauseAllMsg)
@@ -426,14 +427,14 @@ class UI(QMainWindow):
             if self.btnProject.text() != projectBtnStop:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
-            # self.startTimer()
+            self.startTimer()
         elif str == projStatusArr[1]:  # off
             if self.btnProject.text() != projectBtnStart:
                 self.btnProject.setText(projectBtnStart)
             # Make sure the popup window is close
             # Reset the timer
                 # self.btnPause.setEnabled(True)
-            # self.stopTimer()
+            self.stopTimer()
         self.checkPopWindow()
         self.statusProjector.setText(str)
         self.updateStyleSheet()
@@ -642,17 +643,17 @@ class UI(QMainWindow):
         # print (hello )
         strMill = ""
         strSec = ""
-        seconds = self.timerSec//100
-        milli = self.timerSec % 100
+        seconds = self.timerSec//10
+        milli = self.timerSec % 10
         # x = time.strftime('%M:%S', time.gmtime(seconds))
         if seconds < 10:
             strSec = "0" + str(seconds)
         else:
             strSec = str(seconds)
         if (milli < 10):
-            strMill = ":" + "0" + str(milli)
+            strMill = "." + "0" + str(milli)
         else:
-            strMill = ":" + str(milli)
+            strMill = "." + str(milli)
         dis = "" + strSec + strMill
         # sec = self.timerSec % 60
         # min = self.timerSec // 60
