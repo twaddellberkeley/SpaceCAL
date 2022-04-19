@@ -656,6 +656,8 @@ def main():
     window = UI()
     window.show()
     app.exec()
+    window.pubNode.destroy_node()
+    window.subNode.destroy_node()
     rclpy.shutdown()
 
 
