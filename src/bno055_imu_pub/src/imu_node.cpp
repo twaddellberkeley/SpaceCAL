@@ -47,8 +47,10 @@ private:
     auto fusion_data = interfaces::msg::FusionImu();
     fusion_data.euler_angles.x = (double)10.9090;
     message.data = "Fusion data! " + std::to_string(count_++);
+    
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
     imu_fusion_.read_imu_data(fusion_data);
+    std::cout << "fusion data: " << fusion_data.gravity_magnitude << std::endl;
     RCLCPP_INFO(this->get_logger(), "imu address: '%x' ", BNO055_ADDRESS_A);
     fusion_publisher_->publish(fusion_data);
   }
