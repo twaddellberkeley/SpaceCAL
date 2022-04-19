@@ -40,5 +40,21 @@ def generate_launch_description():
             output='screen',
             emulate_tty=True,
             name='control'
+        ),
+        Node(
+            package='bno055_imu_pub',
+            namespace='printerTesting',
+            executable='imu_node',
+            output='screen',
+            emulate_tty=True,
+            name='imu'
+        ),
+        Node(
+            package='bag_recorder_cpp',
+            namespace='printerTesting',
+            executable='topic_recorder',
+            output='screen',
+            emulate_tty=True,
+            name='bag_recorder'
         )
     ])
