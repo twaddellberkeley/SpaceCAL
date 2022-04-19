@@ -143,6 +143,10 @@ namespace bno055_imu
         imu.gravity_vector.y = ((double)data.gravity_vector_y) / 100.0;
         imu.gravity_vector.z = ((double)data.gravity_vector_z) / 100.0;
 
+        imu.gravity_magnitude = ((double)std::sqrt(imu.gravity_vector.x * imu.gravity_vector.x +
+                                                   imu.gravity_vector.y * imu.gravity_vector.y +
+                                                   imu.gravity_vector.z * imu.gravity_vector.z));
+
         return true;
     }
 

@@ -697,7 +697,7 @@
                </font>
               </property>
               <property name="text">
-               <string>Accel Vector:</string>
+               <string>Gravity:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -705,7 +705,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLCDNumber" name="lcdAccelVector">
+             <widget class="QLCDNumber" name="lcdGravity">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                 <horstretch>0</horstretch>
