@@ -641,16 +641,16 @@ class UI(QMainWindow):
         strMill = ""
         strSec = ""
         seconds = self.timerSec//10
-        milli = self.timerSec % 10
+        milli = self.timerSec % 100
         # x = time.strftime('%M:%S', time.gmtime(seconds))
         if seconds < 10:
             strSec = "0" + str(seconds)
         else:
             strSec = str(seconds)
-        if (milli < 10):
-            strMill = "." + "0" + str(milli)
-        else:
-            strMill = "." + str(milli)
+        # if (milli < 10):
+        #     strMill = "." + "0" + str(milli)
+        # else:
+        strMill = "." + str(milli)
         dis = "" + strSec + strMill
         # sec = self.timerSec % 60
         # min = self.timerSec // 60
