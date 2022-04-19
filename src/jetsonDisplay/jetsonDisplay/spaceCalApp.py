@@ -328,6 +328,9 @@ class UI(QMainWindow):
             print("Motors Set to Home Successfully!!")
             # set btnInit new text
             self.btnInit.setText(runBtnStart)
+            # TODO: temporary line for testing
+            self.setStatusMotorDisplay(self, statusMotorStr[0])
+            self.setStatusLevelDisplay(self, statusLevelStr[2])
 
     def execBtnInit_start(self):
         # Set the message for the confirmation text
@@ -342,6 +345,9 @@ class UI(QMainWindow):
                 self.btnInit.setText(runBtnStop)
                 self.btnProject.setEnabled(True)
                 # self.btnPause.setEnabled(True)
+                # TODO: temporary line for testing
+                self.setStatusMotorDisplay(self, statusMotorStr[1])
+                self.setStatusLevelDisplay(self, statusLevelStr[3])
 
     def execBtnInit_stop(self):
         # Set the message for the confirmation text
@@ -390,6 +396,7 @@ class UI(QMainWindow):
                 self.btnProject.setText(projectBtnStart)
         # if self.btnInit.text() == runBtnStart:
         #     self.btnPause.setEnabled(False)
+        # TODO: temporary line for testing
         self.setStatusProjectorDisplay(self, projStatusArr[1])
 
     def execBtnPause(self):
@@ -491,6 +498,7 @@ class UI(QMainWindow):
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
 
     def publishBtnInit(self, str):
         msg = String()
