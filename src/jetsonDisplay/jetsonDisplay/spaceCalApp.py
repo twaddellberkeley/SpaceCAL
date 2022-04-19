@@ -642,7 +642,7 @@ class UI(QMainWindow):
     def stopTimer(self):
         self.printInfoMsg.print_end = "" + date.today().strftime("%b-%d-%Y") + "/" + \
             datetime.now().strftime("%H:%M:%S")
-        self.printInfoMsg.stamp_end = self.pubNode.get_clock().now()
+        self.printInfoMsg.stamp_end = self.pubNode.get_clock().now().to_msg()
         print(self.printInfoMsg.print_start)
         print(self.printInfoMsg.print_end)
         print(self.printInfoMsg.stamp_end)
