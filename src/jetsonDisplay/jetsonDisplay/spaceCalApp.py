@@ -633,7 +633,7 @@ class UI(QMainWindow):
         # print (hello )
         strMill = ""
         strSec = ""
-        seconds = self.timerSec//100
+        seconds = self.timerSec//10
         milli = self.timerSec % 100
         # x = time.strftime('%M:%S', time.gmtime(seconds))
         if seconds < 10:
@@ -649,8 +649,10 @@ class UI(QMainWindow):
         # min = self.timerSec // 60
         # text = time.toString('mm:ss')
         self.timerSec += 1
-
-        # print(dis)
+        print(self.timerSec)
+        print(strSec)
+        print(strMill)
+        print(dis)
         self.projectionTime.display(dis)
 
     def stopTimer(self):
