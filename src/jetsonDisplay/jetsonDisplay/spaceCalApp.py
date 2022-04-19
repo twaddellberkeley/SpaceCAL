@@ -265,7 +265,7 @@ class UI(QMainWindow):
         ##### Timer setup ######
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.showlcd)
-        self.t = QTime(self)
+        self.t = QTime()
         ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
         rclpy.init(args=None)
