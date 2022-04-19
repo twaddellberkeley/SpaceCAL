@@ -11,7 +11,7 @@ import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
-from interfaces.msg import DisplayData, PrintingInfo
+from interfaces.msg import DisplayData, PrintingInfo, FusionImu
 
 
 # QMessageBox messages text for setText
@@ -49,6 +49,7 @@ pubNodeStr = "buttons_node"
 subNodeStr = "display_node"
 # ROS2 Subscriber Topic name
 displayTopic = "display_topic"
+imuTopic = "fusion_imu_topic"
 # Display label names:
 statusProjectorStr = "projection_status"
 statusMotorStr = "motor_status"
@@ -478,17 +479,15 @@ class UI(QMainWindow):
         self.updateStyleSheet()
 
     def setLcdRpmDisplay(self, num):
-        print(num)
         self.lcdRpm.display(num)
 
     def setLcdLevelDisplay(self, num):
         self.lcdLevel.display(num)
 
     def setLcdParabolaDisplay(self, num):
-
         self.lcdParabola.display(num)
 
-    def setLcdAccelVectorDisplay(self, num):
+    def setLcdGravityDisplay(self, num):
         self.lcdAccelVector.display(num)
 
 
@@ -565,6 +564,9 @@ class UI(QMainWindow):
         else:
             print("No label with name: " + data.name)
 
+    def subcriberImuHandler(self, imu):
+        self.setLcdGravityDisplay(imu.gravity_magnitude)
+
 
 # *************************************** Define Subscriber Node function ************************************* #
     """
@@ -592,6 +594,10 @@ class UI(QMainWindow):
             DisplayData,
             displayTopic,
             self.subcriberNodeHandler, 10)
+        subFusion = subNode.create_subscription(
+            FusionImu,
+            imuTopic,
+            self.subcriberImuHandler, 10)
         rclpy.spin(subNode)
         subNode.destroy_node()
 
