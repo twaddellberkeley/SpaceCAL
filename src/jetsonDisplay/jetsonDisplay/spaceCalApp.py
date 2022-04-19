@@ -616,6 +616,7 @@ class UI(QMainWindow):
 
     def startTimer(self):
         self.printInfoMsg = PrintingInfo()
+        self.printInfoMsg.stamp_start = self.pubNode.get_clock().now().to_msg()
         self.printInfoMsg.print_start = "" + date.today().strftime("%b-%d-%Y") + "/" + \
             datetime.now().strftime("%H:%M:%S")
         self.timer.start(100)
@@ -643,9 +644,14 @@ class UI(QMainWindow):
         self.printInfoMsg.print_end = "" + date.today().strftime("%b-%d-%Y") + "/" + \
             datetime.now().strftime("%H:%M:%S")
         self.printInfoMsg.stamp_end = self.pubNode.get_clock().now().to_msg()
+        self.printInfoMsg.level_display = self.lcdLevel.value()
+        self.printInfoMsg.parabola_display = self.lcdParabola.value()
+        # self.printInfoMsg.gravity_display = self.lcdGravity
         print(self.printInfoMsg.print_start)
         print(self.printInfoMsg.print_end)
+        print(self.printInfoMsg.stamp_start)
         print(self.printInfoMsg.stamp_end)
+        print(self.printInfoMsg)
         self.timer.stop()
 
     # NEW
