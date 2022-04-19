@@ -1,7 +1,7 @@
 builtin_interfaces/Time stamp_start
 string print_start
 builtin_interfaces/Time stamp_end
-string pring_end
+string print_end
 int32 level_display
 int32 parabola_display
 int32 gravity_display
