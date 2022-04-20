@@ -1,8 +1,8 @@
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from PyQt5 import uic, QtTest
-
+from PyQt5 import uic
+from datetime import date, datetime
 import time
 import traceback
 import sys
@@ -11,7 +11,8 @@ import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
-from interfaces.msg import DisplayData
+from interfaces.msg import DisplayData, PrintingInfo, FusionImu
+
 
 # QMessageBox messages text for setText
 initRunMsg = "Motors will be set to home position!"
@@ -48,6 +49,7 @@ pubNodeStr = "buttons_node"
 subNodeStr = "display_node"
 # ROS2 Subscriber Topic name
 displayTopic = "display_topic"
+imuTopic = "fusion_imu_topic"
 # Display label names:
 statusProjectorStr = "projection_status"
 statusMotorStr = "motor_status"
@@ -55,12 +57,13 @@ statusLevelStr = "level_status"
 lcdRpmNum = "rpm_display"
 lcdLevelNum = "level_display"
 lcdParabolaNum = "parabola_display"
-lcdAccelVectorNum = "gravity_display"
+lcdGravityNum = "gravity_display"
 # Reset run
 resetRun = "reset_run"
 resetProjection = "reset_projection"
 # ROS2 Publisher Topic name
 btnTopic = 'buttons_topic'
+printingTopic = 'project_topic'
 # ROS2 Publishing mgs for "buttons_topic"
 msgBtnInit_init = "motor_ok"
 msgBtnInit_start = "motor_ok"
@@ -77,7 +80,7 @@ class WorkerSignals(QObject):
     lcdRpm = pyqtSignal(int)
     lcdLevel = pyqtSignal(int)
     lcdParabola = pyqtSignal(int)
-    lcdAccelVector = pyqtSignal(float)
+    lcdGravity = pyqtSignal(float)
 
 
 class Worker(QRunnable):
@@ -194,7 +197,10 @@ class UI(QMainWindow):
     }
     """
 
+    timerSec = 0
+
     # This function sets initial gui state
+
     def __init__(self):
         super(UI, self).__init__()
         script_dir = os.path.dirname(__file__)
@@ -227,7 +233,7 @@ class UI(QMainWindow):
             lcdRpm
             lcdLevel
             lcdParabola
-            lcdAccelVector
+            lcdGravity
         """
 
         ##### Connect buttons to callback functions #####
@@ -258,6 +264,10 @@ class UI(QMainWindow):
         print(self.msgInfo.buttons()[0].text())
         # self.show()
 
+        ##### Timer setup ######
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.showlcd)
+
         ###### ************************************* ROS2 init ************************************* #####
         # Initialize rospy
         rclpy.init(args=None)
@@ -265,6 +275,11 @@ class UI(QMainWindow):
         self.pub = self.pubNode.create_publisher(String, btnTopic, 10)
         self.pubDisplay = self.pubNode.create_publisher(
             DisplayData, displayTopic, 10)
+        self.pubPrintInfo = self.pubNode.create_publisher(
+            PrintingInfo, printingTopic, 10)
+
+        # creating printin message datatype
+        self.printInfoMsg = PrintingInfo()
 
         # creating a multithread pool
         self.threadpool = QThreadPool()
@@ -407,7 +422,7 @@ class UI(QMainWindow):
         lcdRpm
         lcdLevel
         lcdParabola
-        lcdAccelVector
+        lcdGravity
     """
 
     def setStatusProjectorDisplay(self, str):
@@ -416,10 +431,15 @@ class UI(QMainWindow):
             if self.btnProject.text() != projectBtnStop:
                 self.btnProject.setText(projectBtnStop)
                 # self.btnPause.setEnabled(True)
+            self.startTimer()
         elif str == projStatusArr[1]:  # off
             if self.btnProject.text() != projectBtnStart:
                 self.btnProject.setText(projectBtnStart)
+            # Make sure the popup window is close
+            # Reset the timer
                 # self.btnPause.setEnabled(True)
+            self.stopTimer()
+        self.checkPopWindow()
         self.statusProjector.setText(str)
         self.updateStyleSheet()
 
@@ -448,33 +468,36 @@ class UI(QMainWindow):
             self.btnInit.setText(runBtnStart)
             self.btnProject.setEnabled(False)
             self.btnInit.setEnabled(False)
+            self.checkPopWindow()
         elif str == levelStatusArr[2]:  # Homed
             self.btnProject.setEnabled(True)
             self.btnInit.setEnabled(True)
         elif str == levelStatusArr[3]:  # Moving
             self.btnProject.setEnabled(False)
+            self.checkPopWindow()
         elif str == levelStatusArr[4]:  # Set
             self.btnProject.setEnabled(True)
+
         self.statusLevel.setText(str)
         self.updateStyleSheet()
 
     def setLcdRpmDisplay(self, num):
-        print(num)
         self.lcdRpm.display(num)
 
     def setLcdLevelDisplay(self, num):
         self.lcdLevel.display(num)
 
     def setLcdParabolaDisplay(self, num):
-
         self.lcdParabola.display(num)
 
-    def setLcdAccelVectorDisplay(self, num):
-        self.lcdAccelVector.display(num)
+    def setLcdGravityDisplay(self, num):
+        print(num)
+        self.lcdGravity.display(num)
 
 
 # *************************************** Define Publisher Functions ************************************** #
     # this funtion publishes messages from the btninit button.
+
 
     def publishBtnInit(self, str):
         msg = String()
@@ -546,6 +569,9 @@ class UI(QMainWindow):
         else:
             print("No label with name: " + data.name)
 
+    def subcriberImuHandler(self, imu):
+        self.setLcdGravityDisplay(imu.gravity_magnitude)
+
 
 # *************************************** Define Subscriber Node function ************************************* #
     """
@@ -564,7 +590,7 @@ class UI(QMainWindow):
         lcdRpm
         lcdLevel
         lcdParabola
-        lcdAccelVector
+        lcdGravity
     """
 
     def exec_subNode(self):
@@ -573,21 +599,10 @@ class UI(QMainWindow):
             DisplayData,
             displayTopic,
             self.subcriberNodeHandler, 10)
-
-        # subProjStatus = subNode.create_subscription(
-        #     String, statusProjectorStr, self.setStatusProjectorDisplay, 10)
-        # subMotorStatus = subNode.create_subscription(
-        #     String, statusMotorStr, self.setStatusMotorDisplay, 10)
-        # subLelelStatus = subNode.create_subscription(
-        #     String, statusLevelStr, self.setStatusLevelDisplay, 10)
-        # subRpm = subNode.create_subscription(
-        #     Int32, lcdRpmNum, self.setLcdRpmDisplay, 10)
-        # subLevel = subNode.create_subscription(
-        #     Int32, lcdLevelNum, self.setLcdLevelDisplay, 10)
-        # subParabola = subNode.create_subscription(
-        #     Int32, lcdParabolaNum, self.setLcdParabolaDisplay, 10)
-        # subAccelVec = subNode.create_subscription(
-        #     Int32, lcdAccelVectorNum, self.setLcdAccelVectorDisplay, 10)
+        subFusion = subNode.create_subscription(
+            FusionImu,
+            imuTopic,
+            self.subcriberImuHandler, 10)
         rclpy.spin(subNode)
         subNode.destroy_node()
 
@@ -603,6 +618,49 @@ class UI(QMainWindow):
     def displayConfirmatonMsg(self, msg):
         self.msgConfirm.setText(msg)
         return self.msgConfirm.exec()
+
+    def checkPopWindow(self):
+        if self.msgConfirm.isActiveWindow():
+            self.msgConfirm.reject()
+        if self.msgConfirm.isActiveWindow():
+            self.msgConfirm.reject()
+
+    def startTimer(self):
+        self.printInfoMsg = PrintingInfo()
+        self.printInfoMsg.stamp_start = self.pubNode.get_clock().now().to_msg()
+        self.printInfoMsg.print_start = "" + date.today().strftime("%b-%d-%Y") + "/" + \
+            datetime.now().strftime("%H:%M:%S")
+        self.printInfoMsg.gravity_display_start = self.lcdGravity.value()
+        self.timer.start(100)
+        self.timerSec = 0
+        self.showlcd()
+
+    def showlcd(self):
+        strMill = ""
+        strSec = ""
+        seconds = self.timerSec//10
+        milli = self.timerSec % 10
+        if seconds < 10:
+            strSec = "0" + str(seconds)
+        else:
+            strSec = str(seconds)
+        # if (milli < 10):
+        #     strMill = "." + "0" + str(milli)
+        # else:
+        strMill = "." + str(milli)
+        dis = "" + strSec + strMill
+        self.timerSec += 1
+        self.projectionTime.display(dis)
+
+    def stopTimer(self):
+        self.printInfoMsg.print_end = "" + date.today().strftime("%b-%d-%Y") + "/" + \
+            datetime.now().strftime("%H:%M:%S")
+        self.printInfoMsg.stamp_end = self.pubNode.get_clock().now().to_msg()
+        self.printInfoMsg.level_display = int(self.lcdLevel.value())
+        self.printInfoMsg.parabola_display = int(self.lcdParabola.value())
+        self.printInfoMsg.gravity_display_end = self.lcdGravity.value()
+        self.pubPrintInfo.publish(self.printInfoMsg)
+        self.timer.stop()
 
     # NEW
 
@@ -627,6 +685,7 @@ def main():
     window = UI()
     window.show()
     app.exec()
+    window.pubNode.destroy_node()
     rclpy.shutdown()
 
 
