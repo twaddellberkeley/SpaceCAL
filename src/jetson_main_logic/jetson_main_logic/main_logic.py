@@ -44,8 +44,7 @@ import time
 import threading
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String, Int32
-from smbus2 import SMBus, i2c_msg
+
 from interfaces.msg import MotorData
 from interfaces.srv import GuiSrv, MotorSrv, ProjectorSrv
 
