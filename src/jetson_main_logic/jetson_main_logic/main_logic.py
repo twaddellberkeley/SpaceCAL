@@ -42,20 +42,21 @@ import imp
 import rclpy
 import time
 import threading
+import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, Int32
 from smbus2 import SMBus, i2c_msg
 from interfaces.msg import MotorData
-from interfaces.srv import GuiCommand
+from interfaces.srv import GuiSrv, MotorSrv, ProjectorSrv
 
 
 class Motor:
-    _motor_id = 1
     _speed = 0
     # _status is False if motor is off and True if on
     _status = False
 
-    def __init__(self) -> None:
+    def __init__(self, id) -> None:
+        _motor_id = id
         pass
 
     def set_speed(slef, speed):
@@ -75,13 +76,13 @@ class Motor:
 
 
 class Projector:
-    _pjtr_id = 0
     _status_LED = False
     # _video_tile holds the name of video currently loded to play
     _video_title = ""
     _status_video = False
 
-    def __init__(self) -> None:
+    def __init__(self, id) -> None:
+        _pjtr_id = id
         pass
 
     def set_status_LED(slef, status):
@@ -109,15 +110,77 @@ class LevelController(Node):
 
 
 class CalPrintController(Node):
+    class SendRequest(threading.Thread):
+        def __init__(self, threadID, cli, req, fn):
+            threading.Thread.__init__(self)
+            self.threadID = threadID
+            self.cli = cli
+            self.req = req
+            self.process_request = fn
+
+        def run(self):
+            print("Running Thred id: " + self.threadID)
+            self.process_request(self.cli, self.req)
+
     def __init__(self, id) -> None:
-        super().__init__('CalPrint_Controller_Node' + str(id))
+        super().__init__('CalPrint_Controller_Node_' + str(id))
+        self._motor = Motor(id)
+        self._projector = Motor(id)
+
+        # Define ros service Clients
+        self._motor_cli = self.create_client(
+            MotorSrv, 'motor_command_' + str(id))
+        self._projector_cli = self.create_client(
+            ProjectorSrv, 'projector_command_' + str(id))
+
+        # Wait for motor service to be avalible
+        while not self._motor_cli.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('motor service not available, waiting again...')
+        self._motor_req = MotorSrv.Request()
+
+        # Wait for projector service to be avaliable
+        while not self._projector_cli.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('projector service not available, waiting again...')
+        self._projector_req = ProjectorSrv.Request()
+        self._motor_req.cmd_num = 23
+        self._motor_req.value = 49
+
+        self.motorThread = self.SendRequest(
+            'motor', self._motor_cli, self._motor_req, self.process_request)
+
+    def process_request(self, cli, req):
+        print("[process_request]: cmd_num " + str(req.cmd_num))
+        promise = cli.call_async(req)
+        while rclpy.ok():
+            rclpy.spin_once(self)
+            if promise.done():
+                try:
+                    response = promise.result()
+                except Exception as e:
+                    self.get_logger().info(
+                        'Service call failed %r' % (e,))
+                else:
+                    self.get_logger().info(
+                        'Commad was successful!!')
+                break
+        # while not exitFlag:
+        #     queueLock.acquire()
+        #        if not workQueue.empty():
+        #             data = q.get()
+        #             queueLock.release()
+        #             print "%s processing %s" % (threadName, data)
+        #         else:
+        #             queueLock.release()
+        #         time.sleep(1)
 
 
 class ManiLogicController(Node):
     def __init__(self) -> None:
         super().__init__('Main_Logic_Controller_Node')
         self.srv = self.create_service(
-            GuiCommand, 'gui_command', self.gui_command_callback)
+            GuiSrv, 'gui_command', self.gui_command_callback)
+        self.controller = CalPrintController(1)
+        self.controller.motorThread.start()
 
     def gui_command_callback(self, request, response):
         response.sum = request.a + request.b

@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'main_logic = jetson_main_logic.main_logic:main'
+            'main_logic = jetson_main_logic.main_logic:main',
+            'test_service = jetson_main_logic.test_srv:main'
         ],
     },
 )
