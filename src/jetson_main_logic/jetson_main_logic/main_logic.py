@@ -155,6 +155,7 @@ class CalPrintController(Node):
             if promise.done():
                 try:
                     response = promise.result()
+                    print('[process_request]: succesfull: %d' % response.ok)
                 except Exception as e:
                     self.get_logger().info(
                         'Service call failed %r' % (e,))
