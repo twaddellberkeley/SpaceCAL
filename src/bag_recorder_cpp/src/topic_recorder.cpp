@@ -180,10 +180,6 @@ private:
       return "Nov";
     case 12:
       return "Dec";
-<<<<<<< HEAD
-=======
-    // you can have any number of case statements.
->>>>>>> dev-christian
     default: // Optional
       return "Error";
     }
