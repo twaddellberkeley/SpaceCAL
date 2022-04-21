@@ -1,4 +1,4 @@
-iint32 cmd_num
+int32 cmd_num
 int32 value
 ---
 bool ok
