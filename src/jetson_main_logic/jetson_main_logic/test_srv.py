@@ -13,7 +13,8 @@ class MinimalService(Node):
             MotorSrv, 'motor_command_1', self.print_command)
 
     def print_command(self, request, response):
-        self.get_logger().info('Incoming request\na: %d b: %d' % (request.a, request.b))
+        self.get_logger().info('Incoming request\na: %d b: %d' %
+                               (request.cmd_num, request.value))
         response.ok = True
         response.error = 10
         time.sleep(3)
