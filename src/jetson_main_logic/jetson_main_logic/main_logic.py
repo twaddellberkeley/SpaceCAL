@@ -149,13 +149,14 @@ class CalPrintController(Node):
 
     def process_request(self, cli, req):
         print("[process_request]: cmd_num " + str(req.cmd_num))
-        promise = cli.call_async(req)
+        self.future = cli.call_async(req)
         while rclpy.ok():
             # print("loop %d" % promise.done())
             # rclpy.spin_once(self)
-            if promise.done():
+            if self.future.done():
+                print("loop %d" % self.future.done())
                 try:
-                    response = promise.result()
+                    response = self.future.result()
                     print('[process_request]: succesfull: %d' % response.ok)
                 except Exception as e:
                     self.get_logger().info(
