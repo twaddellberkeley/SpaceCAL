@@ -151,7 +151,7 @@ class CalPrintController(Node):
         print("[process_request]: cmd_num " + str(req.cmd_num))
         promise = cli.call_async(req)
         while rclpy.ok():
-            print("loop %d" % promise.done())
+            # print("loop %d" % promise.done())
             # rclpy.spin_once(self)
             if promise.done():
                 try:
