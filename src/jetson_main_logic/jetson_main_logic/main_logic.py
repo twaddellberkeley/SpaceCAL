@@ -39,6 +39,7 @@
 # This consist of 4 motors that need to move in harmony
 # This will be a class Node that will implement the following comands
 import imp
+from urllib import response
 import rclpy
 import time
 import threading
@@ -129,7 +130,8 @@ class CalPrintController(Node):
                 if self.future.done():
                     print("loop %d" % self.future.done())
                     try:
-                        response = self.future.result()
+                        self.node._motor_res = self.future.result()
+                        response = self.node._motor_res
                         print('[process_request]: succesfull: %d' %
                               response.ok)
                     except Exception as e:
@@ -156,6 +158,7 @@ class CalPrintController(Node):
         while not self._motor_cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('motor service not available, waiting again...')
         self._motor_req = MotorSrv.Request()
+        self._motor_res = MotorSrv.Response()
 
         # Wait for projector service to be avaliable
         while not self._projector_cli.wait_for_service(timeout_sec=1.0):
@@ -204,7 +207,8 @@ class ManiLogicController(Node):
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
         self.controller.motorThread.start()
-        print("[MainLogic]: response: ???")
+        time.sleep(5)
+        print("[MainLogic]: response: %d" % self.controller._motor_res.ok)
 
     def gui_command_callback(self, request, response):
         response.sum = request.a + request.b
