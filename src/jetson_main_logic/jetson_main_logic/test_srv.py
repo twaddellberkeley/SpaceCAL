@@ -11,6 +11,8 @@ class MinimalService(Node):
         super().__init__('minimal_service')
         self.motor_srv = self.create_service(
             MotorSrv, 'motor_command_1', self.print_command)
+        self.projector_srv = self.create_service(
+            ProjectorSrv, 'projector_command_1', self.print_command)
 
     def print_command(self, request, response):
         self.get_logger().info('Incoming request\na: %d b: %d' %

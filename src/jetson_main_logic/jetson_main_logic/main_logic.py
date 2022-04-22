@@ -103,51 +103,53 @@ class Projector:
         return self._status_video
 
 
+class SendRequest(threading.Thread):
+    def __init__(self, threadID, cli, req, node):  # , fn):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.cli = cli
+        self.req = req
+        self.node = node
+
+    def run(self):
+        print("Running Thred id: " + self.threadID)
+        return self.process_request(self.cli, self.req)
+
+    def process_request(self, cli, req):
+        print("[process_request]: cmd_num " + str(req.cmd_num))
+        self.future = cli.call_async(req)
+        while rclpy.ok():
+            # print("loop %d" % promise.done())
+            if self.future.done():
+                print("loop %d" % self.future.done())
+                try:
+                    self.response = self.future.result()
+                    print('[process_request]: succesfull: %d' %
+                          self.response.ok)
+                except Exception as e:
+                    self.node.get_logger().info(
+                        'Service call failed %r' % (e,))
+                else:
+                    self.node.get_logger().info(
+                        'Commad was successful!!')
+                break
+        return self.response
+
+
 class LevelController(Node):
     def __init__(self) -> None:
         super().__init__('Level_Controller_Node')
 
 
 class CalPrintController(Node):
-    class SendRequest(threading.Thread):
-        def __init__(self, threadID, cli, req, node):  # , fn):
-            threading.Thread.__init__(self)
-            self.threadID = threadID
-            self.cli = cli
-            self.req = req
-            self.node = node
-            # self.process_request = fn
-
-        def run(self):
-            print("Running Thred id: " + self.threadID)
-            self.process_request(self.cli, self.req)
-
-        def process_request(self, cli, req):
-            print("[process_request]: cmd_num " + str(req.cmd_num))
-            self.future = cli.call_async(req)
-            while rclpy.ok():
-                # print("loop %d" % promise.done())
-                if self.future.done():
-                    print("loop %d" % self.future.done())
-                    try:
-                        response = self.future.result()
-                        print('[process_request]: succesfull: %d' %
-                              response.ok)
-                    except Exception as e:
-                        self.node.get_logger().info(
-                            'Service call failed %r' % (e,))
-                    else:
-                        self.node.get_logger().info(
-                            'Commad was successful!!')
-                    break
 
     def __init__(self, id, node) -> None:
         super().__init__('CalPrint_Controller_Node_' + str(id))
         self._motor = Motor(id)
         self._projector = Motor(id)
         self._node = node
+
         # Define ros service Clients
-        # self.motor_node = Node('motor_node')
         self._motor_cli = self._node.create_client(
             MotorSrv, 'motor_command_' + str(id))
         self._projector_cli = self.create_client(
@@ -203,7 +205,8 @@ class ManiLogicController(Node):
         self.srv = self.create_service(
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
-        self.controller.motorThread.start()
+        self.response = self.controller.motorThread.start()
+        print("[MainLogic]: response: %d" % self.response.ok)
 
     def gui_command_callback(self, request, response):
         response.sum = request.a + request.b
