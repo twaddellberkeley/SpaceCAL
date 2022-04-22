@@ -218,7 +218,7 @@ def main():
 
     main_logic = ManiLogicController()
 
-    rclpy.spin(main_logic)
+    # rclpy.spin(main_logic)
 
     rclpy.shutdown()
 
