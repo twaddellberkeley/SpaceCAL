@@ -12,7 +12,7 @@ class MinimalService(Node):
         self.motor_srv = self.create_service(
             MotorSrv, 'motor_command_1', self.motor_command)
         self.projector_srv = self.create_service(
-            ProjectorSrv, 'projector_command_1', self.projecotr_command)
+            ProjectorSrv, 'projector_command_1', self.projector_command)
 
     def motor_command(self, request, response):
         self.get_logger().info('Incoming request\na: %d b: %d' %

@@ -152,7 +152,7 @@ class CalPrintController(Node):
         # Define ros service Clients
         self._motor_cli = self._node.create_client(
             MotorSrv, 'motor_command_' + str(id))
-        self._projector_cli = self.create_client(
+        self._projector_cli = self._node.create_client(
             ProjectorSrv, 'projector_command_' + str(id))
 
         # Wait for motor service to be avalible
@@ -161,9 +161,9 @@ class CalPrintController(Node):
         self._motor_req = MotorSrv.Request()
 
         # Wait for projector service to be avaliable
-        # while not self._projector_cli.wait_for_service(timeout_sec=1.0):
-        #     self.get_logger().info('projector service not available, waiting again...')
-        # self._projector_req = ProjectorSrv.Request()
+        while not self._projector_cli.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('projector service not available, waiting again...')
+        self._projector_req = ProjectorSrv.Request()
         self._motor_req.cmd_num = 23
         self._motor_req.value = 49
 
