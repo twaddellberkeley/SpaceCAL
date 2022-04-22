@@ -202,7 +202,7 @@ class ManiLogicController(Node):
         super().__init__('Main_Logic_Controller_Node')
         self.srv = self.create_service(
             GuiSrv, 'gui_command', self.gui_command_callback)
-        self.controller = CalPrintController(1)
+        self.controller = CalPrintController(1, self)
         self.controller.motorThread.start()
 
     def gui_command_callback(self, request, response):
