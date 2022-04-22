@@ -167,7 +167,7 @@ class CalPrintController(Node):
         self._motor_req.cmd_num = 23
         self._motor_req.value = 49
 
-        self.motorThread = self.SendRequest(
+        self.motorThread = SendRequest(
             'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
 
     # def process_request(self, cli, req):
