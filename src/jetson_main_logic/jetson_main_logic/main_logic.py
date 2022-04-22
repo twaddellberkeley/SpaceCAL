@@ -127,7 +127,6 @@ class CalPrintController(Node):
             self.future = cli.call_async(req)
             while rclpy.ok():
                 # print("loop %d" % promise.done())
-                rclpy.spin_once(self.node)
                 if self.future.done():
                     print("loop %d" % self.future.done())
                     try:
@@ -142,14 +141,14 @@ class CalPrintController(Node):
                             'Commad was successful!!')
                     break
 
-    def __init__(self, id) -> None:
+    def __init__(self, id, node) -> None:
         super().__init__('CalPrint_Controller_Node_' + str(id))
         self._motor = Motor(id)
         self._projector = Motor(id)
-
+        self._node = node
         # Define ros service Clients
         # self.motor_node = Node('motor_node')
-        self._motor_cli = self.create_client(
+        self._motor_cli = self._node.create_client(
             MotorSrv, 'motor_command_' + str(id))
         self._projector_cli = self.create_client(
             ProjectorSrv, 'projector_command_' + str(id))
@@ -218,8 +217,8 @@ def main():
 
     main_logic = ManiLogicController()
 
-    # rclpy.spin(main_logic)
-    time.sleep(10)
+    rclpy.spin(main_logic)
+
     rclpy.shutdown()
 
 
