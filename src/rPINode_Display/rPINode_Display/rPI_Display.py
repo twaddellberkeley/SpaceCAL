@@ -8,12 +8,14 @@ import os
 import time
 import psutil
 
-mProcess = None 
+mProcess = None
 stayAlive = None
 
 started = False
 
 # Looks for a video string to display, and displays it
+
+
 class displayFunctionClass(Node):
     def __init__(self):
         super().__init__('ProjectorDisplaySubscriex')
@@ -29,7 +31,7 @@ class displayFunctionClass(Node):
             return
         # First kill any current projection
         print(msg.data)
-        os.environ['DISPLAY']=":0"
+        os.environ['DISPLAY'] = ":0"
         global mProcess
         global stayAlive
         print("DISPLAYING\n")
@@ -42,43 +44,48 @@ class displayFunctionClass(Node):
             return
         # Now Project from givin string
         videoString = '/home/spacecal/test_video/' + msg.data
-        # 
+        #
         mProcess = subprocess.Popen(
-            args = ['vlc-pi', "-I", "dummy", "-f", "--repeat", "--no-audio", "--no-osd", videoString, "vlc://quit"],
+            args=['vlc-pi', "-I", "dummy", "-f", "--repeat",
+                  "--no-audio", "--no-osd", videoString, "vlc://quit"],
             stderr=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL)
         # Create multiprocess to turn of projector when done
-        stayAlive = multiprocessing.Process(target=self.kill_me,args=(mProcess.pid,))
+        stayAlive = multiprocessing.Process(
+            target=self.kill_me, args=(mProcess.pid,))
         stayAlive.start()
 
-    def kill_me(self,pid):
+    def kill_me(self, pid):
         print(pid)
         process = psutil.Process(pid)
-        while (process.status() != psutil.STATUS_ZOMBIE): 
+        while (process.status() != psutil.STATUS_ZOMBIE):
             pass
-            #print(mProcess)
+            # print(mProcess)
         print("Killing\n")
         # When dead turn off projector
         subprocess.run(['ledZero'])
 
+
 def reboot():
-    #Wait 5 seconds
+    # Wait 5 seconds
     time.sleep(3)
     global started
-    #Reboot xserver if it crashed
+    # Reboot xserver if it crashed
     if (started == False):
-        os.system("sudo systemctl restart xserver.service") 
+        os.system("sudo systemctl restart xserver.service")
 
 # Main function to start subscriber but also set display correctly
+
+
 def main(args=None):
     print("STARTING")
     # Set the proper OS variable to display on
-    os.environ['DISPLAY']=":0"
-    #Start thread to do reboot
-    bootThread = Thread( target=reboot, args=())
+    os.environ['DISPLAY'] = ":0"
+    # Start thread to do reboot
+    bootThread = Thread(target=reboot, args=())
     bootThread.start()
     # Resets the display to resize correctly
-    subprocess.run(["xrandr" ,"-o" ,"right"])
+    subprocess.run(["xrandr", "-o", "right"])
     subprocess.run(['xset', 'dpms', 'force', 'off'])
     global started
     started = True
