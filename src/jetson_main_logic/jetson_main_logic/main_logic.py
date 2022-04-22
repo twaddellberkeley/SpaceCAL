@@ -214,7 +214,8 @@ class ManiLogicController(Node):
         self.controller.send_motor_req()
 
     def test_projector(self):
-        print("Helloooo: %d" % self.controller._projector_res.ok)
+        print("Projector: %d" % self.controller._projector_res.ok)
+        print("Motor: %d" % self.controller._motor_res.ok)
 
 
 def main():
