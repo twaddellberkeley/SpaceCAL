@@ -161,6 +161,7 @@ class CalPrintController(Node):
         while not self._projector_cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('projector service not available, waiting again...')
         self._projector_req = ProjectorSrv.Request()
+
         self._motor_req.cmd_num = 23
         self._motor_req.value = 49
 
