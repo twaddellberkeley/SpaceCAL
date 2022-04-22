@@ -226,6 +226,7 @@ class ManiLogicController(Node):
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
         self.timer = self.create_timer(3, self.print_var)
+        print("finished init fun")
 
     def gui_command_callback(self, request, response):
         response.sum = request.a + request.b
