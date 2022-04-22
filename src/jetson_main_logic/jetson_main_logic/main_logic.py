@@ -207,7 +207,7 @@ class ManiLogicController(Node):
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
         self.controller.motorThread.start()
-        time.sleep(5)
+        time.sleep(10)
         print("[MainLogic]: response: %d" % self.controller._motor_res.ok)
 
     def gui_command_callback(self, request, response):
