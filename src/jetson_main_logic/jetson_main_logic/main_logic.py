@@ -202,8 +202,8 @@ class ManiLogicController(Node):
         self.srv = self.create_service(
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
-        self.response = self.controller.motorThread.start()
-        print("[MainLogic]: response: %d" % self.response.ok)
+        self.controller.motorThread.start()
+        print("[MainLogic]: response: ???")
 
     def gui_command_callback(self, request, response):
         response.sum = request.a + request.b
