@@ -161,11 +161,14 @@ class CalPrintController(Node):
         # Wait for motor service to be avalible
         while not self._motor_cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('motor service not available, waiting again...')
+        self._motor_req = MotorSrv.Request()
+        self._motor_res = MotorSrv.Response()
 
         # Wait for projector service to be avaliable
         while not self._projector_cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('projector service not available, waiting again...')
         self._projector_req = ProjectorSrv.Request()
+        self._projector_res = ProjectorSrv.Response()
 
     def send_motor_req(self):
         self._motor_req = MotorSrv.Request()
