@@ -168,28 +168,28 @@ class CalPrintController(Node):
         self._motor_req.cmd_num = 23
         self._motor_req.value = 49
 
+    def send_req(self):
         self.motorThread = self.SendRequest(
             'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
-
-    def send_req(self):
-        print("[process_request]: cmd_num " + str(self._motor_req.cmd_num))
-        self.future = self._motor_cli.call_async(self._motor_req)
-        while rclpy.ok():
-            # print("loop %d" % promise.done())
-            if self.future.done():
-                print("loop %d" % self.future.done())
-                try:
-                    self.node._motor_res = self.future.result()
-                    response = self.node._motor_res
-                    print('[process_request]: succesfull: %d' %
-                          response.ok)
-                except Exception as e:
-                    self.node.get_logger().info(
-                        'Service call failed %r' % (e,))
-                else:
-                    self.node.get_logger().info(
-                        'Commad was successful!!')
-                break
+        self.motorThread.start()
+        # print("[process_request]: cmd_num " + str(self._motor_req.cmd_num))
+        # self.future = self._motor_cli.call_async(self._motor_req)
+        # while rclpy.ok():
+        #     # print("loop %d" % promise.done())
+        #     if self.future.done():
+        #         print("loop %d" % self.future.done())
+        #         try:
+        #             self.node._motor_res = self.future.result()
+        #             response = self.node._motor_res
+        #             print('[process_request]: succesfull: %d' %
+        #                   response.ok)
+        #         except Exception as e:
+        #             self.node.get_logger().info(
+        #                 'Service call failed %r' % (e,))
+        #         else:
+        #             self.node.get_logger().info(
+        #                 'Commad was successful!!')
+        #         break
     # def process_request(self, cli, req):
     #     print("[process_request]: cmd_num " + str(req.cmd_num))
     #     self.future = cli.call_async(req)
