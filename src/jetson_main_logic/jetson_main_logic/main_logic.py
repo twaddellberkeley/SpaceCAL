@@ -152,7 +152,7 @@ class CalPrintController(Node):
         self.future = cli.call_async(req)
         while rclpy.ok():
             # print("loop %d" % promise.done())
-            # rclpy.spin_once(self)
+            rclpy.spin_once(self)
             if self.future.done():
                 print("loop %d" % self.future.done())
                 try:
