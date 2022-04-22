@@ -235,8 +235,8 @@ class ManiLogicController(Node):
 
     def print_var(self):
         print("[MainLogic]: response: %d" % self.controller._motor_res.ok)
-        self.controller.motorThread.start()
-        # self.controller.send_req()
+        # self.controller.motorThread.start()
+        self.controller.send_req()
 
 
 def main():
