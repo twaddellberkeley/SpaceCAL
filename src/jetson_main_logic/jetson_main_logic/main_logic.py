@@ -225,7 +225,7 @@ class ManiLogicController(Node):
         self.srv = self.create_service(
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
-        self.t = rclpy.timer.Timer(self.print_var, 3)
+        self.timer = self.create_timer(3, self.print_var)
 
     def gui_command_callback(self, request, response):
         response.sum = request.a + request.b
