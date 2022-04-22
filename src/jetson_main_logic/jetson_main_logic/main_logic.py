@@ -130,8 +130,8 @@ class CalPrintController(Node):
                 if self.future.done():
                     print("loop %d" % self.future.done())
                     try:
-                        self.node._motor_res = self.future.result()
-                        response = self.node._motor_res
+                        self._motor_res = self.future.result()
+                        response = self._motor_res
                         print('[process_request]: succesfull: %d' %
                               response.ok)
                     except Exception as e:
