@@ -119,7 +119,7 @@ class CalPrintController(Node):
 
         def run(self):
             print("Running Thred id: " + self.threadID)
-            return self.process_request(self.cli, self.req)
+            self.process_request(self.cli, self.req)
 
         def process_request(self, cli, req):
             print("[process_request]: cmd_num " + str(req.cmd_num))
@@ -129,9 +129,9 @@ class CalPrintController(Node):
                 if self.future.done():
                     print("loop %d" % self.future.done())
                     try:
-                        self.response = self.future.result()
+                        response = self.future.result()
                         print('[process_request]: succesfull: %d' %
-                              self.response.ok)
+                              response.ok)
                     except Exception as e:
                         self.node.get_logger().info(
                             'Service call failed %r' % (e,))
@@ -139,7 +139,6 @@ class CalPrintController(Node):
                         self.node.get_logger().info(
                             'Commad was successful!!')
                     break
-            return self.response
 
     def __init__(self, id, node) -> None:
         super().__init__('CalPrint_Controller_Node_' + str(id))
