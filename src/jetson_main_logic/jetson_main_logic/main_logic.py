@@ -172,51 +172,6 @@ class CalPrintController(Node):
         self.motorThread = self.SendRequest(
             'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
         self.motorThread.start()
-        # print("[process_request]: cmd_num " + str(self._motor_req.cmd_num))
-        # self.future = self._motor_cli.call_async(self._motor_req)
-        # while rclpy.ok():
-        #     # print("loop %d" % promise.done())
-        #     if self.future.done():
-        #         print("loop %d" % self.future.done())
-        #         try:
-        #             self.node._motor_res = self.future.result()
-        #             response = self.node._motor_res
-        #             print('[process_request]: succesfull: %d' %
-        #                   response.ok)
-        #         except Exception as e:
-        #             self.node.get_logger().info(
-        #                 'Service call failed %r' % (e,))
-        #         else:
-        #             self.node.get_logger().info(
-        #                 'Commad was successful!!')
-        #         break
-    # def process_request(self, cli, req):
-    #     print("[process_request]: cmd_num " + str(req.cmd_num))
-    #     self.future = cli.call_async(req)
-    #     while rclpy.ok():
-    #         # print("loop %d" % promise.done())
-    #         rclpy.spin_once(self.motor_node)
-    #         if self.future.done():
-    #             print("loop %d" % self.future.done())
-    #             try:
-    #                 response = self.future.result()
-    #                 print('[process_request]: succesfull: %d' % response.ok)
-    #             except Exception as e:
-    #                 self.get_logger().info(
-    #                     'Service call failed %r' % (e,))
-    #             else:
-    #                 self.get_logger().info(
-    #                     'Commad was successful!!')
-    #             break
-        # while not exitFlag:
-        #     queueLock.acquire()
-        #        if not workQueue.empty():
-        #             data = q.get()
-        #             queueLock.release()
-        #             print "%s processing %s" % (threadName, data)
-        #         else:
-        #             queueLock.release()
-        #         time.sleep(1)
 
 
 class ManiLogicController(Node):
@@ -226,6 +181,7 @@ class ManiLogicController(Node):
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
         self.timer = self.create_timer(5, self.print_var)
+        self.timer2 = self.create_timer(6, self.check)
         print("finished init fun")
 
     def gui_command_callback(self, request, response):
@@ -237,6 +193,9 @@ class ManiLogicController(Node):
         print("[MainLogic]: response: %d" % self.controller._motor_res.ok)
         # self.controller.motorThread.start()
         self.controller.send_req()
+
+    def check(self):
+        print("Helloooo: %d" % self.controller._motor_res.ok)
 
 
 def main():
