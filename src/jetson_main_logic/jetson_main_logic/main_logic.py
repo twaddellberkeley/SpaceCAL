@@ -149,7 +149,7 @@ class CalPrintController(Node):
     def __init__(self, id, node) -> None:
         super().__init__('CalPrint_Controller_Node_' + str(id))
         self._motor = Motor(id)
-        self._projector = Motor(id)
+        self._projector = Projector(id)
         self._node = node
 
         # Define ros service Clients
@@ -170,7 +170,7 @@ class CalPrintController(Node):
         self._projector_req = ProjectorSrv.Request()
         self._projector_res = ProjectorSrv.Response()
 
-    def send_motor_req(self):
+    def send_motor_req(self, req):
         self._motor_req = MotorSrv.Request()
         ## TODO: Temporary numbers ###########
         self._motor_req.cmd_num = 23
@@ -181,7 +181,7 @@ class CalPrintController(Node):
             'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
         self.motorThread.start()
 
-    def send_projector_req(self):
+    def send_projector_req(self, req):
         self._projector_req = ProjectorSrv.Request()
         ## TODO: Temporary numbers ###########
         self._projector_req.cmd_num = 2
@@ -211,7 +211,7 @@ class ManiLogicController(Node):
     def test_motor(self):
         print("[MainLogic]: response: %d" % self.controller._motor_res.ok)
         # self.controller.motorThread.start()
-        self.controller.send_motor_req()
+        self.controller.send_motor_req(MotorSrv.Request())
 
     def test_projector(self):
         print("Projector: %d" % self.controller._projector_res.ok)
