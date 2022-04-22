@@ -135,10 +135,10 @@ class CalPrintController(Node):
                         print('[process_request]: succesfull: %d' %
                               response.ok)
                     except Exception as e:
-                        self.get_logger().info(
+                        self.node.get_logger().info(
                             'Service call failed %r' % (e,))
                     else:
-                        self.get_logger().info(
+                        self.node.get_logger().info(
                             'Commad was successful!!')
                     break
 
