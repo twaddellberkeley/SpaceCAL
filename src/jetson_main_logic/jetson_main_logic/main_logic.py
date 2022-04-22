@@ -110,16 +110,37 @@ class LevelController(Node):
 
 class CalPrintController(Node):
     class SendRequest(threading.Thread):
-        def __init__(self, threadID, cli, req, fn):
+        def __init__(self, threadID, cli, req, node):  # , fn):
             threading.Thread.__init__(self)
             self.threadID = threadID
             self.cli = cli
             self.req = req
-            self.process_request = fn
+            self.node = node
+            # self.process_request = fn
 
         def run(self):
             print("Running Thred id: " + self.threadID)
             self.process_request(self.cli, self.req)
+
+        def process_request(self, cli, req):
+            print("[process_request]: cmd_num " + str(req.cmd_num))
+            self.future = cli.call_async(req)
+            while rclpy.ok():
+                # print("loop %d" % promise.done())
+                rclpy.spin_once(self.node)
+                if self.future.done():
+                    print("loop %d" % self.future.done())
+                    try:
+                        response = self.future.result()
+                        print('[process_request]: succesfull: %d' %
+                              response.ok)
+                    except Exception as e:
+                        self.get_logger().info(
+                            'Service call failed %r' % (e,))
+                    else:
+                        self.get_logger().info(
+                            'Commad was successful!!')
+                    break
 
     def __init__(self, id) -> None:
         super().__init__('CalPrint_Controller_Node_' + str(id))
@@ -127,8 +148,8 @@ class CalPrintController(Node):
         self._projector = Motor(id)
 
         # Define ros service Clients
-        self.motor_node = Node('motor_node')
-        self._motor_cli = self.motor_node.create_client(
+        # self.motor_node = Node('motor_node')
+        self._motor_cli = self.create_client(
             MotorSrv, 'motor_command_' + str(id))
         self._projector_cli = self.create_client(
             ProjectorSrv, 'projector_command_' + str(id))
@@ -146,26 +167,26 @@ class CalPrintController(Node):
         self._motor_req.value = 49
 
         self.motorThread = self.SendRequest(
-            'motor', self._motor_cli, self._motor_req, self.process_request)
+            'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
 
-    def process_request(self, cli, req):
-        print("[process_request]: cmd_num " + str(req.cmd_num))
-        self.future = cli.call_async(req)
-        while rclpy.ok():
-            # print("loop %d" % promise.done())
-            rclpy.spin_once(self.motor_node)
-            if self.future.done():
-                print("loop %d" % self.future.done())
-                try:
-                    response = self.future.result()
-                    print('[process_request]: succesfull: %d' % response.ok)
-                except Exception as e:
-                    self.get_logger().info(
-                        'Service call failed %r' % (e,))
-                else:
-                    self.get_logger().info(
-                        'Commad was successful!!')
-                break
+    # def process_request(self, cli, req):
+    #     print("[process_request]: cmd_num " + str(req.cmd_num))
+    #     self.future = cli.call_async(req)
+    #     while rclpy.ok():
+    #         # print("loop %d" % promise.done())
+    #         rclpy.spin_once(self.motor_node)
+    #         if self.future.done():
+    #             print("loop %d" % self.future.done())
+    #             try:
+    #                 response = self.future.result()
+    #                 print('[process_request]: succesfull: %d' % response.ok)
+    #             except Exception as e:
+    #                 self.get_logger().info(
+    #                     'Service call failed %r' % (e,))
+    #             else:
+    #                 self.get_logger().info(
+    #                     'Commad was successful!!')
+    #             break
         # while not exitFlag:
         #     queueLock.acquire()
         #        if not workQueue.empty():
