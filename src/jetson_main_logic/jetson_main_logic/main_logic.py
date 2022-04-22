@@ -225,7 +225,7 @@ class ManiLogicController(Node):
         self.srv = self.create_service(
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
-        self.timer = self.create_timer(10, self.print_var)
+        self.timer = self.create_timer(5, self.print_var)
         print("finished init fun")
 
     def gui_command_callback(self, request, response):
