@@ -127,7 +127,8 @@ class CalPrintController(Node):
         self._projector = Motor(id)
 
         # Define ros service Clients
-        self._motor_cli = self.create_client(
+        self.motor_node = Node('motor_node')
+        self._motor_cli = self.motor_node.create_client(
             MotorSrv, 'motor_command_' + str(id))
         self._projector_cli = self.create_client(
             ProjectorSrv, 'projector_command_' + str(id))
@@ -152,7 +153,7 @@ class CalPrintController(Node):
         self.future = cli.call_async(req)
         while rclpy.ok():
             # print("loop %d" % promise.done())
-            rclpy.spin_once(self)
+            rclpy.spin_once(self.motor_node)
             if self.future.done():
                 print("loop %d" % self.future.done())
                 try:
