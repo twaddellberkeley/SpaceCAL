@@ -130,10 +130,14 @@ class CalPrintController(Node):
                 if self.future.done():
                     print("loop %d" % self.future.done())
                     try:
-                        self._motor_res = self.future.result()
-                        response = self._motor_res
-                        print('[process_request]: succesfull: %d' %
-                              response.ok)
+                        if self.threadID == 'motor':
+                            self.node._motor_res = self.future.result()
+                            print('[motor process_request]: succesfull: %d' %
+                                  self.node._motor_res.ok)
+                        elif self.threadID == 'projector':
+                            self.node._projector_res = self.future.result()
+                            print('[projector process_request]: succesfull: %d' %
+                                  self.node._projector_res.ok)
                     except Exception as e:
                         self.node.get_logger().info(
                             'Service call failed %r' % (e,))
@@ -157,8 +161,6 @@ class CalPrintController(Node):
         # Wait for motor service to be avalible
         while not self._motor_cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('motor service not available, waiting again...')
-        self._motor_req = MotorSrv.Request()
-        self._motor_res = MotorSrv.Response()
 
         # Wait for projector service to be avaliable
         while not self._projector_cli.wait_for_service(timeout_sec=1.0):
@@ -167,10 +169,21 @@ class CalPrintController(Node):
 
         self._motor_req.cmd_num = 23
         self._motor_req.value = 49
+        self._projector_req.cmd_num = 2
+        self._projector_req.value = 9
 
-    def send_req(self):
+    def send_motor_req(self):
+        self._motor_req = MotorSrv.Request()
+        self._motor_res = MotorSrv.Response()
         self.motorThread = self.SendRequest(
             'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
+        self.motorThread.start()
+
+    def send_projector_req(self):
+        self._projector_req = ProjectorSrv.Request()
+        self._projector_res = ProjectorSrv.Response()
+        self.motorThread = self.SendRequest(
+            'projector', self._projector_cli, self._projector_req, self)  # , self.process_request)
         self.motorThread.start()
 
 
@@ -180,8 +193,8 @@ class ManiLogicController(Node):
         self.srv = self.create_service(
             GuiSrv, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
-        self.timer = self.create_timer(5, self.print_var)
-        self.timer2 = self.create_timer(6, self.check)
+        self.timer = self.create_timer(5, self.test_motor)
+        self.timer2 = self.create_timer(6, self.test_projector)
         print("finished init fun")
 
     def gui_command_callback(self, request, response):
@@ -189,13 +202,13 @@ class ManiLogicController(Node):
         self.get_logger().info('Incoming request\na: %d b: %d' % (request.a, request.b))
         return response
 
-    def print_var(self):
+    def test_motor(self):
         print("[MainLogic]: response: %d" % self.controller._motor_res.ok)
         # self.controller.motorThread.start()
-        self.controller.send_req()
+        self.controller.send_motor_req()
 
-    def check(self):
-        print("Helloooo: %d" % self.controller._motor_res.ok)
+    def test_projector(self):
+        print("Helloooo: %d" % self.controller._projector_res.ok)
 
 
 def main():
