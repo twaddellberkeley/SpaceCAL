@@ -192,6 +192,21 @@ class CalPrintController(Node):
             'projector', self._projector_cli, self._projector_req, self)  # , self.process_request)
         self.motorThread.start()
 
+    # initialize print:
+    #       beging rotating the motor
+    #       establish connection with the projector
+
+    # set print:
+    #       load video
+    # start print:
+    #       start printing
+    # pause print:
+    #       pause video???
+    # stop print:
+    #       stop video
+    #       stop led
+    #       stop motor rotation
+
 
 class ManiLogicController(Node):
     def __init__(self) -> None:
