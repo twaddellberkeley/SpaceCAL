@@ -29,7 +29,7 @@ class MinimalService(Node):
                                (request.cmd_num, request.value))
         response.ok = True
         response.error = 10
-        time.sleep(3)
+        time.sleep(2)
         self.get_logger().info('After 3 seconds \na: %d b: %d' %
                                (response.ok, response.error))
         return response
