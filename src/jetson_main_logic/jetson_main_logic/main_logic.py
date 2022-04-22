@@ -167,13 +167,12 @@ class CalPrintController(Node):
             self.get_logger().info('projector service not available, waiting again...')
         self._projector_req = ProjectorSrv.Request()
 
-        self._motor_req.cmd_num = 23
-        self._motor_req.value = 49
-        self._projector_req.cmd_num = 2
-        self._projector_req.value = 9
-
     def send_motor_req(self):
         self._motor_req = MotorSrv.Request()
+        ## TODO: Temporary numbers ###########
+        self._motor_req.cmd_num = 23
+        self._motor_req.value = 49
+        ### ####################################
         self._motor_res = MotorSrv.Response()
         self.motorThread = self.SendRequest(
             'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
@@ -181,6 +180,10 @@ class CalPrintController(Node):
 
     def send_projector_req(self):
         self._projector_req = ProjectorSrv.Request()
+        ## TODO: Temporary numbers ###########
+        self._projector_req.cmd_num = 2
+        self._projector_req.value = 9
+        ### ####################################
         self._projector_res = ProjectorSrv.Response()
         self.motorThread = self.SendRequest(
             'projector', self._projector_cli, self._projector_req, self)  # , self.process_request)
