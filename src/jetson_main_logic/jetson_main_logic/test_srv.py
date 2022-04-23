@@ -15,7 +15,7 @@ class MinimalService(Node):
             ProjectorSrv, 'projector_command_1', self.projector_command)
 
     def motor_command(self, request, response):
-        self.get_logger().info('Incoming request\na: %d b: %d' %
+        self.get_logger().info('Motor Incoming request\na: %d b: %d' %
                                (request.cmd_num, request.value))
         response.ok = True
         response.error = 10
@@ -24,7 +24,7 @@ class MinimalService(Node):
         return response
 
     def projector_command(self, request, response):
-        self.get_logger().info('Incoming request\na: %d b: %d' %
+        self.get_logger().info('Projector Incoming request\na: %d b: %d' %
                                (request.cmd_num, request.value))
         response.ok = True
         response.error = 10
