@@ -188,24 +188,73 @@ class CalPrintController(Node):
         self._projector_req.value = 9
         ### ####################################
         self._projector_res = ProjectorSrv.Response()
-        self.motorThread = self.SendRequest(
+        self.projectorThread = self.SendRequest(
             'projector', self._projector_cli, self._projector_req, self)  # , self.process_request)
-        self.motorThread.start()
+        self.projectorThread.start()
 
     # initialize print:
     #       beging rotating the motor
     #       establish connection with the projector
+    def init_printer(self):
+        # establish connection with the motors
+        motor_req = MotorSrv.Request()
+        motor_req.cmd_num = 0x10        # 0x10 initialize
+        motor_req.value = 0x01          # 0x01 create motor object
+        self.send_motor_req(motor_req)
+
+        # establish connection with the printer
+        projector_req = Projector.Request()
+        projector_req.cmd_num = 0x20    # 0x20 initialize
+        projector_req.value = 0x01      # 0x01 create projector object
+        self.send_projector_req(projector_req)
+
+        while self.motorThread.is_alive() or self.projectorThread.is_alive():
+            print("waiting for result...")
+            time.sleep(.1)
+
+        if not self._motor_res.ok:
+            print("[init_printer]: error with motor response: %x" %
+                  self._motor_res.error)
+
+        if not self._projector_res.ok:
+            print("[init_printer]: error with projector response: %x" %
+                  self._projector_res.error)
 
     # set print:
     #       load video
+
+    def setup_printer(self, motor_config, proj_config):
+        # load the video
+        # load motor settings
+
+        pass
     # start print:
     #       start printing
+
+    def start_printing(self):
+        # turn ledOn
+        # start rotating the motors
+        # play the video
+        pass
+
     # pause print:
     #       pause video???
+    def pause_print(slef):
+        # pause video
+        # turn ledOff
+        # stop motors
+        pass
+
     # stop print:
     #       stop video
     #       stop led
     #       stop motor rotation
+    def stop_print(self):
+        # stop video
+        # turn ledOff
+        # stop motors
+        # unload video
+        pass
 
 
 class ManiLogicController(Node):
