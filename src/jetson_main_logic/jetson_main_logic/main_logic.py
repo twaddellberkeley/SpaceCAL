@@ -110,13 +110,16 @@ class LevelController(Node):
 
 
 class CalPrintController(Node):
+    _data_lock = threading.Lock()
+
     class SendRequest(threading.Thread):
-        def __init__(self, threadID, cli, req, node):  # , fn):
+        def __init__(self, threadID, cli, req, res, node):  # , fn):
             threading.Thread.__init__(self)
             self.threadID = threadID
             self.cli = cli
             self.req = req
             self.node = node
+            self.res = res
 
         def run(self):
             print("Running Thred id: " + self.threadID)
@@ -178,7 +181,7 @@ class CalPrintController(Node):
         ### ####################################
         self._motor_res = MotorSrv.Response()
         self.motorThread = self.SendRequest(
-            'motor', self._motor_cli, req, self)  # , self.process_request)
+            'motor', self._motor_cli, req, self._motor_res, self)  # , self.process_request)
         self.motorThread.start()
 
     def send_projector_req(self, req):
@@ -189,7 +192,7 @@ class CalPrintController(Node):
         ### ####################################
         self._projector_res = ProjectorSrv.Response()
         self.projectorThread = self.SendRequest(
-            'projector', self._projector_cli, req, self)  # , self.process_request)
+            'projector', self._projector_cli, req, self._projector_res, self)  # , self.process_request)
         self.projectorThread.start()
 
     # initialize print:
