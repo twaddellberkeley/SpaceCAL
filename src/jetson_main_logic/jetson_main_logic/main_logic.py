@@ -178,7 +178,7 @@ class CalPrintController(Node):
         ### ####################################
         self._motor_res = MotorSrv.Response()
         self.motorThread = self.SendRequest(
-            'motor', self._motor_cli, self._motor_req, self)  # , self.process_request)
+            'motor', self._motor_cli, req, self)  # , self.process_request)
         self.motorThread.start()
 
     def send_projector_req(self, req):
@@ -189,7 +189,7 @@ class CalPrintController(Node):
         ### ####################################
         self._projector_res = ProjectorSrv.Response()
         self.projectorThread = self.SendRequest(
-            'projector', self._projector_cli, self._projector_req, self)  # , self.process_request)
+            'projector', self._projector_cli, req, self)  # , self.process_request)
         self.projectorThread.start()
 
     # initialize print:
@@ -219,6 +219,7 @@ class CalPrintController(Node):
         if not self._projector_res.ok:
             print("[init_printer]: error with projector response: %x" %
                   self._projector_res.error)
+        print("finished init comand")
 
     # set print:
     #       load video
@@ -275,7 +276,7 @@ class ManiLogicController(Node):
     def test_motor(self):
         print("[MainLogic]: response: %d" % self.controller._motor_res.ok)
         # self.controller.motorThread.start()
-        self.controller.send_motor_req(MotorSrv.Request())
+        self.controller.init_printer()
 
     def test_projector(self):
         print("Projector: %d" % self.controller._projector_res.ok)
