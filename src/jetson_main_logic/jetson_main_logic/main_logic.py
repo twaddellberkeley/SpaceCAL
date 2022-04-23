@@ -207,6 +207,8 @@ class CalPrintController(Node):
         projector_req.cmd_num = 0x20    # 0x20 initialize
         projector_req.value = 0x01      # 0x01 create projector object
         self.send_projector_req(projector_req)
+        self.motorThread.join()
+        self.projectorThread.join()
         print("finish with projector request")
         while self.motorThread.is_alive() or self.projectorThread.is_alive():
             print("waiting for result...")
