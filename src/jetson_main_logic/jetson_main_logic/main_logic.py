@@ -210,7 +210,9 @@ class CalPrintController(Node):
         print("finish with projector request")
         while self.motorThread.is_alive() or self.projectorThread.is_alive():
             print("waiting for result...")
-            time.sleep(.1)
+            print(self.motorThread.is_alive())
+            print(self.projectorThread.is_alive())
+            time.sleep(.5)
 
         if not self._motor_res.ok:
             print("[init_printer]: error with motor response: %x" %
