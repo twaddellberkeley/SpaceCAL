@@ -123,10 +123,14 @@ class UI(QMainWindow):
                                         stop: 0 #0762d7, stop: 1 #4e9af1);
     }
 
-    QPushButton[text="Pause"], QPushButton[text="Stop Projection"],
-    QPushButton[text="Stop Run"] {
+    QPushButton[text="Pause"], QPushButton[text="Stop Run"] {
         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                         stop: 0 #ff4040, stop: 1 #992626);
+    }
+
+    QPushButton[text="Stop Projection"] {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #47026, stop: 1 #f2cb14);
     }
 
     QPushButton[text="Pause"]:pressed, QPushButton[text="Stop Projection"]:pressed,
