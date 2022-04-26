@@ -247,7 +247,7 @@ class UI(QMainWindow):
         ##### Connect buttons to callback functions #####
         self.btnInit.clicked.connect(self.onClick_btnInit)
         self.btnProject.clicked.connect(self.onClick_btnProject)
-        self.btnOptions.clicked.connect(self.onClick_btnOptions)
+        # self.btnOptions.clicked.connect(self.onClick_btnOptions)
         self.btnPause.clicked.connect(self.onClick_btnPause)
 
         ##### Create confirmation windows #####
@@ -322,8 +322,8 @@ class UI(QMainWindow):
         self.updateStyleSheet()
 
     # This function defines the logic for the btnOptions button.
-    def onClick_btnOptions(self):
-        pass
+    # def onClick_btnOptions(self):
+    #     pass
 
     # This function defines the logic for the btnPause button.
     def onClick_btnPause(self):
