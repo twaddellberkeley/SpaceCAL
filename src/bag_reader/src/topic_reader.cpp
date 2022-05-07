@@ -10,7 +10,11 @@
 #include "rosbag2/converter_interfaces/serialization_format_converter.hpp"
 
 // ROS MSG
-#include "dev_cpp_pkg/msg/gps_rx.hpp"
+#include <std_msgs/msg/string.hpp>
+#include <interfaces/msg/motor_data.hpp>
+#include <interfaces/msg/display_data.hpp>
+#include <interfaces/msg/fusion_imu.hpp>
+#include <interfaces/msg/raw_imu.hpp>
 
 using rosbag2::converter_interfaces::SerializationFormatConverter;
 
