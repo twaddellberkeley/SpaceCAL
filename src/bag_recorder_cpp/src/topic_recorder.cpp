@@ -145,7 +145,7 @@ private:
     string month = to_string(1 + ltm->tm_mon);
     string day = to_string(ltm->tm_mday);
     string date = get_month_name(1 + ltm->tm_mon) + "-" + day + "-" + year;
-    string ttime = to_string(ltm->tm_hour) + ":" + to_string(ltm->tm_min) + ":" + to_string(ltm->tm_sec);
+    string ttime = to_string(ltm->tm_hour) + "-" + to_string(ltm->tm_min) + "-" + to_string(ltm->tm_sec);
     string folder = "my_bag/" + date + "/" + ttime;
     fs::create_directories(folder);
     cout << "path: " << folder << endl;
@@ -154,6 +154,7 @@ private:
 
   std::string get_month_name(int month_num)
   {
+	std::cout << "month_num: " << moth_num << std::endl;
     switch (month_num)
     {
     case 1:

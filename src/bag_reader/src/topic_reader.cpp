@@ -57,7 +57,9 @@ class BagReader : public rclcpp::Node
     }
 
     if(reader.has_next()) {
-      
+
+      auto serialized_message = reader.read_next();
+      std::cout << "serialized message topic name: " << serialized_message->topic_name << std::endl;
     }
 
     printf("hello world bag_reader package\n");

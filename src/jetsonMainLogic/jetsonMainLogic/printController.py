@@ -450,11 +450,11 @@ class printQueueClass(Node):
         print("Printing" + printData['projNum'])
         time.sleep(printData['printTime'])
         # kill projection just in case
-        if (tempPrintNum == self.printNumCur):
-            print("KILLING")
-            video.data = "EXIT"
+        #if (tempPrintNum == self.printNumCur):
+        print("KILLING")
+        video.data = "EXIT"
             # Kill Projection
-            self.videoPublishers[printData['projNum'] - 1].publish(video)
+        self.videoPublishers[printData['projNum'] - 1].publish(video)
 
 
 def main(args=None):

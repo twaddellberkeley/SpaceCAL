@@ -123,16 +123,24 @@ class UI(QMainWindow):
                                         stop: 0 #0762d7, stop: 1 #4e9af1);
     }
 
-    QPushButton[text="Pause"], QPushButton[text="Stop Projection"],
-    QPushButton[text="Stop Run"] {
+    QPushButton[text="Pause"], QPushButton[text="Stop Run"] {
         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                         stop: 0 #ff4040, stop: 1 #992626);
     }
 
-    QPushButton[text="Pause"]:pressed, QPushButton[text="Stop Projection"]:pressed,
-    QPushButton[text="Stop Run"]:pressed {
+    QPushButton[text="Stop Projection"] {
         background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                        stop: 0 #992626, stop: 1 #ff4040);
+                                        stop: 0 #f47026, stop: 1 #f2cb14);
+    }
+
+    QPushButton[text="Pause"]:pressed, QPushButton[text="Stop Run"]:pressed {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #992626, stop: 1 #f47026);
+    }
+
+     QPushButton[text="Stop Projection"]:pressed {
+        background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                        stop: 0 #f2cb14, stop: 1 #f2cb14);
     }
 
     QPushButton[text="Initialize Run"] {
@@ -239,7 +247,7 @@ class UI(QMainWindow):
         ##### Connect buttons to callback functions #####
         self.btnInit.clicked.connect(self.onClick_btnInit)
         self.btnProject.clicked.connect(self.onClick_btnProject)
-        self.btnOptions.clicked.connect(self.onClick_btnOptions)
+        # self.btnOptions.clicked.connect(self.onClick_btnOptions)
         self.btnPause.clicked.connect(self.onClick_btnPause)
 
         ##### Create confirmation windows #####
@@ -314,8 +322,8 @@ class UI(QMainWindow):
         self.updateStyleSheet()
 
     # This function defines the logic for the btnOptions button.
-    def onClick_btnOptions(self):
-        pass
+    # def onClick_btnOptions(self):
+    #     pass
 
     # This function defines the logic for the btnPause button.
     def onClick_btnPause(self):
