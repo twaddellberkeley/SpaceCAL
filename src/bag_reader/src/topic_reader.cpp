@@ -40,7 +40,7 @@ class BagReader : public rclcpp::Node
     rosbag2_cpp::StorageOptions storage_options{};
     std::cout << std::filesystem::current_path() << std::endl;
     
-    storage_options.uri = "/home/cjc/spaceCal/SpaceCAL/my_bag/to_evaluate/Apr-27-2022/20-8-31";
+    storage_options.uri = "/home/cjc/spaceCal/SpaceCAL/my_bag/to_evaluate/Apr-27-2022/20-8-31/20-8-31_0.db3";
     storage_options.storage_id = "sqlite3";
 
 
@@ -58,11 +58,11 @@ class BagReader : public rclcpp::Node
       std::cout << "meta serialization_format: " << t.serialization_format << std::endl;
     }
 
-    // if(reader.has_next()) {
+    if(reader.has_next()) {
 
-    //   auto serialized_message = reader.read_next();
-    //   std::cout << "serialized message topic name: " << serialized_message->topic_name << std::endl;
-    // }
+      auto serialized_message = reader.read_next();
+      std::cout << "serialized message topic name: " << serialized_message->topic_name << std::endl;
+    }
 
     printf("hello world bag_reader package\n");
   }
