@@ -38,13 +38,15 @@ class BagReader : public rclcpp::Node
   {
     rosbag2_cpp::readers::SequentialReader reader;
     rosbag2_cpp::StorageOptions storage_options{};
+    std::cout << std::filesystem::current_path() << std::endl;
     
-    storage_options.uri = "/home/cjc/spaceCal/SpaceCAL/my_bag/Apr-13-2022/test_data";
+    storage_options.uri = "/home/cjc/spaceCal/SpaceCAL/my_bag/to_evaluate/Apr-27-2022/20-8-31";
     storage_options.storage_id = "sqlite3";
 
+
     rosbag2_cpp::ConverterOptions converter_options{};
-    converter_options.input_serialization_format = "cdr";
-    converter_options.output_serialization_format = "cdr";
+    converter_options.input_serialization_format = rmw_get_serialization_format();
+    converter_options.output_serialization_format = rmw_get_serialization_format();
     reader.open(storage_options, converter_options);
     
     auto topics = reader.get_all_topics_and_types();
@@ -56,11 +58,11 @@ class BagReader : public rclcpp::Node
       std::cout << "meta serialization_format: " << t.serialization_format << std::endl;
     }
 
-    if(reader.has_next()) {
+    // if(reader.has_next()) {
 
-      auto serialized_message = reader.read_next();
-      std::cout << "serialized message topic name: " << serialized_message->topic_name << std::endl;
-    }
+    //   auto serialized_message = reader.read_next();
+    //   std::cout << "serialized message topic name: " << serialized_message->topic_name << std::endl;
+    // }
 
     printf("hello world bag_reader package\n");
   }

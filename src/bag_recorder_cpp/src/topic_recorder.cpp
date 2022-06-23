@@ -154,7 +154,7 @@ private:
 
   std::string get_month_name(int month_num)
   {
-	std::cout << "month_num: " << moth_num << std::endl;
+	std::cout << "month_num: " << month_num << std::endl;
     switch (month_num)
     {
     case 1:
