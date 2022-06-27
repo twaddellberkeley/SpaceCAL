@@ -103,69 +103,6 @@ public:
 
     get_all_messages();
     
-
-    
-    
-    // while(reader_.has_next()) {
-
-    //   auto serialized_message = reader_.read_next();
-
-    //   // rosbag2_cpp::introspection_message_set_topic_name(
-    //   //   allocated_ros_message.get(), message->topic_name.c_str());
-        
-    //   if (serialized_message->topic_name == FUSION_IMU) {
-    //     std::cout << "serialized message topic name: " << serialized_message->topic_name << std::endl;
-    //     interfaces::msg::FusionImu msg;
-
-
-    //   }
-    //   if (serialized_message->topic_name == RAW_IMU) {
-        
-    //     interfaces::msg::RawImu msg;
-
-    //     auto ros_message = std::make_shared<rosbag2_cpp::rosbag2_introspection_message_t>();
-    //     ros_message->time_stamp = serialized_message->time_stamp;
-    //     // ros_message->topic_name = nullptr;
-    //     ros_message->message = nullptr;
-    //     ros_message->allocator = rcutils_get_default_allocator();
-    //     ros_message->message = &msg;
-
-        
-        
-
-        
-    //     rosbag2_cpp::SerializationFormatConverterFactory factory;
-    //     std::unique_ptr<rosbag2_cpp::converter_interfaces::SerializationFormatDeserializer> cdr_deserializer;
-    //     cdr_deserializer = factory.load_deserializer(rmw_get_serialization_format());
-       
-    //     std::cout << "**************  Made it here  ***********" << std::endl;
-
-    //     cdr_deserializer->deserialize(serialized_message, type_support, ros_message);
-        
-    
-
-    //     std::cout << "serialized message topic name: " << serialized_message->topic_name << std::endl;
-    //     // ros message data
-    //     std::cout << std::endl;
-    //     std::cout << "header: -------------" << std::endl;
-    //     // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
-    //     std::cout << "time stamp: " << serialized_message->time_stamp << std::endl;
-    //     std::cout << "acceleration: -------------" << std::endl;
-    //     std::cout <<  "x: " << msg.acceleration.x << std::endl;
-    //     std::cout <<  "y: " << msg.acceleration.y << std::endl;
-    //     std::cout <<  "z: " << msg.acceleration.z << std::endl;
-    //     std::cout << "angualar_velocity: -------------" << std::endl;
-    //     std::cout << "x: " << msg.angular_velocity.x << std::endl;
-    //     std::cout << "y: " << msg.angular_velocity.y << std::endl;
-    //     std::cout << "z: " << msg.angular_velocity.z << std::endl;
-
-        
-       
-
-
-    //   }
-    // }
-
     printf("hello world bag_reader package\n");
   }
 
@@ -222,7 +159,7 @@ public:
         ros_message->message = &msg;
         // auto type_support = topics_and_types_[FUSION_IMU];
         cdr_deserializer_->deserialize(serialized_message, type_support, ros_message);
-        msg.header.stamp.sec = serialized_message->time_stamp;
+        msg.header.stamp.nanosec = serialized_message->time_stamp;
         fusion_imu_msgs_.push_back(msg);
       }
       else if (serialized_message->topic_name == RAW_IMU) {
@@ -232,7 +169,7 @@ public:
         ros_message->message = &msg;
         // auto type_support = topics_and_types_[RAW_IMU];
         cdr_deserializer_->deserialize(serialized_message, type_support, ros_message);
-        msg.header.stamp.sec = serialized_message->time_stamp;
+        msg.header.stamp.nanosec = serialized_message->time_stamp;
         raw_imu_msgs_.push_back(msg);
       }
       else if (serialized_message->topic_name == MOTOR) {
@@ -292,7 +229,7 @@ public:
         std::cout << std::endl;
         std::cout << "header: -------------" << std::endl;
         // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
-        std::cout << "time stamp: " << msg.header.stamp.sec << std::endl;
+        std::cout << "time stamp: " << msg.header.stamp.nanosec << std::endl;
         std::cout << "orientation: -------------" << std::endl;
         std::cout <<  "y: " << msg.orientation.y << std::endl;
         std::cout <<  "x: " << msg.orientation.x << std::endl;
@@ -336,8 +273,8 @@ public:
         std::cout << "header: -------------" << std::endl;
         outfile << "header: -------------" << std::endl;
         // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
-        std::cout << "time stamp: " << msg.header.stamp.sec << std::endl;
-        outfile << "time stamp: " << msg.header.stamp.sec << std::endl;
+        std::cout << "time stamp: " << msg.header.stamp.nanosec << std::endl;
+        outfile << "time stamp: " << msg.header.stamp.nanosec << std::endl;
         std::cout << "acceleration: -------------" << std::endl;
         outfile << "acceleration: -------------" << std::endl;
         std::cout <<  "x: " << msg.acceleration.x << std::endl;
@@ -346,20 +283,22 @@ public:
         outfile <<  "y: " << msg.acceleration.y << std::endl;
         std::cout <<  "z: " << msg.acceleration.z << std::endl;
         outfile <<  "z: " << msg.acceleration.z << std::endl;
-        std::cout << "angualar_velocity: -------------" << std::endl;
-        outfile << "angualar_velocity: -------------" << std::endl;
-        std::cout << "x: " << msg.angular_velocity.x << std::endl;
-        outfile << "x: " << msg.angular_velocity.x << std::endl;
-        std::cout << "y: " << msg.angular_velocity.y << std::endl;
-        outfile << "y: " << msg.angular_velocity.y << std::endl;
-        std::cout << "z: " << msg.angular_velocity.z << std::endl;
-        outfile << "z: " << msg.angular_velocity.z << std::endl;
+        // std::cout << "angualar_velocity: -------------" << std::endl;
+        // outfile << "angualar_velocity: -------------" << std::endl;
+        // std::cout << "x: " << msg.angular_velocity.x << std::endl;
+        // outfile << "x: " << msg.angular_velocity.x << std::endl;
+        // std::cout << "y: " << msg.angular_velocity.y << std::endl;
+        // outfile << "y: " << msg.angular_velocity.y << std::endl;
+        // std::cout << "z: " << msg.angular_velocity.z << std::endl;
+        // outfile << "z: " << msg.angular_velocity.z << std::endl;
 
 
       }
 
       outfile.close();
   }
+
+  
   // Create a list of directories of the bsag files
 
   // open a bag file 
