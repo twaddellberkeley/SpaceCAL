@@ -2,7 +2,7 @@ rosbag2_bagfile_information:
   version: 4
   storage_identifier: sqlite3
   relative_file_paths:
-    - 21:57:50_0.db3
+    - 19-47-48_0.db3
   duration:
     nanoseconds: 0
   starting_time:
@@ -10,13 +10,13 @@ rosbag2_bagfile_information:
   message_count: 0
   topics_with_message_count:
     - topic_metadata:
-        name: raw_imu
+        name: raw_imu_topic
         type: interfaces/msg/RawImu
         serialization_format: cdr
         offered_qos_profiles: ""
       message_count: 0
     - topic_metadata:
-        name: fusion_imu
+        name: fusion_imu_topic
         type: interfaces/msg/FusionImu
         serialization_format: cdr
         offered_qos_profiles: ""
