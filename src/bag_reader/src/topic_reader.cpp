@@ -20,6 +20,8 @@
 #include <rosbag2_cpp/readers/sequential_reader.hpp>
 #include <rosbag2_cpp/converter_interfaces/serialization_format_converter.hpp>
 
+#include "date_converter.hpp"
+
 #define TYPE_STRING std_msgs::msg::String
 #define TYPE_MOTOR_DATA interfaces::msg::MotorData
 #define TYPE_DISPLAY_DATA interfaces::msg::DisplayData
@@ -174,7 +176,7 @@ public:
         wrap_msg.time_stamp = serialized_message->time_stamp;
         wrap_msg.msg = msg;
         str_msgs_.push_back(wrap_msg);
-        std::cout << "Buttons time: " << serialized_message->time_stamp << std::endl;
+        // std::cout << "Buttons time: " << serialized_message->time_stamp << std::endl;
       } 
       else if (serialized_message->topic_name == DISPLAY) {
         
@@ -186,7 +188,7 @@ public:
         wrap_msg.time_stamp = serialized_message->time_stamp;
         wrap_msg.msg = msg;
         display_data_msgs_.push_back(wrap_msg);
-        std::cout << "Display time: " << serialized_message->time_stamp << std::endl;
+        // std::cout << "Display time: " << serialized_message->time_stamp << std::endl;
       }
       else if (serialized_message->topic_name == FUSION_IMU) {
         
@@ -199,7 +201,7 @@ public:
         wrap_msg.msg = msg;
         msg.header.stamp.nanosec = serialized_message->time_stamp;
         fusion_imu_msgs_.push_back(wrap_msg);
-        std::cout << "FusionIMU time: " << serialized_message->time_stamp << std::endl;
+        // std::cout << "FusionIMU time: " << serialized_message->time_stamp << std::endl;
       }
       else if (serialized_message->topic_name == RAW_IMU) {
         interfaces::msg::RawImu msg; // = std::make_shared<std_msgs::msg::String>();
@@ -211,7 +213,7 @@ public:
         wrap_msg.msg = msg;
         msg.header.stamp.nanosec = serialized_message->time_stamp;
         raw_imu_msgs_.push_back(wrap_msg);
-        std::cout << "RawImu time: " << serialized_message->time_stamp << std::endl;
+        // std::cout << "RawImu time: " << serialized_message->time_stamp << std::endl;
       }
       else if (serialized_message->topic_name == MOTOR) {
         
@@ -223,7 +225,7 @@ public:
         wrap_msg.time_stamp = serialized_message->time_stamp;
         wrap_msg.msg = msg;
         motor_data_msgs_.push_back(wrap_msg);
-        std::cout << "Motor time: " << serialized_message->time_stamp << std::endl;
+        // std::cout << "Motor time: " << serialized_message->time_stamp << std::endl;
       }
     }
   }
@@ -262,53 +264,23 @@ public:
       read_current_file();
     }
     // print_raw_imu();
-    save_fusion_imu_file();
+    // save_fusion_imu_file();
     save_raw_imu_file();
+    // save_button_file();
 
   }
 
   void print_fusion_imu() {
     
-      std::cout << "************* Fusion Imu Data: ****************" << std::endl;
-      
-      for (auto wrap : fusion_imu_msgs_) {
-        interfaces::msg::FusionImu msg;
-        msg = wrap.msg;
-        std::cout << std::endl;
-        std::cout << "header: -------------" << std::endl;
-        // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
-        std::cout << "time stamp: " << wrap.time_stamp << std::endl;
-        std::cout << "orientation: -------------" << std::endl;
-        std::cout <<  "y: " << msg.orientation.y << std::endl;
-        std::cout <<  "x: " << msg.orientation.x << std::endl;
-        std::cout <<  "z: " << msg.orientation.z << std::endl;
-        std::cout << "euler_angles: -------------" << std::endl;
-        std::cout <<  "y: " << msg.euler_angles.y << std::endl;
-        std::cout <<  "x: " << msg.euler_angles.x << std::endl;
-        std::cout <<  "z: " << msg.euler_angles.z << std::endl;
-        std::cout << "angualar_velocity: -------------" << std::endl;
-        std::cout << "x: " << msg.angular_velocity.x << std::endl;
-        std::cout << "y: " << msg.angular_velocity.y << std::endl;
-        std::cout << "z: " << msg.angular_velocity.z << std::endl;
-        std::cout << "linear_acceleration: -------------" << std::endl;
-        std::cout << "x: " << msg.linear_acceleration.x << std::endl;
-        std::cout << "y: " << msg.linear_acceleration.y << std::endl;
-        std::cout << "z: " << msg.linear_acceleration.z << std::endl;
-        std::cout << "gravity_vector: -------------" << std::endl;
-        std::cout << "x: " << msg.gravity_vector.x << std::endl;
-        std::cout << "y: " << msg.gravity_vector.y << std::endl;
-        std::cout << "z: " << msg.gravity_vector.z << std::endl;
-        std::cout << " ************************************** "<< std::endl;
-        std::cout << "Gravity Magnitude: " << msg.gravity_magnitude << std::endl;
-
     std::cout << "************* Fusion Imu Data: ****************" << std::endl;
 
-    for (auto msg : fusion_imu_msgs_)
+    for (auto wrap : fusion_imu_msgs_)
     {
+      interfaces::msg::FusionImu msg = wrap.msg;
       std::cout << std::endl;
       std::cout << "header: -------------" << std::endl;
       // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
-      std::cout << "time stamp: " << msg.header.stamp.nanosec << std::endl;
+      std::cout << "time stamp: " << wrap.time_stamp << std::endl;
       std::cout << "orientation: -------------" << std::endl;
       std::cout << "y: " << msg.orientation.y << std::endl;
       std::cout << "x: " << msg.orientation.x << std::endl;
@@ -419,7 +391,9 @@ public:
         interfaces::msg::RawImu msg;
         msg = wrap.msg;
 
+        date_to_str d(wrap.time_stamp, "nano");
         outfile << std::endl;
+        outfile << "Date: "<< d.str_date() << std::endl;
         outfile << "header: -------------" << std::endl;
         outfile << "time stamp: " << wrap.time_stamp << std::endl;
 
@@ -429,6 +403,7 @@ public:
         outfile <<  "z: " << msg.acceleration.z << std::endl;
 
         outfile2 << std::endl;
+        outfile2 << "Date: "<< d.str_date() << std::endl;
         outfile2 << "header: -------------" << std::endl;
         outfile2 << "time stamp: " << wrap.time_stamp << std::endl;
 
@@ -451,7 +426,19 @@ public:
 
     outfile << "************* Button Data: ****************" << std::endl;
 
+    for(auto wrap : str_msgs_) {
+      std_msgs::msg::String msg = wrap.msg;
+      date_to_str test1(wrap.time_stamp, "nano");
+      outfile << std::endl;
+      outfile << "Date: "<< test1.str_date() << std::endl;
+      outfile << "header: ----------------" << std::endl;
+      outfile << "time stamp: " << wrap.time_stamp << std::endl;
+      outfile << "------------------------" << std::endl;
+      outfile << "Button Command: " << msg.data << std::endl;
 
+    }
+
+    outfile.close();
   }
 
 };

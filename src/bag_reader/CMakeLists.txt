@@ -24,7 +24,7 @@ find_package(rclcpp REQUIRED)
 find_package(rosbag2_cpp REQUIRED)
 find_package(interfaces REQUIRED)
 
-add_executable(topic_reader src/topic_reader.cpp)
+add_executable(topic_reader src/topic_reader.cpp src/date_converter.cpp)
 target_include_directories(topic_reader PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
