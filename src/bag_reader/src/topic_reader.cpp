@@ -36,7 +36,7 @@ using rosbag2_cpp::converter_interfaces::SerializationFormatConverter;
 struct TypeSupport
 {
   std::shared_ptr<rcpputils::SharedLibrary> introspection_type_support_library;
-  const rosidl_message_type_support_t * introspection_type_support;
+  const rosidl_message_type_support_t *introspection_type_support;
 };
 
 struct msg_wrapper_buttons {
@@ -61,18 +61,18 @@ struct msg_wrapper_motor {
 };
 
 class BagReader : public rclcpp::Node
-{ 
+{
   std::vector<std::string> topics_ = {BUTTONS, DISPLAY, FUSION_IMU, RAW_IMU, MOTOR};
   rosbag2_cpp::readers::SequentialReader reader_;
   rosbag2_cpp::StorageOptions storage_options_{};
   rosbag2_cpp::ConverterOptions converter_options_{};
   std::vector<std::string> bag_paths_;
-  std::vector<std::string>::iterator file_iterator_{}; 
-  std::unordered_map<std::string, const rosidl_message_type_support_t *> topics_and_types_ ;
+  std::vector<std::string>::iterator file_iterator_{};
+  std::unordered_map<std::string, const rosidl_message_type_support_t *> topics_and_types_;
   rosbag2_cpp::SerializationFormatConverterFactory factory_;
   std::unique_ptr<rosbag2_cpp::converter_interfaces::SerializationFormatDeserializer> cdr_deserializer_;
   std::string base_path_;
-  
+
 public:
   std::vector<struct msg_wrapper_buttons> str_msgs_;
   std::vector<struct msg_wrapper_disp> display_data_msgs_;
@@ -82,8 +82,8 @@ public:
   
   typedef struct message_t
   {
-    void * message;
-    char * topic_name;
+    void *message;
+    char *topic_name;
     rcutils_time_point_value_t time_stamp;
   } message_t;
   std::vector<message_t> msgs_;
@@ -103,14 +103,12 @@ public:
 
     reader_.open(storage_options_, converter_options_);
 
-
-
-    
     auto topics = reader_.get_all_topics_and_types();
 
     // about metadata
-    for (auto t:topics){
-      
+    for (auto t : topics)
+    {
+
       std::cout << "meta name: " << t.name << std::endl;
       std::cout << "meta type: " << t.type << std::endl;
       std::cout << "meta serialization_format: " << t.serialization_format << std::endl;
@@ -119,26 +117,28 @@ public:
       //   auto type_support = rosbag2_cpp::get_typesupport_handle(t.type, "rosidl_typesupport_cpp", library);
       //   topics_and_types_.insert(std::make_pair(t.name, rosbag2_cpp::get_typesupport_handle(t.type, "rosidl_typesupport_cpp", library)));
       // }
-      
     }
 
     get_all_messages();
-    
+
     printf("hello world bag_reader package\n");
   }
 
-  bool has_next_file() {
+  bool has_next_file()
+  {
     return file_iterator_ + 1 != bag_paths_.end();
   }
 
-  void load_next_file() {
+  void load_next_file()
+  {
     assert(file_iterator_ != bag_paths_.end());
     storage_options_.uri = *file_iterator_;
     reader_.open(storage_options_, converter_options_);
     file_iterator_++;
   }
 
-  void read_current_file() {
+  void read_current_file()
+  {
 
     // if(reader_ == nullptr) {
     //   std::cout<< "[ERROR:read_current_file]: reader is null"<<std::endl;
@@ -155,14 +155,14 @@ public:
     auto type_support_motor = rosbag2_cpp::get_typesupport_handle("interfaces/msg/MotorData", "rosidl_typesupport_cpp", library_motor);
 
     auto ros_message = std::make_shared<rosbag2_cpp::rosbag2_introspection_message_t>();
-    
+
     ros_message->allocator = rcutils_get_default_allocator();
 
-    while(reader_.has_next()) {
+    while (reader_.has_next())
+    {
       auto serialized_message = reader_.read_next();
       ros_message->message = nullptr;
       ros_message->time_stamp = serialized_message->time_stamp;
-  
 
       if (serialized_message->topic_name == BUTTONS) {
         
@@ -225,39 +225,39 @@ public:
         motor_data_msgs_.push_back(wrap_msg);
         std::cout << "Motor time: " << serialized_message->time_stamp << std::endl;
       }
-      
     }
   }
 
-  
-
-  void set_paths(void) {
-     std::cout << std::filesystem::current_path() << std::endl;
+  void set_paths(void)
+  {
+    std::cout << std::filesystem::current_path() << std::endl;
     // get all the paths
     std::cout << base_path_ << std::endl;
 
     // Iterate over the `std::filesystem::directory_entry` elements using `auto`
-    for (auto const& dir_entry : std::filesystem::recursive_directory_iterator(base_path_))
+    for (auto const &dir_entry : std::filesystem::recursive_directory_iterator(base_path_))
     {
-        if(dir_entry.is_regular_file() && dir_entry.path().extension() == ".db3"){
+      if (dir_entry.is_regular_file() && dir_entry.path().extension() == ".db3")
+      {
 
-          std::cout << dir_entry.path().filename() << '\n';
-          std::cout << dir_entry.path().u8string() << '\n';
-          bag_paths_.push_back(dir_entry.path().u8string());
-        }
+        std::cout << dir_entry.path().filename() << '\n';
+        std::cout << dir_entry.path().u8string() << '\n';
+        bag_paths_.push_back(dir_entry.path().u8string());
+      }
     }
     file_iterator_ = bag_paths_.begin();
   }
-  
 
-  void get_all_messages() {
+  void get_all_messages()
+  {
     // if(storage_options_.uri == nullptr) {
     //   std::cout << "ERROR: get_all_messages" << std::endl;
     //   return;
     // }
     read_current_file();
-    
-    while(has_next_file()) {
+
+    while (has_next_file())
+    {
       load_next_file();
       read_current_file();
     }
@@ -301,8 +301,37 @@ public:
         std::cout << " ************************************** "<< std::endl;
         std::cout << "Gravity Magnitude: " << msg.gravity_magnitude << std::endl;
 
-      }
-      
+    std::cout << "************* Fusion Imu Data: ****************" << std::endl;
+
+    for (auto msg : fusion_imu_msgs_)
+    {
+      std::cout << std::endl;
+      std::cout << "header: -------------" << std::endl;
+      // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
+      std::cout << "time stamp: " << msg.header.stamp.nanosec << std::endl;
+      std::cout << "orientation: -------------" << std::endl;
+      std::cout << "y: " << msg.orientation.y << std::endl;
+      std::cout << "x: " << msg.orientation.x << std::endl;
+      std::cout << "z: " << msg.orientation.z << std::endl;
+      std::cout << "euler_angles: -------------" << std::endl;
+      std::cout << "y: " << msg.euler_angles.y << std::endl;
+      std::cout << "x: " << msg.euler_angles.x << std::endl;
+      std::cout << "z: " << msg.euler_angles.z << std::endl;
+      std::cout << "angualar_velocity: -------------" << std::endl;
+      std::cout << "x: " << msg.angular_velocity.x << std::endl;
+      std::cout << "y: " << msg.angular_velocity.y << std::endl;
+      std::cout << "z: " << msg.angular_velocity.z << std::endl;
+      std::cout << "linear_acceleration: -------------" << std::endl;
+      std::cout << "x: " << msg.linear_acceleration.x << std::endl;
+      std::cout << "y: " << msg.linear_acceleration.y << std::endl;
+      std::cout << "z: " << msg.linear_acceleration.z << std::endl;
+      std::cout << "gravity_vector: -------------" << std::endl;
+      std::cout << "x: " << msg.gravity_vector.x << std::endl;
+      std::cout << "y: " << msg.gravity_vector.y << std::endl;
+      std::cout << "z: " << msg.gravity_vector.z << std::endl;
+      std::cout << " ************************************** " << std::endl;
+      std::cout << "Gravity Magnitude: " << msg.gravity_magnitude << std::endl;
+    }
   }
 
   void print_raw_imu() {
@@ -423,16 +452,13 @@ public:
     outfile << "************* Button Data: ****************" << std::endl;
 
 
-
-
   }
 
 };
 
-
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
-  
+
   std::string base_path = "" + std::filesystem::current_path().u8string() + "/my_bag/to_evaluate/Apr-27-2022";
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<BagReader>(base_path));
