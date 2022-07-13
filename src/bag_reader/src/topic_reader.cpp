@@ -39,6 +39,27 @@ struct TypeSupport
   const rosidl_message_type_support_t * introspection_type_support;
 };
 
+struct msg_wrapper_buttons {
+  unsigned long int time_stamp;
+  std_msgs::msg::String msg;
+};
+struct msg_wrapper_disp {
+  unsigned long int time_stamp;
+  interfaces::msg::DisplayData msg;
+};
+struct msg_wrapper_fusion {
+  unsigned long int time_stamp;
+  interfaces::msg::FusionImu msg;
+};
+struct msg_wrapper_raw {
+  unsigned long int time_stamp;
+  interfaces::msg::RawImu msg;
+};
+struct msg_wrapper_motor {
+  unsigned long int time_stamp;
+  interfaces::msg::MotorData msg;
+};
+
 class BagReader : public rclcpp::Node
 { 
   std::vector<std::string> topics_ = {BUTTONS, DISPLAY, FUSION_IMU, RAW_IMU, MOTOR};
@@ -53,11 +74,11 @@ class BagReader : public rclcpp::Node
   std::string base_path_;
   
 public:
-  std::vector<std_msgs::msg::String> str_msgs_;
-  std::vector<interfaces::msg::MotorData> motor_data_msgs_;
-  std::vector<interfaces::msg::DisplayData> display_data_msgs_;
-  std::vector<interfaces::msg::FusionImu> fusion_imu_msgs_;
-  std::vector<interfaces::msg::RawImu> raw_imu_msgs_;
+  std::vector<struct msg_wrapper_buttons> str_msgs_;
+  std::vector<struct msg_wrapper_disp> display_data_msgs_;
+  std::vector<struct msg_wrapper_fusion> fusion_imu_msgs_;
+  std::vector<struct msg_wrapper_raw> raw_imu_msgs_;
+  std::vector<struct msg_wrapper_motor> motor_data_msgs_;
   
   typedef struct message_t
   {
@@ -122,7 +143,16 @@ public:
     // if(reader_ == nullptr) {
     //   std::cout<< "[ERROR:read_current_file]: reader is null"<<std::endl;
     // }
-    
+    auto library_str = rosbag2_cpp::get_typesupport_library("std_msgs/msg/String", "rosidl_typesupport_cpp" );
+    auto type_support_str = rosbag2_cpp::get_typesupport_handle("std_msgs/msg/String", "rosidl_typesupport_cpp", library_str);
+    auto library_display = rosbag2_cpp::get_typesupport_library("interfaces/msg/DisplayData", "rosidl_typesupport_cpp" );
+    auto type_support_display = rosbag2_cpp::get_typesupport_handle("interfaces/msg/DisplayData", "rosidl_typesupport_cpp", library_display);
+    auto library_fusion_imu = rosbag2_cpp::get_typesupport_library("interfaces/msg/FusionImu", "rosidl_typesupport_cpp" );
+    auto type_support_fusion_imu = rosbag2_cpp::get_typesupport_handle("interfaces/msg/FusionImu", "rosidl_typesupport_cpp", library_fusion_imu);
+    auto library_raw_imu = rosbag2_cpp::get_typesupport_library("interfaces/msg/RawImu", "rosidl_typesupport_cpp" );
+    auto type_support_raw_imu = rosbag2_cpp::get_typesupport_handle("interfaces/msg/RawImu", "rosidl_typesupport_cpp", library_raw_imu);
+    auto library_motor = rosbag2_cpp::get_typesupport_library("interfaces/msg/MotorData", "rosidl_typesupport_cpp" );
+    auto type_support_motor = rosbag2_cpp::get_typesupport_handle("interfaces/msg/MotorData", "rosidl_typesupport_cpp", library_motor);
 
     auto ros_message = std::make_shared<rosbag2_cpp::rosbag2_introspection_message_t>();
     
@@ -135,51 +165,65 @@ public:
   
 
       if (serialized_message->topic_name == BUTTONS) {
-        auto library = rosbag2_cpp::get_typesupport_library("std_msgs/msg/String", "rosidl_typesupport_cpp" );
-        auto type_support = rosbag2_cpp::get_typesupport_handle("std_msgs/msg/String", "rosidl_typesupport_cpp", library);
+        
         std_msgs::msg::String msg; // = std::make_shared<std_msgs::msg::String>();
         ros_message->message = &msg;
         // auto type_support = topics_and_types_[BUTTONS];
-        cdr_deserializer_->deserialize(serialized_message, type_support, ros_message);
-        str_msgs_.push_back(msg);
+        cdr_deserializer_->deserialize(serialized_message, type_support_str, ros_message);
+        struct msg_wrapper_buttons wrap_msg;
+        wrap_msg.time_stamp = serialized_message->time_stamp;
+        wrap_msg.msg = msg;
+        str_msgs_.push_back(wrap_msg);
+        std::cout << "Buttons time: " << serialized_message->time_stamp << std::endl;
       } 
       else if (serialized_message->topic_name == DISPLAY) {
-        auto library = rosbag2_cpp::get_typesupport_library("interfaces/msg/DisplayData", "rosidl_typesupport_cpp" );
-        auto type_support = rosbag2_cpp::get_typesupport_handle("interfaces/msg/DisplayData", "rosidl_typesupport_cpp", library);
+        
         interfaces::msg::DisplayData msg; // = std::make_shared<std_msgs::msg::String>();
         ros_message->message = &msg;
         // auto type_support = topics_and_types_[DISPLAY];
-        cdr_deserializer_->deserialize(serialized_message, type_support, ros_message);
-        display_data_msgs_.push_back(msg);
+        cdr_deserializer_->deserialize(serialized_message, type_support_display, ros_message);
+        struct msg_wrapper_disp wrap_msg;
+        wrap_msg.time_stamp = serialized_message->time_stamp;
+        wrap_msg.msg = msg;
+        display_data_msgs_.push_back(wrap_msg);
+        std::cout << "Display time: " << serialized_message->time_stamp << std::endl;
       }
       else if (serialized_message->topic_name == FUSION_IMU) {
-        auto library = rosbag2_cpp::get_typesupport_library("interfaces/msg/FusionImu", "rosidl_typesupport_cpp" );
-        auto type_support = rosbag2_cpp::get_typesupport_handle("interfaces/msg/FusionImu", "rosidl_typesupport_cpp", library);
+        
         interfaces::msg::FusionImu msg; // = std::make_shared<std_msgs::msg::String>();
         ros_message->message = &msg;
         // auto type_support = topics_and_types_[FUSION_IMU];
-        cdr_deserializer_->deserialize(serialized_message, type_support, ros_message);
+        cdr_deserializer_->deserialize(serialized_message, type_support_fusion_imu, ros_message);
+        struct msg_wrapper_fusion wrap_msg;
+        wrap_msg.time_stamp = serialized_message->time_stamp;
+        wrap_msg.msg = msg;
         msg.header.stamp.nanosec = serialized_message->time_stamp;
-        fusion_imu_msgs_.push_back(msg);
+        fusion_imu_msgs_.push_back(wrap_msg);
+        std::cout << "FusionIMU time: " << serialized_message->time_stamp << std::endl;
       }
       else if (serialized_message->topic_name == RAW_IMU) {
-        auto library = rosbag2_cpp::get_typesupport_library("interfaces/msg/RawImu", "rosidl_typesupport_cpp" );
-        auto type_support = rosbag2_cpp::get_typesupport_handle("interfaces/msg/RawImu", "rosidl_typesupport_cpp", library);
         interfaces::msg::RawImu msg; // = std::make_shared<std_msgs::msg::String>();
         ros_message->message = &msg;
         // auto type_support = topics_and_types_[RAW_IMU];
-        cdr_deserializer_->deserialize(serialized_message, type_support, ros_message);
+        cdr_deserializer_->deserialize(serialized_message, type_support_raw_imu, ros_message);
+        struct msg_wrapper_raw wrap_msg;
+        wrap_msg.time_stamp = serialized_message->time_stamp;
+        wrap_msg.msg = msg;
         msg.header.stamp.nanosec = serialized_message->time_stamp;
-        raw_imu_msgs_.push_back(msg);
+        raw_imu_msgs_.push_back(wrap_msg);
+        std::cout << "RawImu time: " << serialized_message->time_stamp << std::endl;
       }
       else if (serialized_message->topic_name == MOTOR) {
-        auto library = rosbag2_cpp::get_typesupport_library("interfaces/msg/MotorData", "rosidl_typesupport_cpp" );
-        auto type_support = rosbag2_cpp::get_typesupport_handle("interfaces/msg/MotorData", "rosidl_typesupport_cpp", library);
+        
         interfaces::msg::MotorData msg; // = std::make_shared<std_msgs::msg::String>();
         ros_message->message = &msg;
         // auto type_support = topics_and_types_[MOTOR];
-        cdr_deserializer_->deserialize(serialized_message, type_support, ros_message);
-        motor_data_msgs_.push_back(msg);
+        cdr_deserializer_->deserialize(serialized_message, type_support_motor, ros_message);
+        struct msg_wrapper_motor wrap_msg;
+        wrap_msg.time_stamp = serialized_message->time_stamp;
+        wrap_msg.msg = msg;
+        motor_data_msgs_.push_back(wrap_msg);
+        std::cout << "Motor time: " << serialized_message->time_stamp << std::endl;
       }
       
     }
@@ -217,7 +261,9 @@ public:
       load_next_file();
       read_current_file();
     }
-    print_raw_imu();
+    // print_raw_imu();
+    save_fusion_imu_file();
+    save_raw_imu_file();
 
   }
 
@@ -225,11 +271,13 @@ public:
     
       std::cout << "************* Fusion Imu Data: ****************" << std::endl;
       
-      for (auto msg : fusion_imu_msgs_) {
+      for (auto wrap : fusion_imu_msgs_) {
+        interfaces::msg::FusionImu msg;
+        msg = wrap.msg;
         std::cout << std::endl;
         std::cout << "header: -------------" << std::endl;
         // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
-        std::cout << "time stamp: " << msg.header.stamp.nanosec << std::endl;
+        std::cout << "time stamp: " << wrap.time_stamp << std::endl;
         std::cout << "orientation: -------------" << std::endl;
         std::cout <<  "y: " << msg.orientation.y << std::endl;
         std::cout <<  "x: " << msg.orientation.x << std::endl;
@@ -259,55 +307,125 @@ public:
 
   void print_raw_imu() {
       // open a file in write mode.
-      std::ofstream outfile;
-      outfile.open("afile.txt");
 
       // write inputted data into the file.
       
       std::cout << "************* Raw Imu Data: ****************" << std::endl;
-      outfile << "************* Raw Imu Data: ****************" << std::endl;
       
-      for (auto msg : raw_imu_msgs_) {
+      for (auto wrap : raw_imu_msgs_) {
+        interfaces::msg::RawImu msg;
+        msg = wrap.msg;
         std::cout << std::endl;
-        outfile << std::endl;
         std::cout << "header: -------------" << std::endl;
-        outfile << "header: -------------" << std::endl;
-        // std::cout << "time stamp: " << msg.header.stamp.nsec << std::endl;
-        std::cout << "time stamp: " << msg.header.stamp.nanosec << std::endl;
-        outfile << "time stamp: " << msg.header.stamp.nanosec << std::endl;
+        std::cout << "time stamp: " << wrap.time_stamp << std::endl;
         std::cout << "acceleration: -------------" << std::endl;
-        outfile << "acceleration: -------------" << std::endl;
         std::cout <<  "x: " << msg.acceleration.x << std::endl;
-        outfile <<  "x: " << msg.acceleration.x << std::endl;
         std::cout <<  "y: " << msg.acceleration.y << std::endl;
-        outfile <<  "y: " << msg.acceleration.y << std::endl;
         std::cout <<  "z: " << msg.acceleration.z << std::endl;
+        std::cout << "angualar_velocity: -------------" << std::endl;
+
+        std::cout << "x: " << msg.angular_velocity.x << std::endl;
+        std::cout << "y: " << msg.angular_velocity.y << std::endl;
+        std::cout << "z: " << msg.angular_velocity.z << std::endl;
+      }
+  }  
+
+  void save_fusion_imu_file() {
+
+    std::ofstream outfile;
+    
+    outfile.open("FusionImuData.txt");
+
+    
+    outfile << "************* Fusion Imu Data: ****************" << std::endl;
+    
+    for (auto wrap : fusion_imu_msgs_) {
+      interfaces::msg::FusionImu msg;
+      msg = wrap.msg;
+      outfile << std::endl;
+      outfile << "header: -------------" << std::endl;
+      outfile << "time stamp: " << wrap.time_stamp << std::endl;
+      outfile << "orientation: -------------" << std::endl;
+      outfile <<  "y: " << msg.orientation.y << std::endl;
+      outfile <<  "x: " << msg.orientation.x << std::endl;
+      outfile <<  "z: " << msg.orientation.z << std::endl;
+      outfile << "euler_angles: -------------" << std::endl;
+      outfile <<  "y: " << msg.euler_angles.y << std::endl;
+      outfile <<  "x: " << msg.euler_angles.x << std::endl;
+      outfile <<  "z: " << msg.euler_angles.z << std::endl;
+      outfile << "angualar_velocity: -------------" << std::endl;
+      outfile << "x: " << msg.angular_velocity.x << std::endl;
+      outfile << "y: " << msg.angular_velocity.y << std::endl;
+      outfile << "z: " << msg.angular_velocity.z << std::endl;
+      outfile << "linear_acceleration: -------------" << std::endl;
+      outfile << "x: " << msg.linear_acceleration.x << std::endl;
+      outfile << "y: " << msg.linear_acceleration.y << std::endl;
+      outfile << "z: " << msg.linear_acceleration.z << std::endl;
+      outfile << "gravity_vector: -------------" << std::endl;
+      outfile << "x: " << msg.gravity_vector.x << std::endl;
+      outfile << "y: " << msg.gravity_vector.y << std::endl;
+      outfile << "z: " << msg.gravity_vector.z << std::endl;
+      outfile << " ************************************** "<< std::endl;
+      outfile << "Gravity Magnitude: " << msg.gravity_magnitude << std::endl;
+
+    }
+
+    outfile.close();
+      
+  }
+
+  void save_raw_imu_file() {
+    // open a file in write mode.
+      std::ofstream outfile;
+      std::ofstream outfile2;
+      outfile.open("RawImuData_Acceleration.txt");
+      outfile2.open("RawImuData_AngularVelocity.txt");
+
+      // write inputted data into the file.
+      
+      outfile << "************* Raw Imu Data Acceleration: ****************" << std::endl;
+      outfile2 << "************* Raw Imu Data Angular Velocity: ****************" << std::endl;
+      
+      for (auto wrap : raw_imu_msgs_) {
+        interfaces::msg::RawImu msg;
+        msg = wrap.msg;
+
+        outfile << std::endl;
+        outfile << "header: -------------" << std::endl;
+        outfile << "time stamp: " << wrap.time_stamp << std::endl;
+
+        outfile << "acceleration: -------------" << std::endl;
+        outfile <<  "x: " << msg.acceleration.x << std::endl;
+        outfile <<  "y: " << msg.acceleration.y << std::endl;
         outfile <<  "z: " << msg.acceleration.z << std::endl;
-        // std::cout << "angualar_velocity: -------------" << std::endl;
-        // outfile << "angualar_velocity: -------------" << std::endl;
-        // std::cout << "x: " << msg.angular_velocity.x << std::endl;
-        // outfile << "x: " << msg.angular_velocity.x << std::endl;
-        // std::cout << "y: " << msg.angular_velocity.y << std::endl;
-        // outfile << "y: " << msg.angular_velocity.y << std::endl;
-        // std::cout << "z: " << msg.angular_velocity.z << std::endl;
-        // outfile << "z: " << msg.angular_velocity.z << std::endl;
 
+        outfile2 << std::endl;
+        outfile2 << "header: -------------" << std::endl;
+        outfile2 << "time stamp: " << wrap.time_stamp << std::endl;
 
+        outfile2 << "angualar_velocity: -------------" << std::endl;
+        outfile2 << "x: " << msg.angular_velocity.x << std::endl;
+        outfile2 << "y: " << msg.angular_velocity.y << std::endl;
+        outfile2 << "z: " << msg.angular_velocity.z << std::endl;
       }
 
       outfile.close();
+      outfile2.close();
   }
 
-  
-  // Create a list of directories of the bsag files
+  void save_button_file() {
 
-  // open a bag file 
+    std::ofstream outfile;
+    
+    // open file
+    outfile.open("button_data.txt");
 
-  // sort messages by topic and time stamp
+    outfile << "************* Button Data: ****************" << std::endl;
 
-  // do somthing with the information
 
-  
+
+
+  }
 
 };
 
