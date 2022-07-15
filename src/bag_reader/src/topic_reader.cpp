@@ -264,9 +264,9 @@ public:
       read_current_file();
     }
     // print_raw_imu();
-    // save_fusion_imu_file();
+    save_fusion_imu_file();
     save_raw_imu_file();
-    // save_button_file();
+    save_button_file();
 
   }
 
@@ -323,11 +323,11 @@ public:
         std::cout <<  "x: " << msg.acceleration.x << std::endl;
         std::cout <<  "y: " << msg.acceleration.y << std::endl;
         std::cout <<  "z: " << msg.acceleration.z << std::endl;
-        std::cout << "angualar_velocity: -------------" << std::endl;
+        // std::cout << "angualar_velocity: -------------" << std::endl;
 
-        std::cout << "x: " << msg.angular_velocity.x << std::endl;
-        std::cout << "y: " << msg.angular_velocity.y << std::endl;
-        std::cout << "z: " << msg.angular_velocity.z << std::endl;
+        // std::cout << "x: " << msg.angular_velocity.x << std::endl;
+        // std::cout << "y: " << msg.angular_velocity.y << std::endl;
+        // std::cout << "z: " << msg.angular_velocity.z << std::endl;
       }
   }  
 
@@ -335,7 +335,7 @@ public:
 
     std::ofstream outfile;
     
-    outfile.open("FusionImuData.txt");
+    outfile.open("data/april/fusionImu.txt");
 
     
     outfile << "************* Fusion Imu Data: ****************" << std::endl;
@@ -347,25 +347,25 @@ public:
       outfile << "header: -------------" << std::endl;
       outfile << "time stamp: " << wrap.time_stamp << std::endl;
       outfile << "orientation: -------------" << std::endl;
-      outfile <<  "y: " << msg.orientation.y << std::endl;
-      outfile <<  "x: " << msg.orientation.x << std::endl;
-      outfile <<  "z: " << msg.orientation.z << std::endl;
+      outfile <<  "y:" << msg.orientation.y << std::endl;
+      outfile <<  "x:" << msg.orientation.x << std::endl;
+      outfile <<  "z:" << msg.orientation.z << std::endl;
       outfile << "euler_angles: -------------" << std::endl;
-      outfile <<  "y: " << msg.euler_angles.y << std::endl;
-      outfile <<  "x: " << msg.euler_angles.x << std::endl;
-      outfile <<  "z: " << msg.euler_angles.z << std::endl;
+      outfile <<  "y:" << msg.euler_angles.y << std::endl;
+      outfile <<  "x:" << msg.euler_angles.x << std::endl;
+      outfile <<  "z:" << msg.euler_angles.z << std::endl;
       outfile << "angualar_velocity: -------------" << std::endl;
-      outfile << "x: " << msg.angular_velocity.x << std::endl;
-      outfile << "y: " << msg.angular_velocity.y << std::endl;
-      outfile << "z: " << msg.angular_velocity.z << std::endl;
+      outfile << "x:" << msg.angular_velocity.x << std::endl;
+      outfile << "y:" << msg.angular_velocity.y << std::endl;
+      outfile << "z:" << msg.angular_velocity.z << std::endl;
       outfile << "linear_acceleration: -------------" << std::endl;
-      outfile << "x: " << msg.linear_acceleration.x << std::endl;
-      outfile << "y: " << msg.linear_acceleration.y << std::endl;
-      outfile << "z: " << msg.linear_acceleration.z << std::endl;
+      outfile << "x:" << msg.linear_acceleration.x << std::endl;
+      outfile << "y:" << msg.linear_acceleration.y << std::endl;
+      outfile << "z:" << msg.linear_acceleration.z << std::endl;
       outfile << "gravity_vector: -------------" << std::endl;
-      outfile << "x: " << msg.gravity_vector.x << std::endl;
-      outfile << "y: " << msg.gravity_vector.y << std::endl;
-      outfile << "z: " << msg.gravity_vector.z << std::endl;
+      outfile << "x:" << msg.gravity_vector.x << std::endl;
+      outfile << "y:" << msg.gravity_vector.y << std::endl;
+      outfile << "z:" << msg.gravity_vector.z << std::endl;
       outfile << " ************************************** "<< std::endl;
       outfile << "Gravity Magnitude: " << msg.gravity_magnitude << std::endl;
 
@@ -379,8 +379,8 @@ public:
     // open a file in write mode.
       std::ofstream outfile;
       std::ofstream outfile2;
-      outfile.open("RawImuData_Acceleration.txt");
-      outfile2.open("RawImuData_AngularVelocity.txt");
+      outfile.open("data/april/rawImu_acc.txt");
+      outfile2.open("data/april/rawImu_angular.txt");
 
       // write inputted data into the file.
       
@@ -393,24 +393,24 @@ public:
 
         date_to_str d(wrap.time_stamp, "nano");
         outfile << std::endl;
-        outfile << "Date: "<< d.str_date() << std::endl;
+        outfile << "Date:"<< d.str_date() << std::endl;
         outfile << "header: -------------" << std::endl;
-        outfile << "time stamp: " << wrap.time_stamp << std::endl;
+        outfile << "timeStamp:" << wrap.time_stamp << std::endl;
 
         outfile << "acceleration: -------------" << std::endl;
-        outfile <<  "x: " << msg.acceleration.x << std::endl;
-        outfile <<  "y: " << msg.acceleration.y << std::endl;
-        outfile <<  "z: " << msg.acceleration.z << std::endl;
+        outfile <<  "x:" << msg.acceleration.x << std::endl;
+        outfile <<  "y:" << msg.acceleration.y << std::endl;
+        outfile <<  "z:" << msg.acceleration.z << std::endl;
 
         outfile2 << std::endl;
-        outfile2 << "Date: "<< d.str_date() << std::endl;
+        outfile2 << "Date:"<< d.str_date() << std::endl;
         outfile2 << "header: -------------" << std::endl;
-        outfile2 << "time stamp: " << wrap.time_stamp << std::endl;
+        outfile2 << "timeStamp:" << wrap.time_stamp << std::endl;
 
         outfile2 << "angualar_velocity: -------------" << std::endl;
-        outfile2 << "x: " << msg.angular_velocity.x << std::endl;
-        outfile2 << "y: " << msg.angular_velocity.y << std::endl;
-        outfile2 << "z: " << msg.angular_velocity.z << std::endl;
+        outfile2 << "x:" << msg.angular_velocity.x << std::endl;
+        outfile2 << "y:" << msg.angular_velocity.y << std::endl;
+        outfile2 << "z:" << msg.angular_velocity.z << std::endl;
       }
 
       outfile.close();
@@ -422,7 +422,7 @@ public:
     std::ofstream outfile;
     
     // open file
-    outfile.open("button_data.txt");
+    outfile.open("data/april/button_data.txt");
 
     outfile << "************* Button Data: ****************" << std::endl;
 
@@ -430,11 +430,11 @@ public:
       std_msgs::msg::String msg = wrap.msg;
       date_to_str test1(wrap.time_stamp, "nano");
       outfile << std::endl;
-      outfile << "Date: "<< test1.str_date() << std::endl;
+      outfile << "Date:"<< test1.str_date() << std::endl;
       outfile << "header: ----------------" << std::endl;
-      outfile << "time stamp: " << wrap.time_stamp << std::endl;
+      outfile << "timeStamp:" << wrap.time_stamp << std::endl;
       outfile << "------------------------" << std::endl;
-      outfile << "Button Command: " << msg.data << std::endl;
+      outfile << "ButtonCommand:" << msg.data << std::endl;
 
     }
 
