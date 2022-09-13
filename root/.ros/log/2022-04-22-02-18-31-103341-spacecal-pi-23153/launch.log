@@ -1,0 +1,5 @@
+1650619111.1126049 [INFO] [launch]: All log files can be found below root/.ros/log/2022-04-22-02-18-31-103341-spacecal-pi-23153
+1650619111.1134725 [INFO] [launch]: Default logging verbosity is set to INFO
+1650619111.2591152 [INFO] [guiMain-1]: process started with pid [23155]
+1650619111.2604003 [INFO] [printController-2]: process started with pid [23157]
+1650619113.1707213 [ERROR] [guiMain-1]: process has died [pid 23155, exit code -6, cmd '/home/cjc/spaceCal/SpaceCAL/install/jetsonDisplay/lib/jetsonDisplay/guiMain --ros-args -r __node:=gui -r __ns:=/printerTesting'].
