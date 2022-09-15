@@ -1,6 +1,6 @@
-interfaces/msg/Metadata meta
+Metadata meta
 string cmd
 string file_name
 ---
-int32 return
+int32 err
 string msg

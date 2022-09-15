@@ -1,2 +1,2 @@
 string name
-builtin_interfaces/msg/Time stamp
+builtin_interfaces/Time stamp
