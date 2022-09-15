@@ -1,0 +1,6 @@
+interfaces/msg/Metadata meta
+string cmd
+string file_name
+---
+int32 return
+string msg

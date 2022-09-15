@@ -47,7 +47,7 @@ import rclpy
 from rclpy.node import Node
 
 from interfaces.msg import MotorData
-from interfaces.srv import GuiSrv, MotorSrv, ProjectorSrv
+from interfaces.srv import GuiInput, MotorSrv, Projector
 
 
 class Motor:
@@ -159,7 +159,7 @@ class CalPrintController(Node):
         self._motor_cli = self._node.create_client(
             MotorSrv, 'motor_command_' + str(id))
         self._projector_cli = self._node.create_client(
-            ProjectorSrv, 'projector_command_' + str(id))
+            Projector, 'projector_command_' + str(id))
 
         # Wait for motor service to be avalible
         while not self._motor_cli.wait_for_service(timeout_sec=1.0):
@@ -170,8 +170,8 @@ class CalPrintController(Node):
         # Wait for projector service to be avaliable
         while not self._projector_cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('projector service not available, waiting again...')
-        self._projector_req = ProjectorSrv.Request()
-        self._projector_res = ProjectorSrv.Response()
+        self._projector_req = Projector.Request()
+        self._projector_res = Projector.Response()
 
     def send_motor_req(self, req):
         self._motor_req = MotorSrv.Request()
@@ -185,12 +185,12 @@ class CalPrintController(Node):
         self.motorThread.start()
 
     def send_projector_req(self, req):
-        self._projector_req = ProjectorSrv.Request()
+        self._projector_req = Projector.Request()
         ## TODO: Temporary numbers ###########
         self._projector_req.cmd_num = 2
         self._projector_req.value = 9
         ### ####################################
-        self._projector_res = ProjectorSrv.Response()
+        self._projector_res = Projector.Response()
         self.projectorThread = self.SendRequest(
             'projector', self._projector_cli, req, self._projector_res, self)  # , self.process_request)
         self.projectorThread.start()
@@ -206,7 +206,7 @@ class CalPrintController(Node):
         self.send_motor_req(motor_req)
         print("finish with motor request")
         # establish connection with the printer
-        projector_req = ProjectorSrv.Request()
+        projector_req = Projector.Request()
         projector_req.cmd_num = 0x20    # 0x20 initialize
         projector_req.value = 0x01      # 0x01 create projector object
         self.send_projector_req(projector_req)
@@ -269,7 +269,7 @@ class ManiLogicController(Node):
     def __init__(self) -> None:
         super().__init__('Main_Logic_Controller_Node')
         self.srv = self.create_service(
-            GuiSrv, 'gui_command', self.gui_command_callback)
+            GuiInput, 'gui_command', self.gui_command_callback)
         self.controller = CalPrintController(1, self)
         self.timer = self.create_timer(5, self.test_motor)
         self.timer2 = self.create_timer(6, self.test_projector)

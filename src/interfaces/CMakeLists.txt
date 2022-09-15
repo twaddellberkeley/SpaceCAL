@@ -41,6 +41,8 @@ find_package(rosidl_typesupport_c REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  msg/Metadata.msg
+  msg/Imu.msg
   msg/MotorData.msg
   msg/DisplayData.msg
   msg/FusionImu.msg
