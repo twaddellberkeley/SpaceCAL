@@ -1,0 +1,4 @@
+interfaces/msg/Metadata meta
+string cmd
+---
+int32 return

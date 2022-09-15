@@ -1,0 +1,5 @@
+interface/msg/Metadata meta
+geometry_msgs/Vector3 acceleration
+geometry_msgs/Vector3 magnetometer
+geometry_msgs/Vector3 angular_velocity
+float64 g0
