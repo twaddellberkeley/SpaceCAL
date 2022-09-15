@@ -1,0 +1,1639 @@
+************* Button Data: ****************
+
+Date: 2022-April-27-18:47:46.239620000
+header: ----------------
+time stamp: 1651114066239620000
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:47:50.265025572
+header: ----------------
+time stamp: 1651114070265025572
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:47:58.119928433
+header: ----------------
+time stamp: 1651114078119928433
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:48:12.52844001
+header: ----------------
+time stamp: 1651114092052844001
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:48:19.489978946
+header: ----------------
+time stamp: 1651114099489978946
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:48:28.387198995
+header: ----------------
+time stamp: 1651114108387198995
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:48:41.830465864
+header: ----------------
+time stamp: 1651114121830465864
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:48:51.205130913
+header: ----------------
+time stamp: 1651114131205130913
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:49:0.618634139
+header: ----------------
+time stamp: 1651114140618634139
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:49:8.423308250
+header: ----------------
+time stamp: 1651114148423308250
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:49:18.140834080
+header: ----------------
+time stamp: 1651114158140834080
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:49:23.728899651
+header: ----------------
+time stamp: 1651114163728899651
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:56:46.581334221
+header: ----------------
+time stamp: 1651114606581334221
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:12:29.974484226
+header: ----------------
+time stamp: 1651115549974484226
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:18:31.816479088
+header: ----------------
+time stamp: 1651115911816479088
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:19:55.297469056
+header: ----------------
+time stamp: 1651115995297469056
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:21:18.515035483
+header: ----------------
+time stamp: 1651116078515035483
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:22:28.764309987
+header: ----------------
+time stamp: 1651116148764309987
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:25:2.888788678
+header: ----------------
+time stamp: 1651116302888788678
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:29:47.872066122
+header: ----------------
+time stamp: 1651116587872066122
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:30:54.658207398
+header: ----------------
+time stamp: 1651116654658207398
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:32:13.119467525
+header: ----------------
+time stamp: 1651116733119467525
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:35:24.938100629
+header: ----------------
+time stamp: 1651116924938100629
+------------------------
+Button Command: kill
+
+Date: 2022-April-27-19:5:58.746793906
+header: ----------------
+time stamp: 1651115158746793906
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:8:55.174115089
+header: ----------------
+time stamp: 1651115335174115089
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:9:1.506816962
+header: ----------------
+time stamp: 1651115341506816962
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:9:6.76463002
+header: ----------------
+time stamp: 1651115346076463002
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:37:42.194757991
+header: ----------------
+time stamp: 1651113462194757991
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:37:53.492490539
+header: ----------------
+time stamp: 1651113473492490539
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:38:5.66537566
+header: ----------------
+time stamp: 1651113485066537566
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:38:9.140223450
+header: ----------------
+time stamp: 1651113489140223450
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:38:20.651782351
+header: ----------------
+time stamp: 1651113500651782351
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:38:26.40900683
+header: ----------------
+time stamp: 1651113506040900683
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:38:35.22327658
+header: ----------------
+time stamp: 1651113515022327658
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:38:44.41969061
+header: ----------------
+time stamp: 1651113524041969061
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:38:52.234107652
+header: ----------------
+time stamp: 1651113532234107652
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:39:5.154898532
+header: ----------------
+time stamp: 1651113545154898532
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:41:42.922091181
+header: ----------------
+time stamp: 1651113702922091181
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:41:46.776492481
+header: ----------------
+time stamp: 1651113706776492481
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:42:1.571783986
+header: ----------------
+time stamp: 1651113721571783986
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:42:38.117989597
+header: ----------------
+time stamp: 1651113758117989597
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:42:57.991238391
+header: ----------------
+time stamp: 1651113777991238391
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:17:39.857367181
+header: ----------------
+time stamp: 1651115859857367181
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:17:44.205234419
+header: ----------------
+time stamp: 1651115864205234419
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:17:50.321216395
+header: ----------------
+time stamp: 1651115870321216395
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:18:8.83276232
+header: ----------------
+time stamp: 1651115888083276232
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:18:16.477362740
+header: ----------------
+time stamp: 1651115896477362740
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:18:21.973277790
+header: ----------------
+time stamp: 1651115901973277790
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:18:29.766826068
+header: ----------------
+time stamp: 1651115909766826068
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:18:33.860644191
+header: ----------------
+time stamp: 1651115913860644191
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:18:41.421131063
+header: ----------------
+time stamp: 1651115921421131063
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:18:47.475054863
+header: ----------------
+time stamp: 1651115927475054863
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:18:55.928146579
+header: ----------------
+time stamp: 1651115935928146579
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:19:3.381029024
+header: ----------------
+time stamp: 1651115943381029024
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:19:18.530773966
+header: ----------------
+time stamp: 1651115958530773966
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:19:38.897978177
+header: ----------------
+time stamp: 1651115978897978177
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:19:47.40017601
+header: ----------------
+time stamp: 1651115987040017601
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:19:55.551882702
+header: ----------------
+time stamp: 1651115995551882702
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:20:26.223822794
+header: ----------------
+time stamp: 1651116026223822794
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:21:40.534639068
+header: ----------------
+time stamp: 1651116100534639068
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:22:12.306219889
+header: ----------------
+time stamp: 1651116132306219889
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:22:28.241052279
+header: ----------------
+time stamp: 1651116148241052279
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:22:46.500164407
+header: ----------------
+time stamp: 1651116166500164407
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:22:51.74537270
+header: ----------------
+time stamp: 1651116171074537270
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:23:3.192809609
+header: ----------------
+time stamp: 1651116183192809609
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:23:10.954697679
+header: ----------------
+time stamp: 1651116190954697679
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:23:53.447155319
+header: ----------------
+time stamp: 1651116233447155319
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:24:42.281257332
+header: ----------------
+time stamp: 1651116282281257332
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:24:54.775068161
+header: ----------------
+time stamp: 1651116294775068161
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:25:11.588688727
+header: ----------------
+time stamp: 1651116311588688727
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:25:22.989216327
+header: ----------------
+time stamp: 1651116322989216327
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:25:41.390196997
+header: ----------------
+time stamp: 1651116341390196997
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:25:45.863629651
+header: ----------------
+time stamp: 1651116345863629651
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:25:57.670331678
+header: ----------------
+time stamp: 1651116357670331678
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:26:5.333553550
+header: ----------------
+time stamp: 1651116365333553550
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:26:15.845206567
+header: ----------------
+time stamp: 1651116375845206567
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:26:23.472313387
+header: ----------------
+time stamp: 1651116383472313387
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:26:29.834733489
+header: ----------------
+time stamp: 1651116389834733489
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:26:39.10912652
+header: ----------------
+time stamp: 1651116399010912652
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:26:46.348461295
+header: ----------------
+time stamp: 1651116406348461295
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:26:53.708785824
+header: ----------------
+time stamp: 1651116413708785824
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:28:0.589671111
+header: ----------------
+time stamp: 1651116480589671111
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:28:5.420570327
+header: ----------------
+time stamp: 1651116485420570327
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:28:19.703529072
+header: ----------------
+time stamp: 1651116499703529072
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:28:28.71558444
+header: ----------------
+time stamp: 1651116508071558444
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:28:40.653504793
+header: ----------------
+time stamp: 1651116520653504793
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:28:48.842129686
+header: ----------------
+time stamp: 1651116528842129686
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:29:1.556934108
+header: ----------------
+time stamp: 1651116541556934108
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:29:11.622022490
+header: ----------------
+time stamp: 1651116551622022490
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:29:50.43321538
+header: ----------------
+time stamp: 1651116590043321538
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:30:4.714184761
+header: ----------------
+time stamp: 1651116604714184761
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:30:20.989027203
+header: ----------------
+time stamp: 1651116620989027203
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:30:26.768134648
+header: ----------------
+time stamp: 1651116626768134648
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:30:46.191504016
+header: ----------------
+time stamp: 1651116646191504016
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:30:55.602548127
+header: ----------------
+time stamp: 1651116655602548127
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:31:5.506080102
+header: ----------------
+time stamp: 1651116665506080102
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:31:12.892327548
+header: ----------------
+time stamp: 1651116672892327548
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:31:31.689387905
+header: ----------------
+time stamp: 1651116691689387905
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:31:39.828754464
+header: ----------------
+time stamp: 1651116699828754464
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:31:49.960998106
+header: ----------------
+time stamp: 1651116709960998106
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:31:57.621978572
+header: ----------------
+time stamp: 1651116717621978572
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:32:7.991779558
+header: ----------------
+time stamp: 1651116727991779558
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:32:28.797817050
+header: ----------------
+time stamp: 1651116748797817050
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:32:37.333536317
+header: ----------------
+time stamp: 1651116757333536317
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:32:49.18951469
+header: ----------------
+time stamp: 1651116769018951469
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:32:56.875890841
+header: ----------------
+time stamp: 1651116776875890841
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:33:6.696202348
+header: ----------------
+time stamp: 1651116786696202348
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:33:15.42112084
+header: ----------------
+time stamp: 1651116795042112084
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:33:29.382772235
+header: ----------------
+time stamp: 1651116809382772235
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:33:41.484900668
+header: ----------------
+time stamp: 1651116821484900668
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:33:55.991192121
+header: ----------------
+time stamp: 1651116835991192121
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:34:5.632237430
+header: ----------------
+time stamp: 1651116845632237430
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:34:13.821903468
+header: ----------------
+time stamp: 1651116853821903468
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:10:37.998657081
+header: ----------------
+time stamp: 1651115437998657081
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:10:44.860345568
+header: ----------------
+time stamp: 1651115444860345568
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:10:50.604712545
+header: ----------------
+time stamp: 1651115450604712545
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:39:1.87562492
+header: ----------------
+time stamp: 1651113541087562492
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:39:3.431169939
+header: ----------------
+time stamp: 1651113543431169939
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:39:8.81819000
+header: ----------------
+time stamp: 1651113548081819000
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:39:30.137393575
+header: ----------------
+time stamp: 1651113570137393575
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:39:44.620402267
+header: ----------------
+time stamp: 1651113584620402267
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:40:48.130504795
+header: ----------------
+time stamp: 1651113648130504795
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:41:17.441908221
+header: ----------------
+time stamp: 1651113677441908221
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:46:58.422753508
+header: ----------------
+time stamp: 1651114018422753508
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:47:15.465146210
+header: ----------------
+time stamp: 1651114035465146210
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:50:14.925321141
+header: ----------------
+time stamp: 1651114214925321141
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:50:21.911277858
+header: ----------------
+time stamp: 1651114221911277858
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:51:8.379304506
+header: ----------------
+time stamp: 1651114268379304506
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:52:13.631653700
+header: ----------------
+time stamp: 1651114333631653700
+------------------------
+Button Command: kill
+
+Date: 2022-April-27-19:35:26.53252816
+header: ----------------
+time stamp: 1651116926053252816
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:35:28.513009273
+header: ----------------
+time stamp: 1651116928513009273
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:35:33.148005105
+header: ----------------
+time stamp: 1651116933148005105
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:35:37.29952551
+header: ----------------
+time stamp: 1651116937029952551
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:35:44.586960048
+header: ----------------
+time stamp: 1651116944586960048
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:35:48.516400567
+header: ----------------
+time stamp: 1651116948516400567
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:35:55.782016971
+header: ----------------
+time stamp: 1651116955782016971
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:36:1.193469573
+header: ----------------
+time stamp: 1651116961193469573
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:36:9.537113893
+header: ----------------
+time stamp: 1651116969537113893
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:36:13.509932850
+header: ----------------
+time stamp: 1651116973509932850
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:36:20.837171076
+header: ----------------
+time stamp: 1651116980837171076
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:36:27.793143521
+header: ----------------
+time stamp: 1651116987793143521
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:36:43.326462630
+header: ----------------
+time stamp: 1651117003326462630
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:36:48.626090857
+header: ----------------
+time stamp: 1651117008626090857
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:37:0.609359915
+header: ----------------
+time stamp: 1651117020609359915
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:37:11.358848817
+header: ----------------
+time stamp: 1651117031358848817
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:37:20.290030689
+header: ----------------
+time stamp: 1651117040290030689
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:37:27.746821675
+header: ----------------
+time stamp: 1651117047746821675
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:37:39.67148025
+header: ----------------
+time stamp: 1651117059067148025
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:37:46.580609949
+header: ----------------
+time stamp: 1651117066580609949
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:37:51.828495052
+header: ----------------
+time stamp: 1651117071828495052
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:37:59.93156976
+header: ----------------
+time stamp: 1651117079093156976
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:38:3.931894891
+header: ----------------
+time stamp: 1651117083931894891
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:38:19.811312281
+header: ----------------
+time stamp: 1651117099811312281
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:38:24.220585977
+header: ----------------
+time stamp: 1651117104220585977
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:38:28.500345142
+header: ----------------
+time stamp: 1651117108500345142
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:38:35.875087379
+header: ----------------
+time stamp: 1651117115875087379
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:38:46.394857947
+header: ----------------
+time stamp: 1651117126394857947
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:38:55.811402840
+header: ----------------
+time stamp: 1651117135811402840
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:39:8.756669033
+header: ----------------
+time stamp: 1651117148756669033
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:39:17.65072415
+header: ----------------
+time stamp: 1651117157065072415
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:39:54.220967505
+header: ----------------
+time stamp: 1651117194220967505
+------------------------
+Button Command: kill
+
+Date: 2022-April-27-18:48:47.548032321
+header: ----------------
+time stamp: 1651114127548032321
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:48:50.90809768
+header: ----------------
+time stamp: 1651114130090809768
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:48:53.27380756
+header: ----------------
+time stamp: 1651114133027380756
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:48:56.430033411
+header: ----------------
+time stamp: 1651114136430033411
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:48:59.680946743
+header: ----------------
+time stamp: 1651114139680946743
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:49:7.722764032
+header: ----------------
+time stamp: 1651114147722764032
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:49:11.509669864
+header: ----------------
+time stamp: 1651114151509669864
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:49:19.35846736
+header: ----------------
+time stamp: 1651114159035846736
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:49:21.941646318
+header: ----------------
+time stamp: 1651114161941646318
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:49:24.936289494
+header: ----------------
+time stamp: 1651114164936289494
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:49:33.89390532
+header: ----------------
+time stamp: 1651114173089390532
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:49:37.576406572
+header: ----------------
+time stamp: 1651114177576406572
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:49:45.474105424
+header: ----------------
+time stamp: 1651114185474105424
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:49:49.869589641
+header: ----------------
+time stamp: 1651114189869589641
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:50:5.956061509
+header: ----------------
+time stamp: 1651114205956061509
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:50:47.590699723
+header: ----------------
+time stamp: 1651114247590699723
+------------------------
+Button Command: kill
+
+Date: 2022-April-27-18:54:26.750581410
+header: ----------------
+time stamp: 1651114466750581410
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:54:37.917629791
+header: ----------------
+time stamp: 1651114477917629791
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:54:40.497488436
+header: ----------------
+time stamp: 1651114480497488436
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:54:54.13094420
+header: ----------------
+time stamp: 1651114494013094420
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:54:56.671829680
+header: ----------------
+time stamp: 1651114496671829680
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:55:5.428933583
+header: ----------------
+time stamp: 1651114505428933583
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:55:9.722930248
+header: ----------------
+time stamp: 1651114509722930248
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:55:17.271116182
+header: ----------------
+time stamp: 1651114517271116182
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:55:21.255418577
+header: ----------------
+time stamp: 1651114521255418577
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:55:28.671209616
+header: ----------------
+time stamp: 1651114528671209616
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:55:33.913881384
+header: ----------------
+time stamp: 1651114533913881384
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:55:42.662223673
+header: ----------------
+time stamp: 1651114542662223673
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:55:45.901821015
+header: ----------------
+time stamp: 1651114545901821015
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:56:0.641596322
+header: ----------------
+time stamp: 1651114560641596322
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:56:5.733978508
+header: ----------------
+time stamp: 1651114565733978508
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:56:17.250368191
+header: ----------------
+time stamp: 1651114577250368191
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:56:28.615029801
+header: ----------------
+time stamp: 1651114588615029801
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:56:40.994204432
+header: ----------------
+time stamp: 1651114600994204432
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:56:54.293551927
+header: ----------------
+time stamp: 1651114614293551927
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:57:1.894822653
+header: ----------------
+time stamp: 1651114621894822653
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:41:5.986550518
+header: ----------------
+time stamp: 1651113665986550518
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:41:8.749617131
+header: ----------------
+time stamp: 1651113668749617131
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:41:19.240266658
+header: ----------------
+time stamp: 1651113679240266658
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:42:1.465221226
+header: ----------------
+time stamp: 1651113721465221226
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:42:36.771645222
+header: ----------------
+time stamp: 1651113756771645222
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:43:14.717614062
+header: ----------------
+time stamp: 1651113794717614062
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:43:46.884413217
+header: ----------------
+time stamp: 1651113826884413217
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:44:8.552148365
+header: ----------------
+time stamp: 1651113848552148365
+------------------------
+Button Command: pause
+
+Date: 2022-April-27-18:44:9.327711125
+header: ----------------
+time stamp: 1651113849327711125
+------------------------
+Button Command: resume
+
+Date: 2022-April-27-18:53:29.770078619
+header: ----------------
+time stamp: 1651114409770078619
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:53:32.652477056
+header: ----------------
+time stamp: 1651114412652477056
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:53:52.31276579
+header: ----------------
+time stamp: 1651114432031276579
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:53:56.184010953
+header: ----------------
+time stamp: 1651114436184010953
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:54:4.482978814
+header: ----------------
+time stamp: 1651114444482978814
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:54:11.870795634
+header: ----------------
+time stamp: 1651114451870795634
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:54:20.27230319
+header: ----------------
+time stamp: 1651114460027230319
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:54:27.97231097
+header: ----------------
+time stamp: 1651114467097231097
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:54:35.236423907
+header: ----------------
+time stamp: 1651114475236423907
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:55:26.139269408
+header: ----------------
+time stamp: 1651114526139269408
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:55:48.78360285
+header: ----------------
+time stamp: 1651114548078360285
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:56:4.583429133
+header: ----------------
+time stamp: 1651114564583429133
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:56:14.67310640
+header: ----------------
+time stamp: 1651114574067310640
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:56:50.786331199
+header: ----------------
+time stamp: 1651114610786331199
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:57:39.534655555
+header: ----------------
+time stamp: 1651114659534655555
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:58:58.522662504
+header: ----------------
+time stamp: 1651114738522662504
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:40:36.471149748
+header: ----------------
+time stamp: 1651113636471149748
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:40:44.867406880
+header: ----------------
+time stamp: 1651113644867406880
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:41:4.133027706
+header: ----------------
+time stamp: 1651113664133027706
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:42:4.943223360
+header: ----------------
+time stamp: 1651113724943223360
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:42:47.124774021
+header: ----------------
+time stamp: 1651113767124774021
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:43:30.549557962
+header: ----------------
+time stamp: 1651113810549557962
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:44:10.18659406
+header: ----------------
+time stamp: 1651113850018659406
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:40:42.627675455
+header: ----------------
+time stamp: 1651117242627675455
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:40:45.763543162
+header: ----------------
+time stamp: 1651117245763543162
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:40:50.217711806
+header: ----------------
+time stamp: 1651117250217711806
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:41:39.352298402
+header: ----------------
+time stamp: 1651117299352298402
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:41:55.944710323
+header: ----------------
+time stamp: 1651117315944710323
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:42:33.675740986
+header: ----------------
+time stamp: 1651117353675740986
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:42:41.614782389
+header: ----------------
+time stamp: 1651117361614782389
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:42:50.672572125
+header: ----------------
+time stamp: 1651117370672572125
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:43:11.118201336
+header: ----------------
+time stamp: 1651117391118201336
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:43:18.609825448
+header: ----------------
+time stamp: 1651117398609825448
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:43:34.526317838
+header: ----------------
+time stamp: 1651117414526317838
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:43:49.151318926
+header: ----------------
+time stamp: 1651117429151318926
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:43:53.622470278
+header: ----------------
+time stamp: 1651117433622470278
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:44:31.901479430
+header: ----------------
+time stamp: 1651117471901479430
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:44:59.441212441
+header: ----------------
+time stamp: 1651117499441212441
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:45:10.867081967
+header: ----------------
+time stamp: 1651117510867081967
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:45:21.124979047
+header: ----------------
+time stamp: 1651117521124979047
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:45:33.467786334
+header: ----------------
+time stamp: 1651117533467786334
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:45:40.816668987
+header: ----------------
+time stamp: 1651117540816668987
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:45:50.416010807
+header: ----------------
+time stamp: 1651117550416010807
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:46:9.810152101
+header: ----------------
+time stamp: 1651117569810152101
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-19:46:16.909847671
+header: ----------------
+time stamp: 1651117576909847671
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:46:23.994053346
+header: ----------------
+time stamp: 1651117583994053346
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:46:31.504949749
+header: ----------------
+time stamp: 1651117591504949749
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:46:40.944810631
+header: ----------------
+time stamp: 1651117600944810631
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:46:48.990221930
+header: ----------------
+time stamp: 1651117608990221930
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:47:0.932210884
+header: ----------------
+time stamp: 1651117620932210884
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-19:47:8.667045256
+header: ----------------
+time stamp: 1651117628667045256
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-19:47:42.991791597
+header: ----------------
+time stamp: 1651117662991791597
+------------------------
+Button Command: kill
+
+Date: 2022-April-27-18:39:35.464830031
+header: ----------------
+time stamp: 1651113575464830031
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:39:38.43160395
+header: ----------------
+time stamp: 1651113578043160395
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:39:42.541675497
+header: ----------------
+time stamp: 1651113582541675497
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:40:37.317225685
+header: ----------------
+time stamp: 1651113637317225685
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:40:46.214168129
+header: ----------------
+time stamp: 1651113646214168129
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:40:56.434211302
+header: ----------------
+time stamp: 1651113656434211302
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:41:15.285000722
+header: ----------------
+time stamp: 1651113675285000722
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:41:21.828365668
+header: ----------------
+time stamp: 1651113681828365668
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:41:29.383663061
+header: ----------------
+time stamp: 1651113689383663061
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:41:35.681986704
+header: ----------------
+time stamp: 1651113695681986704
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:41:44.490637170
+header: ----------------
+time stamp: 1651113704490637170
+------------------------
+Button Command: start_proj
+
+Date: 2022-April-27-18:41:51.771132427
+header: ----------------
+time stamp: 1651113711771132427
+------------------------
+Button Command: stop_proj
+
+Date: 2022-April-27-18:46:32.476208101
+header: ----------------
+time stamp: 1651113992476208101
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:46:26.911683156
+header: ----------------
+time stamp: 1651113986911683156
+------------------------
+Button Command: motor_ok
+
+Date: 2022-April-27-18:46:32.451973883
+header: ----------------
+time stamp: 1651113992451973883
+------------------------
+Button Command: motor_ok

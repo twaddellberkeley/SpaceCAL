@@ -8,7 +8,7 @@ endif()
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -17,19 +17,25 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(interfaces REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rosbag2_cpp REQUIRED)
+find_package(interfaces REQUIRED)
 
-add_executable(topic_reader src/topic_reader.cpp)
+add_executable(topic_reader src/topic_reader.cpp src/date_converter.cpp)
 target_include_directories(topic_reader PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 ament_target_dependencies(
   topic_reader
-  "rclcpp"
-  "interfaces"
+  "geometry_msgs"
+  "sensor_msgs"
   "std_msgs"
+  "rclcpp"
+  "rosbag2_cpp"
+  "interfaces"
 )
 
 install(TARGETS topic_reader
