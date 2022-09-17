@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>bag_recorder</name>
+  <name>projector_exec</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="christianjc_09@yahoo.com">cjc</maintainer>
   <license>TODO: License declaration</license>
 
-  <depend>rclpy</depend>
-  <depend>rosbag2_py</depend>
+  <depend>rclcpp</depend>
   <depend>interfaces</depend>
   <depend>std_msgs</depend>
 

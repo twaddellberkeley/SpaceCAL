@@ -1,10 +1,10 @@
 from setuptools import setup
 
-package_name = 'JNode_MotorController'
+package_name = 'projector_exec'
 
 setup(
     name=package_name,
-    version='0.1.0',
+    version='0.0.0',
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -13,14 +13,14 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='spacecal',
-    maintainer_email='twaddell@berkeley.edu',
-    description='Runs motors with given address parameter',
-    license='MIT',
+    maintainer='cjc',
+    maintainer_email='christianjc_09@yahoo.com',
+    description='TODO: Package description',
+    license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'motorRun = JNode_MotorController.motorController:main'
+            'proj_node = projector_exec.proj_node:main'
         ],
     },
 )

@@ -1,4 +1,6 @@
 
+from threading import Thread
+import threading
 
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video
 
@@ -24,12 +26,12 @@ class MainLogicNode(Node):
 
         ################## Services ####################
         #***** Servers ******#
-        self.srv = self.create_service(GuiInput, 'gui_input_srv', self.main_logic_callback)
+        self.gui_srv = self.create_service(GuiInput, 'gui_input_srv', self.main_logic_callback)
 
         #***** Clients *******#
-        self.proj_cli = self.create_client()
-        self.motor_cli = self.create_client()
-        self.video_cli = self.create_client()
+        self.proj_cli = self.create_client(Projector, 'projector_srv')
+        self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
+        self.video_cli = self.create_client(Video, 'video_srv')
 
 
     def main_logic_callback(self, request, response):
@@ -59,24 +61,67 @@ class MainLogicNode(Node):
         
         cmd_list = cmd.split("-")
         for c in cmd_list:
-            if c == "gui":
+            if c == "main":
                 self.get_logger().info('I come from gui\n')
-            elif c == "main":
+                cmds.append((c, "cmd"))
+            elif c == "projector":
                 self.get_logger().info('I come from main\n')
+                cmds.append((c,"cmd"))
             else:
                 self.get_logger().info('This is my command: %s\n' % c)
-        return cmd_list
+        return cmds
         
     def dispatcher(self, lst):
         # It reads from a list of commands and dispatches them in their own thread
         self.get_logger().info('Dispatching commands...\n')
+        self.proj_controller(lst[0][1])
+
+        self.get_logger().info('Dispatched command!!!\n')
+        # t = []
+        # i = 0
+        # for c in lst:
+        #     if c[0] == "main":
+        #         th = Thread(targets=self.controller, agrs=(c[1],))
+        #         t.append(th)
+        #         i+=1
+        #     elif c[0] == "projector":
+        #         self.get_logger().info('Creating projector Tread...\n')
+        #         th = Thread(target=self.proj_controller, args=(c[1],))
+        #         t.append(th)
+        #         i+=1
+
+        # for i in range(len(t)):
+        #     t[i].start()
+
+        # for i in range(len(t)):
+        #     t[i].join()
+
+        self.get_logger().info('Finished request...\n')
+        return 0
 
 
+    def controller(self, request):
+        while not self.gui_clit.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('service not available, waiting again...')
 
+        self.future = self.gui_client.call_async(request)
+        rclpy.spin_until_future_complete(self, self.future)
+        return self.future.result()
+
+    def proj_controller(self, request):
+        while not self.proj_cli.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('service not available, waiting again...')
+
+        #self.get_logger().info('In thread proj_controller with thread_id: %d\n' % threading.get_native_id())
+        req = Projector.Request()
+        req.cmd = request
+        self.future = self.proj_cli.call_async(req)
+        rclpy.spin_until_future_complete(self, self.future)
+        return self.future.result()
 
 def main(args=None):
     rclpy.init(args=args)
-
+    #print('In Main thread with thread_id: %d\n' % threading.get_native_id())
     minimal_service = MainLogicNode()
 
     rclpy.spin(minimal_service)
