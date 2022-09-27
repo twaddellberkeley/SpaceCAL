@@ -60,21 +60,28 @@ class MainLogicNode(Node):
     def cmd_decoder(self, cmd):
         # this function should do all the dirty work of converting a string command into 
         # an array of commnads for the valid controller/controllers.
-        cmds = []
+        
+        
+        # Projector and Level Commands
+        cmds = {"proj_cmds":[], "level_cmd":[]}
+        
         self.get_logger().info('Decoding command:  %s\n' % cmd)
         
-        cmd_list = cmd.split("-")
-        count = 0
-        for c in cmd_list:
-            if c == "main":
-                self.get_logger().info('I come from gui\n')
-                cmds.append(c + "-cmd")
-            elif c == "projector":
-                count+=1
-                self.get_logger().info('I come from main\n')
-                cmds.append(c + "-cmd-" + str(count))
-            else:
-                self.get_logger().info('This is my command: %s\n' % c)
+        # Projector and Level Commands
+        cmds = {"proj_cmds":[], "level_cmd":[]}
+        
+        
+        cmd_list = raw_cmd.split("-")
+
+        for cmd in cmd_list:
+            match cmd:
+                case commands["projector-on"]:
+                    # define command to turn projector on
+                    cmds["proj_cmds"].append("led_on")
+                case _:
+                    print("Nothing here")
+               
+
         return cmds
         
     def dispatcher(self, cmds):
