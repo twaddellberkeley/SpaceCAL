@@ -6,15 +6,18 @@ import rclpy
 from rclpy.node import Node
 
 class ProjectorNode(Node):
+    
 
     def __init__(self):
         super().__init__('projector_node')
         self.proj_srv = self.create_service(Projector, 'projector_srv', self.projector_exec_callback)
+        self.rqst = 0
 
     def projector_exec_callback(self, request, response):
         self.get_logger().info('Incoming request\ncmd: %s ' % (request.cmd))
-        time.sleep(2)
-        response.err = 0
+        time.sleep(10)
+        self.rqst += 1
+        response.err = self.rqst
         return response
 
 

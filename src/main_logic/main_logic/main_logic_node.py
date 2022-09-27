@@ -1,6 +1,8 @@
 
 from threading import Thread
 import threading
+from xml.etree.ElementTree import tostring
+from functools import partial
 
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video
 
@@ -29,7 +31,7 @@ class MainLogicNode(Node):
         self.gui_srv = self.create_service(GuiInput, 'gui_input_srv', self.main_logic_callback)
 
         #***** Clients *******#
-        self.proj_cli = self.create_client(Projector, 'projector_srv')
+        # self.proj_cli = self.create_client(Projector, 'projector_srv')
         self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
         self.video_cli = self.create_client(Video, 'video_srv')
 
@@ -37,10 +39,12 @@ class MainLogicNode(Node):
     def main_logic_callback(self, request, response):
         self.get_logger().info('Incoming request\ncmd: %s ' % (request.cmd))
 
+        # Record metadata and save
+
         # parse and decode the command
         cmd_list = self.cmd_decoder(request.cmd)
 
-        # send the commads to the dispacher
+        # dispach the commands
         res = self.dispatcher(cmd_list)
         # dispatch the proper controller to its own thread
         # there are two controllers --> plataform controller
@@ -50,7 +54,7 @@ class MainLogicNode(Node):
         #                                           --> video controller
         # dispatch sub controllers on different threads
         
-        response.err = 0
+        response.err = res
         return response
 
     def cmd_decoder(self, cmd):
@@ -60,43 +64,29 @@ class MainLogicNode(Node):
         self.get_logger().info('Decoding command:  %s\n' % cmd)
         
         cmd_list = cmd.split("-")
+        count = 0
         for c in cmd_list:
             if c == "main":
                 self.get_logger().info('I come from gui\n')
-                cmds.append((c, "cmd"))
+                cmds.append(c + "-cmd")
             elif c == "projector":
+                count+=1
                 self.get_logger().info('I come from main\n')
-                cmds.append((c,"cmd"))
+                cmds.append(c + "-cmd-" + str(count))
             else:
                 self.get_logger().info('This is my command: %s\n' % c)
         return cmds
         
-    def dispatcher(self, lst):
+    def dispatcher(self, cmds):
         # It reads from a list of commands and dispatches them in their own thread
         self.get_logger().info('Dispatching commands...\n')
-        self.proj_controller(lst[0][1])
 
-        self.get_logger().info('Dispatched command!!!\n')
-        # t = []
-        # i = 0
-        # for c in lst:
-        #     if c[0] == "main":
-        #         th = Thread(targets=self.controller, agrs=(c[1],))
-        #         t.append(th)
-        #         i+=1
-        #     elif c[0] == "projector":
-        #         self.get_logger().info('Creating projector Tread...\n')
-        #         th = Thread(target=self.proj_controller, args=(c[1],))
-        #         t.append(th)
-        #         i+=1
+        for cmd in cmds:
+            if "projector" in cmd:
+                self.proj_controller(cmd)
+        # self.get_logger().info('Request response: %d\n' % res)
 
-        # for i in range(len(t)):
-        #     t[i].start()
-
-        # for i in range(len(t)):
-        #     t[i].join()
-
-        self.get_logger().info('Finished request...\n')
+        self.get_logger().info('Finished dispatching...\n')
         return 0
 
 
@@ -108,16 +98,28 @@ class MainLogicNode(Node):
         rclpy.spin_until_future_complete(self, self.future)
         return self.future.result()
 
-    def proj_controller(self, request):
+    def proj_controller(self, cmd):
+         #***** Clients *******#
+        self.proj_cli = self.create_client(Projector, 'projector_srv')
         while not self.proj_cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('service not available, waiting again...')
 
         #self.get_logger().info('In thread proj_controller with thread_id: %d\n' % threading.get_native_id())
-        req = Projector.Request()
-        req.cmd = request
-        self.future = self.proj_cli.call_async(req)
-        rclpy.spin_until_future_complete(self, self.future)
-        return self.future.result()
+        request = Projector.Request()
+        request.cmd = cmd
+        self.future = self.proj_cli.call_async(request)
+        self.future.add_done_callback(partial(self.proj_callback))
+
+        self.get_logger().info('Waiting on async...')
+        # rclpy.spin_until_future_complete(self, self.future)
+        
+    
+    def proj_callback(self, future):
+        try:
+            response = future.result()
+        except Exception as e:
+            self.get_logger().error('ERROR: --- %r' %(e,))
+        self.get_logger().info('finished async call....')
 
 def main(args=None):
     rclpy.init(args=args)
