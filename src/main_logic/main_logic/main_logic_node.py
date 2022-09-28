@@ -9,6 +9,8 @@ from interfaces.srv import GuiDisplay, GuiInput, Projector, Video
 import rclpy
 from rclpy.node import Node
 
+commands = {"projector-on", "projector-off", "rotate-vile-30"}
+
 class PrintController():
     # This class will controll the logic for the printer which involves three sub
     # controllers. (1) Motor controller which controls a single motor. (2) Projector controller
@@ -57,38 +59,35 @@ class MainLogicNode(Node):
         response.err = res
         return response
 
-    def cmd_decoder(self, cmd):
-        # this function should do all the dirty work of converting a string command into 
-        # an array of commnads for the valid controller/controllers.
-        
-        
-        # Projector and Level Commands
-        cmds = {"proj_cmds":[], "level_cmd":[]}
-        
+    def cmd_decoder(self, raw_cmd):
         self.get_logger().info('Decoding command:  %s\n' % cmd)
-        
         # Projector and Level Commands
-        cmds = {"proj_cmds":[], "level_cmd":[]}
-        
-        
-        cmd_list = raw_cmd.split("-")
-
+        cmds = {"print_cmds":[], "level_cmd":[]}
+        # Split comnands
+        cmd_list = raw_cmd.split("_")
         for cmd in cmd_list:
-            match cmd:
-                case commands["projector-on"]:
-                    # define command to turn projector on
-                    cmds["proj_cmds"].append("led_on")
-                case _:
-                    print("Nothing here")
-               
-
+            if cmd is commands["projector-on"]:
+                # define command to turn projector on
+                cmds["print_cmds"].append("led-on")
+            elif cmd is commands["projector-off"]:
+                # append command to turn projector off
+                cmds["print_cmds"].append("led-off")
+            elif cmd is commands["start-print"]:
+                pass
+            elif cmd is commands["stop-print"]:
+                pass
+            elif cmd is commands[""]:
+                pass
+            elif cmd is commands[""]:
+                pass
+            
         return cmds
         
     def dispatcher(self, cmds):
         # It reads from a list of commands and dispatches them in their own thread
         self.get_logger().info('Dispatching commands...\n')
 
-        for cmd in cmds:
+        for cmd in cmds["print_cmds"]:
             if "projector" in cmd:
                 self.proj_controller(cmd)
         # self.get_logger().info('Request response: %d\n' % res)
