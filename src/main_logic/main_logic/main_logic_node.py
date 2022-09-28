@@ -9,18 +9,27 @@ from interfaces.srv import GuiDisplay, GuiInput, Projector, Video
 import rclpy
 from rclpy.node import Node
 
-commands = {"projector-on", "projector-off", "rotate-vile-30"}
+commands = {"proj-on-all", "proj-off-all", "rotate-vile-30"}
 
 class PrintController():
     # This class will controll the logic for the printer which involves three sub
     # controllers. (1) Motor controller which controls a single motor. (2) Projector controller
     # which controls the the state of the LED projector (no/off). (3) Video Controller which 
     # controls the video being projected. 
-    pass
+    def __init__(self):
+        super().__init__()
+    
+    def cmd_decoder(self, cmds):
+        self.get_logger().info('Decoding Printer Command:  \n' )
 
 class LevelController():
     # This class controls the level of the paylod's plataform. 
-    pass
+    def __init__(self):
+        super()._init__()
+
+    def cmd_decoder(self):
+        self.get_logger().info('Decoding Printer Command:  \n' )
+        
 
 
 class MainLogicNode(Node):
@@ -36,6 +45,10 @@ class MainLogicNode(Node):
         # self.proj_cli = self.create_client(Projector, 'projector_srv')
         self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
         self.video_cli = self.create_client(Video, 'video_srv')
+
+        #***** Initialize Controllers *****#
+        self.printer_controller = PrintController()
+        self.level_controller = LevelController()
 
 
     def main_logic_callback(self, request, response):
@@ -60,16 +73,16 @@ class MainLogicNode(Node):
         return response
 
     def cmd_decoder(self, raw_cmd):
-        self.get_logger().info('Decoding command:  %s\n' % cmd)
+        self.get_logger().info('Decoding Mani Command:  %s\n' % cmd)
         # Projector and Level Commands
         cmds = {"print_cmds":[], "level_cmd":[]}
         # Split comnands
         cmd_list = raw_cmd.split("_")
         for cmd in cmd_list:
-            if cmd is commands["projector-on"]:
+            if cmd is commands["proj-on-all"]:
                 # define command to turn projector on
-                cmds["print_cmds"].append("led-on")
-            elif cmd is commands["projector-off"]:
+                cmds["print_cmds"].append("proj-on-all")
+            elif cmd is commands["proj-off-all"]:
                 # append command to turn projector off
                 cmds["print_cmds"].append("led-off")
             elif cmd is commands["start-print"]:
@@ -85,14 +98,16 @@ class MainLogicNode(Node):
         
     def dispatcher(self, cmds):
         # It reads from a list of commands and dispatches them in their own thread
-        self.get_logger().info('Dispatching commands...\n')
+        self.get_logger().info('Dispatching commands from main...\n')
 
-        for cmd in cmds["print_cmds"]:
-            if "projector" in cmd:
-                self.proj_controller(cmd)
+        
+        self.printer_controller.cmd_decoder(cmds["print_cmds"])
+        # for cmd in cmds["print_cmds"]:
+        #     if "proj" in cmd:
+        #         self.proj_controller(cmd)
         # self.get_logger().info('Request response: %d\n' % res)
 
-        self.get_logger().info('Finished dispatching...\n')
+        self.get_logger().info('Finished dispatching from main...\n')
         return 0
 
 
