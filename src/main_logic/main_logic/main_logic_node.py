@@ -5,7 +5,7 @@ from xml.etree.ElementTree import tostring
 from functools import partial
 
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video
-from macpath import split
+
 
 import rclpy
 from rclpy.node import Node
@@ -154,14 +154,17 @@ class MainLogicNode(Node):
     def proj_future_callback(self, future):
         try:
             response = future.result()
+            self.get_logger().info('status %s' % (response.status))
             if response.err == 0:
                 if response.status == "1":
                     self._printer_1._isLedOn = response.is_led_on
                     self._printer_1._isVideoOn = response.is_video_on
+                    self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' %(e,))
         self.get_logger().info('finished async call....')
+        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer_1._isLedOn else "False"))
     
 
 def main(args=None):
