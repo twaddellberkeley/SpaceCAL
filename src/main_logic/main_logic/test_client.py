@@ -23,17 +23,34 @@ class TestClient(Node):
         return self.future.result()
 
 
+def test_gui_commands():
+    test_client = TestClient()
+    # test projector commands
+    response = test_client.send_request("proj-on-1")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("proj-on-1", response.msg))
+    
+    # test pi commands
+
+    # test motor commands
+
+    # test level commands
+
+    # test custom commands
+    test_client.destroy_node()
 
 def main(args=None):
     rclpy.init(args=args)
-
-    test_client = TestClient()
-    response = test_client.send_request(sys.argv[1])
-    test_client.get_logger().info(
-        'Result of gui input: %s with error = %d ' %
-        (sys.argv[1], response.err))
-
-    test_client.destroy_node()
+    if len(sys.argv) < 2:
+        test_gui_commands()
+    else:
+        test_client = TestClient()
+        response = test_client.send_request(sys.argv[1])
+        test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            (sys.argv[1], response.msg))
+        test_client.destroy_node()
     rclpy.shutdown()
 
 

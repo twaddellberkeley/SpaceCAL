@@ -15,9 +15,10 @@ class ProjectorNode(Node):
 
     def projector_exec_callback(self, request, response):
         self.get_logger().info('Incoming request\ncmd: %s ' % (request.cmd))
-        time.sleep(10)
+        time.sleep(5)
         self.rqst += 1
         response.err = self.rqst
+        self.get_logger().info('Finished request from Projector\ncmd: %s ' % (request.cmd))
         return response
 
 
