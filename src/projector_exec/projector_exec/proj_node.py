@@ -18,6 +18,9 @@ class ProjectorNode(Node):
         time.sleep(5)
         self.rqst += 1
         response.err = self.rqst
+        response.status = "1"
+        response.is_video_on = True
+        response.is_led_on = True
         self.get_logger().info('Finished request from Projector\ncmd: %s ' % (request.cmd))
         return response
 

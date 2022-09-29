@@ -5,6 +5,7 @@ from xml.etree.ElementTree import tostring
 from functools import partial
 
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video
+from macpath import split
 
 import rclpy
 from rclpy.node import Node
@@ -27,87 +28,7 @@ class Printer():
         self._isLedOn = False
         self._isVideoOn = False
         self._motor = Motor(id)
-
-class PrintController(Node):
-    # This class will controll the logic for the printer which involves three sub
-    # controllers. (1) Motor controller which controls a single motor. (2) Projector controller
-    # which controls the the state of the LED projector (no/off). (3) Video Controller which 
-    # controls the video being projected. 
-    def __init__(self):
-        super().__init__("PrinterControllerNode")
-        self._printer_1 = Printer(1)
-        self._printer_1 = Printer(2)
-        self._printer_1 = Printer(3)
-        self._printer_1 = Printer(4)
-        self._printer_1 = Printer(5)
-    
-    def send_cmd(self, cmd):
-        assert(len(cmd) > 0)
-        cmds = self.cmd_decoder(cmd)
-        self.dispatch(cmds)
-
-    def cmd_decoder(self, cmds):
-        self.get_logger().info('Decoding Printer Command:  \n' )
-        assert(len(cmds) > 0)
-        print_cmds = {"proj_cmds":[], "pi_cmds":[], "motor_cmds":[]}
-        for cmd in cmds:
-            if "proj" in cmd:
-                self.get_logger().info('Appending command in Printer...:  \n' )
-                print_cmds["proj_cmds"].append(cmd)
-            elif "pi" in cmd:
-                print_cmds["pi_cmds"].append(cmd)
-            elif "motor" in cmd:
-                print_cmds["motor_cmds"].append(cmd)
-            else:
-                self.get_logger().error('Error: ---- invalid command in Printer Controller\n')
-        return print_cmds
-    
-    def dispatch(self, print_cmds):
-        self.get_logger().info('Dispatching Printer Command:  \n' )
-
-        if len(print_cmds["motor_cmds"]) > 0:
-            # lets process this first 
-            pass
-        
-        if len(print_cmds["proj_cmds"]) > 0:
-            # lets process this second
-            for p_cmd in print_cmds["proj_cmds"]:
-                cmd = p_cmd.split("-")
-                if cmd[1] == "on":
-                    # Turn on projector
-                    self.proj_controller(p_cmd)
-                elif cmd[1] == "off":
-                    # Turn off projector (veryfy led is off first)
-                    pass
-                elif cmd[1] == "led":
-                    # is an led commad
-                    if cmd[2] == "on":
-                        # Turn led on (make sure projedtor is on)
-                        pass
-                    elif cmd[2] == "off":
-                        # Turn led off
-                        pass
-            
-        if len(print_cmds["pi_cmds"]) > 0:
-            # process this commands last
-            pass
-
    
-
-
-class LevelController():
-    # This class controls the level of the paylod's plataform. 
-    def __init__(self):
-        super().__init__()
-
-
-    def send_cmd(self, cmd):
-            pass
-
-    
-    def cmd_decoder(self):
-        self.get_logger().info('Decoding Printer Command:  \n' )
-        
 
 
 class MainLogicNode(Node):
@@ -123,10 +44,6 @@ class MainLogicNode(Node):
         # self.proj_cli = self.create_client(Projector, 'projector_srv')
         self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
         self.video_cli = self.create_client(Video, 'video_srv')
-
-        #***** Initialize Controllers *****#
-        self.printer_controller = PrintController()
-        self.level_controller = LevelController()
 
         #***** Initialize printer objects ******#
         self._printer_1 = Printer(1)
@@ -208,12 +125,17 @@ class MainLogicNode(Node):
         pass
 
     def proj_controller_logic(self, proj_cmd):
+        assert(proj_cmd != None)
+        split_cmd = proj_cmd.split("-")
+        if split_cmd[0] == "on":
+            # Turn projector on
+            self.proj_client_req(proj_cmd)
         pass
 
     def pi_controller_logic(self, pi_cmd):
         pass
 
-    def proj_controller(self, cmd):
+    def proj_client_req(self, cmd):
          #***** Clients *******#
         self.proj_cli = self.create_client(Projector, 'projector_srv')
         while not self.proj_cli.wait_for_service(timeout_sec=1.0):
@@ -223,15 +145,20 @@ class MainLogicNode(Node):
         request = Projector.Request()
         request.cmd = cmd
         self.future = self.proj_cli.call_async(request)
-        self.future.add_done_callback(partial(self.proj_callback))
+        self.future.add_done_callback(partial(self.proj_future_callback))
 
         self.get_logger().info('Waiting on async...')
         # rclpy.spin_until_future_complete(self, self.future)
         
     
-    def proj_callback(self, future):
+    def proj_future_callback(self, future):
         try:
             response = future.result()
+            if response.err == 0:
+                if response.status == "1":
+                    self._printer_1._isLedOn = response.is_led_on
+                    self._printer_1._isVideoOn = response.is_video_on
+
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' %(e,))
         self.get_logger().info('finished async call....')
