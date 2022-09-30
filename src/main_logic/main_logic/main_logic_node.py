@@ -46,11 +46,8 @@ class MainLogicNode(Node):
         self.video_cli = self.create_client(Video, 'video_srv')
 
         #***** Initialize printer objects ******#
-        self._printer_1 = Printer(1)
-        self._printer_2 = Printer(2)
-        self._printer_3 = Printer(3)
-        self._printer_4 = Printer(4)
-        self._printer_5 = Printer(5)
+        self._printer = [Printer(0), Printer(1), Printer(2), Printer(3), Printer(4)]
+
 
 
     def gui_input_callback(self, request, response):
@@ -130,25 +127,48 @@ class MainLogicNode(Node):
         if split_cmd[0] == "on":
             # Turn projector on
             self.proj_client_req(proj_cmd)
-        pass
+        elif split_cmd[0] == "off":
+            # Trun projector off
+            if self.is_proj_led_on(split_cmd[1]):
+                # If the led is off turn it off first
+                self.proj_client_req("led-off-" + split_cmd[1])
+            self.proj_client_req(proj_cmd)
+        elif split_cmd[0] == "led":
+            if split_cmd[1] == "off":
+                # Turn led off
+                self.proj_client_req(proj_cmd)
+            elif split_cmd[1] == "on":
+                # Turn led on
+                if not self.is_proj_on(split_cmd[2]):
+                    # Verify projector is on else turn it on first
+                    self.proj_client_req("on-" + split_cmd[2])
+                self.proj_client_req(proj_cmd)
+            else:
+                self.get_logger().error('Command not recognized in project logic: ')
+        else:
+            self.get_logger().error('Command not recognized in project logic: ')
 
     def pi_controller_logic(self, pi_cmd):
         pass
 
     def proj_client_req(self, cmd):
-         #***** Clients *******#
-        self.proj_cli = self.create_client(Projector, 'projector_srv')
-        while not self.proj_cli.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('service not available, waiting again...')
 
-        #self.get_logger().info('In thread proj_controller with thread_id: %d\n' % threading.get_native_id())
-        request = Projector.Request()
-        request.cmd = cmd
-        self.future = self.proj_cli.call_async(request)
-        self.future.add_done_callback(partial(self.proj_future_callback))
+        if cmd.split("-")[-1] == "all":
+            self.proj_cli = [None] * 5
+            for i in range(5):
+                #***** Clients *******#
+                self.proj_cli[i] = self.create_client(Projector, 'projector_srv_'+str(i))
+                while not self.proj_cli[i].wait_for_service(timeout_sec=1.0):
+                    self.get_logger().info('service not available, waiting again...')
 
-        self.get_logger().info('Waiting on async...')
-        # rclpy.spin_until_future_complete(self, self.future)
+                #self.get_logger().info('In thread proj_controller with thread_id: %d\n' % threading.get_native_id())
+                request = Projector.Request()
+                request.cmd = cmd[0:len(cmd)-len("all")] + str(i)
+                self.future = self.proj_cli[i].call_async(request)
+                self.future.add_done_callback(partial(self.proj_future_callback))
+
+                self.get_logger().info('Waiting on async...')
+                # rclpy.spin_until_future_complete(self, self.future)
         
     
     def proj_future_callback(self, future):
@@ -157,15 +177,27 @@ class MainLogicNode(Node):
             self.get_logger().info('status %s' % (response.status))
             if response.err == 0:
                 if response.status == "1":
-                    self._printer_1._isLedOn = response.is_led_on
-                    self._printer_1._isVideoOn = response.is_video_on
+                    self._printer[0]._isLedOn = response.is_led_on
+                    self._printer[0]._isVideoOn = response.is_video_on
                     self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' %(e,))
         self.get_logger().info('finished async call....')
-        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer_1._isLedOn else "False"))
+        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer[0]._isLedOn else "False"))
     
+    #********* Utility functions ***********#
+    def is_proj_on(self, proj_num):
+        assert type(proj_num) == type("")
+        if proj_num == "all":
+            for p in range(5):
+                if not self._printer[p]._isLedOn:
+                    return False
+            return True
+        else:
+            return self._printer[int(proj_num)]._isLedOn
+
+
 
 def main(args=None):
     rclpy.init(args=args)

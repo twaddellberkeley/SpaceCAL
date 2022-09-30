@@ -26,7 +26,7 @@ class TestClient(Node):
 def test_gui_commands():
     test_client = TestClient()
     # test projector commands
-    response = test_client.send_request("proj-on-1")
+    response = test_client.send_request("proj-on-all")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
             ("proj-on-1", response.msg))
