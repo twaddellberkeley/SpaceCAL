@@ -1,11 +1,12 @@
 from setuptools import setup
 
 package_name = 'pi_video_controller'
+submodules = 'pi_video_controller/submodules'
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=[package_name],
+    packages=[package_name, submodules],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),

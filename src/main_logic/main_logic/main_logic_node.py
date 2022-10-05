@@ -25,6 +25,7 @@ class Printer():
         super().__init__()
         self._id = id
         self._status = "off"
+        self._isProjOn = False
         self._isLedOn = False
         self._isVideoOn = False
         self._motor = Motor(id)
@@ -122,6 +123,8 @@ class MainLogicNode(Node):
         pass
 
     def proj_controller_logic(self, proj_cmd):
+        """This Function takes a command PROJ_CMD and implements the logic necessary 
+            to complete the comand """
         assert(proj_cmd != None)
         split_cmd = proj_cmd.split("-")
         if split_cmd[0] == "on":
@@ -149,7 +152,27 @@ class MainLogicNode(Node):
             self.get_logger().error('Command not recognized in project logic: ')
 
     def pi_controller_logic(self, pi_cmd):
-        pass
+        # - **pi-get-videos-<#>**: gets all the videos available in the pi #
+        # - **pi-get-queue-<#>**: get the video queue for pi #
+        # - **pi-play-<videoName>-<#>**: play **videoName** from pi #
+        # - **pi-stop-video-<#>**: stop playing video from pi #
+        # - **pi-play-queue-<#>**: play video queue from pi #
+        # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
+        # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
+        assert(pi_cmd != None)
+        split_cmd = pi_cmd.split("-")
+        if split_cmd[0] == "get":
+            pass
+            # self.pi_client_req()
+        elif split_cmd[0] == "play":
+            pass
+        elif split_cmd[0] == "stop":
+            pass
+        elif split_cmd[0] == "pause":
+            pass
+
+
+
 
     def proj_client_req(self, cmd):
         '''This Function send the commands to the projectors mantioned in the command itself'''
@@ -207,12 +230,21 @@ class MainLogicNode(Node):
         assert type(proj_num) == type("")
         if proj_num == "all":
             for p in range(5):
+                if not self._printer[p]._isProjOn:
+                    return False
+            return True
+        else:
+            return self._printer[int(proj_num)]._isProjOn
+
+    def is_proj_led_on(self, proj_num):
+        assert type(proj_num) == type("")
+        if proj_num == "all":
+            for p in range(5):
                 if not self._printer[p]._isLedOn:
                     return False
             return True
         else:
             return self._printer[int(proj_num)]._isLedOn
-
 
 
 def main(args=None):

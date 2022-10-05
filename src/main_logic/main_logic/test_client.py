@@ -22,9 +22,9 @@ class TestClient(Node):
         rclpy.spin_until_future_complete(self, self.future)
         return self.future.result()
 
-
-def test_gui_commands():
+def test_proj_commads():
     test_client = TestClient()
+    test_client.get_logger().info("*********** Starting Projector Test Commands **************")
     # test projector commands
     responseAll = test_client.send_request("proj-on-all")
     test_client.get_logger().info(
@@ -56,7 +56,55 @@ def test_gui_commands():
             'Result of gui input: %s with msg = %s ' %
             ("proj-on-4", response4.msg))
 
+def test_pi_commads():
+    # - **pi-get-videos-<#>**: gets all the videos available in the pi #
+    # - **pi-get-queue-<#>**: get the video queue for pi #
+    # - **pi-play-<videoName>-<#>**: play **videoName** from pi #
+    # - **pi-stop-video-<#>**: stop playing video from pi #
+    # - **pi-play-queue-<#>**: play video queue from pi #
+    # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
+    # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
+    test_client = TestClient()
+    test_client.get_logger().info("*********** Starting Projector Test Commands **************")
+    # test piector commands
+    responseAll = test_client.send_request("pi-get-videos-all")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("pi-get-videos-all", responseAll.msg))
+    
+    response0 = test_client.send_request("pi-get-videos-0")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("pi-get-videos-0", response0.msg))
+
+    response1 = test_client.send_request("pi-get-videos-1")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("pi-get-videos-1", response1.msg))
+
+    response2 = test_client.send_request("pi-get-videos-2")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("pi-get-videos-2", response2.msg))
+    
+    response3 = test_client.send_request("pi-get-videos-3")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("pi-get-videos-3", response3.msg))
+    
+    response4 = test_client.send_request("pi-get-videos-4")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("pi-get-videos-4", response4.msg))
+
+def test_gui_commands():
+    # test projector commands
+    test_proj_commads()
+
     # test pi commands
+    test_pi_commads()
+
+    
 
     # test motor commands
 
