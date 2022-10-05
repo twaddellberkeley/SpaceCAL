@@ -195,7 +195,7 @@ class MainLogicNode(Node):
                 self._printer[0]._isLedOn = response.is_led_on
                 self._printer[0]._isVideoOn = response.is_video_on
                 self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
-                
+
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' %(e,))
@@ -218,9 +218,9 @@ class MainLogicNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     #print('In Main thread with thread_id: %d\n' % threading.get_native_id())
-    minimal_service = MainLogicNode()
+    service = MainLogicNode()
 
-    rclpy.spin(minimal_service)
+    rclpy.spin(service)
 
     rclpy.shutdown()
 

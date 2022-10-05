@@ -30,9 +30,9 @@ def main(args=None):
     print('Hi from projector_exec 0.')
     rclpy.init(args=args)
 
-    minimal_service = ProjectorNode()
+    service = ProjectorNode()
 
-    rclpy.spin(minimal_service)
+    rclpy.spin(service)
 
     rclpy.shutdown()
 
