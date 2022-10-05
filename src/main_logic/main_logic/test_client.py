@@ -26,11 +26,36 @@ class TestClient(Node):
 def test_gui_commands():
     test_client = TestClient()
     # test projector commands
-    response = test_client.send_request("proj-on-all")
+    responseAll = test_client.send_request("proj-on-all")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
-            ("proj-on-1", response.msg))
+            ("proj-on-all", responseAll.msg))
     
+    response0 = test_client.send_request("proj-on-0")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("proj-on-0", response0.msg))
+
+    response1 = test_client.send_request("proj-on-1")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("proj-on-1", response1.msg))
+
+    response2 = test_client.send_request("proj-on-2")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("proj-on-2", response2.msg))
+    
+    response3 = test_client.send_request("proj-on-3")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("proj-on-3", response3.msg))
+    
+    response4 = test_client.send_request("proj-on-4")
+    test_client.get_logger().info(
+            'Result of gui input: %s with msg = %s ' %
+            ("proj-on-4", response4.msg))
+
     # test pi commands
 
     # test motor commands

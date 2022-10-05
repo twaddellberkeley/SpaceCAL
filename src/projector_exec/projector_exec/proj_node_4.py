@@ -9,7 +9,7 @@ class ProjectorNode(Node):
     
 
     def __init__(self):
-        super().__init__('projector_node')
+        super().__init__('projector_node_4')
         self.proj_srv = self.create_service(Projector, 'projector_srv_4', self.projector_exec_callback)
        
 
@@ -18,6 +18,7 @@ class ProjectorNode(Node):
         self.get_logger().info('Incoming request\ncmd: %s ' % (request.cmd))
         time.sleep(5)
         response.err = 0
+        response.msg = "Projector 4 executed succesfully"
         response.status = request.cmd.split("-")[-1]
         response.is_video_on = True
         response.is_led_on = True
@@ -26,7 +27,7 @@ class ProjectorNode(Node):
 
 
 def main(args=None):
-    print('Hi from projector_exec.')
+    print('Hi from projector_exec 4.')
     rclpy.init(args=args)
 
     minimal_service = ProjectorNode()
