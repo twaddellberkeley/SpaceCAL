@@ -4,7 +4,7 @@ import threading
 from xml.etree.ElementTree import tostring
 from functools import partial
 
-from interfaces.srv import GuiDisplay, GuiInput, Projector, Video
+from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 
 
 import rclpy
@@ -125,27 +125,28 @@ class MainLogicNode(Node):
     def proj_controller_logic(self, proj_cmd):
         """This Function takes a command PROJ_CMD and implements the logic necessary 
             to complete the comand """
+        client = "proj"
         assert(proj_cmd != None)
         split_cmd = proj_cmd.split("-")
         if split_cmd[0] == "on":
             # Turn projector on
-            self.proj_client_req(proj_cmd)
+            self.client_req(proj_cmd, client)
         elif split_cmd[0] == "off":
             # Trun projector off
             if self.is_proj_led_on(split_cmd[1]):
                 # If the led is off turn it off first
-                self.proj_client_req("led-off-" + split_cmd[1])
-            self.proj_client_req(proj_cmd)
+                self.client_req("led-off-" + split_cmd[1], client)
+            self.client_req(proj_cmd, client)
         elif split_cmd[0] == "led":
             if split_cmd[1] == "off":
                 # Turn led off
-                self.proj_client_req(proj_cmd)
+                self.client_req(proj_cmd, client)
             elif split_cmd[1] == "on":
                 # Turn led on
                 if not self.is_proj_on(split_cmd[2]):
                     # Verify projector is on else turn it on first
-                    self.proj_client_req("on-" + split_cmd[2])
-                self.proj_client_req(proj_cmd)
+                    self.client_req("on-" + split_cmd[2], client)
+                self.client_req(proj_cmd, client)
             else:
                 self.get_logger().error('Command not recognized in project logic: ')
         else:
@@ -160,18 +161,17 @@ class MainLogicNode(Node):
         # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
         # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
         assert(pi_cmd != None)
+        client = "pi"
         split_cmd = pi_cmd.split("-")
-        if split_cmd[0] == "get":
-            pass
-            # self.pi_client_req()
+        if split_cmd[0] == "get":           # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the 
+                                            #       to the projector structure, since this wont change during printing. 
+            self.client_req(pi_cmd, client)
         elif split_cmd[0] == "play":
-            pass
+            self.client_req(pi_cmd, client)
         elif split_cmd[0] == "stop":
-            pass
-        elif split_cmd[0] == "pause":
-            pass
-
-
+            self.clietn_req(pi_cmd, client)
+        elif split_cmd[0] == "pause":  # TODO: we need to really define what pausing a video really means 
+            self.clietn_req(pi_cmd, client)
 
 
     def proj_client_req(self, cmd):
@@ -209,6 +209,59 @@ class MainLogicNode(Node):
         else:
             self.get_logger().error('No command: %s\n' %(request.cmd))
 
+    def client_req(self, cmd, client):
+        
+        ### Select client to send request ###
+        if client == "proj":
+            srv = Projector
+            topic = "projector_srv_"
+            callback_func = self.proj_future_callback
+        elif client == "pi":
+            srv = Video
+            topic = "pi_video_srv_"
+            callback_func = self.pi_future_callback
+        elif client == "motor":
+            srv = MotorSrv
+            topic = "motor_print_srv_"
+            callback_func = self.motor_print_future_callback
+
+        #### Send request to all five printers ####
+        if cmd.split("-")[-1] == "all":
+            self.cli = [None] * 5
+            for i in range(5):
+                #***** Clients *******#
+                self.cli[i] = self.create_client(srv, topic + str(i))
+                while not self.cli[i].wait_for_service(timeout_sec=1.0):
+                    self.get_logger().info('service not available, waiting again...')
+
+                # Populate request
+                request = srv.Request()
+                request.cmd = cmd[0:len(cmd)-len("all")] + str(i)
+                self.future = self.cli[i].call_async(request)
+                self.future.add_done_callback(partial(callback_func))
+                ################################################################
+                self.get_logger().debug('Waiting on async...')  # DEBUG message
+                ################################################################
+        
+        #### Send request to one printer ####
+        elif cmd.split("-")[-1] in ['0','1','2','3','4']:
+            #***** Clients *******#
+            i = int(cmd.split("-")[-1])
+            self.cli = self.create_client(srv, topic + cmd.split("-")[-1])
+            while not self.cli.wait_for_service(timeout_sec=1.0):
+                self.get_logger().info('service not available, waiting again...')
+            # Populate request
+            request = srv.Request()
+            request.cmd = cmd
+            self.future = self.cli.call_async(request)
+            self.future.add_done_callback(partial(callback_func))
+            ################################################################
+            self.get_logger().debug('Waiting on async...')   # DEBUG message
+            ################################################################
+        
+        #### ERROR: does not recognize the commmad
+        else:
+            self.get_logger().error('Command not recognized: %s\n' %(request.cmd))
 
     def proj_future_callback(self, future):
         try:

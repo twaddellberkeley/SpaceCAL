@@ -24,7 +24,7 @@ class TestClient(Node):
 
 def test_proj_commads():
     test_client = TestClient()
-    test_client.get_logger().info("*********** Starting Projector Test Commands **************")
+    test_client.get_logger().info("\n*********** Starting Projector Test Commands **************\n")
     # test projector commands
     responseAll = test_client.send_request("proj-on-all")
     test_client.get_logger().info(
@@ -55,6 +55,7 @@ def test_proj_commads():
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
             ("proj-on-4", response4.msg))
+    test_client.destroy_node()
 
 def test_pi_commads():
     # - **pi-get-videos-<#>**: gets all the videos available in the pi #
@@ -65,7 +66,7 @@ def test_pi_commads():
     # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
     # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
     test_client = TestClient()
-    test_client.get_logger().info("*********** Starting Projector Test Commands **************")
+    test_client.get_logger().info("\n*********** Starting Pi Video Test Commands **************\n")
     # test piector commands
     responseAll = test_client.send_request("pi-get-videos-all")
     test_client.get_logger().info(
@@ -97,6 +98,8 @@ def test_pi_commads():
             'Result of gui input: %s with msg = %s ' %
             ("pi-get-videos-4", response4.msg))
 
+    test_client.destroy_node()
+
 def test_gui_commands():
     # test projector commands
     test_proj_commads()
@@ -111,7 +114,7 @@ def test_gui_commands():
     # test level commands
 
     # test custom commands
-    test_client.destroy_node()
+   
 
 def main(args=None):
     rclpy.init(args=args)
