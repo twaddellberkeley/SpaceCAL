@@ -102,7 +102,7 @@ def test_pi_commads():
 
 def test_gui_commands():
     # test projector commands
-    test_proj_commads()
+#     test_proj_commads()
 
     # test pi commands
     test_pi_commads()

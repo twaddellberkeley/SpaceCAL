@@ -169,45 +169,10 @@ class MainLogicNode(Node):
         elif split_cmd[0] == "play":
             self.client_req(pi_cmd, client)
         elif split_cmd[0] == "stop":
-            self.clietn_req(pi_cmd, client)
+            self.client_req(pi_cmd, client)
         elif split_cmd[0] == "pause":  # TODO: we need to really define what pausing a video really means 
-            self.clietn_req(pi_cmd, client)
+            self.client_req(pi_cmd, client)
 
-
-    def proj_client_req(self, cmd):
-        '''This Function send the commands to the projectors mantioned in the command itself'''
-        if cmd.split("-")[-1] == "all":
-            self.proj_cli = [None] * 5
-            for i in range(5):
-                #***** Clients *******#
-                self.proj_cli[i] = self.create_client(Projector, 'projector_srv_'+str(i))
-                while not self.proj_cli[i].wait_for_service(timeout_sec=1.0):
-                    self.get_logger().info('service not available, waiting again...')
-
-                # Populate request
-                request = Projector.Request()
-                request.cmd = cmd[0:len(cmd)-len("all")] + str(i)
-                self.future = self.proj_cli[i].call_async(request)
-                self.future.add_done_callback(partial(self.proj_future_callback))
-
-                self.get_logger().info('Waiting on async...')  # DEBUG message
-               
-        elif cmd.split("-")[-1] in ['0','1','2','3','4']:
-            #***** Clients *******#
-            i = int(cmd.split("-")[-1])
-            self.proj_cli = self.create_client(Projector, 'projector_srv_' + cmd.split("-")[-1])
-            while not self.proj_cli.wait_for_service(timeout_sec=1.0):
-                self.get_logger().info('service not available, waiting again...')
-            # Populate request
-            request = Projector.Request()
-            request.cmd = cmd
-            self.future = self.proj_cli.call_async(request)
-            self.future.add_done_callback(partial(self.proj_future_callback))
-
-            self.get_logger().info('Waiting on async...')   # DEBUG message
-            
-        else:
-            self.get_logger().error('No command: %s\n' %(request.cmd))
 
     def client_req(self, cmd, client):
         
@@ -263,16 +228,28 @@ class MainLogicNode(Node):
         else:
             self.get_logger().error('Command not recognized: %s\n' %(request.cmd))
 
+
     def proj_future_callback(self, future):
         try:
             response = future.result()
-            self.get_logger().info('status %s' % (response.status))
+            self.get_logger().info('Projector status %s' % (response.status))
             if response.err == 0:
                 self._printer[0]._isLedOn = response.is_led_on
                 self._printer[0]._isVideoOn = response.is_video_on
                 self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
-
-
+        except Exception as e:
+            self.get_logger().error('ERROR: --- %r' %(e,))
+        self.get_logger().info('finished async call....')
+        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer[0]._isLedOn else "False"))
+    
+    def pi_future_callback(self, future):
+        try:
+            response = future.result()
+            self.get_logger().info('Pi Video status %s' % (response.status))
+            if response.err == 0:
+                self._printer[0]._isLedOn = response.is_led_on
+                self._printer[0]._isVideoOn = response.is_video_on
+                self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' %(e,))
         self.get_logger().info('finished async call....')

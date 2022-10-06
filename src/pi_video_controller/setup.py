@@ -21,7 +21,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'video_node = pi_video_controller.video_node:main'
+            'pi_video_node_0 = pi_video_controller.video_node:main'
         ],
     },
 )
