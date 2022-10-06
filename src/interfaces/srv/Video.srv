@@ -1,4 +1,5 @@
 Metadata meta
+int32 id
 string cmd
 string file_name
 ---

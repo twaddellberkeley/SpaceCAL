@@ -1,7 +1,7 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
-####### This launch file is to test the projecors with the main logic pakg
+####### This launch file is to test the motors to rotate the vile with the main logic pakg
 
 def generate_launch_description():
     return LaunchDescription([
@@ -13,43 +13,43 @@ def generate_launch_description():
             name='main_service'
         ),
         Node(
-            package='projector_exec',
+            package='print_motor_controller',
             #namespace='test',
             output='screen',
-            executable='proj_node',
-            parameters=[{"projector_number": 0}],
+            executable='print_motor_node',
+            parameters=[{"motor_number": 0}, {"address": 18}],
             name='proj_0'
         ),
         Node(
-            package='projector_exec',
+            package='print_motor_controller',
             #namespace='test',
             output='screen',
-            executable='proj_node',
-            parameters=[{"projector_number": 1}],
+            executable='print_motor_node',
+            parameters=[{"motor_number": 1}, {"address": 19}],
             name='proj_1'
         ),
         Node(
-            package='projector_exec',
+            package='print_motor_controller',
             #namespace='test',
             output='screen',
-            executable='proj_node',
-            parameters=[{"projector_number": 2}],
+            executable='print_motor_node',
+            parameters=[{"motor_number": 2}, {"address": 20}],
             name='proj_2'
         ),
         Node(
-            package='projector_exec',
+            package='print_motor_controller',
             #namespace='test',
             output='screen',
-            executable='proj_node',
-            parameters=[{"projector_number": 3}],
+            executable='print_motor_node',
+            parameters=[{"motor_number": 3}, {"address": 21}],
             name='proj_3'
         ),
         Node(
-            package='projector_exec',
+            package='print_motor_controller',
             #namespace='test',
             output='screen',
-            executable='proj_node',
-            parameters=[{"projector_number": 4}],
+            executable='print_motor_node',
+            parameters=[{"motor_number": 4}, {"address": 22}],
             name='proj_4'
         )
     ])

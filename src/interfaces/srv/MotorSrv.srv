@@ -1,6 +1,9 @@
-int32 cmd_num
-int32 value
+Metadata meta
+int32 id
+string cmd
 ---
-bool ok
-int32 error
-
+int32 err
+string msg
+string status 
+bool is_led_on
+bool is_video_on 
