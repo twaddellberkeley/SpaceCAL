@@ -14,35 +14,40 @@ def generate_launch_description():
             package='projector_exec',
             #namespace='test',
             output='screen',
-            executable='proj_node_0',
-            # name='proj_0'
+            executable='proj_node',
+            parameters=[{"projector_number": 0}],
+            name='proj_0'
         ),
         Node(
             package='projector_exec',
             #namespace='test',
             output='screen',
-            executable='proj_node_1',
+            executable='proj_node',
+            parameters=[{"projector_number": 1}],
             name='proj_1'
         ),
         Node(
             package='projector_exec',
             #namespace='test',
             output='screen',
-            executable='proj_node_2',
+            executable='proj_node',
+            parameters=[{"projector_number": 2}],
             name='proj_2'
         ),
         Node(
             package='projector_exec',
             #namespace='test',
             output='screen',
-            executable='proj_node_3',
+            executable='proj_node',
+            parameters=[{"projector_number": 3}],
             name='proj_3'
         ),
         Node(
             package='projector_exec',
             #namespace='test',
             output='screen',
-            executable='proj_node_4',
+            executable='proj_node',
+            parameters=[{"projector_number": 4}],
             name='proj_4'
         )
     ])

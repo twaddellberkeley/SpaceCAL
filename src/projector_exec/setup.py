@@ -20,11 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'proj_node_0 = projector_exec.proj_node_0:main',
-            'proj_node_1 = projector_exec.proj_node_1:main',
-            'proj_node_2 = projector_exec.proj_node_2:main',
-            'proj_node_3 = projector_exec.proj_node_3:main',
-            'proj_node_4 = projector_exec.proj_node_4:main'
+            'proj_node = projector_exec.proj_node:main'
         ],
     },
 )
