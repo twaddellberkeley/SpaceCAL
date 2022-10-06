@@ -187,7 +187,7 @@ class MainLogicNode(Node):
             callback_func = self.pi_future_callback
         elif client == "motor":
             srv = MotorSrv
-            topic = "motor_print_srv_"
+            topic = "print_motor_srv_"
             callback_func = self.motor_print_future_callback
 
         #### Send request to all five printers ####
@@ -229,6 +229,7 @@ class MainLogicNode(Node):
             self.get_logger().error('Command not recognized: %s\n' %(request.cmd))
 
 
+    # TODO: make sure to remember to update the project and motor classes from the response data
     def proj_future_callback(self, future):
         try:
             response = future.result()

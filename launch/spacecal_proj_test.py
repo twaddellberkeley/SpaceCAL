@@ -15,7 +15,7 @@ def generate_launch_description():
             #namespace='test',
             output='screen',
             executable='proj_node_0',
-            name='proj_0'
+            # name='proj_0'
         ),
         Node(
             package='projector_exec',
