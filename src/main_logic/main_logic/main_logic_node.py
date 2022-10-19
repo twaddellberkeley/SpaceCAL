@@ -1,4 +1,5 @@
 
+from re import I
 from threading import Thread
 import threading
 from xml.etree.ElementTree import tostring
@@ -89,6 +90,7 @@ class MainLogicNode(Node):
         return ctrls
         
     def dispatch_gui_cmd(self, ctrls):
+        """ TODO: Add fucntions description """
         # It reads from a list of commands and dispatches them in their own thread
         self.get_logger().info('Dispatching Gui Commands...\n')
 
@@ -120,32 +122,42 @@ class MainLogicNode(Node):
         pass
 
     def motor_controller_logic(self, motor_cmd):
-        pass
+        """ TODO: Description of this function """
+        # TODO: add any logic if neccessary when turning motors on or off
+        assert(motor_cmd != None)
+        client = "motor"
+        index = 0
+        split_cmd = motor_cmd.split("-")
+        if split_cmd[index] == "on":
+            self.client_req(motor_cmd, client)
+        elif split_cmd[index] == "off":
+            self.client_req(motor_cmd, client)
 
     def proj_controller_logic(self, proj_cmd):
         """This Function takes a command PROJ_CMD and implements the logic necessary 
             to complete the comand """
-        client = "proj"
         assert(proj_cmd != None)
+        index = 0
+        client = "proj"
         split_cmd = proj_cmd.split("-")
-        if split_cmd[0] == "on":
+        if split_cmd[index] == "on":
             # Turn projector on
             self.client_req(proj_cmd, client)
-        elif split_cmd[0] == "off":
+        elif split_cmd[index] == "off":
             # Trun projector off
-            if self.is_proj_led_on(split_cmd[1]):
+            if self.is_proj_led_on(split_cmd[index + 1]):
                 # If the led is off turn it off first
-                self.client_req("led-off-" + split_cmd[1], client)
+                self.client_req("led-off-" + split_cmd[index + 1], client)
             self.client_req(proj_cmd, client)
-        elif split_cmd[0] == "led":
-            if split_cmd[1] == "off":
+        elif split_cmd[index] == "led":
+            if split_cmd[index + 1] == "off":
                 # Turn led off
                 self.client_req(proj_cmd, client)
-            elif split_cmd[1] == "on":
+            elif split_cmd[index + 1] == "on":
                 # Turn led on
-                if not self.is_proj_on(split_cmd[2]):
+                if not self.is_proj_on(split_cmd[index + 2]):
                     # Verify projector is on else turn it on first
-                    self.client_req("on-" + split_cmd[2], client)
+                    self.client_req("on-" + split_cmd[index + 2], client)
                 self.client_req(proj_cmd, client)
             else:
                 self.get_logger().error('Command not recognized in project logic: ')
@@ -161,16 +173,18 @@ class MainLogicNode(Node):
         # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
         # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
         assert(pi_cmd != None)
+        # TODO: Implement logic if needed. As of now it sends every message to the video controller
+        index = 0
         client = "pi"
         split_cmd = pi_cmd.split("-")
-        if split_cmd[0] == "get":           # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the 
+        if split_cmd[index] == "get":           # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the 
                                             #       to the projector structure, since this wont change during printing. 
             self.client_req(pi_cmd, client)
-        elif split_cmd[0] == "play":
+        elif split_cmd[index] == "play":
             self.client_req(pi_cmd, client)
-        elif split_cmd[0] == "stop":
+        elif split_cmd[index] == "stop":
             self.client_req(pi_cmd, client)
-        elif split_cmd[0] == "pause":  # TODO: we need to really define what pausing a video really means 
+        elif split_cmd[index] == "pause":  # TODO: we need to really define what pausing a video really means 
             self.client_req(pi_cmd, client)
 
 
@@ -247,6 +261,19 @@ class MainLogicNode(Node):
         try:
             response = future.result()
             self.get_logger().info('Pi Video status %s' % (response.status))
+            if response.err == 0:
+                self._printer[0]._isLedOn = response.is_led_on
+                self._printer[0]._isVideoOn = response.is_video_on
+                self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
+        except Exception as e:
+            self.get_logger().error('ERROR: --- %r' %(e,))
+        self.get_logger().info('finished async call....')
+        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer[0]._isLedOn else "False"))
+    
+    def motor_print_future_callback(self, future):
+        try:
+            response = future.result()
+            self.get_logger().info('Print Motor status %s' % (response.status))
             if response.err == 0:
                 self._printer[0]._isLedOn = response.is_led_on
                 self._printer[0]._isVideoOn = response.is_video_on

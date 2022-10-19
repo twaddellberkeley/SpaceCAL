@@ -106,35 +106,35 @@ def test_print_motor_commads():
     test_client = TestClient()
     test_client.get_logger().info("\n*********** Starting Print Motor Test Commands **************\n")
     # test projector commands
-    responseAll = test_client.send_request("motor-on-all")
+    responseAll = test_client.send_request("motor-on-20-all")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
-            ("motor-on-all", responseAll.msg))
+            ("motor-on-20-all", responseAll.msg))
     
-    response0 = test_client.send_request("motor-on-0")
+    response0 = test_client.send_request("motor-on-20-0")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
-            ("motor-on-0", response0.msg))
+            ("motor-on-20-0", response0.msg))
 
-    response1 = test_client.send_request("motor-on-1")
+    response1 = test_client.send_request("motor-on-20-1")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
-            ("motor-on-1", response1.msg))
+            ("motor-on-20-1", response1.msg))
 
-    response2 = test_client.send_request("motor-on-2")
+    response2 = test_client.send_request("motor-on-20-2")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
-            ("motor-on-2", response2.msg))
+            ("motor-on-20-2", response2.msg))
     
-    response3 = test_client.send_request("motor-on-3")
+    response3 = test_client.send_request("motor-on-20-3")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
-            ("motor-on-3", response3.msg))
+            ("motor-on-20-3", response3.msg))
     
-    response4 = test_client.send_request("motor-on-4")
+    response4 = test_client.send_request("motor-on-20-4")
     test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %
-            ("motor-on-4", response4.msg))
+            ("motor-on-20-4", response4.msg))
     test_client.destroy_node()
 
 

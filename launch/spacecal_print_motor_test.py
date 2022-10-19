@@ -18,7 +18,7 @@ def generate_launch_description():
             output='screen',
             executable='print_motor_node',
             parameters=[{"motor_number": 0}, {"address": 18}],
-            name='proj_0'
+            name='print_motor_0'
         ),
         Node(
             package='print_motor_controller',
@@ -26,7 +26,7 @@ def generate_launch_description():
             output='screen',
             executable='print_motor_node',
             parameters=[{"motor_number": 1}, {"address": 19}],
-            name='proj_1'
+            name='print_motor_1'
         ),
         Node(
             package='print_motor_controller',
@@ -34,7 +34,7 @@ def generate_launch_description():
             output='screen',
             executable='print_motor_node',
             parameters=[{"motor_number": 2}, {"address": 20}],
-            name='proj_2'
+            name='print_motor_2'
         ),
         Node(
             package='print_motor_controller',
@@ -42,7 +42,7 @@ def generate_launch_description():
             output='screen',
             executable='print_motor_node',
             parameters=[{"motor_number": 3}, {"address": 21}],
-            name='proj_3'
+            name='print_motor_3'
         ),
         Node(
             package='print_motor_controller',
@@ -50,6 +50,6 @@ def generate_launch_description():
             output='screen',
             executable='print_motor_node',
             parameters=[{"motor_number": 4}, {"address": 22}],
-            name='proj_4'
+            name='print_motor_4'
         )
     ])

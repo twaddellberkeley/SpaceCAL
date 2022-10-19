@@ -17,7 +17,7 @@ class MotorNode(Node):
         # The default value of the parameter is zero
         ###############################################################################################################
         self.declare_parameter("motor_number", 0)                        #######                                #######
-        self.declare_parameter("address", 14)                            ######  ROS Parameters: "motor_number"  ######
+        self.declare_parameter("address", 18)                            ######  ROS Parameters: "motor_number"  ######
         self.motor_num = self.get_parameter('motor_number').value        ######                   "address"      ######
         self.address = self.get_parameter("address").value               #######                                #######
         ###############################################################################################################
@@ -25,8 +25,8 @@ class MotorNode(Node):
         # Create service to recieve motor request
         self.proj_srv = self.create_service(MotorSrv, 'print_motor_srv_' + str(self.motor_num), self.print_motor_exec_callback)
 
-        # Create tic object with with motor on /dev/i2c-1
-        bus = SMBus(busNum=1) # TODO: figureout how to get the bus number automatically
+        # Create a bus object with with motor on /dev/i2c-1
+        bus = SMBus(1) # TODO: figureout how to get the bus number automatically
 
         # Create a motor object that controls the motor and holds its state.
         self.motor = Motor(self.motor_num, bus, self.address, self.get_logger())
@@ -45,7 +45,7 @@ class MotorNode(Node):
 
 
        
-
+    # TODO: Write the logic of what to do when a request is reviced
     def print_motor_exec_callback(self, request, response):
         assert type(request.cmd) == type(""), "cmd is not a string"
         self.get_logger().info('\nService request recieved at Print Motor %d\nCommand: %s ' % (self.motor_num, request.cmd))
