@@ -149,7 +149,7 @@ class MainLogicNode(Node):
         elif split_cmd[index] == "off":
             # Trun projector off
             if self.is_proj_led_on(split_cmd[index + 1]):
-                # If the led is off turn it off first
+                # If the led is on turn it off first
                 self.client_req("led-off-" + split_cmd[index + 1], client)
             self.client_req(proj_cmd, client)
         elif split_cmd[index] == "led":
