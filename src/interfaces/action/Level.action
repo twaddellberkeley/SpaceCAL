@@ -1,0 +1,5 @@
+int32 height
+---
+int32 goal_height
+---
+int32 current_height
