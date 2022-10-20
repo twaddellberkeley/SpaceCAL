@@ -13,8 +13,8 @@ from .submodules.motor_controller import Motor
 class MotorNode(Node):
     def __init__(self):
         super().__init__('print_motor_node')
-        # Declare a parameter that can be set from a launch file to create distinct services: One for each raspberry-pi.
-        # The default value of the parameter is zero
+        # Declare a parameter that can be set from a launch file to create distinct services: One for each Motor.
+        # The default value of the parameter is zero and address 18
         ###############################################################################################################
         self.declare_parameter("motor_number", 0)                        #######                                #######
         self.declare_parameter("address", 18)                            ######  ROS Parameters: "motor_number"  ######
@@ -34,7 +34,7 @@ class MotorNode(Node):
         time.sleep(0.1)
 
         # Create a thread to keep the motors energyzed in ordered to mantain its position
-        stayAlive = threading.Thread(target=self.motor.stay_alive)
+        stayAlive = threading.Thread(target=self.motor.stay_alive)          # TODO: This line may need to be deleted
 
         # Allow the thread to run in the backgorund
         stayAlive.daemon = True
