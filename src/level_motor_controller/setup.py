@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'level_motor_node = level_motor_controller.level_motor_node.py:main'
+            'level_motor_node = level_motor_controller.level_motor_node:main'
         ],
     },
 )

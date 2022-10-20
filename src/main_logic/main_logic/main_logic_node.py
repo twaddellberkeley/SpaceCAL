@@ -6,6 +6,7 @@ from xml.etree.ElementTree import tostring
 from functools import partial
 
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
+from interfaces.action import Level
 
 
 import rclpy
@@ -44,6 +45,7 @@ class MainLogicNode(Node):
         self.gui_srv = self.create_service(GuiInput, 'gui_input_srv', self.gui_input_callback)
 
         #***** Clients *******#
+        self._action_client = ActionClient(self, Level, "level_motor_action_srv")
         # self.proj_cli = self.create_client(Projector, 'projector_srv')
         self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
         self.video_cli = self.create_client(Video, 'video_srv')
@@ -243,6 +245,40 @@ class MainLogicNode(Node):
         else:
             self.get_logger().error('Command not recognized: %s\n' %(request.cmd))
 
+    ################################################ Action Client ##############################################
+    # This function sends the desired height to the level controller 
+    def send_height_goal(self, order):
+        goal_msg = Level.Goal()
+        goal_msg.order = order
+
+        self._action_client.wait_for_server()
+
+        self._send_goal_future = self._action_client.send_goal_async(goal_msg, feedback_callback=self.feedback_callback)
+
+        self._send_goal_future.add_done_callback(self.goal_response_callback)
+
+    def goal_response_callback(self, future):
+        goal_handle = future.result()
+        if not goal_handle.accepted:
+            self.get_logger().info('Goal rejected :(')
+            return
+
+        self.get_logger().info('Goal accepted :)')
+
+        self._get_result_future = goal_handle.get_result_async()
+        self._get_result_future.add_done_callback(self.get_result_callback)
+        
+    def get_result_callback(self, future):
+        result = future.result().result
+        self.get_logger().info('Result: {0}'.format(result.height))
+        
+
+    def feedback_callback(self, feedback_msg):
+        feedback = feedback_msg.feedback
+        self.get_logger().info('Received feedback: {0}'.format(feedback.feedback_height))
+
+    ############################################ End of Acton Client ##################################################
+
 
     # TODO: make sure to remember to update the project and motor classes from the response data
     def proj_future_callback(self, future):
@@ -310,6 +346,7 @@ def main(args=None):
     rclpy.init(args=args)
     #print('In Main thread with thread_id: %d\n' % threading.get_native_id())
     service = MainLogicNode()
+    service.send_height_goal(10)
 
     rclpy.spin(service)
 
