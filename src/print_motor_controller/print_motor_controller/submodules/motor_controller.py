@@ -33,6 +33,7 @@
 #   the device number of your Tic.
 
 
+from cmath import e
 import rclpy
 import time
 from smbus2 import i2c_msg
@@ -40,12 +41,14 @@ from smbus2 import i2c_msg
 
 # Pulse to move moto
 # 1 mm per unit sent, max 310
-incrBit = 1280 # Is 1mm per bit unit
+incrBit = 1280  # Is 1mm per bit unit
 
 # Step veloicty to achieve 1rot/min
-velBit = 1024000000/60 # Max 500000000
+velBit = 1024000000/60  # Max 500000000
 
 # Tic class with generic motor controls
+
+
 class TicI2C(object):
     # Init function, takes bus and address
     def __init__(self, bus, address, logger):
@@ -96,7 +99,7 @@ class TicI2C(object):
 
     # Tells motor to home
     def go_home(self):
-        command = [0x97,0]
+        command = [0x97, 0]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
 
@@ -135,12 +138,12 @@ class TicI2C(object):
         while rclpy.ok():
             try:
                 self.clear_Timeout()
-            except Exception:
-                self.logger.warn("MOTOR DISCONNECTED %d" % self.address)
+            except Exception as e:
+                self.logger.warn("MOTOR DISCONNECTED %d  " % (self.address,))
                 self.logger.warn("SHUTTING DOWN NODE")
                 rclpy.shutdown()
                 exit(0)
-        time.sleep(.5)
+            time.sleep(.5)
 
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
@@ -185,7 +188,7 @@ class TicI2C(object):
 
 
 class Motor(TicI2C):
-    
+
     def __init__(self, id, bus, address, logger):
         super().__init__(bus, address, logger)
         self._id = id
@@ -194,9 +197,16 @@ class Motor(TicI2C):
 
     # Sets speed of tic in rot/min
     def set_speed(self, speed):
-        if(self.get_current_status() == 10):
+        if (self.get_current_status() == 10):
             self.exit_safe_start()
             self.set_target_speed(round(speed*velBit))
 
+    def reset(self):
+        self.reset_motor()
+        time.sleep(0.1)
 
+    def on(self):
+        pass
 
+    def off(self):
+        pass
