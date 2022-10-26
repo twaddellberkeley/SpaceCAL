@@ -44,7 +44,9 @@ from smbus2 import i2c_msg
 incrBit = 1280  # Is 1mm per bit unit
 
 # Step veloicty to achieve 1rot/min
-velBit = 1024000000/60  # Max 500000000
+velBit = 102400000/60  # 1024000000/60  # Max 500000000
+
+STATUS_NORMAL = 10
 
 # Tic class with generic motor controls
 
@@ -197,7 +199,7 @@ class Motor(TicI2C):
 
     # Sets speed of tic in rot/min
     def set_speed(self, speed):
-        if (self.get_current_status() == 10):
+        if (self.get_current_status() == STATUS_NORMAL):
             self.exit_safe_start()
             self.set_target_speed(round(speed*velBit))
 
@@ -206,7 +208,8 @@ class Motor(TicI2C):
         time.sleep(0.1)
 
     def on(self):
-        pass
+        self.exit_safe_start()
+        self.energize()
 
     def off(self):
-        pass
+        self.powerdown()

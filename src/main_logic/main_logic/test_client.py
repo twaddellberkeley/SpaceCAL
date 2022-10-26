@@ -22,40 +22,43 @@ class TestClient(Node):
         rclpy.spin_until_future_complete(self, self.future)
         return self.future.result()
 
+
 def test_proj_commads():
     test_client = TestClient()
-    test_client.get_logger().info("\n*********** Starting Projector Test Commands **************\n")
+    test_client.get_logger().info(
+        "\n*********** Starting Projector Test Commands **************\n")
     # test projector commands
     responseAll = test_client.send_request("proj-on-all")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("proj-on-all", responseAll.msg))
-    
+        'Result of gui input: %s with msg = %s ' %
+        ("proj-on-all", responseAll.msg))
+
     response0 = test_client.send_request("proj-on-0")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("proj-on-0", response0.msg))
+        'Result of gui input: %s with msg = %s ' %
+        ("proj-on-0", response0.msg))
 
     response1 = test_client.send_request("proj-on-1")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("proj-on-1", response1.msg))
+        'Result of gui input: %s with msg = %s ' %
+        ("proj-on-1", response1.msg))
 
     response2 = test_client.send_request("proj-on-2")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("proj-on-2", response2.msg))
-    
+        'Result of gui input: %s with msg = %s ' %
+        ("proj-on-2", response2.msg))
+
     response3 = test_client.send_request("proj-on-3")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("proj-on-3", response3.msg))
-    
+        'Result of gui input: %s with msg = %s ' %
+        ("proj-on-3", response3.msg))
+
     response4 = test_client.send_request("proj-on-4")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("proj-on-4", response4.msg))
+        'Result of gui input: %s with msg = %s ' %
+        ("proj-on-4", response4.msg))
     test_client.destroy_node()
+
 
 def test_pi_commads():
     # - **pi-get-videos-<#>**: gets all the videos available in the pi #
@@ -66,84 +69,99 @@ def test_pi_commads():
     # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
     # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
     test_client = TestClient()
-    test_client.get_logger().info("\n*********** Starting Pi Video Test Commands **************\n")
+    test_client.get_logger().info(
+        "\n*********** Starting Pi Video Test Commands **************\n")
     # test piector commands
     responseAll = test_client.send_request("pi-get-videos-all")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("pi-get-videos-all", responseAll.msg))
-    
+        'Result of gui input: %s with msg = %s ' %
+        ("pi-get-videos-all", responseAll.msg))
+
     response0 = test_client.send_request("pi-get-videos-0")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("pi-get-videos-0", response0.msg))
+        'Result of gui input: %s with msg = %s ' %
+        ("pi-get-videos-0", response0.msg))
 
     response1 = test_client.send_request("pi-get-videos-1")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("pi-get-videos-1", response1.msg))
+        'Result of gui input: %s with msg = %s ' %
+        ("pi-get-videos-1", response1.msg))
 
     response2 = test_client.send_request("pi-get-videos-2")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("pi-get-videos-2", response2.msg))
-    
+        'Result of gui input: %s with msg = %s ' %
+        ("pi-get-videos-2", response2.msg))
+
     response3 = test_client.send_request("pi-get-videos-3")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("pi-get-videos-3", response3.msg))
-    
+        'Result of gui input: %s with msg = %s ' %
+        ("pi-get-videos-3", response3.msg))
+
     response4 = test_client.send_request("pi-get-videos-4")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("pi-get-videos-4", response4.msg))
+        'Result of gui input: %s with msg = %s ' %
+        ("pi-get-videos-4", response4.msg))
 
     test_client.destroy_node()
+
 
 def test_print_motor_commads():
     # - **motor-on-<speed>-<#>**: turns motor **#** with **speed**
     # - **motor-off-<#>:** turn motor # off
     test_client = TestClient()
-    test_client.get_logger().info("\n*********** Starting Print Motor Test Commands **************\n")
-    # test projector commands
-    responseAll = test_client.send_request("motor-on-20-all")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("motor-on-20-all", responseAll.msg))
-    
-    response0 = test_client.send_request("motor-on-20-0")
-    test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("motor-on-20-0", response0.msg))
+        "\n*********** Starting Print Motor Test Commands **************\n")
+    # test motor commands
+#     responseAll = test_client.send_request("motor-on-20-all")
+#     test_client.get_logger().info(
+#         'Result of gui input: %s with msg = %s ' %
+#         ("motor-on-20-all", responseAll.msg))
 
-    response1 = test_client.send_request("motor-on-20-1")
-    test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("motor-on-20-1", response1.msg))
+#     response0 = test_client.send_request("motor-on-20-0")
+#     test_client.get_logger().info(
+#         'Result of gui input: %s with msg = %s ' %
+#         ("motor-on-20-0", response0.msg))
 
-    response2 = test_client.send_request("motor-on-20-2")
+#     response1 = test_client.send_request("motor-on-20-1")
+#     test_client.get_logger().info(
+#         'Result of gui input: %s with msg = %s ' %
+#         ("motor-on-20-1", response1.msg))
+
+#     response2 = test_client.send_request("motor-on-20-2")
+#     test_client.get_logger().info(
+#         'Result of gui input: %s with msg = %s ' %
+#         ("motor-on-20-2", response2.msg))
+
+#     response3 = test_client.send_request("motor-on-20-3")
+#     test_client.get_logger().info(
+#         'Result of gui input: %s with msg = %s ' %
+#         ("motor-on-20-3", response3.msg))
+
+#     response4 = test_client.send_request("motor-on-20-4")
+#     test_client.get_logger().info(
+#         'Result of gui input: %s with msg = %s ' %
+#         ("motor-on-20-4", response4.msg))
+
+    # Custom command
+    response0 = test_client.send_request("motor-on-10-0")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("motor-on-20-2", response2.msg))
-    
-    response3 = test_client.send_request("motor-on-20-3")
+        'Result of gui input: %s with msg = %s ' %
+        ("motor-on-10-0", response0.msg))
+
+    time.sleep(5)
+    response0 = test_client.send_request("motor-off-0")
     test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("motor-on-20-3", response3.msg))
-    
-    response4 = test_client.send_request("motor-on-20-4")
-    test_client.get_logger().info(
-            'Result of gui input: %s with msg = %s ' %
-            ("motor-on-20-4", response4.msg))
+        'Result of gui input: %s with msg = %s ' %
+        ("motor-off-0", response0.msg))
     test_client.destroy_node()
 
 
 def test_gui_commands():
     # test projector commands
-    test_proj_commads()
+    #     test_proj_commads()
 
     # test pi commands
-    test_pi_commads()
+    #     test_pi_commads()
 
     # test print motor commands
     test_print_motor_commads()
@@ -151,7 +169,7 @@ def test_gui_commands():
     # test level commands
 
     # test custom commands
-   
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -159,6 +177,7 @@ def main(args=None):
         test_gui_commands()
     else:
         test_client = TestClient()
+        print("[Testing CMD]: %s", sys.argv[1])
         response = test_client.send_request(sys.argv[1])
         test_client.get_logger().info(
             'Result of gui input: %s with msg = %s ' %

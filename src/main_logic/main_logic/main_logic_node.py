@@ -15,13 +15,15 @@ from rclpy.action import ActionClient
 
 commands = ["proj-on-all", "proj-off-all", "rotate-vile-30"]
 
+
 class Motor():
-    
+
     def __init__(self, id):
         super().__init__()
         self._id = id
         self._status = "off"
         self._speed = 0
+
 
 class Printer():
     def __init__(self, id):
@@ -32,7 +34,6 @@ class Printer():
         self._isLedOn = False
         self._isVideoOn = False
         self._motor = Motor(id)
-   
 
 
 class MainLogicNode(Node):
@@ -42,26 +43,27 @@ class MainLogicNode(Node):
 
         ################## Services ####################
         #***** Servers ******#
-        self.gui_srv = self.create_service(GuiInput, 'gui_input_srv', self.gui_input_callback)
+        self.gui_srv = self.create_service(
+            GuiInput, 'gui_input_srv', self.gui_input_callback)
 
         #***** Clients *******#
-        self._action_client = ActionClient(self, Level, "level_motor_action_srv")
+        self._action_client = ActionClient(
+            self, Level, "level_motor_action_srv")
         # self.proj_cli = self.create_client(Projector, 'projector_srv')
         self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
         self.video_cli = self.create_client(Video, 'video_srv')
 
         #***** Initialize printer objects ******#
-        self._printer = [Printer(0), Printer(1), Printer(2), Printer(3), Printer(4)]
-
-
+        self._printer = [Printer(0), Printer(
+            1), Printer(2), Printer(3), Printer(4)]
 
     def gui_input_callback(self, request, response):
-        self.get_logger().info('Incoming Gui Request\ncmd: %s ' % (request.cmd))   
+        self.get_logger().info('Incoming Gui Request\ncmd: %s ' % (request.cmd))
         # Decode gui input command
         cmd_list = self.decode_gui_cmd(request.cmd)
         # dispach the commands
         res = self.dispatch_gui_cmd(cmd_list)
-        
+
         response.err = res
         response.msg = "request is is being proccess"
         return response
@@ -69,7 +71,8 @@ class MainLogicNode(Node):
     def decode_gui_cmd(self, raw_cmd):
         self.get_logger().info('Decoding Gui Command:  %s\n' % raw_cmd)
         # Projector and Level Commands
-        ctrls = {"level_cmds":[], "motor_cmds":[], "proj_cmds":[], "pi_cmds":[]}
+        ctrls = {"level_cmds": [], "motor_cmds": [],
+                 "proj_cmds": [], "pi_cmds": []}
         # Split comnands
         cmd_list = raw_cmd.split("_")
         for cmd in cmd_list:
@@ -77,37 +80,40 @@ class MainLogicNode(Node):
             if "proj" == split_cmd[0]:
                 # extract project command
                 ctrls["proj_cmds"].append(cmd[len("proj-"):len(cmd)])
-                self.get_logger().info('******** first cmd in proj_cmds: %s\n' % ctrls["proj_cmds"][0])
+                self.get_logger().info('******** first cmd in proj_cmds: %s\n' %
+                                       ctrls["proj_cmds"][0])
             elif "pi" == split_cmd[0]:
-                # extract pi command 
+                # extract pi command
                 ctrls["pi_cmds"].append(cmd[len("pi-"):len(cmd)])
-                self.get_logger().info('******** first cmd in pi_cmds: %s\n' % ctrls["pi_cmds"][0])
+                self.get_logger().info('******** first cmd in pi_cmds: %s\n' %
+                                       ctrls["pi_cmds"][0])
             elif "motor" == split_cmd[0]:
                 # extract motor command
                 ctrls["motor_cmds"].append(cmd[len("motor-"):len(cmd)])
-                self.get_logger().info("******** first cmd in motor_cmds: %s\n" % ctrls["motor_cmds"][0])
+                self.get_logger().info("******** first cmd in motor_cmds: %s\n" %
+                                       ctrls["motor_cmds"][0])
             elif "level" == split_cmd[0]:
-                # extract level commands 
+                # extract level commands
                 ctrls["level_cmds"].append(cmd[len("level-"):len(cmd)])
-                self.get_logger().info('******** first cmd in level_cmds: %s' % ctrls["level_cmds"][0])     
+                self.get_logger().info('******** first cmd in level_cmds: %s' %
+                                       ctrls["level_cmds"][0])
         return ctrls
-        
+
     def dispatch_gui_cmd(self, ctrls):
         """ TODO: Add fucntions description """
         # It reads from a list of commands and dispatches them in their own thread
         self.get_logger().info('Dispatching Gui Commands...\n')
 
-        
         if len(ctrls["level_cmds"]) != 0:
             # Send command to level controller logic
             for cmd in ctrls["level_cmds"]:
                 self.level_controller_logic(cmd)
-        
+
         if len(ctrls["motor_cmds"]) != 0:
             # Send commadns to motor controller logic
             for cmd in ctrls["motor_cmds"]:
                 self.motor_controller_logic(cmd)
-            
+
         if len(ctrls["proj_cmds"]) != 0:
             # Send commands to projector controller logic
             for cmd in ctrls["proj_cmds"]:
@@ -127,7 +133,7 @@ class MainLogicNode(Node):
     def motor_controller_logic(self, motor_cmd):
         """ TODO: Description of this function """
         # TODO: add any logic if neccessary when turning motors on or off
-        assert(motor_cmd != None)
+        assert (motor_cmd != None)
         client = "motor"
         index = 0
         split_cmd = motor_cmd.split("-")
@@ -139,7 +145,7 @@ class MainLogicNode(Node):
     def proj_controller_logic(self, proj_cmd):
         """This Function takes a command PROJ_CMD and implements the logic necessary 
             to complete the comand """
-        assert(proj_cmd != None)
+        assert (proj_cmd != None)
         index = 0
         client = "proj"
         split_cmd = proj_cmd.split("-")
@@ -175,24 +181,25 @@ class MainLogicNode(Node):
         # - **pi-play-queue-<#>**: play video queue from pi #
         # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
         # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
-        assert(pi_cmd != None)
+        assert (pi_cmd != None)
         # TODO: Implement logic if needed. As of now it sends every message to the video controller
         index = 0
         client = "pi"
         split_cmd = pi_cmd.split("-")
-        if split_cmd[index] == "get":           # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the 
-                                            #       to the projector structure, since this wont change during printing. 
+        # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the
+        if split_cmd[index] == "get":
+            #       to the projector structure, since this wont change during printing.
             self.client_req(pi_cmd, client)
         elif split_cmd[index] == "play":
             self.client_req(pi_cmd, client)
         elif split_cmd[index] == "stop":
             self.client_req(pi_cmd, client)
-        elif split_cmd[index] == "pause":  # TODO: we need to really define what pausing a video really means 
+        # TODO: we need to really define what pausing a video really means
+        elif split_cmd[index] == "pause":
             self.client_req(pi_cmd, client)
 
-
     def client_req(self, cmd, client):
-        
+
         ### Select client to send request ###
         if client == "proj":
             srv = Projector
@@ -224,9 +231,9 @@ class MainLogicNode(Node):
                 ################################################################
                 self.get_logger().debug('Waiting on async...')  # DEBUG message
                 ################################################################
-        
+
         #### Send request to one printer ####
-        elif cmd.split("-")[-1] in ['0','1','2','3','4']:
+        elif cmd.split("-")[-1] in ['0', '1', '2', '3', '4']:
             #***** Clients *******#
             i = int(cmd.split("-")[-1])
             self.cli = self.create_client(srv, topic + cmd.split("-")[-1])
@@ -240,20 +247,21 @@ class MainLogicNode(Node):
             ################################################################
             self.get_logger().debug('Waiting on async...')   # DEBUG message
             ################################################################
-        
-        #### ERROR: does not recognize the commmad
+
+        # ERROR: does not recognize the commmad
         else:
-            self.get_logger().error('Command not recognized: %s\n' %(request.cmd))
+            self.get_logger().error('Command not recognized: %s\n' % (request.cmd))
 
     ################################################ Action Client ##############################################
-    # This function sends the desired height to the level controller 
+    # This function sends the desired height to the level controller
     def send_height_goal(self, order):
         goal_msg = Level.Goal()
         goal_msg.order = order
 
         self._action_client.wait_for_server()
 
-        self._send_goal_future = self._action_client.send_goal_async(goal_msg, feedback_callback=self.feedback_callback)
+        self._send_goal_future = self._action_client.send_goal_async(
+            goal_msg, feedback_callback=self.feedback_callback)
 
         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
@@ -267,20 +275,20 @@ class MainLogicNode(Node):
 
         self._get_result_future = goal_handle.get_result_async()
         self._get_result_future.add_done_callback(self.get_result_callback)
-        
+
     def get_result_callback(self, future):
         result = future.result().result
         self.get_logger().info('Result: {0}'.format(result.height))
-        
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
-        self.get_logger().info('Received feedback: {0}'.format(feedback.feedback_height))
+        self.get_logger().info(
+            'Received feedback: {0}'.format(feedback.feedback_height))
 
     ############################################ End of Acton Client ##################################################
 
-
     # TODO: make sure to remember to update the project and motor classes from the response data
+
     def proj_future_callback(self, future):
         try:
             response = future.result()
@@ -288,12 +296,14 @@ class MainLogicNode(Node):
             if response.err == 0:
                 self._printer[0]._isLedOn = response.is_led_on
                 self._printer[0]._isVideoOn = response.is_video_on
-                self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
+                self.get_logger().info('response.is_led_on %s' %
+                                       ("True" if response.is_led_on else "False"))
         except Exception as e:
-            self.get_logger().error('ERROR: --- %r' %(e,))
+            self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
-        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer[0]._isLedOn else "False"))
-    
+        self.get_logger().info('Printer_1._isLedOn %s' %
+                               ("True" if self._printer[0]._isLedOn else "False"))
+
     def pi_future_callback(self, future):
         try:
             response = future.result()
@@ -301,25 +311,28 @@ class MainLogicNode(Node):
             if response.err == 0:
                 self._printer[0]._isLedOn = response.is_led_on
                 self._printer[0]._isVideoOn = response.is_video_on
-                self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
+                self.get_logger().info('response.is_led_on %s' %
+                                       ("True" if response.is_led_on else "False"))
         except Exception as e:
-            self.get_logger().error('ERROR: --- %r' %(e,))
+            self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
-        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer[0]._isLedOn else "False"))
-    
+        self.get_logger().info('Printer_1._isLedOn %s' %
+                               ("True" if self._printer[0]._isLedOn else "False"))
+
     def motor_print_future_callback(self, future):
         try:
             response = future.result()
             self.get_logger().info('Print Motor status %s' % (response.status))
             if response.err == 0:
-                self._printer[0]._isLedOn = response.is_led_on
-                self._printer[0]._isVideoOn = response.is_video_on
-                self.get_logger().info('response.is_led_on %s' % ("True" if response.is_led_on else "False"))
+                self._printer[0]._motor._speed = response.set_speed
+                self.get_logger().info('response.set_speed %s' %
+                                       (response.set_speed))
         except Exception as e:
-            self.get_logger().error('ERROR: --- %r' %(e,))
+            self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
-        self.get_logger().info('Printer_1._isLedOn %s' % ("True" if self._printer[0]._isLedOn else "False"))
-    
+        self.get_logger().info('Printer_1._isLedOn %s' %
+                               ("True" if self._printer[0]._isLedOn else "False"))
+
     #********* Utility functions ***********#
     def is_proj_on(self, proj_num):
         assert type(proj_num) == type("")
@@ -346,7 +359,7 @@ def main(args=None):
     rclpy.init(args=args)
     #print('In Main thread with thread_id: %d\n' % threading.get_native_id())
     service = MainLogicNode()
-    service.send_height_goal(10)
+    # service.send_height_goal(10)
 
     rclpy.spin(service)
 

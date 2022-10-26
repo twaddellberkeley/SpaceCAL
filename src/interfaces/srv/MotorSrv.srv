@@ -5,5 +5,4 @@ string cmd
 int32 err
 string msg
 string status 
-bool is_led_on
-bool is_video_on 
+int32 set_speed

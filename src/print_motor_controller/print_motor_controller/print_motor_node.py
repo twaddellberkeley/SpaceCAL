@@ -1,5 +1,6 @@
 
 
+from decimal import MIN_EMIN
 import time
 import threading
 import rclpy
@@ -12,6 +13,9 @@ from .submodules.motor_controller import Motor
 
 
 class MotorNode(Node):
+    MAX_SPEED = 40
+    MIN_SPEED = -40
+
     def __init__(self):
         super().__init__('print_motor_node')
         # Declare a parameter that can be set from a launch file to create distinct services: One for each Motor.
@@ -46,8 +50,7 @@ class MotorNode(Node):
         stayAlive.daemon = True
         stayAlive.start()
 
-        self.motor.exit_safe_start()
-        self.motor.energize()
+        self.motor.on()
 
     # TODO: Write the logic of what to do when a request is reviced
 
@@ -55,15 +58,52 @@ class MotorNode(Node):
         assert type(request.cmd) == type(""), "cmd is not a string"
         self.get_logger().info('\nService request recieved at Print Motor %d\nCommand: %s ' %
                                (self.motor_num, request.cmd))
-        time.sleep(5)
-        response.err = 0
+
+        # dispach the commands
+        res, speed = self.process_cmds(request.cmd)
+
+        response.err = res
         response.msg = "Print Motor " + \
             str(self.motor_num) + " executed succesfully"
-        response.status = request.cmd.split("-")[-1]
-        response.is_video_on = True
-        response.is_led_on = True
+        response.status = "NORMAL"
+        response.set_speed = speed
         self.get_logger().info('Finished request from Motor\ncmd: %s ' % (request.cmd))
         return response
+
+    def process_cmds(self, raw_cmd):
+        assert type(raw_cmd) == type(""), "command must be a string type"
+
+        self.get_logger().info('Decoding Gui Command:  %s\n' % raw_cmd)
+
+        # where the actual command starts this may change later
+        index = 0
+
+        speed = 0
+
+        # Split comnands
+        cmd_list = raw_cmd.split("_")
+        for cmd in cmd_list:
+            split_cmd = cmd.split("-")
+            if "on" == split_cmd[index]:
+                self.get_logger().info('Motor ON:  ')
+                # Get speed
+                speed = int(split_cmd[index + 1])
+
+            elif "off" == split_cmd[index]:
+                self.get_logger().info('Motor Off:  ')
+                # Get speed
+                speed = 0
+
+            # Verify speed Max and Min
+            if speed < self.MIN_SPEED:
+                speed = self.MIN_SPEED
+            elif speed > self.MAX_SPEED:
+                speed = self.MAX_SPEED
+
+            # Setting target speed
+            self.motor.set_speed(speed)
+
+        return 0, speed
 
 
 def main(args=None):
