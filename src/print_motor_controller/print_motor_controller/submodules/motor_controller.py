@@ -141,8 +141,9 @@ class TicI2C(object):
             try:
                 self.clear_Timeout()
             except Exception as e:
-                self.logger.warn("MOTOR DISCONNECTED %d  " % (self.address,))
+                self.logger.warn("MOTOR DISCONNECTED %d " % (self.address, ))
                 self.logger.warn("SHUTTING DOWN NODE")
+                self.logger.error("[ERROR}: %r" % (e,))
                 rclpy.shutdown()
                 exit(0)
             time.sleep(.5)

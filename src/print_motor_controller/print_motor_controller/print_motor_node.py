@@ -59,7 +59,7 @@ class MotorNode(Node):
         self.get_logger().info('\nService request recieved at Print Motor %d\nCommand: %s ' %
                                (self.motor_num, request.cmd))
 
-        # dispach the commands
+        # prosses the commands
         res, speed = self.process_cmds(request.cmd)
 
         response.err = res
