@@ -39,7 +39,7 @@ class LevelState():
         self._req_level = -1
         self._is_moving = False
         self._reqLevel = False
-        self._req_position = 0
+        self._req_position = -1
         self._feedback_position = 0
 
 
@@ -275,6 +275,8 @@ class MainLogicNode(Node):
 
     ################################################ Client Request ##############################################
     def client_req(self, cmd, client):
+        # times to try to connect to server
+        times_to_connect = 5
 
         ### Select client to send request ###
         if client == "proj":
@@ -333,11 +335,16 @@ class MainLogicNode(Node):
 
         #### Send request to gui ####
         elif cmd.split("-")[-1] == "gui":
+            count = 0
             #***** Clients *******#
             split_cmd = cmd.split("-")
             self.cli = self.create_client(srv, topic)
             while not self.cli.wait_for_service(timeout_sec=1.0):
                 self.get_logger().info('service not available, waiting again...')
+                if count > times_to_connect:
+                    self.get_logger().warning('Could not connect to Gui Service')
+                    break
+                count += 1
             # Populate request
             request = srv.Request()
             request.cmd = cmd
@@ -395,12 +402,17 @@ class MainLogicNode(Node):
 
         # Check result
         self._levelState._curr_position = result.height
+        if self._levelState._req_position != result.height:
+            self.get_logger().warning("did not get exact requested position")
+
+        self._levelState._req_position = -1
         self.get_logger().info('Current position: {0}'.format(result.height))
 
         # TODO: Send message to let the gui know the leve stoped moving at a given position
         if self._levelState._reqLevel:
-            # TODO: delete this line later dont want this error in production
-            assert LEVEL[self._levelState._req_level] == result.height, "controller did not make it to the correct height for given level"
+            if LEVEL[self._levelState._req_level] == result.height:
+                self.get_logger().warning(
+                    "controller did not make it to the correct height for given level")
             # reset the request leve flag
             self._levelState._reqLevel = False
             # update current level
