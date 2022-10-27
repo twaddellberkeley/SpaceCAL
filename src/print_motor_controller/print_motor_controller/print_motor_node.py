@@ -20,10 +20,9 @@ class MotorNode(Node):
         # The default value of the parameter is zero and address 18
         ###############################################################################################################
         self.declare_parameter("motor_number", 0)
-        # ROS Parameters: "motor_number"  ######
         self.declare_parameter("address", 18)
         self.motor_num = self.get_parameter(
-            'motor_number').value  # "address"      ######
+            'motor_number').value
         self.address = self.get_parameter("address").value
         ###############################################################################################################
 
@@ -49,8 +48,6 @@ class MotorNode(Node):
         stayAlive.start()
 
         self.motor.on()
-
-    # TODO: Write the logic of what to do when a request is reviced
 
     def print_motor_exec_callback(self, request, response):
         assert type(request.cmd) == type(""), "cmd is not a string"

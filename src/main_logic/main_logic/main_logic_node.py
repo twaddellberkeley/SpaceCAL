@@ -1,4 +1,6 @@
 
+from distutils.util import split_quoted
+from operator import le
 from re import I
 from threading import Thread
 import threading
@@ -14,6 +16,7 @@ from rclpy.node import Node
 from rclpy.action import ActionClient
 
 commands = ["proj-on-all", "proj-off-all", "rotate-vile-30"]
+LEVEL = [22, 44, 66, 77, 101]
 
 
 class Motor():
@@ -23,6 +26,17 @@ class Motor():
         self._id = id
         self._status = "off"
         self._speed = 0
+        self._position = 0
+
+
+class LevelState():
+    def __init__(self):
+        self._status = "off"   # [moving, home, error]
+        self._curr_position = 0
+        self._level = 0
+        self._is_moving = False
+        self._req_position = 0
+        self._res_position = 0
 
 
 class Printer():
@@ -50,12 +64,15 @@ class MainLogicNode(Node):
         self._action_client = ActionClient(
             self, Level, "level_motor_action_srv")
         # self.proj_cli = self.create_client(Projector, 'projector_srv')
-        self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
-        self.video_cli = self.create_client(Video, 'video_srv')
+        # self.gui_cli = self.create_client(GuiDisplay, 'gui_display_srv')
+        # self.video_cli = self.create_client(Video, 'video_srv')
 
         #***** Initialize printer objects ******#
         self._printer = [Printer(0), Printer(
             1), Printer(2), Printer(3), Printer(4)]
+
+        #***** Initialize Level Controller ******#
+        self._levelState = LevelState()
 
     def gui_input_callback(self, request, response):
         self.get_logger().info('Incoming Gui Request\ncmd: %s ' % (request.cmd))
@@ -79,30 +96,41 @@ class MainLogicNode(Node):
             split_cmd = cmd.split("-")
             if "proj" == split_cmd[0]:
                 # extract project command
-                ctrls["proj_cmds"].append(cmd[len("proj-"):len(cmd)])
-                self.get_logger().info('******** first cmd in proj_cmds: %s\n' %
-                                       ctrls["proj_cmds"][0])
+                # ctrls["proj_cmds"].append(cmd[len("proj-"):len(cmd)])
+                ctrls["proj_cmds"].append(cmd)
+                ##################################################################################
+                self.get_logger().debug('******** first cmd in proj_cmds: %s\n' %
+                                        ctrls["proj_cmds"][0])  # DEBUG MESSAGE
+                ##################################################################################
             elif "pi" == split_cmd[0]:
                 # extract pi command
-                ctrls["pi_cmds"].append(cmd[len("pi-"):len(cmd)])
-                self.get_logger().info('******** first cmd in pi_cmds: %s\n' %
-                                       ctrls["pi_cmds"][0])
+                ctrls["pi_cmds"].append(cmd)
+                ##################################################################################
+                self.get_logger().debug('******** first cmd in pi_cmds: %s\n' %
+                                        ctrls["pi_cmds"][0])  # DEBUG MESSAGE
+                ##################################################################################
             elif "motor" == split_cmd[0]:
                 # extract motor command
-                ctrls["motor_cmds"].append(cmd[len("motor-"):len(cmd)])
-                self.get_logger().info("******** first cmd in motor_cmds: %s\n" %
-                                       ctrls["motor_cmds"][0])
+                ctrls["motor_cmds"].append(cmd)
+                ##################################################################################
+                self.get_logger().debug("******** first cmd in motor_cmds: %s\n" %
+                                        ctrls["motor_cmds"][0])  # DEBUG MESSAGE
+                ##################################################################################
             elif "level" == split_cmd[0]:
                 # extract level commands
-                ctrls["level_cmds"].append(cmd[len("level-"):len(cmd)])
-                self.get_logger().info('******** first cmd in level_cmds: %s' %
-                                       ctrls["level_cmds"][0])
+                ctrls["level_cmds"].append(cmd)
+                ##################################################################################
+                self.get_logger().debug('******** first cmd in level_cmds: %s' %
+                                        ctrls["level_cmds"][0])  # DEBUG MESSAGE
+                ##################################################################################
         return ctrls
 
     def dispatch_gui_cmd(self, ctrls):
         """ TODO: Add fucntions description """
         # It reads from a list of commands and dispatches them in their own thread
-        self.get_logger().info('Dispatching Gui Commands...\n')
+        ########################################################################
+        self.get_logger().debug('Dispatching Gui Commands...\n')  # DEBUG MESSGE
+        ########################################################################
 
         if len(ctrls["level_cmds"]) != 0:
             # Send command to level controller logic
@@ -124,11 +152,35 @@ class MainLogicNode(Node):
             for cmd in ctrls["pi_cmds"]:
                 self.pi_controller_logic(cmd)
 
-        self.get_logger().info('Finished Dispatching Gui Commands...\n')
+        ###################################################################################
+        self.get_logger().debug('Finished Dispatching Gui Commands...\n')    # DEBUG MESSGE
+        ###################################################################################
         return 0
 
     def level_controller_logic(self, level_cmd):
-        pass
+        # The following are the level commands
+        """ LEVEL_CMD:
+                        level-motors-<level>
+                        level-motors-up-<height[mm]>
+                        level-motors-down-<height[mm]>
+                        level-motors-home
+        """
+        assert type(level_cmd) == type(""), "Must be string type"
+
+        # The level controller take height in mm so we need to decode the message here from level to mm
+        position_cmd = 0
+        level = 0
+        split_cmd = level_cmd.split("-")
+        if split_cmd[2] == "up" or split_cmd[2] == "down":
+            assert len(split_cmd) == 4, "ERROR: command format error"
+            position_cmd = int(split_cmd[3])
+        elif split_cmd[2] == "home":
+            position_cmd = 0
+        else:
+            level = int(split_cmd[2])
+            assert level >= 0 and level < 5, "[ERROR]: incorrect level input"
+            position_cmd = LEVEL[level]
+        self.send_height_goal(position_cmd)
 
     def motor_controller_logic(self, motor_cmd):
         """ TODO: Description of this function """
@@ -198,6 +250,7 @@ class MainLogicNode(Node):
         elif split_cmd[index] == "pause":
             self.client_req(pi_cmd, client)
 
+    ################################################ Client Request ##############################################
     def client_req(self, cmd, client):
 
         ### Select client to send request ###
@@ -213,6 +266,10 @@ class MainLogicNode(Node):
             srv = MotorSrv
             topic = "print_motor_srv_"
             callback_func = self.motor_print_future_callback
+        elif client == "display":
+            srv = GuiDisplay
+            topic = "gui_display_srv"
+            callback_func = self.gui_display_future_callback
 
         #### Send request to all five printers ####
         if cmd.split("-")[-1] == "all":
@@ -248,6 +305,22 @@ class MainLogicNode(Node):
             self.get_logger().debug('Waiting on async...')   # DEBUG message
             ################################################################
 
+        #### Send request to gui ####
+        elif cmd.split("-")[-1] == "gui":
+            #***** Clients *******#
+            split_cmd = cmd.split("-")
+            self.cli = self.create_client(srv, topic)
+            while not self.cli.wait_for_service(timeout_sec=1.0):
+                self.get_logger().info('service not available, waiting again...')
+            # Populate request
+            request = srv.Request()
+            request.cmd = cmd
+            request.display_name = split_cmd[1]
+            request.display_msg = split_cmd[2]
+            self.future = self.cli.call_async(request)
+            self.future.add_done_callback(partial(callback_func))
+            pass
+
         # ERROR: does not recognize the commmad
         else:
             self.get_logger().error('Command not recognized: %s\n' % (request.cmd))
@@ -255,33 +328,54 @@ class MainLogicNode(Node):
     ################################################ Action Client ##############################################
     # This function sends the desired height to the level controller
     def send_height_goal(self, order):
+        assert type(order) == type(3), "[ERROR]: wrong type"
+        # Create Level message
         goal_msg = Level.Goal()
+        # Update messge
         goal_msg.order = order
-
+        self._levelState._req_position = order
+        # Connect to server for _action_client
         self._action_client.wait_for_server()
 
+        # Send goal message with feedback callback function for updates
         self._send_goal_future = self._action_client.send_goal_async(
             goal_msg, feedback_callback=self.feedback_callback)
 
+        # Add a done Callback function to handle the final answer
         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
     def goal_response_callback(self, future):
         goal_handle = future.result()
+        # Check if goal was accepted
         if not goal_handle.accepted:
             self.get_logger().info('Goal rejected :(')
             return
-
         self.get_logger().info('Goal accepted :)')
+        # Update level state to moving
+        self._levelState._is_moving = True
 
+        # get the result later
         self._get_result_future = goal_handle.get_result_async()
         self._get_result_future.add_done_callback(self.get_result_callback)
 
+        # TODO: Send message to let the gui know level is moving    ######################
+        self.client_req("display-levestatus-moving-gui", "display")
+
     def get_result_callback(self, future):
         result = future.result().result
-        self.get_logger().info('Result: {0}'.format(result.height))
+
+        # Check result
+        self._levelState._curr_position = result.height
+        self.get_logger().info('Current position: {0}'.format(result.height))
+
+        # TODO: Send message to let the gui know the leve stoped moving at a given position
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
+        self._levelState._curr_position = feedback.feedback_height
+
+        # TODO: posible publish height
+
         self.get_logger().info(
             'Received feedback: {0}'.format(feedback.feedback_height))
 
@@ -332,6 +426,9 @@ class MainLogicNode(Node):
         self.get_logger().info('finished async call....')
         self.get_logger().info('Printer_1._isLedOn %s' %
                                ("True" if self._printer[0]._isLedOn else "False"))
+
+    def gui_display_future_callback(self, future):
+        pass
 
     #********* Utility functions ***********#
     def is_proj_on(self, proj_num):
