@@ -17,6 +17,8 @@ from rclpy.action import ActionClient
 
 commands = ["proj-on-all", "proj-off-all", "rotate-vile-30"]
 LEVEL = [22, 44, 66, 77, 101]
+MAX_HEIGHT = 300
+MIN_HEIGHT = 0
 
 
 class Motor():
@@ -34,9 +36,11 @@ class LevelState():
         self._status = "off"   # [moving, home, error]
         self._curr_position = 0
         self._level = 0
+        self._req_level = -1
         self._is_moving = False
+        self._reqLevel = False
         self._req_position = 0
-        self._res_position = 0
+        self._feedback_position = 0
 
 
 class Printer():
@@ -161,25 +165,44 @@ class MainLogicNode(Node):
         # The following are the level commands
         """ LEVEL_CMD:
                         level-motors-<level>
-                        level-motors-up-<height[mm]>
-                        level-motors-down-<height[mm]>
-                        level-motors-home
+                        level-motors-height-<heigh[mm]>
+                        level-motors-up-<distance[mm]>
+                        level-motors-down-<distance[mm]>
+                        level-motors-home               # right now home is position 0
         """
         assert type(level_cmd) == type(""), "Must be string type"
 
         # The level controller take height in mm so we need to decode the message here from level to mm
+        # and or add the current heigh of the levelState
         position_cmd = 0
         level = 0
         split_cmd = level_cmd.split("-")
-        if split_cmd[2] == "up" or split_cmd[2] == "down":
+        if split_cmd[2] == "height":
             assert len(split_cmd) == 4, "ERROR: command format error"
-            position_cmd = int(split_cmd[3])
+            position_cmd = split_cmd[3]
+        elif split_cmd[2] == "up":
+            assert len(split_cmd) == 4, "ERROR: command format error"
+            position_cmd = self._levelState._curr_position + int(split_cmd[3])
+        elif split_cmd[2] == "down":
+            assert len(split_cmd) == 4, "ERROR: command format error"
+            position_cmd = self._levelState._curr_position - int(split_cmd[3])
         elif split_cmd[2] == "home":
             position_cmd = 0
         else:
             level = int(split_cmd[2])
-            assert level >= 0 and level < 5, "[ERROR]: incorrect level input"
+            assert level >= 0 and level < len(
+                LEVEL), "[ERROR]: incorrect level input"
             position_cmd = LEVEL[level]
+            self._levelState._req_level = level
+            self._levelState._reqLevel = True
+
+        # Check position is within bounded allowed
+        if position_cmd < MIN_HEIGHT:
+            position_cmd = MIN_HEIGHT
+        elif position_cmd > MAX_HEIGHT:
+            position_cmd = MAX_HEIGHT
+
+        # Send level command
         self.send_height_goal(position_cmd)
 
     def motor_controller_logic(self, motor_cmd):
@@ -271,6 +294,8 @@ class MainLogicNode(Node):
             topic = "gui_display_srv"
             callback_func = self.gui_display_future_callback
 
+        # TODO: wher do we recod metadata?
+
         #### Send request to all five printers ####
         if cmd.split("-")[-1] == "all":
             self.cli = [None] * 5
@@ -283,8 +308,9 @@ class MainLogicNode(Node):
                 # Populate request
                 request = srv.Request()
                 request.cmd = cmd[0:len(cmd)-len("all")] + str(i)
-                self.future = self.cli[i].call_async(request)
-                self.future.add_done_callback(partial(callback_func))
+                # TODO: May need self.future instead of future
+                future = self.cli[i].call_async(request)
+                future.add_done_callback(partial(callback_func))
                 ################################################################
                 self.get_logger().debug('Waiting on async...')  # DEBUG message
                 ################################################################
@@ -299,8 +325,8 @@ class MainLogicNode(Node):
             # Populate request
             request = srv.Request()
             request.cmd = cmd
-            self.future = self.cli.call_async(request)
-            self.future.add_done_callback(partial(callback_func))
+            future = self.cli.call_async(request)
+            future.add_done_callback(partial(callback_func))
             ################################################################
             self.get_logger().debug('Waiting on async...')   # DEBUG message
             ################################################################
@@ -317,9 +343,11 @@ class MainLogicNode(Node):
             request.cmd = cmd
             request.display_name = split_cmd[1]
             request.display_msg = split_cmd[2]
-            self.future = self.cli.call_async(request)
-            self.future.add_done_callback(partial(callback_func))
-            pass
+            future = self.cli.call_async(request)
+            future.add_done_callback(partial(callback_func))
+            ################################################################
+            self.get_logger().debug('Waiting on async...')   # DEBUG message
+            ################################################################
 
         # ERROR: does not recognize the commmad
         else:
@@ -359,9 +387,10 @@ class MainLogicNode(Node):
         self._get_result_future.add_done_callback(self.get_result_callback)
 
         # TODO: Send message to let the gui know level is moving    ######################
-        self.client_req("display-levestatus-moving-gui", "display")
+        self.client_req("display-levelstatus-moving-gui", "display")
 
     def get_result_callback(self, future):
+        # This function is call when the level action has finished
         result = future.result().result
 
         # Check result
@@ -369,6 +398,22 @@ class MainLogicNode(Node):
         self.get_logger().info('Current position: {0}'.format(result.height))
 
         # TODO: Send message to let the gui know the leve stoped moving at a given position
+        if self._levelState._reqLevel:
+            # TODO: delete this line later dont want this error in production
+            assert LEVEL[self._levelState._req_level] == result.height, "controller did not make it to the correct height for given level"
+            # reset the request leve flag
+            self._levelState._reqLevel = False
+            # update current level
+            self._levelState._level = self._levelState._req_level
+            # reset requested level
+            self._levelState._req_level = -1
+            # update display message
+            display_msg = "display-level-" + \
+                str(self._levelState._level) + "-gui"
+            self.client_req(display_msg, "display")
+
+        self._levelState._is_moving = False
+        self.client_req("display-levelstatus-stopped-gui", "display")
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
@@ -428,9 +473,19 @@ class MainLogicNode(Node):
                                ("True" if self._printer[0]._isLedOn else "False"))
 
     def gui_display_future_callback(self, future):
-        pass
+        try:
+            response = future.result()
+            self.get_logger().debug('Print Gui Display Result.msg: %s' % (response.msg))
+            if response.err != 0:
+                self.get_logger().error('[ERROR]: gui display response error %s' %
+                                        (response.msg))
+            self.get_logger().info('Gui Process Command Succesfully: %s'  (response.msg))
+        except Exception as e:
+            self.get_logger().error('ERROR: --- %r' % (e,))
+        self.get_logger().info('finished async call....')
 
     #********* Utility functions ***********#
+
     def is_proj_on(self, proj_num):
         assert type(proj_num) == type("")
         if proj_num == "all":
