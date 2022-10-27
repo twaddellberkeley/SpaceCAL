@@ -179,7 +179,7 @@ class MainLogicNode(Node):
         split_cmd = level_cmd.split("-")
         if split_cmd[2] == "height":
             assert len(split_cmd) == 4, "ERROR: command format error"
-            position_cmd = split_cmd[3]
+            position_cmd = int(split_cmd[3])
         elif split_cmd[2] == "up":
             assert len(split_cmd) == 4, "ERROR: command format error"
             position_cmd = self._levelState._curr_position + int(split_cmd[3])
@@ -276,7 +276,7 @@ class MainLogicNode(Node):
     ################################################ Client Request ##############################################
     def client_req(self, cmd, client):
         # times to try to connect to server
-        times_to_connect = 5
+        times_to_connect = 0
 
         ### Select client to send request ###
         if client == "proj":
@@ -491,7 +491,7 @@ class MainLogicNode(Node):
             if response.err != 0:
                 self.get_logger().error('[ERROR]: gui display response error %s' %
                                         (response.msg))
-            self.get_logger().info('Gui Process Command Succesfully: %s'  (response.msg))
+            self.get_logger().info('Gui Process Command Succesfully: %s' % (response.msg))
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
