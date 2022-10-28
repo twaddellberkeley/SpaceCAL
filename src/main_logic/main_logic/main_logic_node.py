@@ -16,7 +16,7 @@ from rclpy.node import Node
 from rclpy.action import ActionClient
 
 commands = ["proj-on-all", "proj-off-all", "rotate-vile-30"]
-LEVEL = [22, 44, 66, 77, 101]
+LEVEL = [18, 91, 164, 237, 310]
 MAX_HEIGHT = 300
 MIN_HEIGHT = 0
 

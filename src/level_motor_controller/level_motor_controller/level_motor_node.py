@@ -9,6 +9,9 @@ from smbus2 import SMBus
 from interfaces.action import Level
 from .submodules.motor_controller import Motor
 
+# Pulse to move moto
+# 1 mm per unit sent, max 310
+INCR_BIT = 1280  # Is 1mm per bit unit
 
 class LevelActionServer(Node):
 
@@ -83,10 +86,11 @@ class LevelActionServer(Node):
             self,
             Level,
             'level_motor_action_srv',
-            self.execute_callback_dummy)
+            self.execute_callback)
 
     def execute_callback(self, goal_handle):
         self.get_logger().info('Executing goal...')
+        self.get_motors_state()
 
         feedback_msg = Level.Feedback()
         # TODO get current height from motors or motor class
@@ -94,9 +98,7 @@ class LevelActionServer(Node):
 
         self.set_target_position(goal_handle.request.order)
 
-        motors_state = self.get_motors_state()
-        while 1 in motors_state:
-            self.get_logger().info("Motor are in target positon mode")
+        while self.getCurrHeight() < goal_handle.request.order:
             motors_state = self.get_motors_state()
             feedback_msg.feedback_height = self.getCurrHeight()
             self.get_logger().info('Feedback: {0}'.format(
@@ -108,48 +110,55 @@ class LevelActionServer(Node):
 
         result = Level.Result()
         result.height = self.getCurrHeight()
+        self.get_logger().info("Motor Final positon %d" % (result.height))
         return result
 
-    def execute_callback_dummy(self, goal_handle):
-        self.get_logger().info('Executing goal...')
+    # def execute_callback_dummy(self, goal_handle):
+    #     self.get_logger().info('Executing goal...')
 
-        feedback_msg = Level.Feedback()
-        # TODO get current height from motors or motor class
-        feedback_msg.feedback_height = 0
+    #     feedback_msg = Level.Feedback()
+    #     # TODO get current height from motors or motor class
+    #     feedback_msg.feedback_height = 0
 
-        for i in range(1, goal_handle.request.order):
-            feedback_msg.feedback_height += 1
-            self.get_logger().info('Feedback: {0}'.format(
-                feedback_msg.feedback_height))
-            goal_handle.publish_feedback(feedback_msg)
-            time.sleep(1)
+    #     for i in range(1, goal_handle.request.order):
+    #         feedback_msg.feedback_height += 1
+    #         self.get_logger().info('Feedback: {0}'.format(
+    #             feedback_msg.feedback_height))
+    #         goal_handle.publish_feedback(feedback_msg)
+    #         time.sleep(1)
 
-        goal_handle.succeed()
+    #     goal_handle.succeed()
 
-        result = Level.Result()
-        result.height = feedback_msg.feedback_height + 1
-        return result
+    #     result = Level.Result()
+    #     result.height = feedback_msg.feedback_height + 1
+    #     return result
 
     def set_target_position(self, target):
         # TODO: convert to pulses
-        position = target
+
+        position = int(target * INCR_BIT)
         for i in range(4):
-            self.motors[i].set_target_position(position)
+            self.motors[i].exit_safe_start()
+            if target == 0:
+                self.motors[i].go_home()
+            else:
+                self.motors[i].set_target_position(position)
 
     def get_motors_state(self):
         # there are three different states off = 0, target_position = 1, target_velocity = 2
         states = [None]*4
         for i in range(4):
             states[i] = self.motors[i].get_current_plannig_mode()
+            self.get_logger().info("Motor are in target positon mode-- Motor: %d  state: %d" % (i, states[i]))
         return states
 
     def getCurrHeight(self):
         positions = [None]*4
         for i in range(4):
             positions[i] = self.motors[i].get_current_position()
-
+            self.get_logger().info("Current Motor Height-- num: %d  height: %d" % (i, positions[i]))
         # Convert position to actual height in mm
-        height = int(sum(positions)/4)
+        height = int(sum(positions)/4/INCR_BIT)
         return height
 
 

@@ -57,12 +57,12 @@ class TicI2C(object):
         self.logger = logger
         # See if we can read a bit to test if motor is open
 # to commet for testing
-        # try:
-        #     self.bus.read_byte_data(self.address, 0)
-        # except Exception:
-        #     self.logger.error(
-        #         "Could not open motor controller on address %d" % self.address)
-        #     exit(0)
+        try:
+            self.bus.read_byte_data(self.address, 0)
+        except Exception:
+            self.logger.error(
+                "Could not open motor controller on address %d" % self.address)
+            exit(0)
 ###########################################################################################
     # Sends the "Exit safe start" command.
 
@@ -135,6 +135,7 @@ class TicI2C(object):
 
     # Stay alive, keep motor running
     def stay_alive(self):
+        self.logger.warn("Starting stay alive")
         while rclpy.ok():
             try:
                 self.clear_Timeout()
@@ -144,6 +145,7 @@ class TicI2C(object):
                 rclpy.shutdown()
                 exit(0)
             time.sleep(.5)
+        self.logger.warn("Ended stay alive")
 
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
@@ -208,30 +210,31 @@ class Motor(TicI2C):
             self.exit_safe_start()
             self.set_target_speed(round(speed*velBit))
 
-    # @Overwrite Tic function for testing
-    def reset_motor(self):
-        self._logger.info("Reseting Mottor...")
-        time.sleep(0.1)
 
-    # @Overwrite Tic function for testing
-    def stay_alive(self):
-        while rclpy.ok():
-            try:
-                time.sleep(10)
-            except Exception:
-                self.logger.warn("MOTOR DISCONNECTED %d" % self.address)
-                self.logger.warn("SHUTTING DOWN NODE")
-                # rclpy.shutdown()
-                exit(0)
-            self._logger.info("Stay alive id %d" % (self._id))
-            time.sleep(.5)
+    # # @Overwrite Tic function for testing
+    # def reset_motor(self):
+    #     self._logger.info("Reseting Mottor...")
+    #     time.sleep(0.1)
 
-    # @Overwrite Tic function for testing
-    def exit_safe_start(self):
-        self._logger.info("Exiting safe start...")
-        time.sleep(0.1)
+    # # @Overwrite Tic function for testing
+    # def stay_alive(self):
+    #     while rclpy.ok():
+    #         try:
+    #             time.sleep(10)
+    #         except Exception:
+    #             self.logger.warn("MOTOR DISCONNECTED %d" % self.address)
+    #             self.logger.warn("SHUTTING DOWN NODE")
+    #             # rclpy.shutdown()
+    #             exit(0)
+    #         self._logger.info("Stay alive id %d" % (self._id))
+    #         time.sleep(.5)
 
-    # @Overwrite Tic function for testing
-    def energize(self):
-        self._logger.info("Energizing...")
-        time.sleep(0.1)
+    # # @Overwrite Tic function for testing
+    # def exit_safe_start(self):
+    #     self._logger.info("Exiting safe start...")
+    #     time.sleep(0.1)
+
+    # # @Overwrite Tic function for testing
+    # def energize(self):
+    #     self._logger.info("Energizing...")
+    #     time.sleep(0.1)

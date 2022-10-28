@@ -20,7 +20,7 @@ class MotorNode(Node):
         # The default value of the parameter is zero and address 18
         ###############################################################################################################
         self.declare_parameter("motor_number", 0)
-        self.declare_parameter("address", 18)
+        self.declare_parameter("address", 21)
         self.motor_num = self.get_parameter(
             'motor_number').value
         self.address = self.get_parameter("address").value
