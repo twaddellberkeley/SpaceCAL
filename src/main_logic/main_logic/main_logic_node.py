@@ -1,7 +1,5 @@
 
-from distutils.util import split_quoted
-from operator import le
-from re import I
+import time
 from threading import Thread
 import threading
 from xml.etree.ElementTree import tostring
@@ -140,6 +138,9 @@ class MainLogicNode(Node):
             # Send command to level controller logic
             for cmd in ctrls["level_cmds"]:
                 self.level_controller_logic(cmd)
+                # Wait for the platform to stop moving
+                while self._levelState._is_moving:
+                    time.sleep(.5)
 
         if len(ctrls["motor_cmds"]) != 0:
             # Send commadns to motor controller logic
@@ -210,7 +211,7 @@ class MainLogicNode(Node):
         # TODO: add any logic if neccessary when turning motors on or off
         assert (motor_cmd != None)
         client = "motor"
-        index = 0
+        index = 1
         split_cmd = motor_cmd.split("-")
         if split_cmd[index] == "on":
             self.client_req(motor_cmd, client)
@@ -221,7 +222,7 @@ class MainLogicNode(Node):
         """This Function takes a command PROJ_CMD and implements the logic necessary 
             to complete the comand """
         assert (proj_cmd != None)
-        index = 0
+        index = 1
         client = "proj"
         split_cmd = proj_cmd.split("-")
         if split_cmd[index] == "on":
@@ -258,7 +259,7 @@ class MainLogicNode(Node):
         # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
         assert (pi_cmd != None)
         # TODO: Implement logic if needed. As of now it sends every message to the video controller
-        index = 0
+        index = 1
         client = "pi"
         split_cmd = pi_cmd.split("-")
         # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the
@@ -291,6 +292,8 @@ class MainLogicNode(Node):
             srv = MotorSrv
             topic = "print_motor_srv_"
             callback_func = self.motor_print_future_callback
+            request = srv.Request()
+            request.cmd = cmd
         elif client == "display":
             srv = GuiDisplay
             topic = "gui_display_srv"

@@ -9,15 +9,11 @@ from smbus2 import SMBus
 from interfaces.action import Level
 from .submodules.motor_controller import Motor
 
-# Pulse to move moto
-# 1 mm per unit sent, max 310
-INCR_BIT = 1280  # Is 1mm per bit unit
 
 class LevelActionServer(Node):
-
     def __init__(self):
         super().__init__('level_action_server')
-        index = 0
+
         num_motors = 4
         start_address = 14
         self.motor_num = [None] * num_motors
@@ -25,12 +21,12 @@ class LevelActionServer(Node):
         self.motors = [None] * num_motors
         self.stayAlive = [None] * num_motors
 
-        ###############################################################################################################
+        ############################################# ROS Parameters #################################################
+        index = 0
         while index < num_motors:
             m = "motor_number_" + str(index)
-            # ROS Parameters: "motor_number"  #######
             a = "address_" + str(index)
-            self.declare_parameter(m, index)  # "address"      ########
+            self.declare_parameter(m, index)
             self.declare_parameter(a, start_address)
             self.motor_num[index] = self.get_parameter(m).value
             self.address[index] = self.get_parameter(a).value
@@ -38,29 +34,10 @@ class LevelActionServer(Node):
             start_address += 1
         ###############################################################################################################
 
-        ###############################################################################################################
-        # self.declare_parameter("motor_number_0", 0)                        #######                                #######
-        # self.declare_parameter("motor_number_1", 1)                        #######                                #######
-        # self.declare_parameter("motor_number_2", 2)                        #######                                #######
-        # self.declare_parameter("motor_number_3", 3)                        #######                                #######
-        # self.declare_parameter("address_0", 14)                            ######  ROS Parameters: "motor_number"  ######
-        # self.declare_parameter("address_1", 15)                            ######  ROS Parameters: "motor_number"  ######
-        # self.declare_parameter("address_2", 16)                            ######  ROS Parameters: "motor_number"  ######
-        # self.declare_parameter("address_3", 17)                            ######  ROS Parameters: "motor_number"  ######
-        # self.motor_num_0 = self.get_parameter('motor_number_0').value        ######                   "address"      ######
-        # self.motor_num_1 = self.get_parameter('motor_number_1').value        ######                   "address"      ######
-        # self.motor_num_2 = self.get_parameter('motor_number_2').value        ######                   "address"      ######
-        # self.motor_num_3 = self.get_parameter('motor_number_3').value        ######                   "address"      ######
-        # self.address_0 = self.get_parameter("address_0").value               #######                                #######
-        # self.address_1 = self.get_parameter("address_1").value               #######                                #######
-        # self.address_2 = self.get_parameter("address_2").value               #######                                #######
-        # self.address_3 = self.get_parameter("address_3").value               #######                                #######
-        ###############################################################################################################
-
         # Create a bus object with with motor on /dev/i2c-1
-        # TODO: figureout how to get the bus number automatically
         bus = SMBus(1)
 
+        # Initialize the motors
         index = 0
         while index < num_motors:
             self.motors[index] = Motor(
@@ -79,6 +56,8 @@ class LevelActionServer(Node):
             self.stayAlive[index].start()
             self.motors[index].exit_safe_start()
             self.motors[index].energize()
+            # TODO: Uncoment when spped is confirmed
+            # self.motors[index].setMaxSpeed()
             index += 1
 
         # Create an action server
@@ -90,16 +69,14 @@ class LevelActionServer(Node):
 
     def execute_callback(self, goal_handle):
         self.get_logger().info('Executing goal...')
-        self.get_motors_state()
 
         feedback_msg = Level.Feedback()
         # TODO get current height from motors or motor class
         feedback_msg.feedback_height = self.getCurrHeight()
 
-        self.set_target_position(goal_handle.request.order)
+        self.setPosition(goal_handle.request.order)
 
         while self.getCurrHeight() < goal_handle.request.order:
-            motors_state = self.get_motors_state()
             feedback_msg.feedback_height = self.getCurrHeight()
             self.get_logger().info('Feedback: {0}'.format(
                 feedback_msg.feedback_height))
@@ -107,58 +84,26 @@ class LevelActionServer(Node):
             time.sleep(.1)
 
         goal_handle.succeed()
-
         result = Level.Result()
         result.height = self.getCurrHeight()
         self.get_logger().info("Motor Final positon %d" % (result.height))
         return result
 
-    # def execute_callback_dummy(self, goal_handle):
-    #     self.get_logger().info('Executing goal...')
-
-    #     feedback_msg = Level.Feedback()
-    #     # TODO get current height from motors or motor class
-    #     feedback_msg.feedback_height = 0
-
-    #     for i in range(1, goal_handle.request.order):
-    #         feedback_msg.feedback_height += 1
-    #         self.get_logger().info('Feedback: {0}'.format(
-    #             feedback_msg.feedback_height))
-    #         goal_handle.publish_feedback(feedback_msg)
-    #         time.sleep(1)
-
-    #     goal_handle.succeed()
-
-    #     result = Level.Result()
-    #     result.height = feedback_msg.feedback_height + 1
-    #     return result
-
-    def set_target_position(self, target):
-        # TODO: convert to pulses
-
-        position = int(target * INCR_BIT)
+    def setPosition(self, position):
         for i in range(4):
-            self.motors[i].exit_safe_start()
-            if target == 0:
-                self.motors[i].go_home()
+            if position == 0:
+                self.motors[i].goHome()
             else:
-                self.motors[i].set_target_position(position)
-
-    def get_motors_state(self):
-        # there are three different states off = 0, target_position = 1, target_velocity = 2
-        states = [None]*4
-        for i in range(4):
-            states[i] = self.motors[i].get_current_plannig_mode()
-            self.get_logger().info("Motor are in target positon mode-- Motor: %d  state: %d" % (i, states[i]))
-        return states
+                self.motors[i].setTargetPosition(position)
 
     def getCurrHeight(self):
         positions = [None]*4
         for i in range(4):
-            positions[i] = self.motors[i].get_current_position()
-            self.get_logger().info("Current Motor Height-- num: %d  height: %d" % (i, positions[i]))
+            positions[i] = self.motors[i].getCurrentPosition()
+            self.get_logger().info("Current Motor Height-- num: %d  height: %d" %
+                                   (i, positions[i]))
         # Convert position to actual height in mm
-        height = int(sum(positions)/4/INCR_BIT)
+        height = int(sum(positions)/4)
         return height
 
 
