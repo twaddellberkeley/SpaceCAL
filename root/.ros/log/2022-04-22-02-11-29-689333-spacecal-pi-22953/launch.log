@@ -1,0 +1,4 @@
+1650618689.6984673 [INFO] [launch]: All log files can be found below root/.ros/log/2022-04-22-02-11-29-689333-spacecal-pi-22953
+1650618689.6993492 [INFO] [launch]: Default logging verbosity is set to INFO
+1650618689.8546762 [INFO] [main_logic-1]: process started with pid [22955]
+1650618689.8561037 [INFO] [test_service-2]: process started with pid [22957]

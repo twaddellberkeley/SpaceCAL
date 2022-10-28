@@ -154,7 +154,7 @@ private:
 
   std::string get_month_name(int month_num)
   {
-	std::cout << "month_num: " << moth_num << std::endl;
+	std::cout << "month_num: " << month_num << std::endl;
     switch (month_num)
     {
     case 1:
@@ -181,7 +181,6 @@ private:
       return "Nov";
     case 12:
       return "Dec";
-    // you can have any number of case statements.
     default: // Optional
       return "Error";
     }
