@@ -57,7 +57,7 @@ class LevelActionServer(Node):
             self.motors[index].exit_safe_start()
             self.motors[index].energize()
             # TODO: Uncoment when spped is confirmed
-            # self.motors[index].setMaxSpeed()
+            self.motors[index].setMaxSpeed()
             index += 1
 
         # Create an action server
@@ -71,20 +71,40 @@ class LevelActionServer(Node):
         self.get_logger().info('Executing goal...')
 
         feedback_msg = Level.Feedback()
+        result = Level.Result()
+        if not self.okToRun() and goal_handle.request.order != 0:
+            result.height = -1
+            result.error = 1
+            result.msg = "motor position uncertain"
+            goal_handle.succeed()
+            return result
+
         # TODO get current height from motors or motor class
         feedback_msg.feedback_height = self.getCurrHeight()
 
+        # Set the target position for all the motors
         self.setPosition(goal_handle.request.order)
 
-        while self.getCurrHeight() < goal_handle.request.order:
-            feedback_msg.feedback_height = self.getCurrHeight()
-            self.get_logger().info('Feedback: {0}'.format(
-                feedback_msg.feedback_height))
-            goal_handle.publish_feedback(feedback_msg)
-            time.sleep(.1)
+        # We are moving down
+        if feedback_msg.feedback_height > goal_handle.request.order:
+             while self.getCurrHeight() > goal_handle.request.order:
+                feedback_msg.feedback_height = self.getCurrHeight()
+                self.get_logger().info("Current Velocity: %d" % (self.motors[0].getCurrentVelocity()))
+                self.get_logger().info('Feedback: {0}'.format(
+                    feedback_msg.feedback_height))
+                goal_handle.publish_feedback(feedback_msg)
+                time.sleep(.1)
+        # We are moving upwards
+        else:
+            while self.getCurrHeight() < goal_handle.request.order:
+                feedback_msg.feedback_height = self.getCurrHeight()
+                self.get_logger().info("Current Velocity: %d" % (self.motors[0].getCurrentVelocity()))
+                self.get_logger().info('Feedback: {0}'.format(
+                    feedback_msg.feedback_height))
+                goal_handle.publish_feedback(feedback_msg)
+                time.sleep(.1)
 
         goal_handle.succeed()
-        result = Level.Result()
         result.height = self.getCurrHeight()
         self.get_logger().info("Motor Final positon %d" % (result.height))
         return result
@@ -95,6 +115,8 @@ class LevelActionServer(Node):
                 self.motors[i].goHome()
             else:
                 self.motors[i].setTargetPosition(position)
+        while (self.motors[0].getCurrentFlags() >> 4):
+                    self.get_logger().info("Current Velocity: %d" % (self.motors[0].getCurrentVelocity()))
 
     def getCurrHeight(self):
         positions = [None]*4
@@ -106,6 +128,11 @@ class LevelActionServer(Node):
         height = int(sum(positions)/4)
         return height
 
+    def okToRun(self):
+        for i in range(4):
+            if self.motors[i].getCurrentFlags() >> 1:
+                return False
+        return True
 
 def main(args=None):
     print("Hello From LevelActioServer")
@@ -114,7 +141,7 @@ def main(args=None):
     level_action_server = LevelActionServer()
 
     rclpy.spin(level_action_server)
-
+    print("DONE")
 
 if __name__ == '__main__':
     main()

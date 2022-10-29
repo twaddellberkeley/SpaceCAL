@@ -9,10 +9,12 @@ from interfaces.srv import MotorSrv
 
 from .submodules.motor_controller import Motor
 
+# Maximum rotational speed for vile in rot/min
+MAX_MAG_SPPED = 20
 
 class MotorNode(Node):
-    MAX_SPEED = 40
-    MIN_SPEED = -40
+    MAX_SPEED = MAX_MAG_SPPED
+    MIN_SPEED = -MAX_MAG_SPPED
 
     def __init__(self):
         super().__init__('print_motor_node')
@@ -20,7 +22,7 @@ class MotorNode(Node):
         # The default value of the parameter is zero and address 18
         ###############################################################################################################
         self.declare_parameter("motor_number", 0)
-        self.declare_parameter("address", 21)
+        self.declare_parameter("address", 18)
         self.motor_num = self.get_parameter(
             'motor_number').value
         self.address = self.get_parameter("address").value
@@ -37,7 +39,7 @@ class MotorNode(Node):
         # Create a motor object that controls the motor and holds its state.
         self.motor = Motor(self.motor_num, bus,
                            self.address, self.get_logger())
-        self.motor.reset()
+        self.motor.resetMotor()
 
         # Create a thread to keep the motors energyzed in ordered to mantain its position
         # TODO: This line may need to be deleted
@@ -47,7 +49,9 @@ class MotorNode(Node):
         stayAlive.daemon = True
         stayAlive.start()
 
-        self.motor.on()
+        # Energize the motor
+        self.motor.exit_safe_start()
+        self.motor.energize()
 
     def print_motor_exec_callback(self, request, response):
         assert type(request.cmd) == type(""), "cmd is not a string"
@@ -55,49 +59,58 @@ class MotorNode(Node):
                                (self.motor_num, request.cmd))
 
         # prosses the commands
-        res, speed = self.process_cmds(request.cmd)
+        res, speed = self.process_cmds(request)
 
         response.err = res
         response.msg = "Print Motor " + \
             str(self.motor_num) + " executed succesfully"
-        response.status = "NORMAL"
+        
+        
         response.set_speed = speed
+        if speed != 0:
+            response.status = "Rotating"
+        else:
+            response.status = "Off"
         self.get_logger().info('Finished request from Motor\ncmd: %s ' % (request.cmd))
         return response
 
-    def process_cmds(self, raw_cmd):
-        assert type(raw_cmd) == type(""), "command must be a string type"
+    def process_cmds(self, request):
+        cmd = request.cmd
+        speed = request.speed
+        assert type(cmd) == type(""), "command must be a string type"
+        assert type(speed) == type(9), "Speed requested must be of type int"
+        self.get_logger().info('Decoding Gui Command:  %s\n' % cmd)
 
-        self.get_logger().info('Decoding Gui Command:  %s\n' % raw_cmd)
-
-        # where the actual command starts this may change later
-        index = 0
-
-        speed = 0
-
-        # Split comnands
-        cmd_list = raw_cmd.split("_")
-        for cmd in cmd_list:
-            split_cmd = cmd.split("-")
-            if "on" == split_cmd[index]:
-                self.get_logger().info('Motor ON:  ')
-                # Get speed
-                speed = int(split_cmd[index + 1])
-
-            elif "off" == split_cmd[index]:
-                self.get_logger().info('Motor Off:  ')
-                # Get speed
-                speed = 0
-
-            # Verify speed Max and Min
-            if speed < self.MIN_SPEED:
-                speed = self.MIN_SPEED
-            elif speed > self.MAX_SPEED:
-                speed = self.MAX_SPEED
-
-            # Setting target speed
-            self.motor.set_speed(speed)
-
+        # Verify speed Max and Min
+        if speed < self.MIN_SPEED:
+            speed = self.MIN_SPEED
+        elif speed > self.MAX_SPEED:
+            speed = self.MAX_SPEED
+        
+        if speed == 0:
+            self.motor.powerdown()
+            return 0, speed
+        elif self.motor.getCurrentStatus() != 10:
+            self.motor.exit_safe_start()
+            self.motor.energize()
+            status = self.motor.getCurrentStatus()
+            time.sleep(0.1)
+            if self.motor.getCurrentStatus() != 10:
+                time.sleep(0.1)
+                if self.motor.getCurrentStatus() != 10:
+                    self.get_logger().error('Could not energize motor:  %d\n' % (self.motor.id))
+                    return -1
+            
+        # Setting target speed
+        self.motor.setTargetSpeed(speed)
+        count = 0
+        while abs(self.motor.getCurrentVelocity() - speed) > 1:
+            self.get_logger().info("Moving... Current speed: %d" %(self.motor.getCurrentVelocity()))
+            if count > 10:
+                self.get_logger().warning("Could not achieved desired speed: %d" %(speed))
+                break
+            count += 1
+            time.sleep(0.5)
         return 0, speed
 
 

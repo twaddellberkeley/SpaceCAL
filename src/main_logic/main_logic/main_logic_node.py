@@ -15,7 +15,7 @@ from rclpy.action import ActionClient
 
 commands = ["proj-on-all", "proj-off-all", "rotate-vile-30"]
 LEVEL = [18, 91, 164, 237, 310]
-MAX_HEIGHT = 300
+MAX_HEIGHT = 310
 MIN_HEIGHT = 0
 
 
@@ -212,11 +212,15 @@ class MainLogicNode(Node):
         assert (motor_cmd != None)
         client = "motor"
         index = 1
+        request = MotorSrv.Request()
         split_cmd = motor_cmd.split("-")
+        request.cmd = split_cmd[index]
         if split_cmd[index] == "on":
-            self.client_req(motor_cmd, client)
+            request.speed = int(split_cmd[index+1])
         elif split_cmd[index] == "off":
-            self.client_req(motor_cmd, client)
+            request.speed = 0
+        self.client_req(motor_cmd, client, request)
+           
 
     def proj_controller_logic(self, proj_cmd):
         """This Function takes a command PROJ_CMD and implements the logic necessary 
@@ -227,23 +231,23 @@ class MainLogicNode(Node):
         split_cmd = proj_cmd.split("-")
         if split_cmd[index] == "on":
             # Turn projector on
-            self.client_req(proj_cmd, client)
+            self.client_req(proj_cmd, client, None)
         elif split_cmd[index] == "off":
             # Trun projector off
             if self.is_proj_led_on(split_cmd[index + 1]):
                 # If the led is on turn it off first
-                self.client_req("led-off-" + split_cmd[index + 1], client)
-            self.client_req(proj_cmd, client)
+                self.client_req("led-off-" + split_cmd[index + 1], client, None)
+            self.client_req(proj_cmd, client, None)
         elif split_cmd[index] == "led":
             if split_cmd[index + 1] == "off":
                 # Turn led off
-                self.client_req(proj_cmd, client)
+                self.client_req(proj_cmd, client, None)
             elif split_cmd[index + 1] == "on":
                 # Turn led on
                 if not self.is_proj_on(split_cmd[index + 2]):
                     # Verify projector is on else turn it on first
-                    self.client_req("on-" + split_cmd[index + 2], client)
-                self.client_req(proj_cmd, client)
+                    self.client_req("on-" + split_cmd[index + 2], client, None)
+                self.client_req(proj_cmd, client, None)
             else:
                 self.get_logger().error('Command not recognized in project logic: ')
         else:
@@ -265,17 +269,17 @@ class MainLogicNode(Node):
         # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the
         if split_cmd[index] == "get":
             #       to the projector structure, since this wont change during printing.
-            self.client_req(pi_cmd, client)
+            self.client_req(pi_cmd, client, None)
         elif split_cmd[index] == "play":
-            self.client_req(pi_cmd, client)
+            self.client_req(pi_cmd, client, None)
         elif split_cmd[index] == "stop":
-            self.client_req(pi_cmd, client)
+            self.client_req(pi_cmd, client, None)
         # TODO: we need to really define what pausing a video really means
         elif split_cmd[index] == "pause":
-            self.client_req(pi_cmd, client)
+            self.client_req(pi_cmd, client, None)
 
     ################################################ Client Request ##############################################
-    def client_req(self, cmd, client):
+    def client_req(self, cmd, client, req):
         # times to try to connect to server
         times_to_connect = 0
 
@@ -292,8 +296,6 @@ class MainLogicNode(Node):
             srv = MotorSrv
             topic = "print_motor_srv_"
             callback_func = self.motor_print_future_callback
-            request = srv.Request()
-            request.cmd = cmd
         elif client == "display":
             srv = GuiDisplay
             topic = "gui_display_srv"
@@ -310,11 +312,8 @@ class MainLogicNode(Node):
                 while not self.cli[i].wait_for_service(timeout_sec=1.0):
                     self.get_logger().info('service not available, waiting again...')
 
-                # Populate request
-                request = srv.Request()
-                request.cmd = cmd[0:len(cmd)-len("all")] + str(i)
                 # TODO: May need self.future instead of future
-                future = self.cli[i].call_async(request)
+                future = self.cli[i].call_async(req)
                 future.add_done_callback(partial(callback_func))
                 ################################################################
                 self.get_logger().debug('Waiting on async...')  # DEBUG message
@@ -328,9 +327,7 @@ class MainLogicNode(Node):
             while not self.cli.wait_for_service(timeout_sec=1.0):
                 self.get_logger().info('service not available, waiting again...')
             # Populate request
-            request = srv.Request()
-            request.cmd = cmd
-            future = self.cli.call_async(request)
+            future = self.cli.call_async(req)
             future.add_done_callback(partial(callback_func))
             ################################################################
             self.get_logger().debug('Waiting on async...')   # DEBUG message
@@ -348,7 +345,7 @@ class MainLogicNode(Node):
                     self.get_logger().warning('Could not connect to Gui Service')
                     break
                 count += 1
-            # Populate request
+            # Populate request TODO: this needs to change when we add gui controller
             request = srv.Request()
             request.cmd = cmd
             request.display_name = split_cmd[1]
@@ -387,6 +384,7 @@ class MainLogicNode(Node):
         # Check if goal was accepted
         if not goal_handle.accepted:
             self.get_logger().info('Goal rejected :(')
+            # TODO: send messge to gui that it needs to home first
             return
         self.get_logger().info('Goal accepted :)')
         # Update level state to moving
@@ -397,11 +395,13 @@ class MainLogicNode(Node):
         self._get_result_future.add_done_callback(self.get_result_callback)
 
         # TODO: Send message to let the gui know level is moving    ######################
-        self.client_req("display-levelstatus-moving-gui", "display")
+        self.client_req("display-levelstatus-moving-gui", "display", None)
 
     def get_result_callback(self, future):
         # This function is call when the level action has finished
         result = future.result().result
+
+        # TODO: Handle error here!!! when the level is not homed
 
         # Check result
         self._levelState._curr_position = result.height
@@ -413,7 +413,7 @@ class MainLogicNode(Node):
 
         # TODO: Send message to let the gui know the leve stoped moving at a given position
         if self._levelState._reqLevel:
-            if LEVEL[self._levelState._req_level] == result.height:
+            if LEVEL[self._levelState._req_level] != result.height:
                 self.get_logger().warning(
                     "controller did not make it to the correct height for given level")
             # reset the request leve flag
@@ -425,10 +425,10 @@ class MainLogicNode(Node):
             # update display message
             display_msg = "display-level-" + \
                 str(self._levelState._level) + "-gui"
-            self.client_req(display_msg, "display")
+            self.client_req(display_msg, "display", None)
 
         self._levelState._is_moving = False
-        self.client_req("display-levelstatus-stopped-gui", "display")
+        self.client_req("display-levelstatus-stopped-gui", "display", None)
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback

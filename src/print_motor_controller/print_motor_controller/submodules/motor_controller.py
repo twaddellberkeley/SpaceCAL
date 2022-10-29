@@ -19,7 +19,7 @@
 # THE SOFTWARE.
 
 
-# Author: Taylor Waddell
+# Author: Taylor Waddell and Christian Castaneda
 # Link to tic: pololu.com/docs/0J71/12.9
 # Uses the smbus2 library to send and receive data from a Tic.
 # Works on Linux with either Python 2 or Python 3.
@@ -33,22 +33,28 @@
 #   the device number of your Tic.
 
 
-from cmath import e
 import rclpy
 import time
 from smbus2 import i2c_msg
 
+# Tic class with generic motor controls
+
+# Step veloicty to achieve 1rot/min
+VEL_BIT = 1024000000/60  # Max 500000000
+
+# Increments: Tic 36v4: current limit, in units of 71.615 mA
+# Range: Tic 36v4: 0 mA to 9095 mA
+CURRENT_INCREMENT = 71.615
 
 # Pulse to move moto
 # 1 mm per unit sent, max 310
-incrBit = 1280  # Is 1mm per bit unit
+INCR_BIT = 1280  # Is 1mm per bit unit
 
-# Step veloicty to achieve 1rot/min
-velBit = 102400000/60  # 1024000000/60  # Max 500000000
-
-STATUS_NORMAL = 10
-
-# Tic class with generic motor controls
+# Calculation -> HOMING_SPEED/1024000000/60 => 8rot/min
+# Homing uses a max speed of 8rot/min
+# we will go a little faster => 10rot/min =>
+# Calculation -> 10rot/min * 1024000000/60 = 170666666
+MAX_SPEED = 170666666  # this is a speed of 10 rot/min
 
 
 class TicI2C(object):
@@ -59,13 +65,14 @@ class TicI2C(object):
         self.address = address
         self.logger = logger
         # See if we can read a bit to test if motor is open
-
+# to commet for testing
         try:
             self.bus.read_byte_data(self.address, 0)
         except Exception:
             self.logger.error(
                 "Could not open motor controller on address %d" % self.address)
             exit(0)
+###########################################################################################
     # Sends the "Exit safe start" command.
 
     def exit_safe_start(self):
@@ -80,7 +87,6 @@ class TicI2C(object):
     # Tic user's guide.
     # Size per 1/256 microstep is .0004960938mm in linear length
     def set_target_position(self, target):
-        self.logger.info("Target %d" % target)
         command = [0xE0,
                    target >> 0 & 0xFF,
                    target >> 8 & 0xFF,
@@ -96,6 +102,23 @@ class TicI2C(object):
                    speed >> 8 & 0xFF,
                    speed >> 16 & 0xFF,
                    speed >> 24 & 0xFF]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
+    # Sets maximum speed until next reset
+    def set_max_speed(self, speed):
+        command = [0xE6,
+                   speed >> 0 & 0xFF,
+                   speed >> 8 & 0xFF,
+                   speed >> 16 & 0xFF,
+                   speed >> 24 & 0xFF]
+        write = i2c_msg.write(self.address, command)
+        self.bus.i2c_rdwr(write)
+
+    # The Tic 36v4 represents current limits using numbers between 0 and 127
+    # Set current limit
+    def set_current_limit(self, value):
+        command = [0x40, value]
         write = i2c_msg.write(self.address, command)
         self.bus.i2c_rdwr(write)
 
@@ -137,16 +160,17 @@ class TicI2C(object):
 
     # Stay alive, keep motor running
     def stay_alive(self):
+        self.logger.warn("Starting stay alive")
         while rclpy.ok():
             try:
                 self.clear_Timeout()
-            except Exception as e:
-                self.logger.warn("MOTOR DISCONNECTED %d " % (self.address, ))
+            except Exception:
+                self.logger.warn("MOTOR DISCONNECTED %d" % self.address)
                 self.logger.warn("SHUTTING DOWN NODE")
-                self.logger.error("[ERROR}: %r" % (e,))
                 rclpy.shutdown()
                 exit(0)
             time.sleep(.5)
+        self.logger.warn("Ended stay alive")
 
     # Gets one or more variables from the Tic.
     def get_variables(self, offset, length):
@@ -183,9 +207,13 @@ class TicI2C(object):
         status = b[0]
         return status
 
-    # Gets current flag
     def get_current_step(self):
         b = self.get_variables(0x49, 1)
+        status = b[0]
+        return status
+
+    def get_current_plannig_mode(self):
+        b = self.get_variables(0x09, 1)
         status = b[0]
         return status
 
@@ -197,20 +225,107 @@ class Motor(TicI2C):
         self._id = id
         self._status = "off"    # posible status: [off, on, running, energized]
         self._speed = 0
+        self._logger = logger
+        self._curr_position = 0
+
+    # Resets Motor
+    def resetMotor(self):
+        self.reset_motor()
+
+    # Homes the motors
+    def goHome(self):
+        if (self.get_current_status() == 10):
+            self.exit_safe_start()
+            self.go_home()
+
+    # Halts the motors
+    def haltMotor(self):
+        self.halt_motor()
+
+    # Sets target speed
+    def setTargetPosition(self, target):
+        # Convert to pulses per sec
+        self.logger.info("Target %d" % target)
+        position = int(target * INCR_BIT)
+        if (self.get_current_status() == 10):
+            self.exit_safe_start()
+            self.set_target_position(position)
 
     # Sets speed of tic in rot/min
-    def set_speed(self, speed):
-        if (self.get_current_status() == STATUS_NORMAL):
+    def setTargetSpeed(self, speed):
+        if (self.get_current_status() == 10):
             self.exit_safe_start()
-            self.set_target_speed(round(speed*velBit))
+            self.set_target_speed(round(speed*VEL_BIT))
 
-    def reset(self):
-        self.reset_motor()
-        time.sleep(0.1)
+    # Sets Max Speed
+    def setMaxSpeed(self):
+        self.set_max_speed(MAX_SPEED)
 
-    def on(self):
-        self.exit_safe_start()
-        self.energize()
+    # The Tic 36v4 represents current limits using numbers between 0 and 127
+    # that are linearly proportional to the current limit
+    # Increments: Tic 36v4: current limit, in units of 71.615 mA
+    # Range: Tic 36v4: 0 mA to 9095 mA
+    def setCurrentLimit(self, limit):
+        value = 0
+        while limit > CURRENT_INCREMENT * value:
+            value += 1
+        self.set_current_limit(value)
 
-    def off(self):
-        self.powerdown()
+    # Get current velocity rot/min
+    def getCurrentVelocity(self):
+        velocity = self.get_current_velocity()
+        return int(velocity/VEL_BIT)
+
+    # Get current position in mm
+    def getCurrentPosition(self):
+        return int(self.get_current_position()/INCR_BIT)
+
+    # Get current flags
+    def getCurrentFlags(self):
+        # • Bit 0: Energized – The Tic’s motor outputs are enabled and if a stepper motor is properly connected, its coils are energized (i.e. electrical current is flowing).
+        # • Bit 1: Position uncertain – The Tic has not received external confirmation that the value of its “current position” variable is correct (see Section 5.4).
+        # • Bit 2: Forward limit active – One of the forward limit switches is active.
+        # • Bit 3: Reverse limit active – One of the reverse limit switches is active.
+        # • Bit 4: Homing active – The Tic’s homing procedure is running.
+        # • Bits 5–7: reserved
+        return self.get_current_flags()
+
+    # Get current status
+    def getCurrentStatus(self):
+        # • 0: Reset
+        # • 2: De-energized
+        # • 4: Soft error
+        # • 6: Waiting for ERR line
+        # • 8: Starting up
+        # • 10: Normal
+        return self.get_current_status()
+
+    # Get current flags
+
+    # # @Overwrite Tic function for testing
+    # def reset_motor(self):
+    #     self._logger.info("Reseting Mottor...")
+    #     time.sleep(0.1)
+
+    # # @Overwrite Tic function for testing
+    # def stay_alive(self):
+    #     while rclpy.ok():
+    #         try:
+    #             time.sleep(10)
+    #         except Exception:
+    #             self.logger.warn("MOTOR DISCONNECTED %d" % self.address)
+    #             self.logger.warn("SHUTTING DOWN NODE")
+    #             # rclpy.shutdown()
+    #             exit(0)
+    #         self._logger.info("Stay alive id %d" % (self._id))
+    #         time.sleep(.5)
+
+    # # @Overwrite Tic function for testing
+    # def exit_safe_start(self):
+    #     self._logger.info("Exiting safe start...")
+    #     time.sleep(0.1)
+
+    # # @Overwrite Tic function for testing
+    # def energize(self):
+    #     self._logger.info("Energizing...")
+    #     time.sleep(0.1)
