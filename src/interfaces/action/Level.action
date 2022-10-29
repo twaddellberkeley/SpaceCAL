@@ -1,7 +1,0 @@
-int32 order
----
-int32 height
-int32 error
-string msg
----
-int32 feedback_height

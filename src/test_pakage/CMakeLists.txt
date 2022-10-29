@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(interfaces)
+project(test_pakage)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -21,7 +21,13 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
+add_executable(test_node src/test_node.cpp)
+target_include_directories(test_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
 
+install(TARGETS test_node
+  DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -34,31 +40,4 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-find_package(builtin_interfaces REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(action_msgs)
-find_package(rosidl_typesupport_c REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-
-rosidl_generate_interfaces(${PROJECT_NAME}
-  msg/Metadata.msg
-  msg/Imu.msg
-  msg/MotorData.msg
-  msg/DisplayData.msg
-  msg/FusionImu.msg
-  msg/RawImu.msg
-  msg/PrintingInfo.msg
-  srv/GuiInput.srv
-  srv/GuiDisplay.srv
-  srv/Projector.srv
-  srv/Video.srv
-  srv/MotorSrv.srv
-  action/Level.action
-  DEPENDENCIES builtin_interfaces
-  std_msgs  # Or other packages containing msgs
-  geometry_msgs
-  action_msgs
- )
 ament_package()
-
