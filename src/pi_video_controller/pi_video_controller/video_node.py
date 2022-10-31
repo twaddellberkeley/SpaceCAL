@@ -5,7 +5,7 @@ from interfaces.srv import Video
 import rclpy
 from rclpy.node import Node
 
-from .submodules.video_utils import kill_me
+from .submodules.video_utils import VlcControl
 
 class VideoNode(Node):
     
@@ -18,6 +18,7 @@ class VideoNode(Node):
         self.declare_parameter("pi_number", 0)                      ####### ROS Parameter: "pi_number" #####
         self.pi_num = self.get_parameter('pi_number').value         #######                            #####
         ####################################################################################################
+        self.vlc = VlcControl(self.get_logger())
 
         # Create a service to recieve pi requests to this service name with PI_NUM
         self.proj_srv = self.create_service(Video, 'pi_video_srv_' + str(self.pi_num), self.pi_video_exec_callback)
@@ -27,7 +28,13 @@ class VideoNode(Node):
         assert type(request.cmd) == type(""), "cmd is not a string"
         self.get_logger().info('\nService request recieved at PI %d\nCommand: %s ' % (self.pi_num, request.cmd))
         ############ TODO: Code Here ###################
-        time.sleep(5)
+        if request.cmd == "play":
+            self.vlc.playVideo(request.file_name)
+            self.get_logger().info("video is playing")
+        else:
+            self.vlc.stopVideo()
+            self.get_logger().info("video has stop playing")
+
         response.err = 0
         response.msg = "Projector " + str(self.pi_num) + " executed succesfully"
         response.status = request.cmd.split("-")[-1]

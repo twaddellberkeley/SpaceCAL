@@ -1,0 +1,9 @@
+Metadata meta
+int32 id
+string cmd
+int32 speed
+---
+int32 err
+string msg
+string status 
+int32 set_speed

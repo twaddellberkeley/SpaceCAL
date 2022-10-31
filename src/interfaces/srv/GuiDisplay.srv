@@ -1,0 +1,7 @@
+Metadata meta
+string cmd
+string display_name
+string display_msg
+---
+int32 err
+string msg
