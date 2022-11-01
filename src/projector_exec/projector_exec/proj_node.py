@@ -1,5 +1,9 @@
 
 import time
+import os
+import time
+import subprocess
+import multiprocessing
 from interfaces.srv import Projector
 
 import rclpy
@@ -24,14 +28,45 @@ class ProjectorNode(Node):
     def projector_exec_callback(self, request, response):
         assert type(request.cmd) == type(""), "cmd is not a string"
         self.get_logger().info('\nService request recieved at Projector %d\nCommand: %s ' % (self.proj_num, request.cmd))
-        time.sleep(5)
-        response.err = 0
-        response.msg = "Projector " + str(self.proj_num) + " executed succesfully"
-        response.status = request.cmd.split("-")[-1]
-        response.is_video_on = True
-        response.is_led_on = True
+        
+        res = self.process_cmd(request, response)
+
         self.get_logger().info('Service request has been proccessed at projector: %d ' % (self.proj_num))
-        return response
+        return res
+
+    def process_cmd(self, req, res):
+        msg = ""
+        if req.cmd == "on":
+            if subprocess.run(["vcgencmd", "display_power", "1"]).returncode != 0:
+                self.get_logger().error("Could not turn HDMI Power On")
+            res.status = "HDMI-Power-On"
+            res.is_power_on = True
+            msg = "Turned HDMI Power On"
+        elif req.cmd == "off":
+            if subprocess.run(["vcgencmd", "display_power", "0"]).returncode != 0:
+                self.get_logger().error("Could not turn HDMI Power Off")
+            res.status = "HDMI-Power-Off"
+            res.is_power_on = False
+            msg = "Turned HDMI Power Off"
+        elif req.cmd == "led-on":
+            self.get_logger().info("Turning LED On")
+            subprocess.run("ledOn")
+            res.is_led_on = True
+            res.status = "LED-On"
+            msg = "Turned LED On"
+        elif req.cmd == "led-off":
+            self.get_logger().info("Turning LED Off")
+            subprocess.run("ledZero")
+            res.status = "LED-Off"
+            res.is_led_on = False
+            msg = "Turned LED On"
+        else:
+            msg = "DID NOT FIND COMMAND"
+        res.err = 0
+        res.msg = "Projector " + str(self.proj_num) + " " + msg + " succesfully"
+        return res
+            # Turn the hdmi power off
+
 
 
 def main(args=None):
