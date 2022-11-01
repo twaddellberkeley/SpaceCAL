@@ -5,7 +5,7 @@ from interfaces.srv import Video
 import rclpy
 from rclpy.node import Node
 
-from .submodules.video_utils import VlcControl, VIDEO_DIR
+from .submodules.video_utils import VlcControl, VIDEO_DIR, QUEUE_VIDEO_FILE
 
 class VideoNode(Node):
     
@@ -20,6 +20,7 @@ class VideoNode(Node):
         ####################################################################################################
         self.vlc = VlcControl(self.get_logger())
         self.pi_videos = self.get_pi_videos()
+        self.pi_queue = self.get_pi_queue()
         # Create a service to recieve pi requests to this service name with PI_NUM
         self.proj_srv = self.create_service(Video, 'pi_video_srv_' + str(self.pi_num), self.pi_video_exec_callback)
        
@@ -49,7 +50,10 @@ class VideoNode(Node):
         elif req.cmd == "get-videos":
             print(type(self.pi_videos))
             res.videos = self.pi_videos
-            res.status = "stopped"
+        elif req.cmd == "get-queue":
+            res.queue = self.pi_queue
+        elif req.cmd =="update-queue":
+            self.update_queue(req.update_queue)
         res.err = 0
         res.msg = "Projector " + str(self.pi_num) + " executed succesfully"
         return res
@@ -61,6 +65,19 @@ class VideoNode(Node):
                 lst.append(file)
         return lst
 
+    def update_queue(self, queue):
+        assert queue != None, "Queue is None"
+        if len(queue) < 1:
+            return
+        with open(QUEUE_VIDEO_FILE, 'w') as f:
+            f.writelines('\n'.join(queue))
+
+    def get_pi_queue(self):
+        lst = []
+        with open(QUEUE_VIDEO_FILE, 'r') as f:
+            [lst.append(line) for line in f.readlines()]
+        return lst
+                
 
 def main(args=None):
     rclpy.init(args=args)
