@@ -2,9 +2,11 @@ Metadata meta
 int32 id
 string cmd
 string file_name
+string[] update_queue
 ---
 int32 err
 string[] videos
+string[] queue
 string msg
 string status 
 bool is_video_on 
