@@ -11,6 +11,7 @@ stayAlive = None
 
 started = False
 VIDEO_DIR = '/home/spacecal/pi_videos/'
+QUEUE_VIDEO_FILE = '/home/spacecal/pi_queue_videos/pi_queue.txt'
 
 # Looks for a video string to display, and displays it
 
