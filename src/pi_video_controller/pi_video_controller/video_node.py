@@ -1,11 +1,11 @@
 
-
+import os
 import time
 from interfaces.srv import Video
 import rclpy
 from rclpy.node import Node
 
-from .submodules.video_utils import VlcControl
+from .submodules.video_utils import VlcControl, VIDEO_DIR
 
 class VideoNode(Node):
     
@@ -19,7 +19,7 @@ class VideoNode(Node):
         self.pi_num = self.get_parameter('pi_number').value         #######                            #####
         ####################################################################################################
         self.vlc = VlcControl(self.get_logger())
-
+        self.pi_videos = self.get_pi_videos()
         # Create a service to recieve pi requests to this service name with PI_NUM
         self.proj_srv = self.create_service(Video, 'pi_video_srv_' + str(self.pi_num), self.pi_video_exec_callback)
        
@@ -28,20 +28,38 @@ class VideoNode(Node):
         assert type(request.cmd) == type(""), "cmd is not a string"
         self.get_logger().info('\nService request recieved at PI %d\nCommand: %s ' % (self.pi_num, request.cmd))
         ############ TODO: Code Here ###################
-        if request.cmd == "play":
-            self.vlc.playVideo(request.file_name)
-            self.get_logger().info("video is playing")
-        else:
-            self.vlc.stopVideo()
-            self.get_logger().info("video has stop playing")
 
-        response.err = 0
-        response.msg = "Projector " + str(self.pi_num) + " executed succesfully"
-        response.status = request.cmd.split("-")[-1]
-        response.is_video_on = True
-        response.is_led_on = True
+        response = self.process_cmd(request, response)
+
         self.get_logger().info('Finished request from PI\ncmd: %s ' % (request.cmd))
         return response
+
+    def process_cmd(self, req, res):
+
+        if req.cmd == "play":
+            self.vlc.playVideo(req.file_name)
+            self.get_logger().info("video is playing")
+            res.is_video_on = True
+            res.status = "video playing"
+        elif req.cmd == "stop-video":
+            self.vlc.stopVideo()
+            self.get_logger().info("video has stop playing")
+            res.is_video_on = False
+            res.status = "stopped"
+        elif req.cmd == "get-videos":
+            print(type(self.pi_videos))
+            res.videos = self.pi_videos
+            res.status = "stopped"
+        res.err = 0
+        res.msg = "Projector " + str(self.pi_num) + " executed succesfully"
+        return res
+    
+    def get_pi_videos(self):
+        lst = []
+        for file in os.listdir(VIDEO_DIR):
+            if file.endswith(".mp4"):
+                lst.append(file)
+        return lst
 
 
 def main(args=None):
