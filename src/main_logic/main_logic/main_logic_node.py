@@ -4,6 +4,7 @@ from threading import Thread
 import threading
 from xml.etree.ElementTree import tostring
 from functools import partial
+from queue import Queue
 
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 from interfaces.action import Level
@@ -50,6 +51,9 @@ class Printer():
         self._isLedOn = False
         self._isVideoOn = False
         self._motor = Motor(id)
+        self._pi_videos = []
+        self._pi_queue = Queue()
+        self._queue_index = 0
 
 
 class MainLogicNode(Node):
@@ -73,8 +77,15 @@ class MainLogicNode(Node):
         self._printer = [Printer(0), Printer(
             1), Printer(2), Printer(3), Printer(4)]
 
+      
+        self.pi_controller_logic("pi-get-videos-all")
+        self.pi_controller_logic("pi-get-queue-all")
+
         #***** Initialize Level Controller ******#
         self._levelState = LevelState()
+
+        #***** Initialize Goalhandle to cancel goal if needed ******#
+        self.goal_handle = None
 
     def gui_input_callback(self, request, response):
         self.get_logger().info('Incoming Gui Request\ncmd: %s ' % (request.cmd))
@@ -223,33 +234,39 @@ class MainLogicNode(Node):
            
 
     def proj_controller_logic(self, proj_cmd):
-        """This Function takes a command PROJ_CMD and implements the logic necessary 
-            to complete the comand """
+        """This Function takes a command PROJ_CMD and implements the logic necessary to complete the comand
+                - **proj-on-<#>**: turns on the projector number # and parks the DMD
+                - **proj-off-<#>**: turns off the projector number # and parks the DMD
+                - **proj-led-on-<#>**: turns the projector number #’s led on
+                - **proj-led-off-<#>**: turns the projector number #’s led off
+             """
         assert (proj_cmd != None)
         index = 1
         client = "proj"
         split_cmd = proj_cmd.split("-")
+        req = Projector.Request()
         if split_cmd[index] == "on":
             # Turn projector on
-            self.client_req(proj_cmd, client, None)
+            req.cmd = split_cmd[index]
+            self.client_req(proj_cmd, client, req)
         elif split_cmd[index] == "off":
-            # Trun projector off
-            if self.is_proj_led_on(split_cmd[index + 1]):
-                # If the led is on turn it off first
-                self.client_req("led-off-" + split_cmd[index + 1], client, None)
-            self.client_req(proj_cmd, client, None)
+            # # Trun projector off
+            # if self.is_proj_led_on(split_cmd[index + 1]):
+            #     # If the led is on turn it off first
+            #     req.cmd = "led-off"
+            #     self.client_req("proj-led-off-" + split_cmd[index + 1], client, req)
+            req.cmd = split_cmd[index]
+            self.client_req(proj_cmd, client, req)
         elif split_cmd[index] == "led":
-            if split_cmd[index + 1] == "off":
-                # Turn led off
-                self.client_req(proj_cmd, client, None)
-            elif split_cmd[index + 1] == "on":
-                # Turn led on
-                if not self.is_proj_on(split_cmd[index + 2]):
-                    # Verify projector is on else turn it on first
-                    self.client_req("on-" + split_cmd[index + 2], client, None)
-                self.client_req(proj_cmd, client, None)
-            else:
-                self.get_logger().error('Command not recognized in project logic: ')
+            req.cmd = split_cmd[index] + "-" + split_cmd[index + 1]
+            # if split_cmd[index + 1] == "on":
+                # # Turn led on
+                # if not self.is_proj_on(split_cmd[index + 2]):
+                #     # Verify projector is on else turn it on first
+                #     self.client_req("", client, None)
+            self.client_req(proj_cmd, client, req)
+            # else:
+            #     self.get_logger().error('Command not recognized in project logic: ')
         else:
             self.get_logger().error('Command not recognized in project logic: ')
 
@@ -267,16 +284,65 @@ class MainLogicNode(Node):
         client = "pi"
         split_cmd = pi_cmd.split("-")
         # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the
+            #  to the projector structure, since this wont change during printing.
+        req = Vidoe.Request()
         if split_cmd[index] == "get":
-            #       to the projector structure, since this wont change during printing.
-            self.client_req(pi_cmd, client, None)
+            req.cmd = split_cmd[index] + "-" + split_cmd[index+1]
         elif split_cmd[index] == "play":
-            self.client_req(pi_cmd, client, None)
+            req.cmd = split_cmd[index] 
+            queue_index = 0
+            # Send Command to all printers
+            if split_cmd[-1] == "all":
+                for i in range(5):
+                    if split_cmd[index+1] == "queue":
+
+                        # get next queue item from queue
+                        queue_index = self._printer[i]._queue_index
+                        # Verify that there is an item in the queue
+                        self.is_valid_queue_index(queue_index)
+                        # Get file name from queue
+                        req.file_name = self._printer[i]._pi_queue[queue_index]
+                        # convert to singel play request
+                        cmd = "pi-play-" + req.file_name + "-" + int(i) 
+                        # Send request
+                        self.client_req(cmd, client, req)
+                        # update queue index to the next video
+                        self._printer[i]._queue_index += 1
+                    else:
+                        # Get index from command
+                        queue_index = int(split_cmd[index+1])
+                        # Verify there is an item in the queue
+                        self.is_valid_queue_index(queue_index)
+                        # Get file name from queue
+                        req.file_name = self._printer[i]._pi_queue[queue_index]
+                        # Get construct new command 
+                        cmd = "pi-play-" + req.file_name + "-" + int(i) 
+                        # Send command
+                        self.client_req(cmd, client, req)
+                    
+            # Send command to a single printer
+            elif split_cmd[index+1] == "queue":
+                # Get printer number
+                printer_num = int(split_cmd[index+2])
+                # Get next queue index from printer
+                queue_index = self._printer[printer_num]._queue_index
+                # Get video from printer
+                req.file_name = self._printer[printer_num]._pi_queue[queue_index]
+                self.client_req(cmd, client, req)
+                self._printer[printer_num]._queue_index += 1
+                
+            else:
+                req.file_name = split_cmd[index+1]
+                self.client_req(cmd, client, req)
+                
         elif split_cmd[index] == "stop":
-            self.client_req(pi_cmd, client, None)
+            req.cmd = split_cmd[index]
+            self.client_req(pi_cmd, client, req)
         # TODO: we need to really define what pausing a video really means
         elif split_cmd[index] == "pause":
-            self.client_req(pi_cmd, client, None)
+            req.cmd = "stop"
+            self.client_req(pi_cmd, client, req)
+        
 
     ################################################ Client Request ##############################################
     def client_req(self, cmd, client, req):
@@ -313,6 +379,9 @@ class MainLogicNode(Node):
                     self.get_logger().info('service not available, waiting again...')
 
                 # TODO: May need self.future instead of future
+                # if client == "pi" and req.cmd == "play":
+                #     queue_index = int(req.file_name)
+                #     req.file_name = self._printer[i]._pi_queue[queue_index]
                 future = self.cli[i].call_async(req)
                 future.add_done_callback(partial(callback_func))
                 ################################################################
@@ -380,9 +449,9 @@ class MainLogicNode(Node):
         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
     def goal_response_callback(self, future):
-        goal_handle = future.result()
+        self.goal_handle = future.result()
         # Check if goal was accepted
-        if not goal_handle.accepted:
+        if not self.goal_handle.accepted:
             self.get_logger().info('Goal rejected :(')
             # TODO: send messge to gui that it needs to home first
             return
@@ -391,7 +460,7 @@ class MainLogicNode(Node):
         self._levelState._is_moving = True
 
         # get the result later
-        self._get_result_future = goal_handle.get_result_async()
+        self._get_result_future = self.goal_handle.get_result_async()
         self._get_result_future.add_done_callback(self.get_result_callback)
 
         # TODO: Send message to let the gui know level is moving    ######################
@@ -434,6 +503,9 @@ class MainLogicNode(Node):
         feedback = feedback_msg.feedback
         self._levelState._curr_position = feedback.feedback_height
 
+        if _levelState._curr_position > 100:
+            cancel_goal_future = self._action_client.cancel_goal_async()
+            cancel_goal_future.add_done_callback()
         # TODO: posible publish height
 
         self.get_logger().info(
@@ -460,18 +532,27 @@ class MainLogicNode(Node):
 
     def pi_future_callback(self, future):
         try:
-            response = future.result()
-            self.get_logger().info('Pi Video status %s' % (response.status))
-            if response.err == 0:
-                self._printer[0]._isLedOn = response.is_led_on
-                self._printer[0]._isVideoOn = response.is_video_on
-                self.get_logger().info('response.is_led_on %s' %
-                                       ("True" if response.is_led_on else "False"))
+            # TODO: update --> self._printer[i]._queue_index
+            res = future.result()
+            self.get_logger().info('Pi Video status %s' % (res.status))
+            # int32 err
+            # string[] videos
+            # string[] queue
+            # string msg
+            # string status 
+            # bool is_video_on 
+
+            if len(res.videos) > 0:
+                self._printer[res.id]._pi_videos = res.videos
+            if len(res.queue) > 0:
+                self._printer[res.id]._pi_queue = res.queue
+                
+            self.get_logger().info('res.is_led_on %s' %
+                                       (res.msg))
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
-        self.get_logger().info('Printer_1._isLedOn %s' %
-                               ("True" if self._printer[0]._isLedOn else "False"))
+        
 
     def motor_print_future_callback(self, future):
         try:
@@ -520,6 +601,11 @@ class MainLogicNode(Node):
             return True
         else:
             return self._printer[int(proj_num)]._isLedOn
+
+    def is_valid_queue_index(self, index):
+        queue_index = int(split_cmd[index+1])
+        for i in rage(5):
+            assert queue_index < len(self._printer[i]._pi_queue), "Queue index out of range"
 
 
 def main(args=None):

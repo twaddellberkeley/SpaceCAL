@@ -2,6 +2,7 @@ Metadata meta
 int32 id
 string cmd
 ---
+int32 id
 int32 err
 string msg
 string status 
