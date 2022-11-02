@@ -72,11 +72,12 @@ class VideoNode(Node):
             return
         with open(QUEUE_VIDEO_FILE, 'w') as f:
             f.writelines('\n'.join(queue))
+        self.pi_queue = self.get_pi_queue()
 
     def get_pi_queue(self):
         lst = []
         with open(QUEUE_VIDEO_FILE, 'r') as f:
-            [lst.append(line) for line in f.readlines()]
+            [lst.append(line.split('\n')[0]) for line in f.readlines()]
         return lst
                 
 
