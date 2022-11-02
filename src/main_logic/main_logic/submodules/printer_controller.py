@@ -27,9 +27,11 @@ class PrinterController(Node):
         self._isProjOn = False
         self._isLedOn = False
         self._isVideoOn = False
+        self._isPlayingQueueEmpty = True
         self._motor = Motor(id)
         self._pi_videos = []
-        self._pi_queue = Queue()
+        self._pi_queue = []
+        self._playing_queue = Queue()
         self._queue_index = 0
 
     def send_motor_cmd(self, cmd):
@@ -54,11 +56,20 @@ class PrinterController(Node):
         req = MotorSrv.Request()
         req.cmd = split_cmd[index]
         req.id = self._id
+
+        # Turn motor on
         if split_cmd[index] == "on":
             req.speed = int(split_cmd[index+1])
+
+        # Turn motor off
         elif split_cmd[index] == "off":
             req.speed = 0
-        self.client_req(motor_cmd, client, req)
+
+        # Command not recognized
+        else:
+            self.get_logger().error(
+                '[motor_controller_logic]: Command not recognized ')
+        self.client_req(client, req)
 
     def proj_controller_logic(self, proj_cmd):
         """This Function takes a command PROJ_CMD and implements the logic necessary to complete the comand
@@ -66,113 +77,119 @@ class PrinterController(Node):
                 - **proj-off-<#>**: turns off the projector number # and parks the DMD
                 - **proj-led-on-<#>**: turns the projector number #’s led on
                 - **proj-led-off-<#>**: turns the projector number #’s led off
-             """
+        """
         assert (proj_cmd != None)
-        index = 1
         client = "proj"
+        index = 1
         split_cmd = proj_cmd.split("-")
         req = Projector.Request()
+        req.id = self._id
+
+        # Turn on HDMI power
         if split_cmd[index] == "on":
             # Turn projector on
             req.cmd = split_cmd[index]
-            self.client_req(proj_cmd, client, req)
+
+        # Trurn HDMI power off
         elif split_cmd[index] == "off":
             # # Trun projector off
-            # if self.is_proj_led_on(split_cmd[index + 1]):
-            #     # If the led is on turn it off first
-            #     req.cmd = "led-off"
-            #     self.client_req("proj-led-off-" + split_cmd[index + 1], client, req)
+            if self._isLedOn:
+                # If the led is on turn it off first
+                req.cmd = "led-off"
+                self.client_req(client, req)
+                # wait to turn led off
+                time.sleep(0.5)
             req.cmd = split_cmd[index]
-            self.client_req(proj_cmd, client, req)
+
+        # Handle LED
         elif split_cmd[index] == "led":
+            # Turn LED on
+            if split_cmd[index + 1] == "on":
+                # Turn led on
+                if not self._isProjOn:
+                    # Verify projector is on else turn it on first
+                    req.cmd = "on"
+                    self.client_req(client, req)
+                    # wait for projector to be turn on
+                    time.sleep(2)
             req.cmd = split_cmd[index] + "-" + split_cmd[index + 1]
-            # if split_cmd[index + 1] == "on":
-            # # Turn led on
-            # if not self.is_proj_on(split_cmd[index + 2]):
-            #     # Verify projector is on else turn it on first
-            #     self.client_req("", client, None)
-            self.client_req(proj_cmd, client, req)
-            # else:
-            #     self.get_logger().error('Command not recognized in project logic: ')
+
+        # Command is not recognized
         else:
-            self.get_logger().error('Command not recognized in project logic: ')
+            self.get_logger().error(
+                '[proj_controller_logic]: Command not recognized ')
+        self.client_req(proj_cmd, client, req)
 
     def pi_controller_logic(self, pi_cmd):
-        # - **pi-get-videos-<#>**: gets all the videos available in the pi #
-        # - **pi-get-queue-<#>**: get the video queue for pi #
-        # - **pi-play-<videoName>-<#>**: play **videoName** from pi #
-        # - **pi-stop-video-<#>**: stop playing video from pi #
-        # - **pi-play-queue-<#>**: play video queue from pi #
-        # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
-        # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
+        """
+            # - **pi-get-videos-<#>**: gets all the videos available in the pi #
+            # - **pi-get-queue-<#>**: get the video queue for pi #
+            # - **pi-play-<videoName>-<#>**: play **videoName** from pi #
+            # - **pi-play-queue-<#>**: play video queue from pi #
+            # - **pi-stop-video-<#>**: stop playing video from pi #
+            # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
+            # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
+        """
         assert (pi_cmd != None)
         # TODO: Implement logic if needed. As of now it sends every message to the video controller
-        index = 1
-        client = "pi"
-        split_cmd = pi_cmd.split("-")
         # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the
         #  to the projector structure, since this wont change during printing.
+        client = "pi"
+        index = 1
+        split_cmd = pi_cmd.split("-")
         req = Video.Request()
+        req.id = self._id
+
+        # Process the get command
         if split_cmd[index] == "get":
             req.cmd = split_cmd[index] + "-" + split_cmd[index+1]
+
+        # Process the play command
         elif split_cmd[index] == "play":
             req.cmd = split_cmd[index]
-            queue_index = 0
-            # Send Command to all printers
-            if split_cmd[-1] == "all":
-                for i in range(5):
-                    if split_cmd[index+1] == "queue":
 
-                        # get next queue item from queue
-                        queue_index = self.printerController[i]._queue_index
-                        # Verify that there is an item in the queue
-                        self.is_valid_queue_index(queue_index)
-                        # Get file name from queue
-                        req.file_name = self.printerController[i]._pi_queue[queue_index]
-                        # convert to singel play request
-                        cmd = "pi-play-" + req.file_name + "-" + int(i)
-                        # Send request
-                        self.client_req(cmd, client, req)
-                        # update queue index to the next video
-                        self.printerController[i]._queue_index += 1
-                    else:
-                        # Get index from command
-                        queue_index = int(split_cmd[index+1])
-                        # Verify there is an item in the queue
-                        self.is_valid_queue_index(queue_index)
-                        # Get file name from queue
-                        req.file_name = self.printerController[i]._pi_queue[queue_index]
-                        # Get construct new command
-                        cmd = "pi-play-" + req.file_name + "-" + int(i)
-                        # Send command
-                        self.client_req(cmd, client, req)
+            # We get a name form the queue
+            if split_cmd[index+1] == "queue":
+                # Make sure playing queue is not empty
+                if self._playing_queue.empty():
+                    self._isPlayingQueueEmpty = True
+                    return
+                req.file_name = self._playing_queue.get()
 
-            # Send command to a single printer
-            elif split_cmd[index+1] == "queue":
-                # Get printer number
-                printer_num = int(split_cmd[index+2])
-                # Get next queue index from printer
-                queue_index = self.printerController[printer_num]._queue_index
-                # Get video from printer
-                req.file_name = self.printerController[printer_num]._pi_queue[queue_index]
-                self.client_req(cmd, client, req)
-                self.printerController[printer_num]._queue_index += 1
+            # Check if the name is an integer
+            elif split_cmd[index+1].isnumeric():
+                if not (len(self._pi_queue) > int(split_cmd[index+1])):
+                    self.get_logger().error(
+                        "[pi_control_logic]: index is out of bound")
+                req.file_name = self._pi_queue[int(split_cmd[index+1])]
 
-            else:
+            # We have a video file name
+            elif split_cmd[index+1] in self._pi_videos:
                 req.file_name = split_cmd[index+1]
-                self.client_req(cmd, client, req)
 
+            # We have an invalid file
+            else:
+                self.get_logger().error(
+                    "[pi_control_logic]: Invalid file Name")
+
+        # Process the stop command
         elif split_cmd[index] == "stop":
             req.cmd = split_cmd[index]
-            self.client_req(pi_cmd, client, req)
-        # TODO: we need to really define what pausing a video really means
-        elif split_cmd[index] == "pause":
-            req.cmd = "stop"
-            self.client_req(pi_cmd, client, req)
 
-    def client_req(self, cmd, client, req):
-        # times to try to connect to server
-        times_to_connect = 5
+        # Reset the queue
+        elif split_cmd[index] == "reset":
+            self.reset_playing_queue()
+            # TODO: send confirmation to gui
+            return
+
+        # Command is not recognized
+        else:
+            self.get_logger().error(
+                '[proj_controller_logic]: Command not recognized ')
+
+        self.client_req(client, req)
+
+    def client_req(self, client, req):
 
         ### Select client to send request ###
         if client == "proj":
@@ -192,8 +209,7 @@ class PrinterController(Node):
             topic = "gui_display_srv"
             callback_func = self.gui_display_future_callback
 
-        # TODO: where do we recod metadata?
-        count = 0
+        # TODO: where do we record metadata?
         #***** Clients *******#
         self.cli = self.create_client(srv, topic)
         while not self.cli.wait_for_service(timeout_sec=1.0):
@@ -299,3 +315,7 @@ class PrinterController(Node):
             return True
         else:
             return self.printerController[int(proj_num)]._isLedOn
+
+    def reset_playing_queue(self):
+        for item in self._pi_queue:
+            self._playing_queue.put(item)
