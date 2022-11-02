@@ -26,14 +26,23 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='rPINode_Display',
-            executable='videoDisplay',
-            namespace='printerTesting',
+            package='pi_video_controller',
+            executable='pi_video_node',
+            # namespace='printerTesting',
             output='screen',
             emulate_tty=True,
             # MAKE SURE TO CHANGE THIS
-            name="videoDisplayV2",
-            remappings=[("videoName","videoNameV2")]
-
+            parameters=[{"pi_number": 0}],
+            name='VideoDisplay_0'
+        ),
+        Node(
+            package='projector_exec',
+            executable='proj_node',
+            #namespace='test',
+            output='screen',
+            emulate_tty=True,
+            # MAKE SURE TO CHANGE THIS
+            parameters=[{"projector_number": 0}],
+            name='proj_0'
         )
     ])
