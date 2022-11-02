@@ -285,7 +285,7 @@ class MainLogicNode(Node):
         split_cmd = pi_cmd.split("-")
         # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the
             #  to the projector structure, since this wont change during printing.
-        req = Vidoe.Request()
+        req = Video.Request()
         if split_cmd[index] == "get":
             req.cmd = split_cmd[index] + "-" + split_cmd[index+1]
         elif split_cmd[index] == "play":
@@ -427,7 +427,7 @@ class MainLogicNode(Node):
 
         # ERROR: does not recognize the commmad
         else:
-            self.get_logger().error('Command not recognized: %s\n' % (request.cmd))
+            self.get_logger().error('Command not recognized: %s\n' % (req.cmd))
 
     ################################################ Action Client ##############################################
     # This function sends the desired height to the level controller
@@ -503,9 +503,9 @@ class MainLogicNode(Node):
         feedback = feedback_msg.feedback
         self._levelState._curr_position = feedback.feedback_height
 
-        if _levelState._curr_position > 100:
-            cancel_goal_future = self._action_client.cancel_goal_async()
-            cancel_goal_future.add_done_callback()
+        # if self._levelState._curr_position > 100:
+        #     cancel_goal_future = self._action_client.cancel_goal_async()
+        #     cancel_goal_future.add_done_callback()
         # TODO: posible publish height
 
         self.get_logger().info(
@@ -517,13 +517,15 @@ class MainLogicNode(Node):
 
     def proj_future_callback(self, future):
         try:
+            # int32 id
+            # int32 err
+            # string msg
+            # string status 
+            # bool is_led_on
+            # bool is_power_on
             response = future.result()
             self.get_logger().info('Projector status %s' % (response.status))
-            if response.err == 0:
-                self._printer[0]._isLedOn = response.is_led_on
-                self._printer[0]._isVideoOn = response.is_video_on
-                self.get_logger().info('response.is_led_on %s' %
-                                       ("True" if response.is_led_on else "False"))
+
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
@@ -535,6 +537,7 @@ class MainLogicNode(Node):
             # TODO: update --> self._printer[i]._queue_index
             res = future.result()
             self.get_logger().info('Pi Video status %s' % (res.status))
+            # int32 id
             # int32 err
             # string[] videos
             # string[] queue
@@ -542,11 +545,10 @@ class MainLogicNode(Node):
             # string status 
             # bool is_video_on 
 
-            if len(res.videos) > 0:
+            if res.videos != None and len(res.videos) > 0:
                 self._printer[res.id]._pi_videos = res.videos
-            if len(res.queue) > 0:
-                self._printer[res.id]._pi_queue = res.queue
-                
+            if res.videos != None and len(res.queue) > 0:
+                [self._printer[res.id]._pi_queue.put(item) for item in res.queue]
             self.get_logger().info('res.is_led_on %s' %
                                        (res.msg))
         except Exception as e:
@@ -556,17 +558,18 @@ class MainLogicNode(Node):
 
     def motor_print_future_callback(self, future):
         try:
+            # int32 id
+            # int32 err
+            # string msg
+            # string status 
+            # int32 set_speed
             response = future.result()
             self.get_logger().info('Print Motor status %s' % (response.status))
-            if response.err == 0:
-                self._printer[0]._motor._speed = response.set_speed
-                self.get_logger().info('response.set_speed %s' %
-                                       (response.set_speed))
+            
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
-        self.get_logger().info('Printer_1._isLedOn %s' %
-                               ("True" if self._printer[0]._isLedOn else "False"))
+        
 
     def gui_display_future_callback(self, future):
         try:
