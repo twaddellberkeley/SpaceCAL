@@ -1,9 +1,9 @@
 # This Python file uses the following encoding: utf-8
-from PySide6 import QtCore, Qt
-from PySide6 import QtWidgets
+from PyQt5 import QtCore, Qt
+from PyQt5 import QtWidgets
 
-from PySide6.QtCore import QObject
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
+from PyQt5.QtCore import QObject
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 

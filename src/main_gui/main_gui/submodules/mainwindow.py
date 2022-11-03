@@ -1,11 +1,13 @@
 # This Python file uses the following encoding: utf-8
+# PyQt5.QtWidgets
 import sys
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-                            QMetaObject, QObject, QPoint, QRect,
-                            QSize, QTime, QUrl, Qt, Slot, Signal)
 
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
+from  PyQt5.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                            QMetaObject, QObject, QPoint, QRect,
+                            QSize, QTime, QUrl, Qt, pyqtSlot, pyqtSignal)
+
+from PyQt5.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
                                QLayout, QMainWindow, QPushButton, QSizePolicy,
                                QStatusBar, QTabWidget, QVBoxLayout, QWidget)
 
@@ -15,7 +17,7 @@ from Components.PrinterPageWidget import PrinterPageWidget
 
 class MainWindow(QMainWindow):
     currentState = 0
-    serviceClient = Signal(str)
+    stateSig = pyqtSignal(int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -39,9 +41,9 @@ class MainWindow(QMainWindow):
         # Setting the central widget for the main window to be the tabWidget
         self.setCentralWidget(self.tabWidget)
 
-        ###################### Signals and Slots ############################
-        self.homePage.cmdSignal.connect(self.sendCmd)
-        self.printPage.cmdSignal.connect(self.sendCmd)
+        ###################### pyqtSignals and pyqtSlots ############################
+        self.homePage.cmdpyqtSignal.connect(self.sendCmd)
+        self.printPage.cmdpyqtSignal.connect(self.sendCmd)
 
         # Define the size policy for the tab widgit -- we want the minimum to be 700 by 500
         # sizePolicy = QSizePolicy(
@@ -52,17 +54,16 @@ class MainWindow(QMainWindow):
 
     def sendCmd(self, cmd):
         print(cmd)
-        self.serviceClient.emit(cmd)
 
-    # @Slot(int)
-    # def setSysState(self, state):
-    #     assert type(state) == type(0), "Wrong type: must be an int"
-    #     assert state < 32, "state must be less than 32"
-    #     self.currentState |= state
+    @pyqtSlot(int)
+    def setSysState(self, state):
+        assert type(state) == type(0), "Wrong type: must be an int"
+        assert state < 32, "state must be less than 32"
+        self.currentState |= state
 
 
-# if __name__ == "__main__":
-#     app = QApplication([])
-#     window = MainWindow()
-#     window.show()
-#     sys.exit(app.exec())
+if __name__ == "__main__":
+    app = QApplication([])
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())

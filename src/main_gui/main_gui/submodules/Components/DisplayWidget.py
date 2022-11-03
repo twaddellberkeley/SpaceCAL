@@ -1,10 +1,10 @@
 # This Python file uses the following encoding: utf-8
 
-from PySide6 import QtWidgets
+from PyQt5 import QtWidgets
 
-from PySide6.QtCore import QStringListModel  # QStringListModel, QStringList
+from PyQt5.QtCore import QStringListModel  # QStringListModel, QStringList
 
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
                                QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 from Components.DisplayField import DisplayField

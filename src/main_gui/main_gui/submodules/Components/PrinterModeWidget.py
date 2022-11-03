@@ -1,16 +1,16 @@
 # This Python file uses the following encoding: utf-8
 from Components.Msgs import Msgs
-from PySide6 import QtWidgets
+from PyQt5 import QtWidgets
 
-from PySide6.QtCore import (Signal)
+from PyQt5.QtCore import (pyqtSignal)
 
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QFormLayout, QMessageBox,
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QFormLayout, QMessageBox,
                                QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 
 class PrinterModeWidget(QtWidgets.QWidget):
-    modeChanged = Signal(bool)
-    btnPressed = Signal(str)
+    modeChanged = pyqtSignal(bool)
+    btnPressed = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -42,11 +42,11 @@ class PrinterModeWidget(QtWidgets.QWidget):
         self.printerModeLayout.insertWidget(0, self.modeWidget)
         self.printerModeLayout.insertWidget(0, self.btnWidget)
 
-        # Connect Signals
+        # Connect pyqtSignals
         self.btnMode.toggled.connect(self.setMode)
         self.btnStop.clicked.connect(self.btnStopPressedSig)
 
-    ##### Signal ######
+    ##### pyqtSignal ######
     def setMode(self):
         if self.btnMode.isChecked():
             self.btnStop.hide()
@@ -58,7 +58,7 @@ class PrinterModeWidget(QtWidgets.QWidget):
             self.btnMode.setText(u"Off")
         self.modeChanged.emit(self.isAutoPrintMode)
 
-    ##### Signal ######
+    ##### pyqtSignal ######
     def btnStopPressedSig(self):
         ret = self.msg.stopSysMsg()
         if ret == QMessageBox.Yes:

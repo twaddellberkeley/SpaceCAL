@@ -1,9 +1,9 @@
 # This Python file uses the following encoding: utf-8
 from sys import displayhook
-from PySide6 import QtCore
-from PySide6 import QtWidgets
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
 
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 

@@ -1,10 +1,10 @@
 # This Python file uses the following encoding: utf-8
 import imp
 from Components.Msgs import Msgs
-from PySide6 import QtCore
-from PySide6 import QtWidgets
-from PySide6.QtCore import QObject, Signal, Slot
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QInputDialog,
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QInputDialog,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 from Components.SelectBtnWidget import SelectBtnWidget
@@ -13,8 +13,8 @@ from Components.TwoBtnWidget import TwoBtnWidget
 
 
 class PrinterWidget(QtWidgets.QWidget):
-    btnPressed = Signal(str)
-    printerChanged = Signal(str)
+    btnPressed = pyqtSignal(str)
+    printerChanged = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -53,7 +53,7 @@ class PrinterWidget(QtWidgets.QWidget):
         self.motorLayout.insertWidget(0, self.motorLabel)
         self.motorLayout.insertWidget(1, self.motorBtns)
 
-        ######### Signals and Slots ##########
+        ######### pyqtSignals and pyqtSlots ##########
         # Power Buttons
         self.powerBtns.startBtn.clicked.connect(self.powerBtnStartPressed)
         self.powerBtns.stopBtn.clicked.connect(self.powerBtnStopPressed)
@@ -68,33 +68,33 @@ class PrinterWidget(QtWidgets.QWidget):
         self.selectPrinterWidget.btnSelect.clicked.connect(
             self.selectPrinterBtnPressed)
 
-    ##### Signal #######
+    ##### pyqtSignal #######
     def powerBtnStartPressed(self):
         printer = self.getCurrPrinter()
         self.btnPressed.emit("proj-on-" + printer)
 
-    ##### Signal #######
+    ##### pyqtSignal #######
     def powerBtnStopPressed(self):
         printer = self.getCurrPrinter()
         self.btnPressed.emit("proj-off-" + printer)
 
-    ##### Signal #######
+    ##### pyqtSignal #######
     def ledBtnsStartPressed(self):
         printer = self.getCurrPrinter()
         self.btnPressed.emit("proj-led-on-" + printer)
 
-    ##### Signal #######
+    ##### pyqtSignal #######
     def ledBtnsStopPressed(self):
         printer = self.getCurrPrinter()
         self.btnPressed.emit("proj-led-off-" + printer)
 
-    ##### Signal #######
+    ##### pyqtSignal #######
     def motorBtnsStartPressed(self):
         speed = self.getCurrMotorSpeed()
         printer = self.getCurrPrinter()
         self.btnPressed.emit("motor-on-" + speed + "-" + printer)
 
-    ##### Signal #######
+    ##### pyqtSignal #######
     def motorBtnsStopPressed(self):
         printer = self.getCurrPrinter()
         self.btnPressed.emit("motor-off-" + printer)
@@ -105,7 +105,7 @@ class PrinterWidget(QtWidgets.QWidget):
         if ok and item:
             self.motorLabel.display.field.setText(item)
 
-    ##### Signal ######
+    ##### pyqtSignal ######
     def selectPrinterBtnPressed(self):
         items = ["All", "1", "2", "3", "4", "5"]
         item, ok = self.msgs.selectOptionPrinterMsg(items)

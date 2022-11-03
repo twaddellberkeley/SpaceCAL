@@ -1,8 +1,8 @@
 # This Python file uses the following encoding: utf-8
 from Components.Msgs import Msgs
-from PySide6 import QtCore
-from PySide6 import QtWidgets
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QInputDialog,
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QInputDialog,
                                QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 from Components.SelectBtnWidget import SelectBtnWidget
 
@@ -17,7 +17,7 @@ class LevelWidget(QtWidgets.QWidget):
         # Widget
         self.levelSelect = SelectBtnWidget(u"Level", u"5", u"Select...")
 
-        # Signals and Slots
+        # pyqtSignals and pyqtSlots
         self.levelSelect.btnSelect.clicked.connect(self.levelSelectBtnPressed)
 
     def levelSelectBtnPressed(self):

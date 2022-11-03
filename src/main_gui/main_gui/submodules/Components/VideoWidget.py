@@ -1,19 +1,19 @@
 # This Python file uses the following encoding: utf-8
 from distutils.sysconfig import get_config_var
 from Components.Msgs import Msgs
-from PySide6 import QtCore
-from PySide6 import QtWidgets
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
 
-from PySide6.QtCore import QObject, Signal, Slot
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QInputDialog,
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QInputDialog,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 from Components.SelectBtnWidget import SelectBtnWidget
 from Components.TwoBtnWidget import TwoBtnWidget
 
 
 class VideoWidget(QtWidgets.QWidget):
-    btnPressed = Signal(str)
+    btnPressed = pyqtSignal(str)
 
     noVideo = u"No_Video_Selected"
 
@@ -46,7 +46,7 @@ class VideoWidget(QtWidgets.QWidget):
         self.videoLayout.insertWidget(0, self.videoLabel)
         self.videoLayout.insertWidget(1, self.videoBtns)
 
-        # Signals and Slots
+        # pyqtSignals and pyqtSlots
         self.videoLabel.btnSelect.clicked.connect(self.videoSelectBtnPressed)
         self.videoBtns.startBtn.clicked.connect(self.videoBtnsStartPressed)
         self.videoBtns.stopBtn.clicked.connect(self.videoBtnsStopPressed)
@@ -71,7 +71,7 @@ class VideoWidget(QtWidgets.QWidget):
     def getCurrVideo(self):
         return self.videoLabel.display.field.text()
 
-    @Slot(str)
+    @pyqtSlot(str)
     def updatePrinter(self, printer):
         assert type("") == type(printer), "Wrong type"
         printer = printer.lower()

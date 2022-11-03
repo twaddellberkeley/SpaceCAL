@@ -2,15 +2,15 @@
 from Components.DisplayWidget import DisplayWidget
 from Components.PrinterModeWidget import PrinterModeWidget
 from Components.MainBtnsWidget import MainBtnsWidget
-from PySide6 import QtCore
-from PySide6 import QtWidgets
-from PySide6.QtCore import QSize, Slot, Signal
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame,
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QSize, pyqtSlot, pyqtSignal
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame,
                                QLabel, QHBoxLayout, QSizePolicy)
 
 
 class HomePageWidget(QtWidgets.QWidget):
-    cmdSignal = Signal(str)
+    cmdpyqtSignal = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -54,16 +54,16 @@ class HomePageWidget(QtWidgets.QWidget):
         self.homePageLayout.addWidget(self.displayFrame)
         self.homePageLayout.addWidget(self.mainBtnsFrame)
 
-        # Signals and slots
+        # pyqtSignals and slots
         # Changes the state of the buttons from auto printing to manual
         self.printerModeWidget.modeChanged.connect(
             self.mainBtnsWidget.setAutoPrintMode)
 
         # Send cmd signals
-        # self.printerModeWidget.modeChanged.connect(self.sendCmdSignal)
-        self.printerModeWidget.btnPressed.connect(self.sendCmdSignal)
-        self.mainBtnsWidget.btnPressed.connect(self.sendCmdSignal)
+        # self.printerModeWidget.modeChanged.connect(self.sendCmdpyqtSignal)
+        self.printerModeWidget.btnPressed.connect(self.sendCmdpyqtSignal)
+        self.mainBtnsWidget.btnPressed.connect(self.sendCmdpyqtSignal)
 
-    def sendCmdSignal(self, sig):
-        self.cmdSignal.emit(sig)
+    def sendCmdpyqtSignal(self, sig):
+        self.cmdpyqtSignal.emit(sig)
         # print(sig)

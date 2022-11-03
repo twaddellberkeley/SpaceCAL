@@ -1,14 +1,14 @@
 # This Python file uses the following encoding: utf-8
 from Components.Msgs import Msgs
-from PySide6 import QtCore
-from PySide6.QtCore import QSize, Slot, Signal
-from PySide6 import QtWidgets
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QMessageBox,
+from PyQt5 import QtCore
+from PyQt5.QtCore import QSize, pyqtSlot, pyqtSignal
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QMessageBox,
                                QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 
 class MainBtnsWidget(QtWidgets.QWidget):
-    btnPressed = Signal(str)
+    btnPressed = pyqtSignal(str)
     startBtnAutoText = u"Start Printing"
     stopBtnAutoText = u"Stop Printing"
     startBtnText = u"Start Print"
@@ -43,7 +43,7 @@ class MainBtnsWidget(QtWidgets.QWidget):
         self.btnStart.clicked.connect(self.startBtnClicked)
         self.btnStop.clicked.connect(self.stopBtnClicked)
 
-    @Slot(bool)
+    @pyqtSlot(bool)
     def setAutoPrintMode(self, mode):
         if mode == True:
             self.btnStop.setText(self.stopBtnAutoText)
@@ -54,7 +54,7 @@ class MainBtnsWidget(QtWidgets.QWidget):
 
     # This needs to be connected to a signal that emits when the state of the
     # printer changes
-    @Slot(int)
+    @pyqtSlot(int)
     def setBtnsState(self, state):
         # Not printing
         # there are 5 componets to the systems: Projector on/off, led on/off,
@@ -71,7 +71,7 @@ class MainBtnsWidget(QtWidgets.QWidget):
             self.btnStart.setDisabled(True)
             self.btnStop.setEnabled(True)
 
-     ##### Signal ######
+     ##### pyqtSignal ######
     def startBtnClicked(self):
         # msgBox = QMessageBox()
         ret = QMessageBox.No
@@ -87,7 +87,7 @@ class MainBtnsWidget(QtWidgets.QWidget):
         if ret == QMessageBox.Yes:
             self.btnPressed.emit(self.btnStart.text())
 
-     ##### Signal ######
+     ##### pyqtSignal ######
     def stopBtnClicked(self):
         ret = QMessageBox.No
         # msgBox = QMessageBox()

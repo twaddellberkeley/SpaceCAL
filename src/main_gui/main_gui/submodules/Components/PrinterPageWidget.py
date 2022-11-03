@@ -2,10 +2,10 @@
 from readline import get_current_history_length
 from traceback import print_stack
 from Components.LevelWidget import LevelWidget
-from PySide6 import QtWidgets
-from PySide6.QtCore import QObject, Signal, Slot
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton)
-from PySide6.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QMessageBox,
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton)
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QMessageBox,
                                QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 from Components.Msgs import Msgs
@@ -16,7 +16,7 @@ from Components.VideoWidget import VideoWidget
 
 
 class PrinterPageWidget(QtWidgets.QWidget):
-    cmdSignal = Signal(str)
+    cmdpyqtSignal = pyqtSignal(str)
 
     stopBtnMsg = "Would you like stop the system?"
     startBtnMsg = "Would you like start printing?"
@@ -59,33 +59,33 @@ class PrinterPageWidget(QtWidgets.QWidget):
         for i in range(4):
             self.verticalLayout.insertLayout(i, self.hLayouts[i])
 
-        ###################### Signals and Slots ############################
+        ###################### pyqtSignals and pyqtSlots ############################
         # Printer
-        self.printerWidget.btnPressed.connect(self.sendCmdSignal)
+        self.printerWidget.btnPressed.connect(self.sendCmdpyqtSignal)
         self.printerWidget.printerChanged.connect(
             self.videoWidget.updatePrinter)
 
         # Video
-        self.videoWidget.btnPressed.connect(self.sendCmdSignal)
+        self.videoWidget.btnPressed.connect(self.sendCmdpyqtSignal)
 
         # Main Buttons
         self.mainBtns.stopBtn.clicked.connect(self.stopMainBtn)
         self.mainBtns.startBtn.clicked.connect(self.constructPrintCmd)
 
-    def sendCmdSignal(self, sig):
-        self.cmdSignal.emit(sig)
+    def sendCmdpyqtSignal(self, sig):
+        self.cmdpyqtSignal.emit(sig)
 
     def stopMainBtn(self):
         self.msgBox.setText(self.stopBtnMsg)
         ret = self.msgBox.exec()
         if ret == QMessageBox.Yes:
-            self.sendCmdSignal(self.stopMainBtnCmd)
+            self.sendCmdpyqtSignal(self.stopMainBtnCmd)
 
     def startMainBtn(self):
         self.msgBox.setText(self.startBtnMsg)
         ret = self.msgBox.exec()
         if ret == QMessageBox.Yes:
-            self.sendCmdSignal(self.constructPrintCmd)
+            self.sendCmdpyqtSignal(self.constructPrintCmd)
 
     def constructPrintCmd(self):
         video = self.getCurrVideo()
@@ -104,7 +104,7 @@ class PrinterPageWidget(QtWidgets.QWidget):
             "pi-play-" + video + "-" + printer
         ret = self.msgs.startPrintMsg()
         if ret == QMessageBox.Yes:
-            self.sendCmdSignal(cmd)
+            self.sendCmdpyqtSignal(cmd)
 
     def getCurrVideo(self):
         return self.videoWidget.getCurrVideo()
@@ -121,4 +121,4 @@ class PrinterPageWidget(QtWidgets.QWidget):
     # def addPrinterCmd(self, cmd):
     #     printer = self.printerWidget.getCurrPrinter()
     #     vCmd = cmd + printer
-    #     self.sendCmdSignal(vCmd)
+    #     self.sendCmdpyqtSignal(vCmd)

@@ -1,5 +1,6 @@
 
 import threading
+import os
 import rclpy
 from rclpy.node import Node
 
@@ -19,10 +20,10 @@ from Interfaces.srv import GuiDisplay
 
 class GuiNode():
 
-    def __init__(self):
+    def __init__(self, window):
         super().__init__()
         rclpy.init(args=None)
-        self.gui = MainWindow()
+        self.gui = window
 
     def exec_gui_node(self):
         subNode = Node('main_gui_server_node')
@@ -38,11 +39,14 @@ class GuiNode():
 
 
 def main(args=None):
+    os.environ['DISPLAY'] = ":0"
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.show()
+    gui = GuiNode(window)
+    gui.gui.show()
     e = app.exec()
-
+    window.pubNode.destroy_node()
+    rclpy.shutdown()
     # rclpy.shutdown()
     sys.exit(e)
 
