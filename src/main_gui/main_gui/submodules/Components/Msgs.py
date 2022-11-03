@@ -10,8 +10,12 @@ class Msgs(QtWidgets.QWidget):
 
     def __init__(self, parent=None):
         super().__init__()
+
         if parent == None:
             parent = self
+
+        self.start_run_cmd = "start-run"
+
         self.parent = parent
         self.stopSys = "Would you like stop the system?"
         self.endPrint = "Would you like stop current print?"

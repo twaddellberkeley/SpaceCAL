@@ -11,14 +11,17 @@ from PyQt5.QtWidgets import (QApplication)
 from .submodules.mainwindow import MainWindow
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 
+gui_inpu_srv = 'gui_input_srv'
+gui_display_srv = 'gui_display_srv'
 
 class GuiNode(Node):
 
     def __init__(self, window):
-        super().__init__('main_gui_server_display_node')
-        # 'main_gui_server_node'
-        
+        super().__init__('main_gui_client_node')
+        # 'main_gui_server_node'    
         self.gui = window
+        self.gui._logger = self.get_logger()
+        self.gui._client = self.create_client(GuiInput, gui_inpu_srv)
         serverThread = threading.Thread(target=self.exec_gui_node)
         serverThread.start()
         
@@ -27,7 +30,7 @@ class GuiNode(Node):
         subNode = Node('main_gui_server_display_node')
         #***** Servers ******#
         server = subNode.create_service(
-            GuiDisplay, 'gui_display_srv', self.gui_display_callback)
+            GuiDisplay, gui_display_srv, self.gui_display_callback)
         rclpy.spin(subNode)
         subNode.destroy_node()
         
@@ -46,12 +49,13 @@ def main(args=None):
     app = QApplication(sys.argv)
     window = MainWindow()
     gui = GuiNode(window)
-    gui.gui.show()
-    e = app.exec()
+    window.show()
+
     # window.pubNode.destroy_node()
    
     # rclpy.shutdown()
-    sys.exit(e)
+    app.exec()
+    gui._client.destroy_node()
     rclpy.shutdown()
     # rclpy.init(args=args)
     # gui = GuiNode()

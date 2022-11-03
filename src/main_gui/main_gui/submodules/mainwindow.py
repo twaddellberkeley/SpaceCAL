@@ -1,5 +1,11 @@
 # This Python file uses the following encoding: utf-8
 # PyQt5.QtWidgets
+import time
+from datetime import datetime
+from threading import Thread
+import threading
+from functools import partial
+from queue import Queue
 import sys
 
 
@@ -13,7 +19,7 @@ from PyQt5.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
 
 from .Components.HomePageWidget import HomePageWidget
 from .Components.PrinterPageWidget import PrinterPageWidget
-
+from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 
 class MainWindow(QMainWindow):
     currentState = 0
@@ -22,6 +28,9 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.resize(800, 600)
+        
+        self._client = None
+        self._logger = None
 
         ############################## Widgets #############################
         self.tabWidget = QTabWidget()
@@ -53,7 +62,37 @@ class MainWindow(QMainWindow):
 #        self.setSizePolicy(sizePolicy)
 
     def sendCmd(self, cmd):
+        # Metadata meta
+        # int32 id
+        # string cmd
+        # string[] update_queue
+        
+        req = GuiInput.Request()
+        req.id = 10
+        req.cmd = cmd
+
+
+        while not self._client.wait_for_service(timeout_sec=1.0):
+            self._logger.info('service not available, waiting again...')
+
+        self._logger.warning("[MainWindow]: sending client cmd %s" % (req.cmd))
+        future = self._client.call_async(req)
+        # Add callback to receive response
+        future.add_done_callback(partial(self.response_callback))
         print(cmd)
+
+    def response_callback(self, future):
+        # Metadata meta
+        # int32 id
+        # string cmd
+        # int32 err
+        # string msg
+        try:
+            res = future.result()
+            self._logger.info(msg)
+        except Exception as e:
+            self._logger.error('ERROR: --- %r' % (e,))
+
 
     @pyqtSlot(int)
     def setSysState(self, state):

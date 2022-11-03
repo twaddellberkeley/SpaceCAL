@@ -85,7 +85,7 @@ class MainBtnsWidget(QtWidgets.QWidget):
         # msgBox.setDefaultButton(QMessageBox.Yes)
         # ret = msgBox.exec()
         if ret == QMessageBox.Yes:
-            self.btnPressed.emit(self.btnStart.text())
+            self.btnPressed.emit(self.msgs.start_run_cmd)
 
      ##### pyqtSignal ######
     def stopBtnClicked(self):

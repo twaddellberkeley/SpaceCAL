@@ -15,7 +15,7 @@ MIN_HEIGHT = 0
 
 class LevelController(Node):
     def __init__(self, parent, handle, logger):
-        super().__init__('level_controller_node')
+        super().__init__('client_level_controller_node')
         self._status = "off"   # [moving, home, error]
         self._curr_position = 0
         self._req_position = -1
