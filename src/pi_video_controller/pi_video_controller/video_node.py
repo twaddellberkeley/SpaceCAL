@@ -56,6 +56,7 @@ class VideoNode(Node):
             self.update_queue(req.update_queue)
         res.err = 0
         res.id = self.pi_num
+        res.cmd = req.cmd
         res.msg = "Projector " + str(self.pi_num) + " executed succesfully"
         return res
     

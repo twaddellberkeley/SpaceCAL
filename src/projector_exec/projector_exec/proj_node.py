@@ -64,6 +64,7 @@ class ProjectorNode(Node):
             msg = "DID NOT FIND COMMAND"
         res.err = 0
         res.id = self.proj_num
+        res.cmd = res.req
         res.msg = "Projector " + str(self.proj_num) + " " + msg + " succesfully"
         return res
             # Turn the hdmi power off
