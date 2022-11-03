@@ -14,7 +14,7 @@ MIN_HEIGHT = 0
 
 
 class LevelController(Node):
-    def __init__(self):
+    def __init__(self, evenHandle):
         super().__init__('level_controller_node')
         self._status = "off"   # [moving, home, error]
         self._curr_position = 0
@@ -27,12 +27,12 @@ class LevelController(Node):
         self._was_level_req = False
         self._is_position_uncertain = True
 
+        #***** Initialize Goalhandle to cancel goal if needed ******#
+        self.goal_handle = None
+        self.done_moving = evenHandle
         #***** Clients *******#
         self._action_client = ActionClient(
             self, Level, "level_motor_action_srv")
-
-        #***** Initialize Goalhandle to cancel goal if needed ******#
-        self.goal_handle = None
 
     def send_level_cmd(self, cmd):
         self.level_controller_logic(cmd)
@@ -111,7 +111,7 @@ class LevelController(Node):
         self.get_logger().info('Goal accepted :)')
         # Update level state to moving
         self._is_moving = True
-
+        self.done_moving.clear()
         # get the result later
         self._get_result_future = self.goal_handle.get_result_async()
         self._get_result_future.add_done_callback(self.get_result_callback)
@@ -150,6 +150,7 @@ class LevelController(Node):
             self.client_req(display_msg, "display", None)
 
         self._is_moving = False
+        self.done_moving.set()
         # TODO: Send message to let the gui know level is moving    ######################
         # self.client_req("display-levelstatus-stopped-gui", "display", None)
 

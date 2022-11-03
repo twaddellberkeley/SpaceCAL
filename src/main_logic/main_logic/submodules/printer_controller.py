@@ -32,7 +32,12 @@ class PrinterController(Node):
         self._pi_videos = []
         self._pi_queue = []
         self._playing_queue = Queue()
-        self._queue_index = 0
+
+        req = Video.Request()
+        req.cmd = "get-videos"
+        self.client_req("pi", req)
+        req.cmd = "get-queue"
+        self.client_req("pi", req)
 
     def send_motor_cmd(self, cmd):
         self.motor_controller_logic(cmd)
@@ -42,6 +47,8 @@ class PrinterController(Node):
 
     def send_pi_cmd(self, cmd):
         self.pi_controller_logic(cmd)
+
+    ################################################################
 
     def motor_controller_logic(self, motor_cmd):
         """ TODO: Description of this function 
@@ -143,6 +150,18 @@ class PrinterController(Node):
         # Process the get command
         if split_cmd[index] == "get":
             req.cmd = split_cmd[index] + "-" + split_cmd[index+1]
+            # TODO: return vidoe or queue to gui
+            if "queue" in split_cmd:
+                # TODO: return queue to gui
+                print(self._pi_queue)
+                return
+            elif "videos" in split_cmd:
+                # TODO: return videos to gui
+                print(self._pi_videos)
+                return
+            else:
+                self.get_logger().error(
+                    "[pi_control_logic]: Invalid Command")
 
         # Process the play command
         elif split_cmd[index] == "play":
@@ -189,6 +208,8 @@ class PrinterController(Node):
 
         self.client_req(client, req)
 
+    ################################################################
+
     def client_req(self, client, req):
 
         ### Select client to send request ###
@@ -225,58 +246,88 @@ class PrinterController(Node):
         future.add_done_callback(partial(callback_func))
         ################################################################
         self.get_logger().debug('Waiting on async...')   # DEBUG message
-        ################################################################
+
+    ################################################################
 
     def proj_future_callback(self, future):
         try:
+            # Metadata meta
             # int32 id
+            # string cmd
             # int32 err
             # string msg
             # string status
             # bool is_led_on
             # bool is_power_on
-            response = future.result()
-            self.get_logger().info('Projector status %s' % (response.status))
+            res = future.result()
+            if res.cmd in ["on", "off"]:
+                self._isProjOn = res.is_power_on
+            elif res.cmd in ["led-on", "led-off"]:
+                self._isLedOn = res.is_led_on
+            self.get_logger().info('Projector status: %s\n' % (res.status))
+            self.get_logger().info('Projector message: %s\n' % (res.msg))
 
+            # TODO: send gui a message: status
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
-        self.get_logger().info('Printer_1._isLedOn %s' %
-                               ("True" if self.printerController[0]._isLedOn else "False"))
 
     def pi_future_callback(self, future):
         try:
             # TODO: update --> self.printerController[i]._queue_index
-            res = future.result()
-            self.get_logger().info('Pi Video status %s' % (res.status))
+            # ---
+            # Metadata meta
             # int32 id
+            # string cmd
             # int32 err
             # string[] videos
             # string[] queue
             # string msg
             # string status
             # bool is_video_on
+            res = future.result()
+            if res.cmd == "get-videos":
+                if res.videos != None and len(res.videos) > 0:
+                    self._pi_videos = res.videos
+                else:
+                    self.get_logger().warning(
+                        "[pi_future_callback]: No videos returned")
 
-            if res.videos != None and len(res.videos) > 0:
-                self.printerController[res.id]._pi_videos = res.videos
-            if res.videos != None and len(res.queue) > 0:
-                [self.printerController[res.id]._pi_queue.put(
-                    item) for item in res.queue]
-            self.get_logger().info('res.is_led_on %s' %
-                                   (res.msg))
+            if res.cmd == "get-queue":
+                if res.videos != None and len(res.queue) > 0:
+                    self._pi_queue = res.queue
+                else:
+                    self.get_logger().warning(
+                        "[pi_future_callback]: No queue returned")
+            if res.cmd in ["play", "stop"]:
+                self._isVideoOn = res.is_video_on
+
+            self.get_logger().info('Pi Video status %s' % (res.status))
+            self.get_logger().info('res.is_led_on %s' % (res.msg))
+
+            # TODO send status message to GUI
+
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
 
     def motor_print_future_callback(self, future):
         try:
+            # ---
+            # Metadata meta
             # int32 id
+            # string cmd
             # int32 err
             # string msg
             # string status
             # int32 set_speed
-            response = future.result()
-            self.get_logger().info('Print Motor status %s' % (response.status))
+            res = future.result()
+            if res.cmd == "on":
+                self._motor._speed = res.set_spped
+            else:
+                self._motor._speed = 0
+
+            self.get_logger().info('Print Motor status %s' % (res.status))
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
@@ -295,27 +346,7 @@ class PrinterController(Node):
         self.get_logger().info('finished async call....')
 
     #********* Utility functions ***********#
-
-    def is_proj_on(self, proj_num):
-        assert type(proj_num) == type("")
-        if proj_num == "all":
-            for p in range(5):
-                if not self.printerController[p]._isProjOn:
-                    return False
-            return True
-        else:
-            return self.printerController[int(proj_num)]._isProjOn
-
-    def is_proj_led_on(self, proj_num):
-        assert type(proj_num) == type("")
-        if proj_num == "all":
-            for p in range(5):
-                if not self.printerController[p]._isLedOn:
-                    return False
-            return True
-        else:
-            return self.printerController[int(proj_num)]._isLedOn
-
     def reset_playing_queue(self):
         for item in self._pi_queue:
             self._playing_queue.put(item)
+        self._isPlayingQueueEmpty = False

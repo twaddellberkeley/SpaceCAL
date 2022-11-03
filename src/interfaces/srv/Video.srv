@@ -4,7 +4,9 @@ string cmd
 string file_name
 string[] update_queue
 ---
+Metadata meta
 int32 id
+string cmd
 int32 err
 string[] videos
 string[] queue
