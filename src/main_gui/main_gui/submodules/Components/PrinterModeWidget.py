@@ -1,11 +1,11 @@
 # This Python file uses the following encoding: utf-8
-from Components.Msgs import Msgs
+from .Msgs import Msgs
 from PyQt5 import QtWidgets
 
 from PyQt5.QtCore import (pyqtSignal)
 
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QFormLayout, QMessageBox,
-                               QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
+                             QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 
 class PrinterModeWidget(QtWidgets.QWidget):

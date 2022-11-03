@@ -5,9 +5,9 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import QStringListModel  # QStringListModel, QStringList
 
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
-                               QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
+                             QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
-from Components.DisplayField import DisplayField
+from .DisplayField import DisplayField
 
 
 class DisplayWidget(QtWidgets.QWidget):

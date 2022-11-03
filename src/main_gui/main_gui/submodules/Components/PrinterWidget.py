@@ -1,15 +1,15 @@
 # This Python file uses the following encoding: utf-8
 import imp
-from Components.Msgs import Msgs
+from .Msgs import Msgs
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout, QInputDialog,
-                               QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
+                             QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
-from Components.SelectBtnWidget import SelectBtnWidget
-from Components.DisplayField import DisplayField
-from Components.TwoBtnWidget import TwoBtnWidget
+from .SelectBtnWidget import SelectBtnWidget
+from .DisplayField import DisplayField
+from .TwoBtnWidget import TwoBtnWidget
 
 
 class PrinterWidget(QtWidgets.QWidget):
