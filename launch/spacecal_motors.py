@@ -11,32 +11,8 @@ def generate_launch_description():
             #namespace='test',
             output='screen',
             executable='level_motor_node',
-            parameters=[{"motor_number": 0}, {"address": 14}],
-            name='level_motor_0'
-        ),
-        Node(
-            package='level_motor_controller',
-            #namespace='test',
-            output='screen',
-            executable='level_motor_node',
-            parameters=[{"motor_number": 1}, {"address": 15}],
-            name='level_motor_1'
-        ),
-        Node(
-            package='level_motor_controller',
-            #namespace='test',
-            output='screen',
-            executable='level_motor_node',
-            parameters=[{"motor_number": 2}, {"address": 16}],
-            name='level_motor_2'
-        ),
-        Node(
-            package='level_motor_controller',
-            #namespace='test',
-            output='screen',
-            executable='level_motor_node',
-            parameters=[{"motor_number": 3}, {"address": 17}],
-            name='level_motor_3'
+            parameters=[{"motor_number_0": 0}, {"address_14": 14}, {"motor_number_1": 1}, {"address_15": 15},{"motor_number_2": 2}, {"address_16": 16},{"motor_number_3": 3}, {"address_17": 17}],
+            name='level_motor_controller'
         ),
 
         

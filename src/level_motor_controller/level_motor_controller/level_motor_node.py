@@ -25,7 +25,7 @@ class LevelActionServer(Node):
         index = 0
         while index < num_motors:
             m = "motor_number_" + str(index)
-            a = "address_" + str(index)
+            a = "address_" + str(start_address)
             self.declare_parameter(m, index)
             self.declare_parameter(a, start_address)
             self.motor_num[index] = self.get_parameter(m).value

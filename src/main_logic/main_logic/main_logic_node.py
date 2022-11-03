@@ -27,7 +27,7 @@ class MainLogicNode(Node):
             GuiInput, 'gui_input_srv', self.gui_input_callback)
 
         #***** Initialize printer controller objects ******#
-        self.printerController = [PrinterController(0), PrinterController(
+        self.printerController = [PrinterController(0, self.get_logger()), PrinterController(
             1), PrinterController(2), PrinterController(3), PrinterController(4)]
 
         # create an instance of an event
@@ -36,7 +36,7 @@ class MainLogicNode(Node):
         self.stopAllEvent = threading.Event()
 
         #***** Initialize Level Controller ******#
-        self.levelController = LevelController(self.okToRunEvent)
+        self.levelController = LevelController(self, self.okToRunEvent, self.get_logger)
 
         self.ledOffThread = None
 
@@ -57,7 +57,7 @@ class MainLogicNode(Node):
         ctrls = {"level_cmds": [], "motor_cmds": [],
                  "proj_cmds": [], "pi_cmds": [], "custom_cmd": []}
         # Split comnands
-        cmd_list = raw_cmd.split("_")
+        cmd_list = raw_cmd.split("+")
         for cmd in cmd_list:
             split_cmd = cmd.split("-")
             if "proj" == split_cmd[0]:
@@ -91,7 +91,7 @@ class MainLogicNode(Node):
                 ##################################################################################
             else:
                 # This are custom commands
-                if cmd in ["start-run", "stop-run"]:
+                if cmd in ["start-run", "stop-run","continue-run","start-print","stop-print", "get-videos"]:
                     ctrls["custom_cmd"].append(cmd)
 
         return ctrls
@@ -127,7 +127,7 @@ class MainLogicNode(Node):
                 dest = cmd.split("-")[-1]
                 printers = self.get_printers_num(dest)
                 for printer in printers:
-                    self.printerController[printer].sen_proj_cmd(cmd)
+                    self.printerController[printer].send_proj_cmd(cmd)
 
         if len(ctrls["pi_cmds"]) != 0:
             # Send commands to pi controller logic
@@ -151,6 +151,11 @@ class MainLogicNode(Node):
                     self.send_start_print_cmd()
                 elif cmd == "stop-print":
                     self.send_stop_print_cmd()
+                elif cmd == "get-videos":
+                    self.get_logger().warning("get videos is herererere")
+                    req = Video.Request()
+                    req.cmd = "get-videos"
+                    self.printerController[0].client_req("pi", req)
 
         ###################################################################################
         self.get_logger().debug('Finished Dispatching Gui Commands...\n')    # DEBUG MESSGE
@@ -158,12 +163,14 @@ class MainLogicNode(Node):
         return 0
 
     def send_start_run_cmd(self):
+        self.get_logger().info("[SEND_START_RUN()]: Started")
         self.okToRunEvent.set()
         startRunThread = threading.Thread(target=self.start_run())
 
         # Allow the thread to run in the backgorund
         startRunThread.daemon = True
         startRunThread.start()
+        self.get_logger().info("[SEND_START_RUN_CMD()]: Ended")
 
     def send_stop_run_cmd(self):
         self.okToRunEvent.clear()
@@ -172,15 +179,22 @@ class MainLogicNode(Node):
 
     def send_continue_run_cmd(self):
         # Move leve to the next leve
-        self.okToRunEvent.clear()
+        print(self.levelController._curr_level)
+        self.stopAllEvent.clear()
         printers = self.get_printers_num("all")
         if self.stopAllEvent.is_set():
             return 1
         next_level = (self.levelController._curr_level + 1) % 5
-        self.levelController.send_level_cmd("level-motors-" + str(next_level))
-        self.okToRunEvent.wait()
+        self.get_logger().info("[send_continue_run_cmd()]: sending to level %d\n" % (next_level))
+        t = threading.Thread(target=self.levelController.send_level_cmd, args=["level-motors-" + str(next_level)])
+        t.start()
+        t.join()
+        while t.is_alive():
+            time.sleep(0.2)
+
         if self.stopAllEvent.is_set():
             return 1
+        self.get_logger().info("[send_continue_run_cmd()]: playing videos")
         for printer in printers:
             self.printerController[printer].send_pi_cmd("pi-play-queue-all")
             self.printerController[printer].send_motor_cmd("motor-on-9-all")
@@ -192,15 +206,19 @@ class MainLogicNode(Node):
                     "pi-stop-queue-all")
                 self.printerController[printer].send_motor_cmd("motor-off-all")
             return 1
+        self.get_logger().info("[send_continue_run_cmd()]: Finished")
 
     def send_start_print_cmd(self):
+        self.get_logger().info("[SEND_START_PRINT_CMD()]: Started")
         self.stopAllEvent.clear()
         printers = self.get_printers_num("all")
         for printer in printers:
             self.printerController[printer].send_proj_cmd("proj-led-on-all")
         self.ledOffThread = threading.Timer(
             PRINT_TIME, self.send_stop_print_cmd)
+        # self.ledOffThread.daemon = True
         self.ledOffThread.start()
+
 
     def send_stop_print_cmd(self):
         if self.ledOffThread != None:
@@ -208,9 +226,10 @@ class MainLogicNode(Node):
         printers = self.get_printers_num("all")
         for printer in printers:
             self.printerController[printer].send_proj_cmd("proj-led-off-all")
-            self.printerController[printer].send_pi_cmd("pi-stop-video-all")
+            self.printerController[printer].send_pi_cmd("pi-stop-queue-all")
 
     def start_run(self):
+        self.get_logger().info("[START_RUN()]: Started")
         self.stopAllEvent.clear()
         printers = self.get_printers_num("all")
         for printer in printers:
@@ -220,16 +239,29 @@ class MainLogicNode(Node):
             self.printerController[printer].send_pi_cmd("pi-reset-queue-all")
 
         # Move motors and wait for them to signal to continue
-        self.okToRunEvent.clear()
         if self.stopAllEvent.is_set():
             return 1
-        self.levelController.send_level_cmd("level-motors-home")
-        self.okToRunEvent.wait()
-        self.okToRunEvent.clear()
+        self.get_logger().info("[START_RUN()]: sending home")
+        # self.okToRunEvent.clear()
+        # self.levelController.send_level_cmd("level-motors-home")
+        # self.okToRunEvent.wait()
+        t = threading.Thread(target=self.levelController.send_level_cmd, args=["level-motors-home"])
+        t.start()
+        t.join()
+        while t.is_alive():
+            print("Im alive")
+            time.sleep(0.2)
         if self.stopAllEvent.is_set():
             return 1
-        self.levelController.send_level_cmd("level-motors-0")
-        self.okToRunEvent.wait()
+        self.get_logger().info("[START_RUN()]: Sending level 0")
+        # self.okToRunEvent.clear()
+        # self.levelController.send_level_cmd("level-motors-0")
+        # self.okToRunEvent.wait()
+        t = threading.Thread(target=self.levelController.send_level_cmd, args=["level-motors-0"])
+        t.start()
+        t.join()
+        while t.is_alive():
+            time.sleep(0.2)
         if self.stopAllEvent.is_set():
             return 1
         for printer in printers:
@@ -243,6 +275,7 @@ class MainLogicNode(Node):
                     "pi-stop-queue-all")
                 self.printerController[printer].send_motor_cmd("motor-off-all")
             return 1
+        self.get_logger().info("[START_RUN()]: Ended")
 
     def start_print(self):
 

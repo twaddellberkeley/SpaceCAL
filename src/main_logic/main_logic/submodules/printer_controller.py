@@ -20,7 +20,7 @@ class Motor():
 
 
 class PrinterController(Node):
-    def __init__(self, id):
+    def __init__(self, id, logger=None):
         super().__init__("printer_controller_node_" + str(id))
         self._id = id
         self._status = "off"
@@ -32,12 +32,16 @@ class PrinterController(Node):
         self._pi_videos = []
         self._pi_queue = []
         self._playing_queue = Queue()
+        self.logger = logger
 
         req = Video.Request()
         req.cmd = "get-videos"
+        self.get_logger().warning("sent to get video names")
         self.client_req("pi", req)
         req.cmd = "get-queue"
         self.client_req("pi", req)
+
+        
 
     def send_motor_cmd(self, cmd):
         self.motor_controller_logic(cmd)
@@ -125,7 +129,7 @@ class PrinterController(Node):
         else:
             self.get_logger().error(
                 '[proj_controller_logic]: Command not recognized ')
-        self.client_req(proj_cmd, client, req)
+        self.client_req(client, req)
 
     def pi_controller_logic(self, pi_cmd):
         """
@@ -137,6 +141,7 @@ class PrinterController(Node):
             # - **pi-stop-queue-<#>**: stop video queue from pi # (this will exit the queue and wont remember where it stoped)
             # - **pi-pause-queue-<#>**: pauses the queue from pi # (This will stop the current print and get ready to play the next video.)
         """
+        # self.get_logger().info("Requested to play video: ") #%s\n" %(req.file_name))
         assert (pi_cmd != None)
         # TODO: Implement logic if needed. As of now it sends every message to the video controller
         # TODO: we could posible do a get request of all the videos from the pi at start-up and save it to the
@@ -162,17 +167,21 @@ class PrinterController(Node):
             else:
                 self.get_logger().error(
                     "[pi_control_logic]: Invalid Command")
+                    
 
         # Process the play command
         elif split_cmd[index] == "play":
             req.cmd = split_cmd[index]
-
+            
             # We get a name form the queue
             if split_cmd[index+1] == "queue":
                 # Make sure playing queue is not empty
+                self.get_logger().info("Requested to play video: HERE")
                 if self._playing_queue.empty():
                     self._isPlayingQueueEmpty = True
-                    return
+                    self.get_logger().info("Queue is Empty")
+                    print(self._pi_queue)
+                    
                 req.file_name = self._playing_queue.get()
 
             # Check if the name is an integer
@@ -190,7 +199,8 @@ class PrinterController(Node):
             else:
                 self.get_logger().error(
                     "[pi_control_logic]: Invalid file Name")
-
+            # print(req.file_name)
+            self.logger().info("Requested to play video: %s\n" %(req.file_name))
         # Process the stop command
         elif split_cmd[index] == "stop":
             req.cmd = split_cmd[index]
@@ -206,12 +216,13 @@ class PrinterController(Node):
             self.get_logger().error(
                 '[proj_controller_logic]: Command not recognized ')
 
+        
         self.client_req(client, req)
 
     ################################################################
 
     def client_req(self, client, req):
-        time_to_wait = 0
+        time_to_wait = 2
 
         ### Select client to send request ###
         if client == "proj":
@@ -233,12 +244,12 @@ class PrinterController(Node):
 
         # TODO: where do we record metadata?
         #***** Clients *******#
-        print(srv)
-        print(topic)
+        # print(srv)
+        # print(topic)
         count = 1
         self.cli = self.create_client(srv, topic)
-        while not self.cli.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('service not available, waiting again...')
+        while not self.cli.wait_for_service(timeout_sec=.2):
+            # self.get_logger().info('service not available, waiting again...')
             if count > time_to_wait:
                 return
             count += 1
@@ -249,9 +260,12 @@ class PrinterController(Node):
         # self.get_logger().info("request time stamp in nanosec: %d" %
         #                        (req.meta.stamp.nanosec))
         # Send async call to server
+        self.get_logger().warning("sending request: %s" % (req.cmd))
+        # res = self.cli.call(req)
+        
         future = self.cli.call_async(req)
         # Add callback to receive response
-        future.add_done_callback(partial(callback_func))
+        future.add_done_callback(partial(self.pi_future_callback))
         ################################################################
         self.get_logger().debug('Waiting on async...')   # DEBUG message
 
@@ -293,6 +307,7 @@ class PrinterController(Node):
             # string msg
             # string status
             # bool is_video_on
+            self.get_logger().warning("Getting response")
             res = future.result()
             if res.cmd == "get-videos":
                 if res.videos != None and len(res.videos) > 0:
@@ -303,6 +318,8 @@ class PrinterController(Node):
 
             if res.cmd == "get-queue":
                 if res.videos != None and len(res.queue) > 0:
+                    print(res.videos)
+                    self.get_logger().info(res.videos)
                     self._pi_queue = res.queue
                 else:
                     self.get_logger().warning(
@@ -355,6 +372,7 @@ class PrinterController(Node):
 
     #********* Utility functions ***********#
     def reset_playing_queue(self):
+        self.get_logger().info("Requested to reset queue")
         for item in self._pi_queue:
             self._playing_queue.put(item)
         self._isPlayingQueueEmpty = False
