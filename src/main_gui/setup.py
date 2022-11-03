@@ -2,11 +2,12 @@ from setuptools import setup
 
 package_name = 'main_gui'
 submodules = 'main_gui/submodules'
+Components = 'main_gui/submodules/Components'
 
 setup(
     name=package_name,
     version='0.0.0',
-    packages=[package_name, submodules],
+    packages=[package_name, submodules, Components],
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),

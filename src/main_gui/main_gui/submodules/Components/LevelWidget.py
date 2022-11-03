@@ -1,10 +1,10 @@
 # This Python file uses the following encoding: utf-8
-from Components.Msgs import Msgs
+from .Msgs import Msgs
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QInputDialog,
-                               QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
-from Components.SelectBtnWidget import SelectBtnWidget
+                             QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
+from .SelectBtnWidget import SelectBtnWidget
 
 
 class LevelWidget(QtWidgets.QWidget):

@@ -6,16 +6,10 @@ from rclpy.node import Node
 
 import sys
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-                            QMetaObject, QObject, QPoint, QRect,
-                            QSize, QTime, QUrl, Qt, Slot, Signal)
-
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-                               QLayout, QMainWindow, QPushButton, QSizePolicy,
-                               QStatusBar, QTabWidget, QVBoxLayout, QWidget)
+from PyQt5.QtWidgets import (QApplication)
 
 from .submodules.mainwindow import MainWindow
-from Interfaces.srv import GuiDisplay
+from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 
 
 class GuiNode():

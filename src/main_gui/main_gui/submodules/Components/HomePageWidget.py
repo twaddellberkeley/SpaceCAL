@@ -1,12 +1,12 @@
 # This Python file uses the following encoding: utf-8
-from Components.DisplayWidget import DisplayWidget
-from Components.PrinterModeWidget import PrinterModeWidget
-from Components.MainBtnsWidget import MainBtnsWidget
+from .DisplayWidget import DisplayWidget
+from .PrinterModeWidget import PrinterModeWidget
+from .MainBtnsWidget import MainBtnsWidget
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QSize, pyqtSlot, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame,
-                               QLabel, QHBoxLayout, QSizePolicy)
+                             QLabel, QHBoxLayout, QSizePolicy)
 
 
 class HomePageWidget(QtWidgets.QWidget):

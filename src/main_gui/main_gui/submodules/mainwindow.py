@@ -3,16 +3,16 @@
 import sys
 
 
-from  PyQt5.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-                            QMetaObject, QObject, QPoint, QRect,
-                            QSize, QTime, QUrl, Qt, pyqtSlot, pyqtSignal)
+from PyQt5.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+                          QMetaObject, QObject, QPoint, QRect,
+                          QSize, QTime, QUrl, Qt, pyqtSlot, pyqtSignal)
 
 from PyQt5.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-                               QLayout, QMainWindow, QPushButton, QSizePolicy,
-                               QStatusBar, QTabWidget, QVBoxLayout, QWidget)
+                             QLayout, QMainWindow, QPushButton, QSizePolicy,
+                             QStatusBar, QTabWidget, QVBoxLayout, QWidget)
 
-from Components.HomePageWidget import HomePageWidget
-from Components.PrinterPageWidget import PrinterPageWidget
+from .Components.HomePageWidget import HomePageWidget
+from .Components.PrinterPageWidget import PrinterPageWidget
 
 
 class MainWindow(QMainWindow):

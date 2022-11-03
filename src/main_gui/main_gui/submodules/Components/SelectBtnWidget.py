@@ -4,10 +4,10 @@ from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QListView, QFormLayout,
-                               QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
+                             QLabel, QHBoxLayout, QBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
 
 
-from Components.DisplayField import DisplayField
+from .DisplayField import DisplayField
 
 
 class SelectBtnWidget(QtWidgets.QWidget):
