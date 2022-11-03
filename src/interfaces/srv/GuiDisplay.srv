@@ -2,7 +2,10 @@ Metadata meta
 string cmd
 string display_name
 string display_msg
+string[] pi_queue
+string[] pi_videos
 ---
-int32 id
+Metadata meta
+string cmd
 int32 err
 string msg

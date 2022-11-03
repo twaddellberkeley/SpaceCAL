@@ -1,6 +1,10 @@
 Metadata meta
-string cmd
----
 int32 id
+string cmd
+string[] update_queue
+---
+Metadata meta
+int32 id
+string cmd
 int32 err
 string msg
