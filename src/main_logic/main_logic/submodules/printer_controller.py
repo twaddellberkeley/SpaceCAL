@@ -211,6 +211,7 @@ class PrinterController(Node):
     ################################################################
 
     def client_req(self, client, req):
+        time_to_wait = 0
 
         ### Select client to send request ###
         if client == "proj":
@@ -232,14 +233,21 @@ class PrinterController(Node):
 
         # TODO: where do we record metadata?
         #***** Clients *******#
+        print(srv)
+        print(topic)
+        count = 1
         self.cli = self.create_client(srv, topic)
         while not self.cli.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('service not available, waiting again...')
+            if count > time_to_wait:
+                return
+            count += 1
+            
         # Record metadate
-        req.meta.name = topic
-        req.meta.stamp.nanosec = time.time_ns()
-        self.get_logger().info("request time stamp in nanosec: %d" %
-                               (req.meta.stamp.nanosec))
+        # req.meta.name = topic
+        # req.meta.stamp.nanosec = time.time_ns()
+        # self.get_logger().info("request time stamp in nanosec: %d" %
+        #                        (req.meta.stamp.nanosec))
         # Send async call to server
         future = self.cli.call_async(req)
         # Add callback to receive response

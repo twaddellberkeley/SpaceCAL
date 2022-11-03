@@ -30,6 +30,7 @@ class LevelController(Node):
         #***** Initialize Goalhandle to cancel goal if needed ******#
         self.goal_handle = None
         self.done_moving = evenHandle
+        
         #***** Clients *******#
         self._action_client = ActionClient(
             self, Level, "level_motor_action_srv")

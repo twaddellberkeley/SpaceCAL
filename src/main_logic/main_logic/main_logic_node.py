@@ -6,8 +6,8 @@ from functools import partial
 from queue import Queue
 
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
-from .submodule.main_logic import LevelController
-from .submodule.main_logic import PrinterController
+from .submodules.level_controller import LevelController
+from .submodules.printer_controller import PrinterController
 
 
 import rclpy
@@ -36,7 +36,7 @@ class MainLogicNode(Node):
         self.stopAllEvent = threading.Event()
 
         #***** Initialize Level Controller ******#
-        self.levelController = LevelController()
+        self.levelController = LevelController(self.okToRunEvent)
 
         self.ledOffThread = None
 
