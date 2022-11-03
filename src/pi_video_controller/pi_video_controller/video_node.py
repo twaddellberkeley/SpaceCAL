@@ -48,7 +48,8 @@ class VideoNode(Node):
             res.is_video_on = False
             res.status = "stopped"
         elif req.cmd == "get-videos":
-            print(type(self.pi_videos))
+            print(self.pi_videos)
+            self.get_logger().info("Getting the videos")
             res.videos = self.pi_videos
         elif req.cmd == "get-queue":
             res.queue = self.pi_queue
