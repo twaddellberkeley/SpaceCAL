@@ -14,17 +14,17 @@ from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 gui_inpu_srv = 'gui_input_srv'
 gui_display_srv = 'gui_display_srv'
 
+
 class GuiNode(Node):
 
     def __init__(self, window):
         super().__init__('main_gui_client_node')
-        # 'main_gui_server_node'    
+        # 'main_gui_server_node'
         self.gui = window
         self.gui._logger = self.get_logger()
         self.gui._client = self.create_client(GuiInput, gui_inpu_srv)
         serverThread = threading.Thread(target=self.exec_gui_node)
         serverThread.start()
-        
 
     def exec_gui_node(self):
         subNode = Node('main_gui_server_display_node')
@@ -33,14 +33,12 @@ class GuiNode(Node):
             GuiDisplay, gui_display_srv, self.gui_display_callback)
         rclpy.spin(subNode)
         subNode.destroy_node()
-        
 
     def gui_display_callback(self, req, res):
 
         self.gui.sendCmd("signal_display_input")
         res.cmd = "Hello"
         return res
-        
 
 
 def main(args=None):
@@ -52,7 +50,7 @@ def main(args=None):
     window.show()
 
     # window.pubNode.destroy_node()
-   
+
     # rclpy.shutdown()
     app.exec()
     gui._client.destroy_node()
