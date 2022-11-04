@@ -21,14 +21,15 @@ from .Components.HomePageWidget import HomePageWidget
 from .Components.PrinterPageWidget import PrinterPageWidget
 from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 
+
 class MainWindow(QMainWindow):
     currentState = 0
     stateSig = pyqtSignal(int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.resize(800, 600)
-        
+        self.resize(1024, 600)
+
         self._client = None
         self._logger = None
 
@@ -66,11 +67,10 @@ class MainWindow(QMainWindow):
         # int32 id
         # string cmd
         # string[] update_queue
-        
+
         req = GuiInput.Request()
         req.id = 10
         req.cmd = cmd
-
 
         while not self._client.wait_for_service(timeout_sec=1.0):
             self._logger.info('service not available, waiting again...')
@@ -89,10 +89,9 @@ class MainWindow(QMainWindow):
         # string msg
         try:
             res = future.result()
-            self._logger.info(msg)
+
         except Exception as e:
             self._logger.error('ERROR: --- %r' % (e,))
-
 
     @pyqtSlot(int)
     def setSysState(self, state):
@@ -101,8 +100,8 @@ class MainWindow(QMainWindow):
         self.currentState |= state
 
 
-if __name__ == "__main__":
-    app = QApplication([])
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec())
+# if __name__ == "__main__":
+#     app = QApplication([])
+#     window = MainWindow()
+#     window.show()
+#     sys.exit(app.exec())

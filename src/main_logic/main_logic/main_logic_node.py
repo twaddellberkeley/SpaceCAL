@@ -27,8 +27,9 @@ class MainLogicNode(Node):
             GuiInput, 'gui_input_srv', self.gui_input_callback)
 
         #***** Initialize printer controller objects ******#
-        self.printerController = [PrinterController(0, self.get_logger()), PrinterController(
+        self.printerController = [PrinterController(0), PrinterController(
             1), PrinterController(2), PrinterController(3), PrinterController(4)]
+        # self.printerController = [PrinterController(0)]
 
         # create an instance of an event
         # Ok to run is for waitng for the level platform to stop moving
@@ -36,7 +37,8 @@ class MainLogicNode(Node):
         self.stopAllEvent = threading.Event()
 
         #***** Initialize Level Controller ******#
-        self.levelController = LevelController(self, self.okToRunEvent, self.get_logger)
+        self.levelController = LevelController(
+            self)
 
         self.ledOffThread = None
 
@@ -91,7 +93,7 @@ class MainLogicNode(Node):
                 ##################################################################################
             else:
                 # This are custom commands
-                if cmd in ["start-run", "stop-run","continue-run","start-print","stop-print", "get-videos"]:
+                if cmd in ["start-run", "stop-run", "continue-run", "start-print", "stop-print", "get-videos"]:
                     ctrls["custom_cmd"].append(cmd)
 
         return ctrls
@@ -140,6 +142,9 @@ class MainLogicNode(Node):
 
         if len(ctrls["custom_cmd"]) != 0:
             # Send custom command to all systems
+            # Find out who is the message for
+            dest = cmd.split("-")[-1]
+            printers = self.get_printers_num(dest)
             for cmd in ctrls["custom_cmd"]:
                 if cmd == "stop-run":
                     self.send_stop_run_cmd()
@@ -185,8 +190,10 @@ class MainLogicNode(Node):
         if self.stopAllEvent.is_set():
             return 1
         next_level = (self.levelController._curr_level + 1) % 5
-        self.get_logger().info("[send_continue_run_cmd()]: sending to level %d\n" % (next_level))
-        t = threading.Thread(target=self.levelController.send_level_cmd, args=["level-motors-" + str(next_level)])
+        self.get_logger().info(
+            "[send_continue_run_cmd()]: sending to level %d\n" % (next_level))
+        t = threading.Thread(target=self.levelController.send_level_cmd, args=[
+                             "level-motors-" + str(next_level)])
         t.start()
         t.join()
         while t.is_alive():
@@ -219,7 +226,6 @@ class MainLogicNode(Node):
         # self.ledOffThread.daemon = True
         self.ledOffThread.start()
 
-
     def send_stop_print_cmd(self):
         if self.ledOffThread != None:
             self.ledOffThread.cancel()
@@ -245,7 +251,8 @@ class MainLogicNode(Node):
         # self.okToRunEvent.clear()
         # self.levelController.send_level_cmd("level-motors-home")
         # self.okToRunEvent.wait()
-        t = threading.Thread(target=self.levelController.send_level_cmd, args=["level-motors-home"])
+        t = threading.Thread(target=self.levelController.send_level_cmd, args=[
+                             "level-motors-home"])
         t.start()
         t.join()
         while t.is_alive():
@@ -257,7 +264,8 @@ class MainLogicNode(Node):
         # self.okToRunEvent.clear()
         # self.levelController.send_level_cmd("level-motors-0")
         # self.okToRunEvent.wait()
-        t = threading.Thread(target=self.levelController.send_level_cmd, args=["level-motors-0"])
+        t = threading.Thread(
+            target=self.levelController.send_level_cmd, args=["level-motors-0"])
         t.start()
         t.join()
         while t.is_alive():
