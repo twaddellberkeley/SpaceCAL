@@ -1,5 +1,7 @@
 Metadata meta
+int32 printer_id
 string cmd
+int32 state
 string display_name
 string display_msg
 string[] pi_queue
