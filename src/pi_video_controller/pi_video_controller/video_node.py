@@ -30,18 +30,19 @@ class VideoNode(Node):
         self.get_logger().info('\nService request recieved at PI %d\nCommand: %s ' % (self.pi_num, request.cmd))
         ############ TODO: Code Here ###################
 
-        response = self.process_cmd(request, response)
+        result = self.process_cmd(request, response)
 
-        self.get_logger().info('Finished request from PI\ncmd: %s ' % (request.cmd))
-        return response
+        self.get_logger().info('Finished request from PI %d\ncmd: %s ' % (self.pi_num, request.cmd))
+        return result
 
     def process_cmd(self, req, res):
-
+        self.get_logger().info('Processing request with cmd: %s ' % (req.cmd))
         if req.cmd == "play":
             self.vlc.playVideo(req.file_name)
             self.get_logger().info("video is playing")
             res.is_video_on = True
             res.status = "video playing"
+            res.video_playing = req.file_name
         elif req.cmd == "stop-video":
             self.vlc.stopVideo()
             self.get_logger().info("video has stop playing")
@@ -52,12 +53,15 @@ class VideoNode(Node):
             self.get_logger().info("Getting the videos")
             res.videos = self.pi_videos
         elif req.cmd == "get-queue":
+            print(self.pi_queue)
+            self.get_logger().info("Getting the queue")
             res.queue = self.pi_queue
         elif req.cmd =="update-queue":
             self.update_queue(req.update_queue)
         res.err = 0
         res.id = self.pi_num
         res.cmd = req.cmd
+        print(res.queue)
         res.msg = "Projector " + str(self.pi_num) + " executed succesfully"
         return res
     
