@@ -26,19 +26,19 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='jetsonDisplay',
-            namespace='printerTesting',
-            executable='guiMain',
+            package='main_logic',
+            # namespace='printerTesting',
+            executable='main_service',
             output='screen',
             emulate_tty=True,
-            name='gui'
+            name='Controller'
         ),
         Node(
-            package='jetsonMainLogic',
-            namespace='printerTesting',
-            executable='printController',
+            package='main_gui',
+            # namespace='printerTesting',
+            executable='main_gui_node',
             output='screen',
             emulate_tty=True,
-            name='control'
+            name='Gui'
         )
     ])
