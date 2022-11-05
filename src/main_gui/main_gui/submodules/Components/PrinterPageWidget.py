@@ -15,8 +15,15 @@ from .TwoBtnWidget import TwoBtnWidget
 from .VideoWidget import VideoWidget
 
 
+STATE_STOPPED = 0x00
+STATE_READY = 0x01
+STATE_MOVING = 0x10
+STATE_PRINTING = 0x100
+
+
 class PrinterPageWidget(QtWidgets.QWidget):
-    cmdpyqtSignal = pyqtSignal(str)
+    cmdSignal = pyqtSignal(str)
+    stateSignal = pyqtSignal(int)
 
     stopBtnMsg = "Would you like stop the system?"
     startBtnMsg = "Would you like start printing?"
@@ -27,6 +34,7 @@ class PrinterPageWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         # dummy structurs
+        self.state = STATE_STOPPED
 
         ############################## Widgets #############################
         self.printerWidget = PrinterWidget()
@@ -61,31 +69,31 @@ class PrinterPageWidget(QtWidgets.QWidget):
 
         ###################### pyqtSignals and pyqtSlots ############################
         # Printer
-        self.printerWidget.btnPressed.connect(self.sendCmdpyqtSignal)
+        self.printerWidget.btnPressed.connect(self.sendCmdSignal)
         self.printerWidget.printerChanged.connect(
             self.videoWidget.updatePrinter)
 
         # Video
-        self.videoWidget.btnPressed.connect(self.sendCmdpyqtSignal)
+        self.videoWidget.btnPressed.connect(self.sendCmdSignal)
 
         # Main Buttons
         self.mainBtns.stopBtn.clicked.connect(self.stopMainBtn)
         self.mainBtns.startBtn.clicked.connect(self.constructPrintCmd)
 
-    def sendCmdpyqtSignal(self, sig):
-        self.cmdpyqtSignal.emit(sig)
+    def sendCmdSignal(self, sig):
+        self.cmdSignal.emit(sig)
 
     def stopMainBtn(self):
         self.msgBox.setText(self.stopBtnMsg)
         ret = self.msgBox.exec()
         if ret == QMessageBox.Yes:
-            self.sendCmdpyqtSignal(self.stopMainBtnCmd)
+            self.sendCmdSignal(self.stopMainBtnCmd)
 
     def startMainBtn(self):
         self.msgBox.setText(self.startBtnMsg)
         ret = self.msgBox.exec()
         if ret == QMessageBox.Yes:
-            self.sendCmdpyqtSignal(self.constructPrintCmd)
+            self.sendCmdSignal(self.constructPrintCmd)
 
     def constructPrintCmd(self):
         video = self.getCurrVideo()
@@ -97,14 +105,14 @@ class PrinterPageWidget(QtWidgets.QWidget):
             return self.msgs.selecVideoMsg()
         if motorSpeed == "0":
             return self.msgs.selectSpeedMsg()
-        cmd = "proj-on-" + printer + "_" + \
-            "level-motors-" + level + "_" + \
-            "motor-on-" + motorSpeed + "-" + printer + "_" + \
-            "proj-led-on-" + printer + "_" + \
+        cmd = "proj-on-" + printer + "+" + \
+            "level-motors-" + level + "+" + \
+            "motor-on-" + motorSpeed + "-" + printer + "+" + \
+            "proj-led-on-" + printer + "+" + \
             "pi-play-" + video + "-" + printer
         ret = self.msgs.startPrintMsg()
         if ret == QMessageBox.Yes:
-            self.sendCmdpyqtSignal(cmd)
+            self.sendCmdSignal(cmd)
 
     def getCurrVideo(self):
         return self.videoWidget.getCurrVideo()
@@ -118,7 +126,12 @@ class PrinterPageWidget(QtWidgets.QWidget):
     def getCurrMotorSpeed(self):
         return self.printerWidget.getCurrMotorSpeed()
 
+    @pyqtSlot(int)
+    def setPrinterPageState(self, state):
+        # This fuction takes a signal from the logic and sets the state of the system
+        self.state = state
+        self.stateSignal.emit(state)
     # def addPrinterCmd(self, cmd):
     #     printer = self.printerWidget.getCurrPrinter()
     #     vCmd = cmd + printer
-    #     self.sendCmdpyqtSignal(vCmd)
+    #     self.sendCmdSignal(vCmd)

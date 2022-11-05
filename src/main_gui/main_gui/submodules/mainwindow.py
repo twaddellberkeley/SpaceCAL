@@ -1,11 +1,5 @@
 # This Python file uses the following encoding: utf-8
 # PyQt5.QtWidgets
-import time
-from datetime import datetime
-from threading import Thread
-import threading
-from functools import partial
-from queue import Queue
 import sys
 
 
@@ -19,24 +13,28 @@ from PyQt5.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
 
 from .Components.HomePageWidget import HomePageWidget
 from .Components.PrinterPageWidget import PrinterPageWidget
-from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
+from .Components.Msgs import Msgs
+from .GuiLogic import GuiLogic
+
+STATE_STOPPED = 0x00
+STATE_READY = 0x01
+STATE_MOVING = 0x10
+STATE_PRINTING = 0x100
 
 
 class MainWindow(QMainWindow):
-    currentState = 0
-    stateSig = pyqtSignal(int)
+    stateSignal = pyqtSignal(int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.resize(1024, 600)
-
-        self._client = None
-        self._logger = None
+        self.guiLogic = GuiLogic()
+        self.sysState = STATE_STOPPED
 
         ############################## Widgets #############################
         self.tabWidget = QTabWidget()
         self.homePage = HomePageWidget()
-        self.printPage = PrinterPageWidget()
+        self.printerPage = PrinterPageWidget()
 
         # Editing Widgits
         self.tabWidget.setDocumentMode(True)
@@ -46,15 +44,27 @@ class MainWindow(QMainWindow):
 
         # Inserting widget tabs
         self.tabWidget.insertTab(0, self.homePage, "Home")
-        self.tabWidget.insertTab(1, self.printPage, "Printer Controller")
+        self.tabWidget.insertTab(1, self.printerPage, "Printer Controller")
 
         # Setting the central widget for the main window to be the tabWidget
         self.setCentralWidget(self.tabWidget)
 
         ###################### pyqtSignals and pyqtSlots ############################
-        self.homePage.cmdpyqtSignal.connect(self.sendCmd)
-        self.printPage.cmdpyqtSignal.connect(self.sendCmd)
+        self.homePage.cmdSignal.connect(self.sendCmd)
+        self.printerPage.cmdSignal.connect(self.sendCmd)
 
+        ###################### System state signals ############################
+        self.guiLogic.updateState.connect(self.setSysState)
+        self.guiLogic.updateState.connect(self.homePage.setHomePageState)
+        self.guiLogic.updateState.connect(self.printerPage.setPrinterPageState)
+
+        ########################### System state signals ##################################
+        self.guiLogic.updateHomePageDisplay.connect(self.homePage.setDisplay)
+        ##########################################################
+        Msgs().initSystemMsg()
+        Msgs().warningMsg("Motors Will Be Home")
+        self.sendCmd("level-motors-home+proj-on-all")
+        ##########################################################
         # Define the size policy for the tab widgit -- we want the minimum to be 700 by 500
         # sizePolicy = QSizePolicy(
         #     QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
@@ -63,41 +73,15 @@ class MainWindow(QMainWindow):
 #        self.setSizePolicy(sizePolicy)
 
     def sendCmd(self, cmd):
-        # Metadata meta
-        # int32 id
-        # string cmd
-        # string[] update_queue
-
-        req = GuiInput.Request()
-        req.id = 10
-        req.cmd = cmd
-
-        while not self._client.wait_for_service(timeout_sec=1.0):
-            self._logger.info('service not available, waiting again...')
-
-        self._logger.warning("[MainWindow]: sending client cmd %s" % (req.cmd))
-        future = self._client.call_async(req)
-        # Add callback to receive response
-        future.add_done_callback(partial(self.response_callback))
-        print(cmd)
-
-    def response_callback(self, future):
-        # Metadata meta
-        # int32 id
-        # string cmd
-        # int32 err
-        # string msg
-        try:
-            res = future.result()
-
-        except Exception as e:
-            self._logger.error('ERROR: --- %r' % (e,))
+        # This fuction receives signals from homePage and printerPage and sends them to the logic
+        self.guiLogic.decodeCmd(cmd)
+#        print(cmd)
 
     @pyqtSlot(int)
     def setSysState(self, state):
-        assert type(state) == type(0), "Wrong type: must be an int"
-        assert state < 32, "state must be less than 32"
-        self.currentState |= state
+        # This fuction takes a signal from the logic and sets the state of the system
+        self.sysState = state
+        self.stateSignal.emit(state)
 
 
 # if __name__ == "__main__":

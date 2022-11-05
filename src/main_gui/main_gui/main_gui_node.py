@@ -3,6 +3,10 @@ import threading
 import os
 import rclpy
 from rclpy.node import Node
+import time
+from threading import Thread
+from functools import partial
+from queue import Queue
 
 import sys
 
@@ -18,11 +22,12 @@ gui_display_srv = 'gui_display_srv'
 class GuiNode(Node):
 
     def __init__(self, window):
-        super().__init__('main_gui_client_node')
+        super().__init__('dummy')
         # 'main_gui_server_node'
         self.gui = window
-        self.gui._logger = self.get_logger()
-        self.gui._client = self.create_client(GuiInput, gui_inpu_srv)
+        self.gui.guiLogic.logger = self.get_logger()
+        # self.gui.guiLogic.cli_req = self.client_req
+        # self.cli = self.create_client(GuiInput, gui_inpu_srv)
         serverThread = threading.Thread(target=self.exec_gui_node)
         serverThread.start()
 
@@ -34,10 +39,47 @@ class GuiNode(Node):
         rclpy.spin(subNode)
         subNode.destroy_node()
 
+    # def client_req(self, cmd):
+    #     req = GuiInput.Request()
+    #     req.id = 10
+    #     req.cmd = cmd
+
+    #     while not self.cli.wait_for_service(timeout_sec=1.0):
+    #         self._logger.info('service not available, waiting again...')
+
+    #     self._logger.warning("[MainWindow]: sending client cmd %s" % (req.cmd))
+    #     future = self.cli.call_async(req)
+    #     # Add callback to receive response
+    #     future.add_done_callback(partial(self.response_callback))
+    #     print(cmd)
+
     def gui_display_callback(self, req, res):
 
-        self.gui.sendCmd("signal_display_input")
-        res.cmd = "Hello"
+        # Metadata meta
+        # int32 printer_id
+        # string cmd
+        # int32 state
+        # string display_name
+        # string display_msg
+        # string[] pi_queue
+        # string[] pi_videos
+
+        if "display" in req.cmd:
+            p = str(req.printer_id)
+            if req.printer_id < 0:
+                p = "all"
+            self.gui.guiLogic.updateGuiDisplay(
+                req.display_name + "-" + req.display_msg + "-" + p)
+        if "state" in req.cmd:
+            self.gui.guiLogic.updateGuiState(req.state)
+        if "videos" in req.cmd:
+            self.gui.guiLogic.setVideos(req.printer_id, req.pi_videos)
+        if "queue" in req.cmd:
+            self.gui.guiLogic.setQueue(req.printer_id, req.pi_queue)
+
+        print(req.cmd)
+        res.err = 0
+        res.cmd = req.cmd
         return res
 
 
@@ -53,7 +95,7 @@ def main(args=None):
 
     # rclpy.shutdown()
     app.exec()
-    gui._client.destroy_node()
+    gui.destroy_node()
     rclpy.shutdown()
     # rclpy.init(args=args)
     # gui = GuiNode()

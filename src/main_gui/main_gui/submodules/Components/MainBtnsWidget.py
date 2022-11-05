@@ -4,31 +4,36 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import QSize, pyqtSlot, pyqtSignal
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QMessageBox,
-                               QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
+                             QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
+
+STATE_STOPPED = 0x00
+STATE_READY = 0x01
+STATE_MOVING = 0x10
+STATE_PRINTING = 0x100
 
 
 class MainBtnsWidget(QtWidgets.QWidget):
     btnPressed = pyqtSignal(str)
-    startBtnAutoText = u"Start Printing"
-    stopBtnAutoText = u"Stop Printing"
+    startBtnRunText = u"Start Printing"
+    stopBtnRunText = u"Stop Printing"
     startBtnText = u"Start Print"
     stopBtnText = u"End Print"
-    readyState = 0
-    printingState = 1
 
     def __init__(self):
         super().__init__()
 
         # Messages
         self.msgs = Msgs()
-
+        self.mainBtnState = STATE_STOPPED
         # Widgets
-        self.btnStop = QPushButton("Stop Printing")
-        self.btnStart = QPushButton("Start Printing")
+        self.btnStop = QPushButton(u"Stop Printing")
+        self.btnStart = QPushButton(u"Start Printing")
 
         # Set Widget properties
         self.btnStop.setProperty("StopBtn", True)
         self.btnStart.setProperty("StartBtn", True)
+        self.btnStop.setMinimumSize(80, 120)
+        self.btnStart.setMinimumSize(80, 120)
         # self.btnStop.setDisabled(True)        ########################## Uncomment
 
         # Layouts
@@ -43,11 +48,14 @@ class MainBtnsWidget(QtWidgets.QWidget):
         self.btnStart.clicked.connect(self.startBtnClicked)
         self.btnStop.clicked.connect(self.stopBtnClicked)
 
+        # Set initial state of buttons
+        self.setBtnsState(STATE_STOPPED)
+
     @pyqtSlot(bool)
     def setAutoPrintMode(self, mode):
         if mode == True:
-            self.btnStop.setText(self.stopBtnAutoText)
-            self.btnStart.setText(self.startBtnAutoText)
+            self.btnStop.setText(self.stopBtnRunText)
+            self.btnStart.setText(self.startBtnRunText)
         else:
             self.btnStop.setText(self.stopBtnText)
             self.btnStart.setText(self.startBtnText)
@@ -61,47 +69,73 @@ class MainBtnsWidget(QtWidgets.QWidget):
         # svial rot on/off, video playing on/off and plataform moving on/off
         # We will represent this in binary: (proj, led, vial, video, plataform)
         # when one is on it gets a 1 and 0 otherwise. system fully on is (1,1,1,1,1)
-        print(state, int('0b00011', 2))
-        if state == self.readyState:
+        #        STE_STOPPED = 0x00
+        #        STATE_READY = 0x01
+        #        STATE_MOVING = 0x10
+        #        STATE_PRINTING = 0x100
+
+        if state == STATE_STOPPED:
             # Ready to print
             self.btnStart.setEnabled(True)
             self.btnStop.setDisabled(True)
+            self.btnStart.setText(self.startBtnRunText)
+            self.btnStop.setText(self.stopBtnRunText)
         # Printing
-        elif state == self.printingState:
+        elif state == STATE_READY:
+            self.btnStart.setEnabled(True)
+            self.btnStop.setDisabled(True)
+            self.btnStart.setText(self.startBtnText)
+            self.btnStop.setText(self.stopBtnText)
+        elif state == STATE_MOVING:
+            self.btnStart.setDisabled(True)
+            self.btnStop.setDisabled(True)
+            self.btnStart.setText(self.startBtnText)
+            self.btnStop.setText(self.stopBtnText)
+        elif state == STATE_PRINTING:
             self.btnStart.setDisabled(True)
             self.btnStop.setEnabled(True)
+            self.btnStart.setText(self.startBtnText)
+            self.btnStop.setText(self.stopBtnText)
 
      ##### pyqtSignal ######
     def startBtnClicked(self):
-        # msgBox = QMessageBox()
-        ret = QMessageBox.No
-        if self.startBtnText == self.btnStart.text():
-            ret = self.msgs.startPrintMsg()
-            # msgBox.setText("Would you like begin print?")
-        else:
-            ret = self.msgs.startPrintingMsg()
-            # msgBox.setText("Would you like begin auto printing?")
-        # msgBox.setStandardButtons(QMessageBox.No | QMessageBox.Yes)
-        # msgBox.setDefaultButton(QMessageBox.Yes)
-        # ret = msgBox.exec()
+        ret = self.confirmStartBtnPress()
         if ret == QMessageBox.Yes:
-            self.btnPressed.emit(self.msgs.start_run_cmd)
+            self.btnPressed.emit(self.getStartCmd())
 
      ##### pyqtSignal ######
     def stopBtnClicked(self):
-        ret = QMessageBox.No
-        # msgBox = QMessageBox()
-        if self.stopBtnText == self.btnStop.text():
-            ret = self.msgs.endPrintMsg()
-            # msgBox.setText("Would you like stop the print?")
-        else:
-            ret = self.msgs.stopSysMsg()
-        #     msgBox.setText("Would you like to stop printing?")
-        # msgBox.setStandardButtons(QMessageBox.No | QMessageBox.Yes)
-        # msgBox.setDefaultButton(QMessageBox.Yes)
-        # ret = msgBox.exec()
+        ret = self.confirmStopBtnPress()
         if ret == QMessageBox.Yes:
-            self.btnPressed.emit(self.btnStop.text())
+            self.btnPressed.emit(self.getStopCmd())
+
+    def confirmStartBtnPress(self):
+        ret = QMessageBox.No
+        if self.btnStart.text() == self.startBtnRunText:
+            ret = self.msgs.startPrintingMsg()
+        elif self.btnStart.text() == self.startBtnText:
+            ret = self.msgs.startPrintMsg()
+        return ret
+
+    def confirmStopBtnPress(self):
+        ret = QMessageBox.No
+        if self.btnStop.text() == self.stopBtnRunText:
+            ret = self.msgs.stopPrintingMsg()
+        elif self.btnStop.text() == self.stopBtnText:
+            ret = self.msgs.stopPrintMsg()
+        return ret
+
+    def getStartCmd(self):
+        if self.btnStart.text() == self.startBtnRunText:
+            return self.msgs.start_run_cmd
+        elif self.btnStart.text() == self.startBtnText:
+            return self.msgs.start_print_cmd
+
+    def getStopCmd(self):
+        if self.btnStop.text() == self.stopBtnRunText:
+            return self.msgs.stop_run_cmd
+        elif self.btnStop.text() == self.stopBtnText:
+            return self.msgs.stop_print_cmd
 
 
 ##### Style Sheets ######

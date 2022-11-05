@@ -2,7 +2,7 @@
 from .Msgs import Msgs
 from PyQt5 import QtWidgets
 
-from PyQt5.QtCore import (pyqtSignal)
+from PyQt5.QtCore import (pyqtSignal, pyqtSlot)
 
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QPushButton, QFrame, QFormLayout, QMessageBox,
                              QLabel, QHBoxLayout, QSizePolicy, QStyleOptionButton, QStyle)
@@ -63,3 +63,7 @@ class PrinterModeWidget(QtWidgets.QWidget):
         ret = self.msg.stopSysMsg()
         if ret == QMessageBox.Yes:
             self.btnPressed.emit(self.btnStop.text())
+
+    @pyqtSlot(int)
+    def setBtnsState(self, state):
+        pass
