@@ -11,12 +11,18 @@ from interfaces.srv import GuiDisplay, GuiInput, Projector, Video, MotorSrv
 import rclpy
 from rclpy.node import Node
 
+STATE_STOPPED = 0x00
+STATE_READY = 0x01
+STATE_MOVING = 0x10
+STATE_PRINTING = 0x100
+
 
 class Motor():
     def __init__(self, id):
         self._id = id
         self._status = "off"
         self._speed = 0
+        self._isMoving = False
 
 
 class PrinterController(Node):
@@ -82,11 +88,14 @@ class PrinterController(Node):
         stop = "stop-video"
         update = "update-queue"
         reset = "reset-queue"
+        gui_queue = "queue"
+        gui_videos = "videos"
 
         # this is to skip the "pi" in pi_cmd
         index = 1
         split_cmd = pi_cmd.split("-")
         req = Video.Request()
+        gui_req = GuiDisplay.Request()
         req.id = self._id
 
         # Process the get command
@@ -94,15 +103,21 @@ class PrinterController(Node):
             # TODO: return vidoe or queue to gui
             if "queue" in split_cmd:
                 # TODO: return queue to gui
-                req.cmd = get_queue
                 print(self._pi_queue)
+                gui_req.pi_queue = self._pi_queue
+                gui_req.printer_id = self._id
+                gui_req.cmd = gui_queue
+                self.gui_cli_req(gui_req)
                 return
                 # get info from controller in the future
 
             elif "videos" in split_cmd:
                 # TODO: return videos to gui
-                req.cmd = get_videos
                 print(self._pi_videos)
+                gui_req.pi_videos = self._pi_videos
+                gui_req.printer_id = self._id
+                gui_req.cmd = gui_videos
+                self.gui_cli_req(gui_req)
                 return
             else:
                 self.get_logger().error(
@@ -263,6 +278,10 @@ class PrinterController(Node):
         future = self.pi_cli.call_async(req)
         rclpy.spin_until_future_complete(self, future)
 
+        gui_req = GuiDisplay.Request()
+        gui_req.printer_id = self._id
+        gui_req.cmd = "display+state"
+
         try:
             # ---
             # Metadata meta
@@ -295,11 +314,15 @@ class PrinterController(Node):
             if res.cmd in ["play", "stop"]:
                 self._isVideoOn = res.is_video_on
 
+                gui_req.display_name = "proj-video-" + str(self._id)
+                gui_req.display_msg = res.video_playig
+                self.gui_cli_req(gui_req)
+
             self.get_logger().info('Pi Video status %s' % (res.status))
             self.get_logger().info('res.is_led_on %s' % (res.msg))
             # TODO send status message to GUI
             # gui_req = GuiDisplay.Request()
-            # self.gui_req(gui_req)
+            # self.gui_cli_req(gui_req)
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
@@ -322,6 +345,10 @@ class PrinterController(Node):
         future = self.proj_cli.call_async(req)
         rclpy.spin_until_future_complete(self, future)
 
+        gui_req = GuiDisplay.Request()
+        gui_req.printer_id = self._id
+        gui_req.cmd = "display+state"
+
         try:
             # Metadata meta
             # int32 id
@@ -334,14 +361,21 @@ class PrinterController(Node):
             res = future.result()
             if res.cmd in ["on", "off"]:
                 self._isProjOn = res.is_power_on
+                gui_req.display_name = "proj-status-" + str(self._id)
+                gui_req.display_msg = res.cmd
             elif res.cmd in ["led-on", "led-off"]:
                 self._isLedOn = res.is_led_on
+                gui_req.display_name = "proj-status-" + str(self._id)
+                gui_req.display_msg = res.cmd
+
+            gui_req.status = self.get_printer_status()
+            self.gui_cli_req(gui_req)
             self.get_logger().info('Projector status: %s\n' % (res.status))
             self.get_logger().info('Projector message: %s\n' % (res.msg))
 
             # TODO send status message to GUI
             # gui_req = GuiDisplay.Request()
-            # self.gui_req(gui_req)
+            # self.gui_cli_req(gui_req)
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
@@ -363,6 +397,9 @@ class PrinterController(Node):
 
         future = self.motor_cli.call_async(req)
         rclpy.spin_until_future_complete(self, future)
+        gui_req = GuiDisplay.Request()
+        gui_req.printer_id = self._id
+        gui_req.cmd = "display+state"
 
         try:
             # ---
@@ -376,8 +413,15 @@ class PrinterController(Node):
             res = future.result()
             if res.cmd == "on":
                 self._motor._speed = res.set_speed
+                self._motor._isMoving = True
             else:
                 self._motor._speed = 0
+                self._motor._isMoving = False
+
+            gui_req.display_name = "printer-motor-" + str(self._id)
+            gui_req.display_msg = str(self._motor._speed)
+            gui_req.status = self.get_printer_status()
+            self.gui_cli_req(gui_req)
 
             self.get_logger().info('Print Motor status %s' % (res.status))
 
@@ -386,9 +430,9 @@ class PrinterController(Node):
         self.get_logger().info('finished async call....')
         # TODO send status message to GUI
         # gui_req = GuiDisplay.Request()
-        # self.gui_req(gui_req)
+        # self.gui_cli_req(gui_req)
 
-    def gui_req(self, req):
+    def gui_cli_req(self, req):
         ############# temp variables for debug ###############
         time_to_wait = 4
         count = 0
@@ -400,13 +444,15 @@ class PrinterController(Node):
                 return
             count += 1
         self.get_logger().warning(
-            "[printer_controller]: Sending request cmd: %s" % (req.cmd))
+            "[Sending to Gui]: Sending request cmd: %s" % (req.cmd))
 
         future = self.cli.call_async(req)
         # Add callback to receive response
         future.add_done_callback(partial(self.gui_display_future_callback))
         ################################################################
         self.get_logger().debug('Waiting on async...')   # DEBUG message
+
+        
 
     def client_req(self, client, req):
         time_to_wait = 2
@@ -475,3 +521,11 @@ class PrinterController(Node):
         for item in self._pi_queue:
             self._playing_queue.put(item)
         self._isPlayingQueueEmpty = False
+
+    def get_printer_status(self):
+        if self._isLedOn and self._motor._ and self._isVideoOn:
+            return STATE_PRINTING
+        elif self._motor._isMoving:
+            if self._isVideoOn:
+                return STATE_READY
+        return STATE_STOPPED

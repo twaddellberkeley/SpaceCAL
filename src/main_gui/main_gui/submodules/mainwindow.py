@@ -60,6 +60,11 @@ class MainWindow(QMainWindow):
 
         ########################### System state signals ##################################
         self.guiLogic.updateHomePageDisplay.connect(self.homePage.setDisplay)
+
+        ########################### Started Run signals ##################################
+        self.homePage.mainBtnsWidget.startedRunSig.connect(
+            self.guiLogic.setIsPrinting)
+
         ##########################################################
         Msgs().initSystemMsg()
         Msgs().warningMsg("Motors Will Be Home")

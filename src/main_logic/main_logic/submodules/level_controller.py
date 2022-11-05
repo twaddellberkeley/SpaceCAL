@@ -4,6 +4,7 @@ import threading
 from functools import partial
 
 from interfaces.action import Level
+from interfaces.srv import GuiDisplay
 
 from rclpy.node import Node
 from rclpy.action import ActionClient
@@ -11,6 +12,11 @@ from rclpy.action import ActionClient
 LEVEL = [18, 91, 164, 237, 310]
 MAX_HEIGHT = 310
 MIN_HEIGHT = 0
+
+STATE_STOPPED = 0x00
+STATE_READY = 0x01
+STATE_MOVING = 0x10
+STATE_PRINTING = 0x100
 
 
 class LevelController(Node):
@@ -30,9 +36,13 @@ class LevelController(Node):
         #***** Initialize Goalhandle to cancel goal if needed ******#
         self.goal_handle = None
 
-        #***** Clients *******#
+        #***** Clients Action *******#
         self._action_client = ActionClient(
             parent, Level, "level_motor_action_srv")
+
+        #***** Clients Service *******#
+        self.gui_cli = self.create_client(
+            GuiDisplay, "gui_display_srv")
 
     def send_level_cmd(self, cmd):
         self.level_controller_logic(cmd)
@@ -111,6 +121,13 @@ class LevelController(Node):
         self.get_logger().info('Goal accepted :)')
         # Update level state to moving
         self._is_moving = True
+        gui_req = GuiDisplay.Request()
+        gui_req.printer_id = self._id
+        gui_req.cmd = "display+state"
+        gui_req.display_name = "level-status"
+        gui_req.display_msg = "Moving"
+        gui_req.status = STATE_MOVING
+        self.gui_cli_req(gui_req)
 
         # get the result later
         self._get_result_future = self.goal_handle.get_result_async()
@@ -122,7 +139,7 @@ class LevelController(Node):
     def get_result_callback(self, future):
         # This function is call when the level action has finished
         result = future.result().result
-
+        gui_req = GuiDisplay.Request()
         # TODO: Handle error here!!! when the level is not homed
 
         # Check result
@@ -132,7 +149,7 @@ class LevelController(Node):
 
         self._req_position = -1
         self.get_logger().info('Current position: {0}'.format(result.height))
-
+        gui_req.display_msg = "Position " + str(self._curr_position) + " mm"
         # TODO: Send message to let the gui know the leve stoped moving at a given position
         if self._was_level_req:
             if LEVEL[self._req_level] != result.height:
@@ -146,11 +163,20 @@ class LevelController(Node):
             # reset requested level
             self._req_level = -1
             # update display message
-            display_msg = "display-level-" + \
-                str(self._curr_level) + "-gui"
+            gui_req.display_msg = "Level " + str(self._curr_level)
+            # display_msg = "display-level-" + \
+            #     str(self._curr_level) + "-gui"
             # self.client_req(display_msg, "display", None)
 
         self._is_moving = False
+
+        gui_req.printer_id = self._id
+        gui_req.cmd = "display+state"
+        gui_req.display_name = "level-status"
+        gui_req.display_msg = "Level " + str(self._curr_level)
+        gui_req.status = STATE_STOPPED
+        self.gui_cli_req(gui_req)
+
         self.get_logger().info("Also made it here")
 
         # TODO: Send message to let the gui know level is moving    ######################
@@ -169,3 +195,34 @@ class LevelController(Node):
             'Received feedback: {0}'.format(feedback.feedback_height))
 
     ############################################ End of Acton Client ##################################################
+
+    def gui_cli_req(self, req):
+        ############# temp variables for debug ###############
+        time_to_wait = 4
+        count = 0
+        ######################################################
+
+        while not self.gui_cli.wait_for_service(timeout_sec=.2):
+            self.get_logger().info('service not available, waiting again...')
+            if count > time_to_wait:
+                return
+            count += 1
+        self.get_logger().warning(
+            "[Sending to Gui]: Sending request cmd: %s" % (req.cmd))
+
+        future = self.cli.call_async(req)
+        # Add callback to receive response
+        future.add_done_callback(partial(self.gui_display_future_callback))
+        ################################################################
+        self.get_logger().debug('Waiting on async...')   # DEBUG message
+
+    def gui_display_future_callback(self, future):
+        try:
+            response = future.result()
+            self.get_logger().debug('Print Gui Display Result.msg: %s' % (response.msg))
+            if response.err != 0:
+                self.get_logger().error('[ERROR]: gui display response error %s' %
+                                        (response.msg))
+        except Exception as e:
+            self.get_logger().error('ERROR: --- %r' % (e,))
+        self.get_logger().info('finished async call....')

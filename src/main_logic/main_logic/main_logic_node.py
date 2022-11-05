@@ -93,7 +93,7 @@ class MainLogicNode(Node):
                 ##################################################################################
             else:
                 # This are custom commands
-                if cmd in ["start-run", "stop-run", "continue-run", "start-print", "stop-print", "get-videos"]:
+                if cmd in ["start-run", "stop-run", "continue-run", "start-print", "stop-print"]:
                     ctrls["custom_cmd"].append(cmd)
 
         return ctrls
@@ -235,6 +235,11 @@ class MainLogicNode(Node):
             self.printerController[printer].send_pi_cmd("pi-stop-queue-all")
 
     def start_run(self):
+        # turns off all systems
+        # resets playing queue
+        # homes the level controller
+        # moves to level 0
+        # starts rotating the motors
         self.get_logger().info("[START_RUN()]: Started")
         self.stopAllEvent.clear()
         printers = self.get_printers_num("all")
@@ -244,45 +249,26 @@ class MainLogicNode(Node):
             self.printerController[printer].send_motor_cmd("motor-off-all")
             self.printerController[printer].send_pi_cmd("pi-reset-queue-all")
 
-        # Move motors and wait for them to signal to continue
-        if self.stopAllEvent.is_set():
-            return 1
         self.get_logger().info("[START_RUN()]: sending home")
-        # self.okToRunEvent.clear()
-        # self.levelController.send_level_cmd("level-motors-home")
-        # self.okToRunEvent.wait()
-        t = threading.Thread(target=self.levelController.send_level_cmd, args=[
-                             "level-motors-home"])
-        t.start()
-        t.join()
-        while t.is_alive():
-            print("Im alive")
-            time.sleep(0.2)
+        # Home the motors
+        self.levelController.send_level_cmd("level-motors-home")
+        # wait before sending the next message
+        time.sleep(1)
+        # Make sure we havent cancel the next commnad
         if self.stopAllEvent.is_set():
             return 1
         self.get_logger().info("[START_RUN()]: Sending level 0")
-        # self.okToRunEvent.clear()
-        # self.levelController.send_level_cmd("level-motors-0")
-        # self.okToRunEvent.wait()
-        t = threading.Thread(
-            target=self.levelController.send_level_cmd, args=["level-motors-0"])
-        t.start()
-        t.join()
-        while t.is_alive():
-            time.sleep(0.2)
+        # Send the motors to the first leve
+        self.levelController.send_level_cmd("level-motors-0")
+        # Wait before sending next command
+        time.sleep(1)
+        # Verify we can still run
         if self.stopAllEvent.is_set():
             return 1
+        # Turn on motors
         for printer in printers:
-            self.printerController[printer].send_pi_cmd("pi-play-queue-all")
+            # self.printerController[printer].send_pi_cmd("pi-play-queue-all")
             self.printerController[printer].send_motor_cmd("motor-on-9-all")
-        if self.stopAllEvent.is_set():
-            for printer in printers:
-                self.printerController[printer].send_proj_cmd(
-                    "proj-led-off-all")
-                self.printerController[printer].send_pi_cmd(
-                    "pi-stop-queue-all")
-                self.printerController[printer].send_motor_cmd("motor-off-all")
-            return 1
         self.get_logger().info("[START_RUN()]: Ended")
 
     def start_print(self):

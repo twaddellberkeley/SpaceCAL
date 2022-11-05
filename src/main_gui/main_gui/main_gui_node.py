@@ -39,20 +39,6 @@ class GuiNode(Node):
         rclpy.spin(subNode)
         subNode.destroy_node()
 
-    # def client_req(self, cmd):
-    #     req = GuiInput.Request()
-    #     req.id = 10
-    #     req.cmd = cmd
-
-    #     while not self.cli.wait_for_service(timeout_sec=1.0):
-    #         self._logger.info('service not available, waiting again...')
-
-    #     self._logger.warning("[MainWindow]: sending client cmd %s" % (req.cmd))
-    #     future = self.cli.call_async(req)
-    #     # Add callback to receive response
-    #     future.add_done_callback(partial(self.response_callback))
-    #     print(cmd)
-
     def gui_display_callback(self, req, res):
 
         # Metadata meta
@@ -63,19 +49,20 @@ class GuiNode(Node):
         # string display_msg
         # string[] pi_queue
         # string[] pi_videos
+        self.gui.guiLogic.serverData(req)
 
-        if "display" in req.cmd:
-            p = str(req.printer_id)
-            if req.printer_id < 0:
-                p = "all"
-            self.gui.guiLogic.updateGuiDisplay(
-                req.display_name + "-" + req.display_msg + "-" + p)
-        if "state" in req.cmd:
-            self.gui.guiLogic.updateGuiState(req.state)
-        if "videos" in req.cmd:
-            self.gui.guiLogic.setVideos(req.printer_id, req.pi_videos)
-        if "queue" in req.cmd:
-            self.gui.guiLogic.setQueue(req.printer_id, req.pi_queue)
+        # if "display" in req.cmd:
+        #     p = str(req.printer_id)
+        #     if req.printer_id < 0:
+        #         p = "all"
+        #     self.gui.guiLogic.updateGuiDisplay(
+        #         req.display_name + "-" + req.display_msg + "-" + p)
+        # if "state" in req.cmd:
+        #     self.gui.guiLogic.updateGuiState(req.state)
+        # if "videos" in req.cmd:
+        #     self.gui.guiLogic.setVideos(req.printer_id, req.pi_videos)
+        # if "queue" in req.cmd:
+        #     self.gui.guiLogic.setQueue(req.printer_id, req.pi_queue)
 
         print(req.cmd)
         res.err = 0

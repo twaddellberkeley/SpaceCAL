@@ -14,6 +14,7 @@ STATE_PRINTING = 0x100
 
 class MainBtnsWidget(QtWidgets.QWidget):
     btnPressed = pyqtSignal(str)
+    startedRunSig = pyqtSignal(bool)
     startBtnRunText = u"Start Printing"
     stopBtnRunText = u"Stop Printing"
     startBtnText = u"Start Print"
@@ -127,6 +128,7 @@ class MainBtnsWidget(QtWidgets.QWidget):
 
     def getStartCmd(self):
         if self.btnStart.text() == self.startBtnRunText:
+            self.startedRunSig.emit(True)
             return self.msgs.start_run_cmd
         elif self.btnStart.text() == self.startBtnText:
             return self.msgs.start_print_cmd
