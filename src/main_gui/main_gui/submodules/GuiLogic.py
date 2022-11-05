@@ -77,6 +77,12 @@ class GuiLogic(QtWidgets.QWidget):
                     self.isMovingCount -= 1
                     self.updateGuiState(STATE_READY)
                 if self.isMovingCount == 0 and self.isPrinting:
+                    # send signal to start video
+                    self.client_req("pi-play-queue-all")
+                    t = threading.Timer(40, self.client_req, args=[
+                                        "level-motors-next"])
+                    t.daemon = True
+                    t.start()
                     print("System should not be moving")
             else:
                 self.updateGuiState(req.state)
@@ -92,6 +98,10 @@ class GuiLogic(QtWidgets.QWidget):
         # int32 id
         # string cmd
         # string[] update_queue
+        if "stop" in cmd:
+            self.isPrinting = False
+        elif "start" in cmd:
+            self.isPrinting = True
 
         # This send command to server
         cliThread = threading.Thread(target=self.client_req, args=[cmd])

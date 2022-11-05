@@ -253,7 +253,7 @@ class MainLogicNode(Node):
         # Home the motors
         self.levelController.send_level_cmd("level-motors-home")
         # wait before sending the next message
-        time.sleep(1)
+        time.sleep(2)
         # Make sure we havent cancel the next commnad
         if self.stopAllEvent.is_set():
             return 1
