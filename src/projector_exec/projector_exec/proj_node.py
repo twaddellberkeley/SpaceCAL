@@ -4,6 +4,7 @@ import os
 import time
 import subprocess
 import multiprocessing
+import threading
 from interfaces.srv import Projector
 
 import rclpy
@@ -23,7 +24,8 @@ class ProjectorNode(Node):
 
         # Create a service to recieve projector requests to this service name
         self.proj_srv = self.create_service(Projector, 'projector_srv_' + str(self.proj_num), self.projector_exec_callback)
-       
+        
+        self.timeThread = None
 
     def projector_exec_callback(self, request, response):
         assert type(request.cmd) == type(""), "cmd is not a string"
@@ -50,10 +52,17 @@ class ProjectorNode(Node):
             msg = "Turned HDMI Power Off"
         elif req.cmd == "led-on":
             self.get_logger().info("Turning LED On")
-            subprocess.run("ledOn")
+            # If true then led is on for that time
+            if req.id > 0: 
+                self.timeThread = threading.Thread(target=self.timedPrint, args=[req.id])
+                self.timeThread.daemon = True
+                self.timeThread.start()
+                #self.timeThread.join()
+            else:
+                subprocess.run("ledOn")
             res.is_led_on = True
             res.status = "LED-On"
-            msg = "Turned LED On"
+            msg = "Turning LED On"
         elif req.cmd == "led-off":
             self.get_logger().info("Turning LED Off")
             subprocess.run("ledZero")
@@ -63,13 +72,30 @@ class ProjectorNode(Node):
         else:
             msg = "DID NOT FIND COMMAND"
         res.err = 0
-        res.id = self.proj_num
+        #res.id = self.proj_num
         res.cmd = req.cmd
         res.msg = "Projector " + str(self.proj_num) + " " + msg + " succesfully"
         return res
             # Turn the hdmi power off
 
-
+    def timedPrint(self, t):
+        proc = subprocess.Popen("ledOn")
+        #subprocess.run("ledOn")
+        while proc.poll() == None:
+            time.sleep(0.2)
+        now = time.time()
+        #t = float(t)
+        self.get_logger().warning("Led on at: %f %f" % (now, t))
+        start = now
+        end = now + t
+        self.get_logger().warning("end time: %f" % (end))
+        #while now < end:
+        
+        time.sleep(t)
+        now = time.time()
+        proc2 = subprocess.Popen("ledZero")
+        
+        self.get_logger().warning("Led off at %f " % (now))
 
 def main(args=None):
     rclpy.init(args=args)
