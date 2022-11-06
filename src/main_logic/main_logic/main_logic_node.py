@@ -44,7 +44,7 @@ class MainLogicNode(Node):
     def gui_input_callback(self, request, response):
         self.get_logger().info('Incoming Gui Request\ncmd: %s ' % (request.cmd))
         # Decode gui input command
-        cmd_list = self.decode_gui_cmd(request.cmd)
+        cmd_list = self.decode_gui_cmd(request)
         res = -1
         # dispach the commands
         if cmd_list != None:
@@ -55,7 +55,8 @@ class MainLogicNode(Node):
         response.msg = "request is is being proccess"
         return response
 
-    def decode_gui_cmd(self, raw_cmd):
+    def decode_gui_cmd(self, raw_req):
+        raw_cmd = raw_req.cmd
         if raw_cmd == None:
             return None
         self.get_logger().info('Decoding Gui Command:  %s\n' % raw_cmd)
@@ -71,10 +72,11 @@ class MainLogicNode(Node):
             if "proj" == split_cmd[0]:
                 # extract project command
                 # ctrls["proj_cmds"].append(cmd[len("proj-"):len(cmd)])
-                ctrls["proj_cmds"].append(cmd)
+                
+                ctrls["proj_cmds"].append((cmd, raw_req.id))
                 ##################################################################################
                 self.get_logger().debug('******** first cmd in proj_cmds: %s\n' %
-                                        ctrls["proj_cmds"][0])  # DEBUG MESSAGE
+                                        ctrls["proj_cmds"][0][0])  # DEBUG MESSAGE
                 ##################################################################################
             elif "pi" == split_cmd[0]:
                 # extract pi command
@@ -134,7 +136,7 @@ class MainLogicNode(Node):
             # Send commands to projector controller logic
             for cmd in ctrls["proj_cmds"]:
                 # Find out who is the message for
-                dest = cmd.split("-")[-1]
+                dest = cmd[0].split("-")[-1]
                 printers = self.get_printers_num(dest)
                 for printer in printers:
                     self.printerController[printer].send_proj_cmd(cmd)

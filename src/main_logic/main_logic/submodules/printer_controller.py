@@ -177,7 +177,7 @@ class PrinterController(Node):
 
         self.pi_req(req)
 
-    def proj_controller_logic(self, proj_cmd):
+    def proj_controller_logic(self, proj_t):
         """This Function takes a command PROJ_CMD and implements the logic necessary to complete the comand
                 - **proj-on-<#>**: turns on the projector number # and parks the DMD
                 - **proj-off-<#>**: turns off the projector number # and parks the DMD
@@ -188,12 +188,13 @@ class PrinterController(Node):
         led_off = "led-off"
         power_on = "on"
         power_off = "off"
-
+        proj_cmd = proj_t[0]
         assert (proj_cmd != None)
         index = 1
+        
         split_cmd = proj_cmd.split("-")
         req = Projector.Request()
-        req.id = self._id
+        req.id = proj_t[1]
 
         # Turn on HDMI power
         if split_cmd[index] == "on":
@@ -203,12 +204,12 @@ class PrinterController(Node):
         # Trurn HDMI power off
         elif split_cmd[index] == "off":
             # # Trun projector off
-            if self._isLedOn:
-                # If the led is on turn it off first
-                req.cmd = led_off
-                self.proj_req(req)
-                # wait to turn led off
-                time.sleep(0.5)
+            # if self._isLedOn:
+            #     # If the led is on turn it off first
+            #     req.cmd = led_off
+            #     self.proj_req(req)
+            #     # wait to turn led off
+            #     time.sleep(0.5)
             req.cmd = power_off
 
         # Handle LED
@@ -216,12 +217,12 @@ class PrinterController(Node):
             # Turn LED on
             if split_cmd[index + 1] == "on":
                 # Turn led on
-                if not self._isProjOn:
-                    # Verify projector is on else turn it on first
-                    req.cmd = power_on
-                    self.proj_req(req)
-                    # wait for projector to be turn on
-                    time.sleep(2)
+                # if not self._isProjOn:
+                #     # Verify projector is on else turn it on first
+                #     req.cmd = power_on
+                #     self.proj_req(req)
+                #     # wait for projector to be turn on
+                #     time.sleep(2)
                 req.cmd = led_on
             elif split_cmd[index + 1] == "off":
                 req.cmd = led_off
@@ -318,7 +319,7 @@ class PrinterController(Node):
                 self._isVideoOn = res.is_video_on
 
                 gui_req.display_name = "proj-video-" + str(self._id)
-                gui_req.display_msg = res.video_playig
+                gui_req.display_msg = res.video_playing
                 self.gui_cli_req(gui_req)
 
             self.get_logger().info('Pi Video status %s' % (res.status))

@@ -84,7 +84,7 @@ class MainBtnsWidget(QtWidgets.QWidget):
         # Printing
         elif state == STATE_READY:
             self.btnStart.setEnabled(True)
-            self.btnStop.setDisabled(True)
+            self.btnStop.setEnabled(True)
             self.btnStart.setText(self.startBtnText)
             self.btnStop.setText(self.stopBtnText)
         elif state == STATE_MOVING:

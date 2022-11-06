@@ -149,6 +149,8 @@ class LevelController(Node):
         # This function is call when the level action has finished
         result = future.result().result
         gui_req = GuiDisplay.Request()
+        # This should display all the time unless we go to a specific level
+        gui_req.display_msg = "Home"
         # TODO: Handle error here!!! when the level is not homed
 
         # Check result
@@ -207,15 +209,15 @@ class LevelController(Node):
 
     def gui_cli_req(self, req):
         ############# temp variables for debug ###############
-        time_to_wait = 4
-        count = 0
+        # time_to_wait = 4
+        # count = 0
         ######################################################
 
         while not self.gui_cli.wait_for_service(timeout_sec=.2):
             self.get_logger().info('service not available, waiting again...')
-            if count > time_to_wait:
-                return
-            count += 1
+            # if count > time_to_wait:
+            #     return
+            # count += 1
         self.get_logger().warning(
             "[Sending to Gui]: Sending request cmd: %s" % (req.cmd))
 
