@@ -11,4 +11,5 @@ __pycache__/
 .vscode/
 **.DS_Store
 **.qt_for_python
+
 launch/spacecal_video.py
