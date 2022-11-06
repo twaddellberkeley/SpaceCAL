@@ -61,7 +61,7 @@ class VideoNode(Node):
         res.err = 0
         res.id = self.pi_num
         res.cmd = req.cmd
-        print(res.queue)
+        print(res.videos)
         res.msg = "Projector " + str(self.pi_num) + " executed succesfully"
         return res
     
