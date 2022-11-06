@@ -69,20 +69,22 @@ class GuiLogic(QtWidgets.QWidget):
             self.updateGuiDisplay(
                 req.display_name + "-" + req.display_msg + "-" + p)
         if "state" in req.cmd:
-            if req.display_name == "level-status":
-                if req.status == STATE_MOVING:
+            if req.display_name == "level-state":
+                self.logger.warning('*************isMovingCount is: %d\n' %(self.isMovingCount))
+                if req.state == STATE_MOVING:
                     self.isMovingCount += 1
                     self.updateGuiState(req.state)
-                elif req.status == STATE_STOPPED:
+                elif req.state == STATE_STOPPED:
                     self.isMovingCount -= 1
                     self.updateGuiState(STATE_READY)
                 if self.isMovingCount == 0 and self.isPrinting:
+                    
                     # send signal to start video
                     self.client_req("pi-play-queue-all")
-                    t = threading.Timer(40, self.client_req, args=[
-                                        "level-motors-next"])
-                    t.daemon = True
-                    t.start()
+                    # t = threading.Timer(40, self.client_req, args=[
+                    #                     "level-motors-next"])
+                    # t.daemon = True
+                    # t.start()
                     print("System should not be moving")
             else:
                 self.updateGuiState(req.state)
@@ -98,27 +100,44 @@ class GuiLogic(QtWidgets.QWidget):
         # int32 id
         # string cmd
         # string[] update_queue
-        if "stop" in cmd:
-            self.isPrinting = False
-        elif "start" in cmd:
-            self.isPrinting = True
-
-        # This send command to server
-        cliThread = threading.Thread(target=self.client_req, args=[cmd])
-        cliThread.daemon = True
-        cliThread.start()
-        # self.client_req(cmd)
+        # if "stop" in cmd:
+        #     self.isPrinting = False
+        # elif "start" in cmd:
+        #     self.isPrinting = True
+        send_cmd = ""
+        if cmd == "init-system":
+            send_cmd = "level-motors-home+proj-on-all+motor-off-all+proj-led-off-all"
+        elif cmd == "start-run":
+            self.client_req("proj-on-all")
+            send_cmd = "motor-off-all+proj-off-all+level-motors-home+level-motors-0+motor-on-9-all"
+        elif cmd == "start-print":
+            self.client_req("proj-led-on-all")
+            cliThread = threading.Thread(target=self.led_off_timed, args=[send_cmd])
+            # cliThread.daemon = True
+            cliThread.start()
+    
+        if send_cmd == "":
+            print("No valid command given")
+            # This send command to server
+            # cliThread = threading.Thread(target=self.client_req, args=[send_cmd])
+            # cliThread.daemon = True
+            # cliThread.start()
+            # self.client_req(cmd)
         print(cmd)
 
     def client_req(self, cmd):
         req = GuiInput.Request()
         req.id = 10
         req.cmd = cmd
-
+        time_to_wait = 4
+        count = 0
         while not self.cli.wait_for_service(timeout_sec=1.0):
             self.logger.info('service not available, waiting again...')
+            if count > time_to_wait:
+                return
+            count += 1
 
-        self.logger.warning("[MainWindow]: sending client cmd %s" % (req.cmd))
+        self.logger.warning("[MainWindow]: sending client cmd: ***** %s *****" % (req.cmd))
         future = self.cli.call_async(req)
         # Add callback to receive response
         future.add_done_callback(partial(self.response_callback))
@@ -135,6 +154,9 @@ class GuiLogic(QtWidgets.QWidget):
         # display formant: "displayName+displayField"
         self.updateHomePageDisplay.emit(display)
 
+    def led_off_timed(self):
+        time.sleep(10)
+        self.client_req("proj-led-off-all")
 
 # def serverData(self, req):
 
@@ -145,10 +167,10 @@ class GuiLogic(QtWidgets.QWidget):
 #             self.gui.guiLogic.updateGuiDisplay(
 #                 req.display_name + "-" + req.display_msg + "-" + p)
 #         if "state" in req.cmd:
-#             if req.display_name == "level-status":
-#                 if req.status == STATE_MOVING:
+#             if req.display_name == "level-state":
+#                 if req.state == STATE_MOVING:
 #                     self.isMovingCount += 1
-#                 elif req.status == STATE_STOPPED:
+#                 elif req.state == STATE_STOPPED:
 #                     self.isMovingCount -= 1
 #                 if self.isMovingCount == 0 and self.isPrinting:
 #                     self.client_req("pi-play-queue-all")

@@ -22,7 +22,7 @@ STATE_PRINTING = 0x100
 class LevelController(Node):
     def __init__(self, parent):
         super().__init__('client_level_controller_node')
-        self._status = "off"   # [moving, home, error]
+        self._state = "off"   # [moving, home, error]
         self._curr_position = 0
         self._req_position = -1
         self._feedback_position = 0
@@ -74,6 +74,15 @@ class LevelController(Node):
             position_cmd = self._curr_position - int(split_cmd[3])
         elif split_cmd[2] == "home":
             position_cmd = 0
+        elif split_cmd[2] == "next":
+            numberOfLevels = len(LEVEL)
+            # loop through the levels
+            next_level = (self._curr_level + 1) % numberOfLevels
+            self._req_level = next_level
+            self._was_level_req = True
+            position_cmd = LEVEL[next_level]
+        elif split_cmd[2] == "stop":
+            self.stop_motors()
         else:
             level = int(split_cmd[2])
             assert level >= 0 and level < len(
@@ -112,29 +121,29 @@ class LevelController(Node):
         self._send_goal_future.add_done_callback(self.goal_response_callback)
 
     def goal_response_callback(self, future):
-        self.goal_handle = future.result()
+        goal_handle = future.result()
         # Check if goal was accepted
-        if not self.goal_handle.accepted:
+        if not goal_handle.accepted:
             self.get_logger().info('Goal rejected :(')
             # TODO: send messge to gui that it needs to home first
             return
         self.get_logger().info('Goal accepted :)')
+        self.goal_handle = goal_handle
         # Update level state to moving
         self._is_moving = True
         gui_req = GuiDisplay.Request()
-        gui_req.printer_id = self._id
         gui_req.cmd = "display+state"
-        gui_req.display_name = "level-status"
+        gui_req.display_name = "level-state"
         gui_req.display_msg = "Moving"
-        gui_req.status = STATE_MOVING
+        gui_req.state = STATE_MOVING
         self.gui_cli_req(gui_req)
 
         # get the result later
-        self._get_result_future = self.goal_handle.get_result_async()
+        self._get_result_future = goal_handle.get_result_async()
         self._get_result_future.add_done_callback(self.get_result_callback)
 
         # TODO: Send message to let the gui know level is moving    ######################
-        # self.client_req("display-levelstatus-moving-gui", "display", None)
+        # self.client_req("display-levelstate-moving-gui", "display", None)
 
     def get_result_callback(self, future):
         # This function is call when the level action has finished
@@ -170,17 +179,17 @@ class LevelController(Node):
 
         self._is_moving = False
 
-        gui_req.printer_id = self._id
+        
         gui_req.cmd = "display+state"
-        gui_req.display_name = "level-status"
+        gui_req.display_name = "level-state"
         gui_req.display_msg = "Level " + str(self._curr_level)
-        gui_req.status = STATE_STOPPED
+        gui_req.state = STATE_STOPPED
         self.gui_cli_req(gui_req)
 
         self.get_logger().info("Also made it here")
 
         # TODO: Send message to let the gui know level is moving    ######################
-        # self.client_req("display-levelstatus-stopped-gui", "display", None)
+        # self.client_req("display-levelstate-stopped-gui", "display", None)
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback
@@ -210,7 +219,7 @@ class LevelController(Node):
         self.get_logger().warning(
             "[Sending to Gui]: Sending request cmd: %s" % (req.cmd))
 
-        future = self.cli.call_async(req)
+        future = self.gui_cli.call_async(req)
         # Add callback to receive response
         future.add_done_callback(partial(self.gui_display_future_callback))
         ################################################################
@@ -226,3 +235,11 @@ class LevelController(Node):
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
+
+    ############################# Utilities ##################################
+    def stop_motors(self):
+        # if self.goal_handle != None:
+        #     future = self.goal_handle.cancel_goal_async()
+        print("Need to implement")
+        #TODO: maybe send a halt cmd to the motors
+

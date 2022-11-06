@@ -25,14 +25,14 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     return LaunchDescription([
-        Node(
-            package='main_logic',
-            # namespace='printerTesting',
-            executable='main_service',
-            output='screen',
-            emulate_tty=True,
-            name='Controller'
-        ),
+        # Node(
+        #     package='main_logic',
+        #     # namespace='printerTesting',
+        #     executable='main_service',
+        #     output='screen',
+        #     emulate_tty=True,
+        #     name='Controller'
+        # ),
         Node(
             package='main_gui',
             # namespace='printerTesting',

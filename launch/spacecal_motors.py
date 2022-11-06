@@ -12,7 +12,7 @@ def generate_launch_description():
             output='screen',
             executable='level_motor_node',
             parameters=[{"motor_number_0": 0}, {"address_14": 14}, {"motor_number_1": 1}, {"address_15": 15},{"motor_number_2": 2}, {"address_16": 16},{"motor_number_3": 3}, {"address_17": 17}],
-            name='level_motor_controller'
+            name='level_controller'
         ),
 
         

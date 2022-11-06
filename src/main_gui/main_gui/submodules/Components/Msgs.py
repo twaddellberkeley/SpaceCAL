@@ -18,6 +18,7 @@ class Msgs(QtWidgets.QWidget):
         self.start_print_cmd = "start-print"
         self.stop_run_cmd = "stop-run"
         self.stop_print_cmd = "stop-print"
+        
 
         self.parent = parent
         self.initMsg = "SpaceCal"

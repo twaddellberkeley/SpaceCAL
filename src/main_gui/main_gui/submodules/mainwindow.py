@@ -68,7 +68,7 @@ class MainWindow(QMainWindow):
         ##########################################################
         Msgs().initSystemMsg()
         Msgs().warningMsg("Motors Will Be Home")
-        self.sendCmd("level-motors-home+proj-on-all")
+        self.sendCmd("init-system")
         ##########################################################
         # Define the size policy for the tab widgit -- we want the minimum to be 700 by 500
         # sizePolicy = QSizePolicy(

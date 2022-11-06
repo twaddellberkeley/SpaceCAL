@@ -35,8 +35,8 @@ class PrinterController(Node):
         self._isVideoOn = False
         self._isPlayingQueueEmpty = True
         self._motor = Motor(id)
-        self._pi_videos = []
-        self._pi_queue = []
+        self._pi_videos = ['OP_Oring.mp4', 'HV_Sphere.mp4', 'dot.mp4', 'PEG_Sphere.mp4', 'PEG_Starship.mp4', 'LV_Benchy.mp4', 'dogbone_oath_720.mp4', 'dogbone_oath_crop.mp4', 'PEG_Flex.mp4', 'LV_Thinker.mp4', 'HV_Flex.mp4', 'PEG_Tetra.mp4', 'OP_Chain.mp4', '242N_Flex.mp4', 'LV_Flex.mp4', 'thinker_mod.mp4', 'alignment_lines_650.mp4', 'test.mp4', '3test.mp4', 'OP_Screwdriver.mp4', 'alignment_lines_630.mp4', 'video.mp4', 'OP_Tube.mp4', 'out.mp4', 'cylinder.mp4', 'LV_Tetra.mp4', 'LV_OC.mp4', 'OP_Hinge.mp4', 'dogbone_oath.mp4', 'alignment_lines_598.mp4', 'PEG_Shuttle.mp4', 'Gelma.mp4', 'PEG_Spike.mp4', 'PEG_SLS.mp4', 'thinker_mod_720.mp4', 'smol_thinker.mp4', 'PEG_OC.mp4', '242N_Oring.mp4', '242N_Comp.mp4', 'HV_Spike.mp4', 'truss.mp4', '2test.mp4', 'LV_Spike.mp4', 'video24dps.mp4', 'HV_OC.mp4', 'LV_Sphere.mp4']
+        self._pi_queue = ['OP_Oring.mp4', 'HV_Sphere.mp4', 'dot.mp4', 'PEG_Sphere.mp4', 'PEG_Starship.mp4', 'LV_Benchy.mp4', 'dogbone_oath_720.mp4']
         self._playing_queue = Queue()
         self.logger = logger
 
@@ -51,12 +51,14 @@ class PrinterController(Node):
             GuiDisplay, "gui_display_srv")
 
         ###### Get videos and queue names from pi ####################
-        req = Video.Request()
-        req.cmd = "get-videos"
-        self.pi_req(req)
-        time.sleep(0.5)
-        req.cmd = "get-queue"
-        self.pi_req(req)
+       
+        # req = Video.Request()
+        # req.cmd = "get-videos"
+        # # self.get_logger().warning("***************** getting videos *****************")
+        # self.pi_req(req)
+        # time.sleep(0.5)
+        # req.cmd = "get-queue"
+        # self.pi_req(req)
 
     def send_pi_cmd(self, cmd):
         self.pi_controller_logic(cmd)
@@ -118,6 +120,7 @@ class PrinterController(Node):
                 gui_req.printer_id = self._id
                 gui_req.cmd = gui_videos
                 self.gui_cli_req(gui_req)
+                # self.pi_req("get-videos")
                 return
             else:
                 self.get_logger().error(
@@ -320,9 +323,7 @@ class PrinterController(Node):
 
             self.get_logger().info('Pi Video status %s' % (res.status))
             self.get_logger().info('res.is_led_on %s' % (res.msg))
-            # TODO send status message to GUI
-            # gui_req = GuiDisplay.Request()
-            # self.gui_cli_req(gui_req)
+            
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
@@ -368,14 +369,12 @@ class PrinterController(Node):
                 gui_req.display_name = "proj-status-" + str(self._id)
                 gui_req.display_msg = res.cmd
 
-            gui_req.status = self.get_printer_status()
+            gui_req.state = self.get_printer_status()
             self.gui_cli_req(gui_req)
             self.get_logger().info('Projector status: %s\n' % (res.status))
             self.get_logger().info('Projector message: %s\n' % (res.msg))
 
-            # TODO send status message to GUI
-            # gui_req = GuiDisplay.Request()
-            # self.gui_cli_req(gui_req)
+           
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
@@ -420,7 +419,7 @@ class PrinterController(Node):
 
             gui_req.display_name = "printer-motor-" + str(self._id)
             gui_req.display_msg = str(self._motor._speed)
-            gui_req.status = self.get_printer_status()
+            gui_req.state = self.get_printer_status()
             self.gui_cli_req(gui_req)
 
             self.get_logger().info('Print Motor status %s' % (res.status))
@@ -428,9 +427,7 @@ class PrinterController(Node):
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
         self.get_logger().info('finished async call....')
-        # TODO send status message to GUI
-        # gui_req = GuiDisplay.Request()
-        # self.gui_cli_req(gui_req)
+        
 
     def gui_cli_req(self, req):
         ############# temp variables for debug ###############
@@ -446,7 +443,7 @@ class PrinterController(Node):
         self.get_logger().warning(
             "[Sending to Gui]: Sending request cmd: %s" % (req.cmd))
 
-        future = self.cli.call_async(req)
+        future = self.gui_cli.call_async(req)
         # Add callback to receive response
         future.add_done_callback(partial(self.gui_display_future_callback))
         ################################################################
@@ -523,7 +520,7 @@ class PrinterController(Node):
         self._isPlayingQueueEmpty = False
 
     def get_printer_status(self):
-        if self._isLedOn and self._motor._ and self._isVideoOn:
+        if self._isLedOn and self._motor._isMoving and self._isVideoOn:
             return STATE_PRINTING
         elif self._motor._isMoving:
             if self._isVideoOn:
