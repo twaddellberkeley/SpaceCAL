@@ -41,10 +41,7 @@ class PrinterController(Node):
         self._pi_queue = ['OP_Oring.mp4', 'HV_Sphere.mp4', 'dot.mp4', 'PEG_Sphere.mp4', 'PEG_Starship.mp4', 'LV_Benchy.mp4', 'dogbone_oath_720.mp4']
         self._playing_queue = Queue()
         self.logger = logger
-        self.proj_future = None
-        self.pi_future = None
-        self.motor_future = None
-        self.gui_future = None
+        
 
         ############## Create Client services ####################
         self.pi_cli = self.create_client(
@@ -56,15 +53,6 @@ class PrinterController(Node):
         self.gui_cli = self.create_client(
             GuiDisplay, "gui_display_srv")
 
-        ###### Get videos and queue names from pi ####################
-       
-        # req = Video.Request()
-        # req.cmd = "get-videos"
-        # # self.get_logger().warning("***************** getting videos *****************")
-        # self.pi_req(req)
-        # time.sleep(0.5)
-        # req.cmd = "get-queue"
-        # self.pi_req(req)
 
     def send_pi_cmd(self, cmd):
         self.pi_controller_logic(cmd)
@@ -287,6 +275,8 @@ class PrinterController(Node):
 
         self.pi_future = self.pi_cli.call_async(req)
         self.pi_future.add_done_callback(parcial(self.pi_req_callback))
+        ################################################################
+        self.get_logger().debug('Waiting on Pi async...')   # DEBUG message
     
     def pi_req_callback(self, future):
         gui_req = GuiDisplay.Request()
@@ -304,7 +294,7 @@ class PrinterController(Node):
             # string msg
             # string status
             # bool is_video_on
-            res = self.future.result()
+            res = self.pi_future.result()
             if res.cmd == "get-videos":
                 if res.videos != None and len(res.videos) > 0:
                     print(res.videos)
@@ -335,7 +325,7 @@ class PrinterController(Node):
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
-        self.get_logger().info('finished async call....')
+        self.get_logger().info('finished Pi async call....')
 
     def proj_req(self, req):
         ############# temp variables for debug ###############
@@ -351,44 +341,12 @@ class PrinterController(Node):
         self.get_logger().warning(
             "[printer_controller]: Sending request cmd: %s" % (req.cmd))
         
-        future = self.proj_cli.call_async(req)
-        future.add_done_callback(self.proj_req_callback)
+        self.proj_future = self.proj_cli.call_async(req)
+        self.proj_future.add_done_callback(self.proj_req_callback)
+        ################################################################
+        self.get_logger().debug('Waiting on Projector async...')   # DEBUG message
         
-        # try to await the task
-        try:
-            res = await asyncio.wait_for(future, timeout=AWAIT_TIME)
-            # Metadata meta
-            # int32 id
-            # string cmd
-            # int32 err
-            # string msg
-            # string status
-            # bool is_led_on
-            # bool is_power_on
-            # res = future.result()
-            if res.cmd in ["on", "off"]:
-                self._isProjOn = res.is_power_on
-                gui_req.display_name = "proj-status-" + str(self._id)
-                gui_req.display_msg = res.cmd
-            elif res.cmd in ["led-on", "led-off"]:
-                self._isLedOn = res.is_led_on
-                gui_req.display_name = "proj-status-" + str(self._id)
-                gui_req.display_msg = res.cmd
-
-            gui_req.state = self.get_printer_status()
-            self.gui_cli_req(gui_req)
-            self.get_logger().info('Projector status: %s\n' % (res.status))
-            self.get_logger().info('Projector message: %s\n' % (res.msg))
-        except asyncio.TimeoutError as ex:
-            print(ex)
-            self.get_logger().error(
-                '[proj_req]: time out request ')
-        else:
-            print(f"All work done fine: {r}")
-        finally:
-            print("App finished!")
-
-
+    def proj_req_callback(self, future):
         gui_req = GuiDisplay.Request()
         gui_req.printer_id = self._id
         gui_req.cmd = "display+state"
@@ -402,7 +360,7 @@ class PrinterController(Node):
             # string status
             # bool is_led_on
             # bool is_power_on
-            res = future.result()
+            res = self.proj_future.result()
             if res.cmd in ["on", "off"]:
                 self._isProjOn = res.is_power_on
                 gui_req.display_name = "proj-status-" + str(self._id)
@@ -419,7 +377,7 @@ class PrinterController(Node):
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
-        self.get_logger().info('finished async call....')
+        self.get_logger().info('finished Projector async call....')
 
     def motor_req(self, req):
         ############# temp variables for debug ###############
@@ -435,8 +393,12 @@ class PrinterController(Node):
         self.get_logger().warning(
             "[printer_controller]: Sending request cmd: %s" % (req.cmd))
 
-        future = self.motor_cli.call_async(req)
-        rclpy.spin_until_future_complete(self, future)
+        self.motor_future = self.motor_cli.call_async(req)
+        self.motor_future.add_done_callback(parcial(self.motor_req_callback))
+        ################################################################
+        self.get_logger().debug('Waiting on Motor async...')   # DEBUG message
+
+    def motor_req_callback(self, future):
         gui_req = GuiDisplay.Request()
         gui_req.printer_id = self._id
         gui_req.cmd = "display+state"
@@ -450,7 +412,7 @@ class PrinterController(Node):
             # string msg
             # string status
             # int32 set_speed
-            res = future.result()
+            res = self.motor_future.result()
             if res.cmd == "on":
                 self._motor._speed = res.set_speed
                 self._motor._isMoving = True
@@ -467,9 +429,8 @@ class PrinterController(Node):
 
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
-        self.get_logger().info('finished async call....')
+        self.get_logger().info('finished Motor async call....')
         
-
     def gui_cli_req(self, req):
         ############# temp variables for debug ###############
         time_to_wait = 4
@@ -484,83 +445,24 @@ class PrinterController(Node):
         self.get_logger().warning(
             "[Sending to Gui]: Sending request cmd: %s" % (req.cmd))
 
-        future = self.gui_cli.call_async(req)
+        self.gui_future = self.gui_cli.call_async(req)
         # Add callback to receive response
-        future.add_done_callback(partial(self.gui_display_future_callback))
+        self.gui_future.add_done_callback(partial(self.gui_cli_req_callback))
         ################################################################
-        self.get_logger().debug('Waiting on async...')   # DEBUG message
+        self.get_logger().debug('Waiting on Gui async...')   # DEBUG message
 
-        
+    def gui_cli_req_callback(self, future):
 
-    def client_req(self, client, req):
-        time_to_wait = 2
-
-        ### Select client to send request ###
-        if client == "proj":
-            srv = Projector
-            topic = "projector_srv_" + str(self._id)
-            callback_func = self.proj_future_callback
-        elif client == "pi":
-            srv = Video
-            topic = "pi_video_srv_" + str(self._id)
-            callback_func = self.pi_future_callback
-        elif client == "motor":
-            srv = MotorSrv
-            topic = "print_motor_srv_" + str(self._id)
-            callback_func = self.motor_print_future_callback
-        elif client == "display":
-            srv = GuiDisplay
-            topic = "gui_display_srv"
-            callback_func = self.gui_display_future_callback
-
-        # TODO: where do we record metadata?
-        #***** Clients *******#
-        # print(srv)
-        # print(topic)
-        count = 1
-        self.cli = self.create_client(srv, topic)
-        while not self.cli.wait_for_service(timeout_sec=.2):
-            self.get_logger().info('service not available, waiting again...')
-            if count > time_to_wait:
-                return
-            count += 1
-
-        # Record metadate
-        # req.meta.name = topic
-        # req.meta.stamp.nanosec = time.time_ns()
-        # self.get_logger().info("request time stamp in nanosec: %d" %
-        #                        (req.meta.stamp.nanosec))
-        # Send async call to server
-        self.get_logger().warning("sending request: %s" % (req.cmd))
-        # res = self.cli.call(req)
-
-        future = self.cli.call_async(req)
-        # Add callback to receive response
-        future.add_done_callback((callback_func))
-        ################################################################
-        self.get_logger().debug('Waiting on async...')   # DEBUG message
-
-    ########################## Callback functions ##################################
-
-    def gui_display_future_callback(self, future):
         try:
-            response = future.result()
+            response = self.gui_future.result()
             self.get_logger().debug('Print Gui Display Result.msg: %s' % (response.msg))
             if response.err != 0:
                 self.get_logger().error('[ERROR]: gui display response error %s' %
                                         (response.msg))
         except Exception as e:
             self.get_logger().error('ERROR: --- %r' % (e,))
-        self.get_logger().info('finished async call....')
-
-    def proj_req_callback(self, fut: asyncio.Future):
-         """just prints result. Callback should be sync function"""
-        if not fut.cancelled() and fut.done():
-            print(fut.result())
-        else:
-            print("No results")
+        self.get_logger().info('finished Gui async call....')
             
-
     #********* Utility functions ***********#
     def reset_playing_queue(self):
         self.get_logger().info("Requested to reset queue")
