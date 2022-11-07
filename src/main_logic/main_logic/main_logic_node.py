@@ -44,6 +44,7 @@ class MainLogicNode(Node):
     def gui_input_callback(self, request, response):
         self.get_logger().info('Incoming Gui Request\ncmd: %s ' % (request.cmd))
         # Decode gui input command
+        
         cmd_list = self.decode_gui_cmd(request)
         res = -1
         # dispach the commands
@@ -57,6 +58,7 @@ class MainLogicNode(Node):
 
     def decode_gui_cmd(self, raw_req):
         raw_cmd = raw_req.cmd
+        print(raw_req.id)
         if raw_cmd == None:
             return None
         self.get_logger().info('Decoding Gui Command:  %s\n' % raw_cmd)

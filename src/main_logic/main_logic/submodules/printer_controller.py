@@ -37,7 +37,7 @@ class PrinterController(Node):
         self._isVideoOn = False
         self._isPlayingQueueEmpty = True
         self._motor = Motor(id)
-        self._pi_videos = ['OP_Oring.mp4', 'HV_Sphere.mp4', 'dot.mp4', 'PEG_Sphere.mp4', 'PEG_Starship.mp4', 'LV_Benchy.mp4', 'dogbone_oath_720.mp4', 'dogbone_oath_crop.mp4', 'PEG_Flex.mp4', 'LV_Thinker.mp4', 'HV_Flex.mp4', 'PEG_Tetra.mp4', 'OP_Chain.mp4', '242N_Flex.mp4', 'LV_Flex.mp4', 'thinker_mod.mp4', 'alignment_lines_650.mp4', 'test.mp4', '3test.mp4', 'OP_Screwdriver.mp4', 'alignment_lines_630.mp4', 'video.mp4', 'OP_Tube.mp4', 'out.mp4', 'cylinder.mp4', 'LV_Tetra.mp4', 'LV_OC.mp4', 'OP_Hinge.mp4', 'dogbone_oath.mp4', 'alignment_lines_598.mp4', 'PEG_Shuttle.mp4', 'Gelma.mp4', 'PEG_Spike.mp4', 'PEG_SLS.mp4', 'thinker_mod_720.mp4', 'smol_thinker.mp4', 'PEG_OC.mp4', '242N_Oring.mp4', '242N_Comp.mp4', 'HV_Spike.mp4', 'truss.mp4', '2test.mp4', 'LV_Spike.mp4', 'video24dps.mp4', 'HV_OC.mp4', 'LV_Sphere.mp4']
+        self._pi_videos = ['truss.mp4','OP_Oring.mp4', 'HV_Sphere.mp4', 'dot.mp4', 'PEG_Sphere.mp4', 'PEG_Starship.mp4', 'LV_Benchy.mp4', 'dogbone_oath_720.mp4', 'dogbone_oath_crop.mp4', 'PEG_Flex.mp4', 'LV_Thinker.mp4', 'HV_Flex.mp4', 'PEG_Tetra.mp4', 'OP_Chain.mp4', '242N_Flex.mp4', 'LV_Flex.mp4', 'thinker_mod.mp4', 'alignment_lines_650.mp4', 'test.mp4', '3test.mp4', 'OP_Screwdriver.mp4', 'alignment_lines_630.mp4', 'video.mp4', 'OP_Tube.mp4', 'out.mp4', 'cylinder.mp4', 'LV_Tetra.mp4', 'LV_OC.mp4', 'OP_Hinge.mp4', 'dogbone_oath.mp4', 'alignment_lines_598.mp4', 'PEG_Shuttle.mp4', 'Gelma.mp4', 'PEG_Spike.mp4', 'PEG_SLS.mp4', 'thinker_mod_720.mp4', 'smol_thinker.mp4', 'PEG_OC.mp4', '242N_Oring.mp4', '242N_Comp.mp4', 'HV_Spike.mp4', 'truss.mp4', '2test.mp4', 'LV_Spike.mp4', 'video24dps.mp4', 'HV_OC.mp4', 'LV_Sphere.mp4']
         self._pi_queue = ['OP_Oring.mp4', 'HV_Sphere.mp4', 'dot.mp4', 'PEG_Sphere.mp4', 'PEG_Starship.mp4', 'LV_Benchy.mp4', 'dogbone_oath_720.mp4']
         self._playing_queue = Queue()
         self.logger = logger
@@ -57,8 +57,8 @@ class PrinterController(Node):
     def send_pi_cmd(self, cmd):
         self.pi_controller_logic(cmd)
 
-    def send_proj_cmd(self, cmd):
-        self.proj_controller_logic(cmd)
+    def send_proj_cmd(self, cmd_tuple):
+        self.proj_controller_logic(cmd_tuple)
 
     def send_motor_cmd(self, cmd):
         self.motor_controller_logic(cmd)
@@ -151,6 +151,7 @@ class PrinterController(Node):
             else:
                 self.get_logger().error(
                     "[pi_control_logic]: Invalid file Name")
+                self.get_logger().info("This file does not exist: %s\n" % (split_cmd[index+1]))
             # print(req.file_name)
 
             self.get_logger().info("Requested to play video: %s\n" % (req.file_name))
@@ -186,9 +187,13 @@ class PrinterController(Node):
         assert (proj_cmd != None)
         index = 1
         
+        
         split_cmd = proj_cmd.split("-")
         req = Projector.Request()
-        req.id = proj_t[1]
+        
+        req.id = -1
+        if proj_t[1] > 1:
+            req.id = proj_t[1]
 
         # Turn on HDMI power
         if split_cmd[index] == "on":
@@ -274,7 +279,7 @@ class PrinterController(Node):
             "[printer_controller]: Sending request cmd: %s" % (req.cmd))
 
         self.pi_future = self.pi_cli.call_async(req)
-        self.pi_future.add_done_callback(parcial(self.pi_req_callback))
+        self.pi_future.add_done_callback(partial(self.pi_req_callback))
         ################################################################
         self.get_logger().debug('Waiting on Pi async...')   # DEBUG message
     
@@ -394,7 +399,7 @@ class PrinterController(Node):
             "[printer_controller]: Sending request cmd: %s" % (req.cmd))
 
         self.motor_future = self.motor_cli.call_async(req)
-        self.motor_future.add_done_callback(parcial(self.motor_req_callback))
+        self.motor_future.add_done_callback(partial(self.motor_req_callback))
         ################################################################
         self.get_logger().debug('Waiting on Motor async...')   # DEBUG message
 

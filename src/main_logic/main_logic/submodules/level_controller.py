@@ -5,7 +5,7 @@ from functools import partial
 
 from interfaces.action import Level
 from interfaces.srv import GuiDisplay
-
+from queue import Queue
 from rclpy.node import Node
 from rclpy.action import ActionClient
 
@@ -24,13 +24,13 @@ class LevelController(Node):
         super().__init__('client_level_controller_node')
         self._state = "off"   # [moving, home, error]
         self._curr_position = 0
-        self._req_position = -1
+        self._req_position = Queue()
         self._feedback_position = 0
         self._curr_level = 0
-        self._req_level = -1
+        self._req_level = Queue()
         self._is_moving = False
         # is true if a level is set or requested
-        self._was_level_req = False
+        self._was_level_req = Queue()
         self._is_position_uncertain = True
 
         #***** Initialize Goalhandle to cancel goal if needed ******#
@@ -60,6 +60,7 @@ class LevelController(Node):
 
         # The level controller take height in mm so we need to decode the message here from level to mm
         # and or add the current heigh of the levelState
+        _was_level_req = False
         position_cmd = 0
         level = 0
         split_cmd = level_cmd.split("-")
@@ -78,8 +79,8 @@ class LevelController(Node):
             numberOfLevels = len(LEVEL)
             # loop through the levels
             next_level = (self._curr_level + 1) % numberOfLevels
-            self._req_level = next_level
-            self._was_level_req = True
+            self._req_level.put(next_level)
+            _was_level_req = True
             position_cmd = LEVEL[next_level]
         elif split_cmd[2] == "stop":
             self.stop_motors()
@@ -88,9 +89,13 @@ class LevelController(Node):
             assert level >= 0 and level < len(
                 LEVEL), "[ERROR]: incorrect level input"
             position_cmd = LEVEL[level]
-            self._req_level = level
-            self._was_level_req = True
+            self._req_level.put(level)
+            _was_level_req = True
 
+        if _was_level_req == True:
+            self._was_level_req.put(1)
+        else:
+            self._was_level_req.put(0)
         # Check position is within bounded allowed
         if position_cmd < MIN_HEIGHT:
             position_cmd = MIN_HEIGHT
@@ -109,7 +114,7 @@ class LevelController(Node):
         goal_msg = Level.Goal()
         # Update messge
         goal_msg.order = order
-        self._req_position = order
+        self._req_position.put(order)
         # Connect to server for _action_client
         self._action_client.wait_for_server()
 
@@ -155,26 +160,23 @@ class LevelController(Node):
 
         # Check result
         self._curr_position = result.height
-        if self._req_position != result.height:
+        if self._req_position.get() != self._curr_position:
             self.get_logger().warning("did not get exact requested position")
 
-        self._req_position = -1
+        
         self.get_logger().info('Current position: {0}'.format(result.height))
         gui_req.display_msg = "Position " + str(self._curr_position) + " mm"
         # TODO: Send message to let the gui know the leve stoped moving at a given position
-        if self._was_level_req:
-            if LEVEL[self._req_level] != result.height:
+        if self._was_level_req.get():
+            # update current level
+            self._curr_level = self._req_level.get()
+            if LEVEL[self._curr_level] != self._curr_position:
                 self.get_logger().warning(
                     "controller did not make it to the correct height for given level")
-            # reset the request leve flag
-            self._was_level_req = False
 
-            # update current level
-            self._curr_level = self._req_level
-            # reset requested level
-            self._req_level = -1
+
             # update display message
-            gui_req.display_msg = "Level " + str(self._curr_level)
+            gui_req.display_msg = str(self._curr_level)
             # display_msg = "display-level-" + \
             #     str(self._curr_level) + "-gui"
             # self.client_req(display_msg, "display", None)
@@ -184,7 +186,6 @@ class LevelController(Node):
         
         gui_req.cmd = "display+state"
         gui_req.display_name = "level-state"
-        gui_req.display_msg = "Level " + str(self._curr_level)
         gui_req.state = STATE_STOPPED
         self.gui_cli_req(gui_req)
 

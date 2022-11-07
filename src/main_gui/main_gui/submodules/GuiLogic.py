@@ -30,7 +30,7 @@ STATE_READY = 0x01
 STATE_MOVING = 0x10
 STATE_PRINTING = 0x100
 
-JSON_FILE = "/home/spacecal/Desktop/printTest.json"
+JSON_FILE = "/home/spacecal/Desktop/flightManifest.json"
 
 gui_inpu_srv = 'gui_input_srv'
 gui_display_srv = 'gui_display_srv'
@@ -41,6 +41,8 @@ class GuiLogic(QtWidgets.QWidget):
 
     updateState = pyqtSignal(int)
     updateHomePageDisplay = pyqtSignal(str)
+    is_done_moving = pyqtSignal(str)
+
 
     def __init__(self):
         super().__init__()
@@ -49,7 +51,7 @@ class GuiLogic(QtWidgets.QWidget):
         self.sysState = STATE_STOPPED
         self.current_level = 0
         self.parabola_number = 0
-        self.isPrinting = False
+        self.keepRunning = False
         # we shoud recive a message when level is moving and ends moving: zero meas no moving
         self.isMovingCount = 0
         self.subNode = Node("main_gui_client_node")
@@ -61,12 +63,16 @@ class GuiLogic(QtWidgets.QWidget):
         self.readPrintFile()
         self.current_print = self.printQ.get()
 
+        self.is_done_moving.connect(self.ready_next_print)
+
+
+
     def setIsPrinting(self, started):
         # TODO: set a button that will change the state of is printing in main butons
         if started:
-            self.isPrinting = True
+            self.keepRunning = True
         else:
-            self.isPrinting = False
+            self.keepRunning = False
 
     ################################# Server Service #######################################
 
@@ -85,31 +91,16 @@ class GuiLogic(QtWidgets.QWidget):
                     self.isMovingCount += 1
                     self.logger.warning('*************isMovingCount is: %d\n' %(self.isMovingCount))
                     self.updateGuiState(req.state)
-                    self.sysState = req.state
+                    
                 elif req.state == STATE_STOPPED:
                     self.isMovingCount -= 1
                     self.logger.warning('*************isMovingCount is: %d\n' %(self.isMovingCount))
                     
                 if self.isMovingCount == 0:
-                    if self.isPrinting:
-                        self.updateGuiState(STATE_READY)
-                        self.sysState = STATE_READY
-                        self.logger.warning('"System is Ready to print": %d\n' %(self.isMovingCount))
-                        # start the next video to play
-                    else:
-                        self.updateGuiState(STATE_STOPPED)
-                        self.sysState = STATE_STOPPED
-                        self.logger.warning('"System is Fully stopped": %d\n' %(self.isMovingCount))
-                    self.logger.warning('*************isMovingCount is: %d\n' %(self.isMovingCount))
-                if req.display_msg.isnumeric():
-                    self.current_level == int(req.display_msg)
-                    self.parabola_number += 1
-                    # TODO: send a signal to the parabola display
-                    ## Update current level
-                    if self.current_level == 4:
-                        # tell the command that the next level is to load the viles
-                        pass
+                    # Do what needs to be done at this level
+                    self.is_done_moving.emit(req.display_msg)
 
+        self.logger.warning('*************Display Name: %s\n' %(req.display_name))
         self.logger.warning('*************Currrent SYSTEM STATE: %d\n' %(self.sysState))
                 # self.updateGuiState(req.state)
 
@@ -125,54 +116,34 @@ class GuiLogic(QtWidgets.QWidget):
         # string cmd
         # string[] update_queue
         # if "stop" in cmd:
-        #     self.isPrinting = False
+        #     self.keepRunning = False
         # elif "start" in cmd:
-        #     self.isPrinting = True
+        #     self.keepRunning = True
         send_cmd = ""
         if cmd == "init-system":
-            send_cmd = "level-motors-home+proj-on-all+motor-off-all+proj-led-off-all+level-motor-0"
+            self.client_req("level-motors-home")
+            send_cmd = "proj-on-all+motor-off-all+proj-led-off-all+level-motor-0"
+            self.updateGuiState(STATE_MOVING)
         elif cmd == "start-run":
-
-            # make sure leds are off
-            self.client_req("proj-led-off")
-
-            # play the videos
-            self.sendVidoes(self.current_print['prints'])
-
-            # start rotating the motors
-            self.sendMotorSpeeds(self.current_print['prints'])
-
-            # This always happens after we load new viles
-            #send_cmd = "proj-led-off-all+level-motors-0+motor-on-9-all+pi-play-queue-all"
+            print(self.current_print)
+            # Get level ready for prints
+            self.setLevelPrints()
 
         elif cmd == "start-print":
-            # Set the state to printing
-            self.updateGuiState(STATE_PRINTING)
-            printList = None
-            # pop the first object from the queue
-            if self.printQ.empty():
-                self.updateGuiState(STATE_STOPPED)
-                self.isPrinting = False
-
-                # self.client_req("level-motor-0+motor-off-all+proj-led-off-all")
-
-            #send projectors commands
-            if self.current_level == 4:
-                isPrinting = False
             
             self.sendTimedPrint(self.current_print['prints'])
+            self.updateGuiState(STATE_PRINTING)
 
             #send time to move to next level
-            moveThread = threading.Thread(target=self.sendTimeToMove, args=[self.current_print['maxTime'], printList])
+            moveThread = threading.Thread(target=self.sendTimeToMove, args=[self.current_print['maxTime']])
+            moveThread.daemon = True
+            moveThread.start()
             
-            # for fun in range(5):
-            #     t = threading.Thread(target=self.printTime, args=[])
-            # send led times and videos for each printerfrom the queue
-            # self.client_req("proj-led-on-2", 10)
             
         elif cmd == "stop-print":
             send_cmd = "motor-off-all+proj-led-off-all"
-            self.isPrinting = False
+            self.keepRunning = False
+            self.updateGuiState(STATE_STOPPED)
         if send_cmd == "":
             print("No valid command given")
             # This send command to server
@@ -184,6 +155,38 @@ class GuiLogic(QtWidgets.QWidget):
         print(cmd)
 
 
+    def ready_next_print(self, current_level):
+
+        # This function is call everytime we go from one leve to the other
+        self.logger.warning('System is Fully stopped: %d\n' %(self.isMovingCount))
+        if not current_level.isnumeric():
+            # if we are not at a specific level then there is nothing we need to do
+            self.logger.warning('Level is not numeric: %s\n' %(current_level))
+            return 
+        print(current_level)
+        # Udate the our current level and the parabola value
+        self.current_level = int(current_level)
+        self.parabola_number += 1
+
+        # Check if the queue has more prints, if not reload
+        if self.printQ.empty():
+            self.readPrintFile()
+            self.logger.info('Reloding queue cuz is empty level: %s\n' %(current_level))
+        # Get the next printing item
+        self.current_print = self.printQ.get()
+
+        # Check if the system has been marked to stop or we need to reload the viles
+        if (not self.keepRunning) or (self.current_level == 0):
+            self.updateGuiState(STATE_STOPPED)
+            self.stopSystem()
+            # if we are here because the queue is empty
+            self.logger.warning('System is not Running Or we are at level: %s\n' %(current_level))
+        
+        # If not then we need to load the next print
+        else:
+            # Load the next videos and move motors
+            self.setLevelPrints()
+            
 
     def sendVidoes(self, printList):
         if printList == None:
@@ -193,7 +196,7 @@ class GuiLogic(QtWidgets.QWidget):
             #stop the system
             return
         for printer in printList:
-            self.client_req("pi-play-video-" + printer["videoName"] + "-" + str(printer["projNum"]))
+            self.client_req("pi-play-" + printer["videoName"] + "-" + str(printer["projNum"] - 1))
         
 
     def sendMotorSpeeds(self, speedList):
@@ -204,7 +207,7 @@ class GuiLogic(QtWidgets.QWidget):
             #stop the system
             return
         for printer in speedList:
-           self.client_req("motor-on-" + str(printer["printSpeed"]) + "-"+ str(printer["projNum"]))
+           self.client_req("motor-on-" + str(printer["printSpeed"]) + "-"+ str(printer["projNum"] - 1))
     
 
     def sendTimedPrint(self, printList):
@@ -215,23 +218,27 @@ class GuiLogic(QtWidgets.QWidget):
             #stop the system
             return
         for printer in printList:
-            self.client_req("proj-led-on-" + str(printer["projNum"]),  printer['printTime'])
-        pass
+            self.client_req("proj-led-on-" + str(printer["projNum"] - 1),  printer['printTime'])
+        
 
-    def sendTimeToMove(self, maxTime, printList=None):
+    def sendTimeToMove(self, maxTime):
         # set state for the button
-        time.sleep(int(maxTime))
-
-        if printList == None:
-            self.client_req("level-motors-next")
-            self.stopSystem()
-            return
-
+        time.sleep(maxTime)
         self.client_req("level-motors-next")
-        time.sleep(1)
-        self.sendVidoes(printList)
-        self.sendMotorSpeeds(printList)
-            
+    
+    def setLevelPrints(self):
+        self.logger.warning('**** Getting level: %s for print ****\n' %(self.current_level))
+        # make sure leds are off
+        self.client_req("proj-led-off-all")
+
+        # play the videos
+        self.sendVidoes(self.current_print['prints'])
+
+        # start rotating the motors
+        self.sendMotorSpeeds(self.current_print['prints'])
+
+        # Change to button state
+        self.updateGuiState(STATE_READY)
 
     
     def stopSystem(self):
@@ -242,8 +249,8 @@ class GuiLogic(QtWidgets.QWidget):
         req = GuiInput.Request()
         req.id = -1
         if t != None:
-            print(req.id)
             req.id = t
+            print(req.id)
         req.cmd = cmd
         time_to_wait = 4
         count = 0
@@ -265,6 +272,7 @@ class GuiLogic(QtWidgets.QWidget):
 
     def updateGuiState(self, state):
         self.updateState.emit(state)
+        self.sysState = state
 
     def updateGuiDisplay(self, display):
         # display formant: "displayName+displayField"
