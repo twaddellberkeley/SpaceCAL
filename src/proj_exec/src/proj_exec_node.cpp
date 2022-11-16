@@ -66,7 +66,6 @@ void proj_callback(const std::shared_ptr<interfaces::srv::Projector::Request> re
 	if (strcmp(req_cmd, "on") == 0) 
 	{
 		system("vcgencmd display_power 1");
-		dlp_init();
 		std::cout << "Turning ON projector\n";
 	}
 	else if (strcmp(req_cmd, "off") == 0)
