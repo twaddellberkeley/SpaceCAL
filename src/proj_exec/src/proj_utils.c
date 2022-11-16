@@ -182,7 +182,7 @@ bool dlp_init()
 
 	printf("Initializing DLP Controller\n");
 	system("vcgencmd display_power 1");
-	
+	sleep(1);
 	InitConnectionAndCommandLayer();
 
 
@@ -244,8 +244,24 @@ bool relinquishI2CBuss(void)
 
 bool led_on(void)
 {
-	DLPC34XX_WriteRgbLedEnable(false,false,true);
+	bool r,g,b;
+	int count = 0;
+	while (b != 1 && count < 100) {
+		DLPC34XX_WriteRgbLedEnable(false,false,1);
+	
+		DLPC34XX_ReadRgbLedEnable(&r,&g,&b);
+		printf("RGB Enabled: r %d, g %d, b %d \n",r,g,b);
+		count++;
+	}
+	if (b != 1) {
+		printf("Could not enable led\n");
+		
+	}
+
 	DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x3FF);
+	uint16_t rc,gc,bc;
+	DLPC34XX_ReadRgbLedCurrent(&rc,&gc,&bc);
+	printf("RGB Led Current: r %d, g %d, b %d \n",rc,gc,bc);
 	return true;
 }
 
