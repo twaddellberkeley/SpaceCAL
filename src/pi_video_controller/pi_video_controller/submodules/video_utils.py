@@ -29,7 +29,7 @@ class VlcControl:
         if subprocess.run(["xrandr", "-o", "right"]).returncode != 0:
             self._logger.error("XRAND Could not be process")
 
-        if subprocess.run(['xset', 'dpms', 'force', 'off']).returncode != 0:
+        if subprocess.run(['xset', 'dpms', 'force', 'off', 's', 'off']).returncode != 0:
             self._logger.error("XSET Could not be process")
         
         self._logger.info("Finished initializing video controller")
