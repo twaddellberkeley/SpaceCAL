@@ -18,7 +18,7 @@ from interfaces.msg import DisplayData, PrintingInfo, FusionImu
 initRunMsg = "Motors will be set to home position!"
 startRunMsg = "Would you like to start motor functionality?"
 stopRunMsg = "Would you like to stop motor functionality?"
-confStopRunMsg = "STOPING MOTTOR FUNCTIONALITY?"
+confStopRunMsg = "STOPING MOTOR FUNCTIONALITY?"
 startProjectionMsg = "Would you like to start projecting?"
 stopProjectionMsg = "Would you like to stop projecting?"
 pauseAllMsg = "Would you like to pause all running proccesses?"
