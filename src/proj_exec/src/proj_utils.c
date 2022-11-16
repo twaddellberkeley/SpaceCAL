@@ -58,8 +58,10 @@
 #include "stdbool.h"
 #include "string.h"
 #include "time.h"
-#include <iostream>
+// #include <iostream>
 #include <unistd.h> 
+
+#include "proj_exec/proj_utils.h"
 
 #define CYPRESS_I2C_COMMUNICATION         1		/* set to 0 for DeVaSys I2C Communication */
 
@@ -76,8 +78,6 @@ static uint8_t                            s_WriteBuffer[MAX_WRITE_CMD_PAYLOAD];
 static uint8_t                            s_ReadBuffer[MAX_READ_CMD_PAYLOAD];
 
 bool I2CCommSucceed = false;
-
-static FILE*								s_FilePointer;
 
 /**
  * Implement the I2C write transaction here. The sample code here sends
@@ -157,7 +157,7 @@ uint32_t ReadI2C(uint16_t              WriteDataLength,
  * Initialize the command layer by setting up the read/write buffers and
  * callbacks.
  */
-void InitConnectionAndCommandLayer()
+void InitConnectionAndCommandLayer(void)
 {
 	DLPC_COMMON_InitCommandLibrary(s_WriteBuffer,
 		sizeof(s_WriteBuffer),
@@ -177,27 +177,19 @@ void InitConnectionAndCommandLayer()
 }
 
 
-int main(int argc, char ** argv)
+bool dlp_init()
 {
 
-  
-
-  printf("hello world test_pakage package\nargc: %d\n", argc);
-  printf("argv: %s\n", argv[1]);
-
-
-	int x; 
-	std::cout << "Type a number: "; // Type a number and press enter
-	std::cin >> x; // Get user input from the keyboard
-	std::cout << "Your number is: " << x; // Display the input value
-
+	printf("Initializing DLP Controller\n");
+	system("vcgencmd display_power 1");
+	
 	InitConnectionAndCommandLayer();
 
 
 	if (!I2CCommSucceed)
 	{
-		printf("Error Init Connection & Command Layer!!!");
-		return -1;
+		printf("Error Init Connection & Command Layer!!!\n");
+		return false;
 	}
 
 	/* TI DLP Pico EVMs use a GPIO handshake scheme for Cypress I2C bus arbitration.
@@ -210,56 +202,113 @@ int main(int argc, char ** argv)
 		bool Status = CYPRESS_I2C_RequestI2CBusAccess();
 		if (Status != true)
 		{
-			printf("Error Request I2C Bus ACCESS!!!");
+			printf("Error Request I2C Bus ACCESS!!!\n");
 			return false;
 		}
 	}
 
-	DLPC34XX_ControllerDeviceId_e DeviceId = DLPC34XX_CDI_DLPC3479;
-	DLPC34XX_ReadControllerDeviceId(&DeviceId);
-	printf("Controller Devicde Id = %d \n", DeviceId);
-	// printf("post sleep");
+	printf("Succesfully Aquire I2C Buss Acces!!\n");
+	
+	
+  return true;
+}
 
-	int cmd;
-	std::cout << "Enter command: ";
-	std::cin >> cmd;
-	while (cmd != 10) {
-		
-		switch(cmd) {
-			case 0:
-				// code block
-				break;
-			case 1:
-				// code block
-				DLPC34XX_WriteRgbLedEnable(false,false,true);
-				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x3FF);
-				printf("post sleep");
-				break;
-			case 2:
-				// code block
-				DLPC34XX_WriteRgbLedEnable(false,false,true);
-				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x000);
-				break;
-			case 3:
-				// code block
-				DLPC34XX_WriteRgbLedEnable(false,false,true);
-				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x3FF);
-				sleep(8);
-				DLPC34XX_WriteRgbLedEnable(false,false,true);
-				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x000);
-				break;
-			case 4:
-				// code block
-				break;
-			// default:
-			// 	// code block
+bool requestI2CBuss(void)
+{
+	/* TI DLP Pico EVMs use a GPIO handshake scheme for Cypress I2C bus arbitration.
+	 * Call to request/relinquish I2C Bus Access if using a TI EVM; remove otherwise.
+	 * For DeVaSys I2C; need to manually request/relinquish before running the sample.
+	 */
+	if (CYPRESS_I2C_COMMUNICATION)
+	{
+		bool Status = CYPRESS_I2C_RequestI2CBusAccess();
+		if (Status != true)
+		{
+			printf("Error Request I2C Bus ACCESS!!!\n");
+			return false;
 		}
-		std::cout << "Enter new command: ";
-		std::cin >> cmd;
+		return Status;
 	}
-	
-	
-	
+}
+
+bool relinquishI2CBuss(void)
+{
+	printf("Relesing BussAccess!!\n");
+	if (CYPRESS_I2C_COMMUNICATION)
+	{
+		return CYPRESS_I2C_RelinquishI2CBusAccess();
+	}
+	return false;
+}
+
+
+bool led_on(void)
+{
+	DLPC34XX_WriteRgbLedEnable(false,false,true);
+	DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x3FF);
+	return true;
+}
+
+bool led_off(void)
+{
+	DLPC34XX_WriteRgbLedEnable(false,false,true);
+	DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x000);
+	return true;
+}
+
+void led_time_on(uint16_t time) 
+{
+	led_on();
+	sleep(time);
+	led_off();
+}
+
+// DLPC34XX_ControllerDeviceId_e DeviceId = DLPC34XX_CDI_DLPC3479;
+// 	DLPC34XX_ReadControllerDeviceId(&DeviceId);
+// 	printf("Controller Devicde Id = %d \n", DeviceId);
+// 	// printf("post sleep");
+
+// 	int cmd;
+// 	std::cout << "Enter command: ";
+// 	std::cin >> cmd;
+// 	while (cmd != 10) {
+		
+// 		switch(cmd) {
+// 			case 0:
+// 				// code block
+// 				break;
+// 			case 1:
+// 				// code block
+// 				DLPC34XX_WriteRgbLedEnable(false,false,true);
+// 				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x3FF);
+// 				printf("post sleep");
+// 				break;
+// 			case 2:
+// 				// code block
+// 				DLPC34XX_WriteRgbLedEnable(false,false,true);
+// 				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x000);
+// 				break;
+// 			case 3:
+// 				// code block
+// 				DLPC34XX_WriteRgbLedEnable(false,false,true);
+// 				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x3FF);
+// 				sleep(8);
+// 				DLPC34XX_WriteRgbLedEnable(false,false,true);
+// 				DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x000);
+// 				break;
+// 			case 4:
+// 				// code block
+// 				break;
+// 			// default:
+// 			// 	// code block
+// 		}
+// 		std::cout << "Enter new command: ";
+// 		std::cin >> cmd;
+// 	}
+
+
+
+
 	// DLPC34XX_WriteRgbLedEnable(false,false,true);
 	// DLPC34XX_WriteRgbLedCurrent(0x000, 0x000, 0x3FF);
 	/**
@@ -271,9 +320,7 @@ int main(int argc, char ** argv)
 	printf("r %d, g %d, b %d \n",r,g,b);
 	**/
 
-	if (CYPRESS_I2C_COMMUNICATION)
-	{
-		CYPRESS_I2C_RelinquishI2CBusAccess();
-	}
-  return 0;
-}
+	// if (CYPRESS_I2C_COMMUNICATION)
+	// {
+	// 	CYPRESS_I2C_RelinquishI2CBusAccess();
+	// }

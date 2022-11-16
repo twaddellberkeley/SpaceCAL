@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(test_pakage)
+project(proj_exec)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -58,19 +58,20 @@ target_include_directories(dlpc347x PRIVATE third_party)
 target_link_libraries(dlpc347x ${CYUSBSERIAL})
 
 ###############################
-add_executable(test_node src/test_node.cpp)
-target_include_directories(test_node PUBLIC
+add_executable(proj_exec_node src/proj_exec_node.cpp src/proj_utils.c)
+ament_target_dependencies(proj_exec_node rclcpp std_msgs interfaces)
+target_include_directories(proj_exec_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
 #####################
-target_include_directories(test_node PRIVATE api)
-target_include_directories(test_node PRIVATE samples)
-target_include_directories(test_node PRIVATE third_party)
-target_link_libraries(test_node dlpc347x m ${CYUSBSERIAL})
+target_include_directories(proj_exec_node PRIVATE api)
+target_include_directories(proj_exec_node PRIVATE samples)
+target_include_directories(proj_exec_node PRIVATE third_party)
+target_link_libraries(proj_exec_node dlpc347x m ${CYUSBSERIAL})
 #############################
 
-install(TARGETS test_node
+install(TARGETS proj_exec_node
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

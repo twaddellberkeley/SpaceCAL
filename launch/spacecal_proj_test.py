@@ -25,7 +25,7 @@ def generate_launch_description():
             #namespace='test',
             output='screen',
             executable='proj_node',
-            parameters=[{"projector_number": 1}],
+            parameters=[{"projector_number": "1"}],
             name='proj_1'
         ),
         Node(
