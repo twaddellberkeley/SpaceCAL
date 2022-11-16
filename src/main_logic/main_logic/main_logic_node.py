@@ -127,8 +127,10 @@ class MainLogicNode(Node):
 
         if len(ctrls["motor_cmds"]) != 0:
             # Send commadns to motor controller logic
+            
             for cmd in ctrls["motor_cmds"]:
                 # Find out who is the message for
+                motor_threads = [threading.Thread] * 5
                 dest = cmd.split("-")[-1]
                 printers = self.get_printers_num(dest)
                 for printer in printers:
@@ -136,13 +138,19 @@ class MainLogicNode(Node):
                     
         if len(ctrls["proj_cmds"]) != 0:
             # Send commands to projector controller logic
+            
             for cmd in ctrls["proj_cmds"]:
                 # Find out who is the message for
+                proj_threads = [threading.Thread] * 5
                 dest = cmd[0].split("-")[-1]
                 printers = self.get_printers_num(dest)
                 for printer in printers:
-                    self.printerController[printer].send_proj_cmd(cmd)
-                    time.sleep(.5)
+                    proj_threads[printer] = threading.Thread(target=self.printerController[printer].send_proj_cmd, args=[cmd])
+                    proj_threads[printer].daemon = True
+                    proj_threads[printer].start()
+                    # proj_threads[printer].join()
+                    # self.printerController[printer].send_proj_cmd(cmd)
+                   
         if len(ctrls["pi_cmds"]) != 0:
             # Send commands to pi controller logic
             for cmd in ctrls["pi_cmds"]:
